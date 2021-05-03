@@ -14,7 +14,7 @@ final class SmartFinderTest extends \RectorPrefix20210503\PHPUnit\Framework\Test
      * @var SmartFinder
      */
     private $smartFinder;
-    protected function setUp() : void
+    protected function setUp()
     {
         $this->smartFinder = new \RectorPrefix20210503\Symplify\SmartFileSystem\Finder\SmartFinder(new \RectorPrefix20210503\Symplify\SmartFileSystem\Finder\FinderSanitizer(), new \RectorPrefix20210503\Symplify\SmartFileSystem\FileSystemFilter());
     }
@@ -22,7 +22,7 @@ final class SmartFinderTest extends \RectorPrefix20210503\PHPUnit\Framework\Test
      * @param string[] $paths
      * @dataProvider provideData()
      */
-    public function test(array $paths, string $suffix, int $expectedCount) : void
+    public function test(array $paths, string $suffix, int $expectedCount)
     {
         $fileInfos = $this->smartFinder->find($paths, $suffix);
         $this->assertCount($expectedCount, $fileInfos);

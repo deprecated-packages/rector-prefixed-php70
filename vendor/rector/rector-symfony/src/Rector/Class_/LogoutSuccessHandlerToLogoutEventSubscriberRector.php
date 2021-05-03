@@ -77,7 +77,7 @@ final class SomeLogoutHandler implements EventSubscriberInterface
       */
     private $httpUtils;
 
-    public function onLogout(LogoutEvent $logoutEvent): void
+    public function onLogout(LogoutEvent $logoutEvent)
     {
         if ($logoutEvent->getResponse() !== null) {
             return;

@@ -17,13 +17,13 @@ final class MissingSkipPrefixResolverTest extends \RectorPrefix20210503\Symplify
      * @var FixtureFinder
      */
     private $fixtureFinder;
-    protected function setUp() : void
+    protected function setUp()
     {
         $this->bootKernel(\RectorPrefix20210503\Symplify\EasyTesting\HttpKernel\EasyTestingKernel::class);
         $this->missplacedSkipPrefixResolver = $this->getService(\RectorPrefix20210503\Symplify\EasyTesting\MissplacedSkipPrefixResolver::class);
         $this->fixtureFinder = $this->getService(\RectorPrefix20210503\Symplify\EasyTesting\Finder\FixtureFinder::class);
     }
-    public function test() : void
+    public function test()
     {
         $fileInfos = $this->fixtureFinder->find([__DIR__ . '/Fixture']);
         $invalidFileInfos = $this->missplacedSkipPrefixResolver->resolve($fileInfos);

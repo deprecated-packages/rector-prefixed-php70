@@ -58,7 +58,7 @@ final class ActionLogEventSubscriber implements Subscriber
         ];
     }
 
-    public function onAlbumApprove(Album $album, int $adminId): void
+    public function onAlbumApprove(Album $album, int $adminId)
     {
         $album->play();
     }
@@ -76,7 +76,7 @@ final class ActionLogEventSubscriber implements Subscriber
         ];
     }
 
-    public function onAlbumApprove(AlbumServiceApproveEventAlbum $albumServiceApproveEventAlbum): void
+    public function onAlbumApprove(AlbumServiceApproveEventAlbum $albumServiceApproveEventAlbum)
     {
         $album = $albumServiceApproveEventAlbum->getAlbum();
         $album->play();

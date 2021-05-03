@@ -10,11 +10,11 @@ use Throwable;
 final class DirectoryAssertableTraitTest extends \RectorPrefix20210503\PHPUnit\Framework\TestCase
 {
     use DirectoryAssertableTrait;
-    public function testSuccess() : void
+    public function testSuccess()
     {
         $this->assertDirectoryEquals(__DIR__ . '/Fixture/first_directory', __DIR__ . '/Fixture/second_directory');
     }
-    public function testFail() : void
+    public function testFail()
     {
         $throwable = null;
         try {

@@ -14,12 +14,12 @@ final class SimplePhpDocParserTest extends \RectorPrefix20210503\Symplify\Packag
      * @var SimplePhpDocParser
      */
     private $simplePhpDocParser;
-    protected function setUp() : void
+    protected function setUp()
     {
         $this->bootKernel(\RectorPrefix20210503\Symplify\SimplePhpDocParser\Tests\HttpKernel\SimplePhpDocParserKernel::class);
         $this->simplePhpDocParser = $this->getService(\RectorPrefix20210503\Symplify\SimplePhpDocParser\SimplePhpDocParser::class);
     }
-    public function testVar() : void
+    public function testVar()
     {
         $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/var_int.txt');
         $phpDocNode = $this->simplePhpDocParser->parseDocBlock($smartFileInfo->getContents());
@@ -27,7 +27,7 @@ final class SimplePhpDocParserTest extends \RectorPrefix20210503\Symplify\Packag
         $varTagValues = $phpDocNode->getVarTagValues();
         $this->assertCount(1, $varTagValues);
     }
-    public function testParam() : void
+    public function testParam()
     {
         $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/param_string_name.txt');
         $phpDocNode = $this->simplePhpDocParser->parseDocBlock($smartFileInfo->getContents());

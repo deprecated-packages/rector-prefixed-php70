@@ -12,14 +12,14 @@ final class ParamTypeDocBlockResolverTest extends \RectorPrefix20210503\PHPUnit\
      * @var ParamTypeDocBlockResolver
      */
     private $paramTypeDocBlockResolver;
-    protected function setUp() : void
+    protected function setUp()
     {
         $this->paramTypeDocBlockResolver = new \RectorPrefix20210503\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver();
     }
     /**
      * @dataProvider provideData()
      */
-    public function test(string $docBlock, string $parameterName, string $expectedType) : void
+    public function test(string $docBlock, string $parameterName, string $expectedType)
     {
         $resolvedType = $this->paramTypeDocBlockResolver->resolve($docBlock, $parameterName);
         $this->assertSame($expectedType, $resolvedType);
@@ -33,7 +33,7 @@ final class ParamTypeDocBlockResolverTest extends \RectorPrefix20210503\PHPUnit\
     /**
      * @dataProvider provideDataMissmatchName()
      */
-    public function testMissmatchName(string $docBlock, string $parameterName) : void
+    public function testMissmatchName(string $docBlock, string $parameterName)
     {
         $resolvedType = $this->paramTypeDocBlockResolver->resolve($docBlock, $parameterName);
         $this->assertNull($resolvedType);

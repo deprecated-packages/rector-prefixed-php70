@@ -27,7 +27,7 @@ use Illuminate\Auth\Events\Login;
 
 final class SomeClass
 {
-    public function run(): void
+    public function run()
     {
         $loginEvent = new Login('user', false);
     }
@@ -38,7 +38,7 @@ use Illuminate\Auth\Events\Login;
 
 final class SomeClass
 {
-    public function run(): void
+    public function run()
     {
         $guard = config('auth.defaults.guard');
         $loginEvent = new Login($guard, 'user', false);

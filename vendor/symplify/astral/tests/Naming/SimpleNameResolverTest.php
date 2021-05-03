@@ -15,7 +15,7 @@ final class SimpleNameResolverTest extends \RectorPrefix20210503\Symplify\Packag
      * @var SimpleNameResolver
      */
     private $simpleNameResolver;
-    protected function setUp() : void
+    protected function setUp()
     {
         $this->bootKernel(\RectorPrefix20210503\Symplify\Astral\HttpKernel\AstralKernel::class);
         $this->simpleNameResolver = $this->getService(\RectorPrefix20210503\Symplify\Astral\Naming\SimpleNameResolver::class);
@@ -23,7 +23,7 @@ final class SimpleNameResolverTest extends \RectorPrefix20210503\Symplify\Packag
     /**
      * @dataProvider provideData()
      */
-    public function test(\PhpParser\Node $node, string $expectedName) : void
+    public function test(\PhpParser\Node $node, string $expectedName)
     {
         $resolvedName = $this->simpleNameResolver->getName($node);
         $this->assertSame($expectedName, $resolvedName);

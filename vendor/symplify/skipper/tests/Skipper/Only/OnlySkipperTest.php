@@ -18,7 +18,7 @@ final class OnlySkipperTest extends \RectorPrefix20210503\Symplify\PackageBuilde
      * @var Skipper
      */
     private $skipper;
-    protected function setUp() : void
+    protected function setUp()
     {
         $this->bootKernelWithConfigs(\RectorPrefix20210503\Symplify\Skipper\HttpKernel\SkipperKernel::class, [__DIR__ . '/config/config.php']);
         $this->skipper = $this->getService(\RectorPrefix20210503\Symplify\Skipper\Skipper\Skipper::class);
@@ -26,7 +26,7 @@ final class OnlySkipperTest extends \RectorPrefix20210503\Symplify\PackageBuilde
     /**
      * @dataProvider provideCheckerAndFile()
      */
-    public function testCheckerAndFile(string $class, string $filePath, bool $expected) : void
+    public function testCheckerAndFile(string $class, string $filePath, bool $expected)
     {
         $resolvedSkip = $this->skipper->shouldSkipElementAndFileInfo($class, new \Symplify\SmartFileSystem\SmartFileInfo($filePath));
         $this->assertSame($expected, $resolvedSkip);

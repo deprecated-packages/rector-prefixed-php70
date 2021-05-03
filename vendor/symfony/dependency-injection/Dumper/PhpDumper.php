@@ -1036,7 +1036,7 @@ EOF;
         $code .= <<<EOF
     }
 
-    public function compile(): void
+    public function compile()
     {
         throw new LogicException('You cannot compile a dumped container that was already compiled.');
     }
@@ -1299,7 +1299,7 @@ EOF;
         return isset($this->parameters[$name]) || isset($this->loadedDynamicParameters[$name]) || \array_key_exists($name, $this->parameters);
     }
 
-    public function setParameter(string $name, $value): void
+    public function setParameter(string $name, $value)
     {
         throw new LogicException('Impossible to call set() on a frozen ParameterBag.');
     }

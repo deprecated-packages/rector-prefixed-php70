@@ -93,7 +93,7 @@ class SomeClass
         return $this->root;
     }
 
-    public function setParent(self $category): void
+    public function setParent(self $category)
     {
         $this->parent = $category;
     }

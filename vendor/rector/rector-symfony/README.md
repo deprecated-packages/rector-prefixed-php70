@@ -16,7 +16,7 @@ To add a set to your config, use `Rector\Symfony\Set\SymfonySetList` class and p
 use Rector\Symfony\Set\SymfonySetList;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (ContainerConfigurator $containerConfigurator) {
     $containerConfigurator->import(SymfonySetList::SYMFONY_44);
 };
 ```

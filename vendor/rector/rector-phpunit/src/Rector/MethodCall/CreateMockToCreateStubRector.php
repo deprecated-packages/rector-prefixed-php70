@@ -42,7 +42,7 @@ use PHPUnit\Framework\TestCase
 
 class MyTest extends TestCase
 {
-    public function testItBehavesAsExpected(): void
+    public function testItBehavesAsExpected()
     {
         $stub = $this->createMock(\Exception::class);
         $stub->method('getMessage')
@@ -63,7 +63,7 @@ use PHPUnit\Framework\TestCase
 
 class MyTest extends TestCase
 {
-    public function testItBehavesAsExpected(): void
+    public function testItBehavesAsExpected()
     {
         $stub = $this->createStub(\Exception::class);
         $stub->method('getMessage')

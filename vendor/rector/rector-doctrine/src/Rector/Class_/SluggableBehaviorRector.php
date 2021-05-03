@@ -56,7 +56,7 @@ class SomeClass
         return $this->slug;
     }
 
-    public function setSlug(?string $slug): void
+    public function setSlug(?string $slug)
     {
         $this->slug = $slug;
     }

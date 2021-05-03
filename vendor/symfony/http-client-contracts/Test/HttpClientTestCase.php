@@ -21,7 +21,7 @@ use RectorPrefix20210503\Symfony\Contracts\HttpClient\HttpClientInterface;
  */
 abstract class HttpClientTestCase extends \RectorPrefix20210503\PHPUnit\Framework\TestCase
 {
-    public static function setUpBeforeClass() : void
+    public static function setUpBeforeClass()
     {
         \RectorPrefix20210503\Symfony\Contracts\HttpClient\Test\TestHttpServer::start();
     }

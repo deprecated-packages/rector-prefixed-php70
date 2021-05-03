@@ -15,7 +15,7 @@ final class AutowireArrayParameterHttpKernel extends \RectorPrefix20210503\Symfo
         // to invoke container override for test re-run
         parent::__construct('dev' . \random_int(0, 10000), \true);
     }
-    public function registerContainerConfiguration(\RectorPrefix20210503\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
+    public function registerContainerConfiguration(\RectorPrefix20210503\Symfony\Component\Config\Loader\LoaderInterface $loader)
     {
         $loader->load(__DIR__ . '/../config/autowire_array_parameter.php');
     }
@@ -34,7 +34,7 @@ final class AutowireArrayParameterHttpKernel extends \RectorPrefix20210503\Symfo
     {
         return [];
     }
-    protected function build(\RectorPrefix20210503\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    protected function build(\RectorPrefix20210503\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         $containerBuilder->addCompilerPass(new \RectorPrefix20210503\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
     }

@@ -13,7 +13,7 @@ final class PathNormalizerTest extends \RectorPrefix20210503\Symplify\PackageBui
      * @var PathNormalizer
      */
     private $pathNormalizer;
-    protected function setUp() : void
+    protected function setUp()
     {
         $this->bootKernel(\RectorPrefix20210503\Symplify\Skipper\HttpKernel\SkipperKernel::class);
         $this->pathNormalizer = $this->getService(\RectorPrefix20210503\Symplify\Skipper\FileSystem\PathNormalizer::class);
@@ -21,7 +21,7 @@ final class PathNormalizerTest extends \RectorPrefix20210503\Symplify\PackageBui
     /**
      * @dataProvider providePaths
      */
-    public function testPaths(string $path, string $expectedNormalizedPath) : void
+    public function testPaths(string $path, string $expectedNormalizedPath)
     {
         $normalizedPath = $this->pathNormalizer->normalizeForFnmatch($path);
         $this->assertSame($expectedNormalizedPath, $normalizedPath);

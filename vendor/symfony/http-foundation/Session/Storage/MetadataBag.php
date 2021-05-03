@@ -137,7 +137,7 @@ class MetadataBag implements \RectorPrefix20210503\Symfony\Component\HttpFoundat
     {
         $this->name = $name;
     }
-    private function stampCreated(int $lifetime = null) : void
+    private function stampCreated(int $lifetime = null)
     {
         $timeStamp = \time();
         $this->meta[self::CREATED] = $this->meta[self::UPDATED] = $this->lastUsed = $timeStamp;

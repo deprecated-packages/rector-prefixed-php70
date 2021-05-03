@@ -374,7 +374,7 @@ class PdoSessionHandler extends \RectorPrefix20210503\Symfony\Component\HttpFoun
     /**
      * Lazy-connects to the database.
      */
-    private function connect(string $dsn) : void
+    private function connect(string $dsn)
     {
         $this->pdo = new \PDO($dsn, $this->username, $this->password, $this->connectionOptions);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -466,7 +466,7 @@ class PdoSessionHandler extends \RectorPrefix20210503\Symfony\Component\HttpFoun
      * due to https://percona.com/blog/2013/12/12/one-more-innodb-gap-lock-to-avoid/ .
      * So we change it to READ COMMITTED.
      */
-    private function beginTransaction() : void
+    private function beginTransaction()
     {
         if (!$this->inTransaction) {
             if ('sqlite' === $this->driver) {
@@ -483,7 +483,7 @@ class PdoSessionHandler extends \RectorPrefix20210503\Symfony\Component\HttpFoun
     /**
      * Helper method to commit a transaction.
      */
-    private function commit() : void
+    private function commit()
     {
         if ($this->inTransaction) {
             try {
@@ -503,7 +503,7 @@ class PdoSessionHandler extends \RectorPrefix20210503\Symfony\Component\HttpFoun
     /**
      * Helper method to rollback a transaction.
      */
-    private function rollback() : void
+    private function rollback()
     {
         // We only need to rollback if we are in a transaction. Otherwise the resulting
         // error would hide the real problem why rollback was called. We might not be

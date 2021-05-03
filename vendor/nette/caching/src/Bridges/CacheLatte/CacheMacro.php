@@ -62,7 +62,7 @@ final class CacheMacro implements \RectorPrefix20210503\Latte\IMacro
 				} ?>', $node->startLine);
     }
     /********************* run-time helpers ****************d*g**/
-    public static function initRuntime(\RectorPrefix20210503\Latte\Runtime\Template $template) : void
+    public static function initRuntime(\RectorPrefix20210503\Latte\Runtime\Template $template)
     {
         if (!empty($template->global->cacheStack)) {
             $file = (new \ReflectionClass($template))->getFileName();
@@ -97,7 +97,7 @@ final class CacheMacro implements \RectorPrefix20210503\Latte\IMacro
      * Ends the output cache.
      * @param  Nette\Caching\OutputHelper[]  $parents
      */
-    public static function endCache(array &$parents, array $args = null) : void
+    public static function endCache(array &$parents, array $args = null)
     {
         $helper = \array_pop($parents);
         if (!$helper instanceof \RectorPrefix20210503\Nette\Caching\OutputHelper) {
@@ -117,7 +117,7 @@ final class CacheMacro implements \RectorPrefix20210503\Latte\IMacro
     /**
      * @param  Nette\Caching\OutputHelper[]  $parents
      */
-    public static function rollback(array &$parents) : void
+    public static function rollback(array &$parents)
     {
         $helper = \array_pop($parents);
         if ($helper instanceof \RectorPrefix20210503\Nette\Caching\OutputHelper) {

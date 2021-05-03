@@ -603,8 +603,8 @@ Change `getSubscribedEvents()` from on magic property, to Event class
          ];
      }
 
--    public function onAlbumApprove(Album $album, int $adminId): void
-+    public function onAlbumApprove(AlbumServiceApproveEventAlbum $albumServiceApproveEventAlbum): void
+-    public function onAlbumApprove(Album $album, int $adminId)
++    public function onAlbumApprove(AlbumServiceApproveEventAlbum $albumServiceApproveEventAlbum)
      {
 +        $album = $albumServiceApproveEventAlbum->getAlbum();
          $album->play();

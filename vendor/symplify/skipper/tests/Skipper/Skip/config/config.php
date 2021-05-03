@@ -7,7 +7,7 @@ use RectorPrefix20210503\Symfony\Component\DependencyInjection\Loader\Configurat
 use RectorPrefix20210503\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip;
 use RectorPrefix20210503\Symplify\Skipper\Tests\Skipper\Skip\Source\SomeClassToSkip;
 use RectorPrefix20210503\Symplify\Skipper\ValueObject\Option;
-return static function (\RectorPrefix20210503\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20210503\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $parameters = $containerConfigurator->parameters();
     $parameters->set(\RectorPrefix20210503\Symplify\Skipper\ValueObject\Option::SKIP, [
         // classes

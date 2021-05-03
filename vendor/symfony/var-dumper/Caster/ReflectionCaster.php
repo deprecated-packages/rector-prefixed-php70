@@ -294,7 +294,7 @@ class ReflectionCaster
             }
         }
     }
-    private static function addAttributes(array &$a, \Reflector $c, string $prefix = \RectorPrefix20210503\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL) : void
+    private static function addAttributes(array &$a, \Reflector $c, string $prefix = \RectorPrefix20210503\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL)
     {
         if (\PHP_VERSION_ID >= 80000) {
             foreach ($c->getAttributes() as $n) {

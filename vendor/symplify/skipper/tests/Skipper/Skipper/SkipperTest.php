@@ -17,7 +17,7 @@ final class SkipperTest extends \RectorPrefix20210503\Symplify\PackageBuilder\Te
      * @var Skipper
      */
     private $skipper;
-    protected function setUp() : void
+    protected function setUp()
     {
         $this->bootKernelWithConfigs(\RectorPrefix20210503\Symplify\Skipper\HttpKernel\SkipperKernel::class, [__DIR__ . '/config/config.php']);
         $this->skipper = $this->getService(\RectorPrefix20210503\Symplify\Skipper\Skipper\Skipper::class);
@@ -25,7 +25,7 @@ final class SkipperTest extends \RectorPrefix20210503\Symplify\PackageBuilder\Te
     /**
      * @dataProvider provideDataShouldSkipFileInfo()
      */
-    public function testSkipFileInfo(string $filePath, bool $expectedSkip) : void
+    public function testSkipFileInfo(string $filePath, bool $expectedSkip)
     {
         $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($filePath);
         $resultSkip = $this->skipper->shouldSkipFileInfo($smartFileInfo);
@@ -40,7 +40,7 @@ final class SkipperTest extends \RectorPrefix20210503\Symplify\PackageBuilder\Te
      * @param object|class-string $element
      * @dataProvider provideDataShouldSkipElement()
      */
-    public function testSkipElement($element, bool $expectedSkip) : void
+    public function testSkipElement($element, bool $expectedSkip)
     {
         $resultSkip = $this->skipper->shouldSkipElement($element);
         $this->assertSame($expectedSkip, $resultSkip);

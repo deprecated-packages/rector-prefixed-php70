@@ -44,7 +44,7 @@ use Illuminate\Foundation\Testing\TestCase;
 
 final class SomeTest extends TestCase
 {
-    public function test(): void
+    public function test()
     {
         $this->assertEquals('content', \trim((new Artisan())::output()));
     }
@@ -56,14 +56,14 @@ use Illuminate\Foundation\Testing\TestCase;
 
 final class SomeTest extends TestCase
 {
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 
         $this->mockConsoleOutput = false;
     }
 
-    public function test(): void
+    public function test()
     {
         $this->assertEquals('content', \trim((new Artisan())::output()));
     }

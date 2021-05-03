@@ -12,11 +12,11 @@ use RectorPrefix20210503\Symplify\AutowireArrayParameter\Tests\Source\SomeCollec
 use RectorPrefix20210503\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 final class AutowireArrayParameterCompilerPassTest extends \RectorPrefix20210503\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
-    protected function setUp() : void
+    protected function setUp()
     {
         $this->bootKernel(\RectorPrefix20210503\Symplify\AutowireArrayParameter\Tests\HttpKernel\AutowireArrayParameterHttpKernel::class);
     }
-    public function test() : void
+    public function test()
     {
         /** @var SomeCollector $someCollector */
         $someCollector = $this->getService(\RectorPrefix20210503\Symplify\AutowireArrayParameter\Tests\Source\SomeCollector::class);
@@ -25,7 +25,7 @@ final class AutowireArrayParameterCompilerPassTest extends \RectorPrefix20210503
         $this->assertInstanceOf(\RectorPrefix20210503\Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface::class, $someCollector->getFirstCollected()[0]);
         $this->assertInstanceOf(\RectorPrefix20210503\Symplify\AutowireArrayParameter\Tests\Source\Contract\SecondCollectedInterface::class, $someCollector->getSecondCollected()[0]);
     }
-    public function testArrayShape() : void
+    public function testArrayShape()
     {
         $arrayShapeCollector = $this->getService(\RectorPrefix20210503\Symplify\AutowireArrayParameter\Tests\Source\ArrayShapeCollector::class);
         $this->assertCount(2, $arrayShapeCollector->getFirstCollected());
@@ -33,7 +33,7 @@ final class AutowireArrayParameterCompilerPassTest extends \RectorPrefix20210503
         $this->assertInstanceOf(\RectorPrefix20210503\Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface::class, $arrayShapeCollector->getFirstCollected()[0]);
         $this->assertInstanceOf(\RectorPrefix20210503\Symplify\AutowireArrayParameter\Tests\Source\Contract\SecondCollectedInterface::class, $arrayShapeCollector->getSecondCollected()[0]);
     }
-    public function testIterable() : void
+    public function testIterable()
     {
         $iterableCollector = $this->getService(\RectorPrefix20210503\Symplify\AutowireArrayParameter\Tests\Source\IterableCollector::class);
         $this->assertCount(2, $iterableCollector->getFirstCollected());

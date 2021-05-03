@@ -48,7 +48,7 @@ final class ConcreteMicroKernel extends Kernel
 {
     use MicroKernelTrait;
 
-    protected function configureRouting(RoutingConfigurator $routes): void
+    protected function configureRouting(RoutingConfigurator $routes)
     {
         $routes->add('admin_dashboard', '/admin')
             ->controller('App\Controller\AdminController::dashboard')

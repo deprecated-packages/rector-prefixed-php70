@@ -19,7 +19,7 @@ final class ParentConnectingPhpDocNodeVisitorTest extends \RectorPrefix20210503\
      * @var PhpDocNodeTraverser
      */
     private $phpDocNodeTraverser;
-    protected function setUp() : void
+    protected function setUp()
     {
         $this->bootKernel(\RectorPrefix20210503\Symplify\SimplePhpDocParser\Tests\HttpKernel\SimplePhpDocParserKernel::class);
         $this->phpDocNodeTraverser = $this->getService(\RectorPrefix20210503\Symplify\SimplePhpDocParser\PhpDocNodeTraverser::class);
@@ -27,7 +27,7 @@ final class ParentConnectingPhpDocNodeVisitorTest extends \RectorPrefix20210503\
         $parentConnectingPhpDocNodeVisitor = $this->getService(\RectorPrefix20210503\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\ParentConnectingPhpDocNodeVisitor::class);
         $this->phpDocNodeTraverser->addPhpDocNodeVisitor($parentConnectingPhpDocNodeVisitor);
     }
-    public function testChildNode() : void
+    public function testChildNode()
     {
         $phpDocNode = $this->createPhpDocNode();
         $this->phpDocNodeTraverser->traverse($phpDocNode);
@@ -36,7 +36,7 @@ final class ParentConnectingPhpDocNodeVisitorTest extends \RectorPrefix20210503\
         $childParent = $phpDocChildNode->getAttribute(\RectorPrefix20210503\Symplify\SimplePhpDocParser\ValueObject\PhpDocAttributeKey::PARENT);
         $this->assertSame($phpDocNode, $childParent);
     }
-    public function testTypeNode() : void
+    public function testTypeNode()
     {
         $phpDocNode = $this->createPhpDocNode();
         $this->phpDocNodeTraverser->traverse($phpDocNode);

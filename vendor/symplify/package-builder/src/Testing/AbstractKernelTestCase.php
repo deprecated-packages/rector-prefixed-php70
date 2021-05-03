@@ -81,7 +81,7 @@ abstract class AbstractKernelTestCase extends \RectorPrefix20210503\PHPUnit\Fram
         }
         return self::$container->get($type);
     }
-    protected function bootKernel(string $kernelClass) : void
+    protected function bootKernel(string $kernelClass)
     {
         $this->ensureKernelShutdown();
         $kernel = new $kernelClass('test', \true);
@@ -93,7 +93,7 @@ abstract class AbstractKernelTestCase extends \RectorPrefix20210503\PHPUnit\Fram
     /**
      * Shuts the kernel down if it was used in the test.
      */
-    protected function ensureKernelShutdown() : void
+    protected function ensureKernelShutdown()
     {
         if (static::$kernel !== null) {
             // make sure boot() is called
@@ -135,7 +135,7 @@ abstract class AbstractKernelTestCase extends \RectorPrefix20210503\PHPUnit\Fram
         }
         return $configFilePaths;
     }
-    private function ensureIsConfigAwareKernel(\RectorPrefix20210503\Symfony\Component\HttpKernel\KernelInterface $kernel) : void
+    private function ensureIsConfigAwareKernel(\RectorPrefix20210503\Symfony\Component\HttpKernel\KernelInterface $kernel)
     {
         if ($kernel instanceof \RectorPrefix20210503\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface) {
             return;

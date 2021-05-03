@@ -11,7 +11,7 @@ Add new `$guard` argument to Illuminate\Auth\Events\Login
 
  final class SomeClass
  {
-     public function run(): void
+     public function run()
      {
 -        $loginEvent = new Login('user', false);
 +        $guard = config('auth.defaults.guard');
@@ -34,14 +34,14 @@ Add "$this->mockConsoleOutput = false"; to console tests that work with output c
 
  final class SomeTest extends TestCase
  {
-+    public function setUp(): void
++    public function setUp()
 +    {
 +        parent::setUp();
 +
 +        $this->mockConsoleOutput = false;
 +    }
 +
-     public function test(): void
+     public function test()
      {
          $this->assertEquals('content', \trim((new Artisan())::output()));
      }

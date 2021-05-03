@@ -12,12 +12,12 @@ final class SkippedPathsResolverTest extends \RectorPrefix20210503\Symplify\Pack
      * @var SkippedPathsResolver
      */
     private $skippedPathsResolver;
-    protected function setUp() : void
+    protected function setUp()
     {
         $this->bootKernelWithConfigs(\RectorPrefix20210503\Symplify\Skipper\HttpKernel\SkipperKernel::class, [__DIR__ . '/config/config.php']);
         $this->skippedPathsResolver = $this->getService(\RectorPrefix20210503\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver::class);
     }
-    public function test() : void
+    public function test()
     {
         $skippedPaths = $this->skippedPathsResolver->resolve();
         $this->assertCount(2, $skippedPaths);

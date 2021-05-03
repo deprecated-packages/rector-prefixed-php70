@@ -8,7 +8,7 @@ use RectorPrefix20210503\Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisC
 use RectorPrefix20210503\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely;
 use RectorPrefix20210503\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo;
 use RectorPrefix20210503\Symplify\Skipper\ValueObject\Option;
-return static function (\RectorPrefix20210503\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20210503\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $parameters = $containerConfigurator->parameters();
     $parameters->set(\RectorPrefix20210503\Symplify\Skipper\ValueObject\Option::ONLY, [
         \RectorPrefix20210503\Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass::class => ['SomeFileToOnlyInclude.php'],

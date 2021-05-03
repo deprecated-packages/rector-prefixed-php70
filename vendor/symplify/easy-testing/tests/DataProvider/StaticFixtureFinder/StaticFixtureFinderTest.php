@@ -8,19 +8,19 @@ use RectorPrefix20210503\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use RectorPrefix20210503\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class StaticFixtureFinderTest extends \RectorPrefix20210503\PHPUnit\Framework\TestCase
 {
-    public function testYieldDirectory() : void
+    public function testYieldDirectory()
     {
         $files = \RectorPrefix20210503\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.php');
         $files = \iterator_to_array($files);
         $this->assertCount(2, $files);
     }
-    public function testYieldDirectoryThrowException() : void
+    public function testYieldDirectoryThrowException()
     {
         $files = \RectorPrefix20210503\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory(__DIR__ . '/FixtureMulti', '*.php');
         $files = \iterator_to_array($files);
         $this->assertCount(1, $files);
     }
-    public function testYieldDirectoryWithRelativePathname() : void
+    public function testYieldDirectoryWithRelativePathname()
     {
         $files = \RectorPrefix20210503\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectoryWithRelativePathname(__DIR__ . '/Fixture', '*.php');
         $files = \iterator_to_array($files);
@@ -28,13 +28,13 @@ final class StaticFixtureFinderTest extends \RectorPrefix20210503\PHPUnit\Framew
         $this->assertArrayHasKey('foo.php', $files);
         $this->assertArrayHasKey('bar.php', $files);
     }
-    public function testYieldDirectoryWithRelativePathnameThrowException() : void
+    public function testYieldDirectoryWithRelativePathnameThrowException()
     {
         $files = \RectorPrefix20210503\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectoryWithRelativePathname(__DIR__ . '/FixtureMulti', '*.php');
         $files = \iterator_to_array($files);
         $this->assertCount(1, $files);
     }
-    public function testYieldDirectoryExclusivelyThrowException() : void
+    public function testYieldDirectoryExclusivelyThrowException()
     {
         $this->expectException(\RectorPrefix20210503\Symplify\SymplifyKernel\Exception\ShouldNotHappenException::class);
         $files = \RectorPrefix20210503\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectoryExclusively(__DIR__ . '/FixtureMulti', '*.php');

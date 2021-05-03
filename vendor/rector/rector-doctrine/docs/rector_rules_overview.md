@@ -12,7 +12,7 @@ Add entity id with annotations when meets condition
 use Rector\Doctrine\Rector\Class_\AddEntityIdByConditionRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
 
     $services->set(AddEntityIdByConditionRector::class)
@@ -196,7 +196,7 @@ Replaces doctrine alias with class.
 use Rector\Doctrine\Rector\MethodCall\EntityAliasToClassConstantReferenceRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
 
     $services->set(EntityAliasToClassConstantReferenceRector::class)
@@ -608,7 +608,7 @@ Change Sluggable from gedmo/doctrine-extensions to knplabs/doctrine-behaviors
 -        return $this->slug;
 -    }
 -
--    public function setSlug(?string $slug): void
+-    public function setSlug(?string $slug)
 -    {
 -        $this->slug = $slug;
 +        return ['name'];
@@ -821,7 +821,7 @@ Change Tree from gedmo/doctrine-extensions to knplabs/doctrine-behaviors
 -        return $this->root;
 -    }
 -
--    public function setParent(self $category): void
+-    public function setParent(self $category)
 -    {
 -        $this->parent = $category;
 -    }

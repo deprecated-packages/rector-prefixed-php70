@@ -60,7 +60,7 @@ use Symfony\Component\Security\Http\Event\LogoutEvent;
 
 final class SomeLogoutHandler implements EventSubscriberInterface
 {
-    public function onLogout(LogoutEvent $logoutEvent): void
+    public function onLogout(LogoutEvent $logoutEvent)
     {
         $request = $logoutEvent->getRequest();
         $response = $logoutEvent->getResponse();

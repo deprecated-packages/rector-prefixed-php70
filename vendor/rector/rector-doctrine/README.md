@@ -16,7 +16,7 @@ To add a set to your config, use `Rector\Doctrine\Set\DoctrineSetList` class and
 use Rector\Doctrine\Set\DoctrineSetList;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (ContainerConfigurator $containerConfigurator) {
     $containerConfigurator->import(DoctrineSetList::DOCTRINE_CODE_QUALITY);
 };
 ```

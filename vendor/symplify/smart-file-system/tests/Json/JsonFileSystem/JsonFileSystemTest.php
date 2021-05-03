@@ -21,23 +21,23 @@ final class JsonFileSystemTest extends \RectorPrefix20210503\PHPUnit\Framework\T
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    protected function setUp() : void
+    protected function setUp()
     {
         $this->smartFileSystem = new \RectorPrefix20210503\Symplify\SmartFileSystem\SmartFileSystem();
         $this->jsonFileSystem = new \RectorPrefix20210503\Symplify\SmartFileSystem\Json\JsonFileSystem(new \RectorPrefix20210503\Symplify\SmartFileSystem\FileSystemGuard(), $this->smartFileSystem);
     }
-    public function testLoadFilePathToJson() : void
+    public function testLoadFilePathToJson()
     {
         $loadedArray = $this->jsonFileSystem->loadFilePathToJson(__DIR__ . '/Fixture/some.json');
         $this->assertSame(['key' => 'value'], $loadedArray);
     }
-    public function testWriteJsonToFilePath() : void
+    public function testWriteJsonToFilePath()
     {
         $this->jsonFileSystem->writeJsonToFilePath(['another' => 'time'], self::TEMPORARY_FILE_PATH);
         $this->assertFileEquals(__DIR__ . '/Fixture/expected_printed_json.json', self::TEMPORARY_FILE_PATH);
         $this->smartFileSystem->remove(self::TEMPORARY_FILE_PATH);
     }
-    public function testMergeArrayToJsonFile() : void
+    public function testMergeArrayToJsonFile()
     {
         $originalFile = __DIR__ . '/Fixture/some.json';
         $temporaryFile = __DIR__ . '/temppath.json';

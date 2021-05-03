@@ -12,14 +12,14 @@ final class PathNormalizerTest extends \RectorPrefix20210503\PHPUnit\Framework\T
      * @var PathNormalizer
      */
     private $pathNormalizer;
-    protected function setUp() : void
+    protected function setUp()
     {
         $this->pathNormalizer = new \RectorPrefix20210503\Symplify\SmartFileSystem\Normalizer\PathNormalizer();
     }
     /**
      * @dataProvider provideData()
      */
-    public function test(string $inputPath, string $expectedNormalizedPath) : void
+    public function test(string $inputPath, string $expectedNormalizedPath)
     {
         $normalizedPath = $this->pathNormalizer->normalizePath($inputPath);
         $this->assertSame($expectedNormalizedPath, $normalizedPath);

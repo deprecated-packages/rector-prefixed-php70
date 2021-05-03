@@ -103,7 +103,7 @@ class MockFileSessionStorage extends \RectorPrefix20210503\Symfony\Component\Htt
      * Deletes a session from persistent storage.
      * Deliberately leaves session data in memory intact.
      */
-    private function destroy() : void
+    private function destroy()
     {
         \set_error_handler(static function () {
         });
@@ -123,7 +123,7 @@ class MockFileSessionStorage extends \RectorPrefix20210503\Symfony\Component\Htt
     /**
      * Reads session from storage and loads session.
      */
-    private function read() : void
+    private function read()
     {
         \set_error_handler(static function () {
         });

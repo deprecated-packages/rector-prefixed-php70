@@ -18,7 +18,7 @@ final class NodeValueResolverTest extends \RectorPrefix20210503\PHPUnit\Framewor
      * @var NodeValueResolver
      */
     private $nodeValueResolver;
-    protected function setUp() : void
+    protected function setUp()
     {
         $simpleNameResolver = \RectorPrefix20210503\Symplify\Astral\StaticFactory\SimpleNameResolverStaticFactory::create();
         $simpleNodeFinder = new \RectorPrefix20210503\Symplify\Astral\NodeFinder\SimpleNodeFinder(new \RectorPrefix20210503\Symplify\PackageBuilder\Php\TypeChecker(), new \PhpParser\NodeFinder());
@@ -27,7 +27,7 @@ final class NodeValueResolverTest extends \RectorPrefix20210503\PHPUnit\Framewor
     /**
      * @dataProvider provideData()
      */
-    public function test(\PhpParser\Node\Expr $expr, string $expectedValue) : void
+    public function test(\PhpParser\Node\Expr $expr, string $expectedValue)
     {
         $resolvedValue = $this->nodeValueResolver->resolve($expr, __FILE__);
         $this->assertSame($expectedValue, $resolvedValue);

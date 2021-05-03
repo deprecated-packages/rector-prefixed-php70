@@ -21,12 +21,12 @@ final class PhpDocNodeTraverserTest extends \RectorPrefix20210503\Symplify\Packa
      * @var PhpDocNodeTraverser
      */
     private $phpDocNodeTraverser;
-    protected function setUp() : void
+    protected function setUp()
     {
         $this->bootKernel(\RectorPrefix20210503\Symplify\SimplePhpDocParser\Tests\HttpKernel\SimplePhpDocParserKernel::class);
         $this->phpDocNodeTraverser = $this->getService(\RectorPrefix20210503\Symplify\SimplePhpDocParser\PhpDocNodeTraverser::class);
     }
-    public function test() : void
+    public function test()
     {
         $varTagValueNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode(new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('string'), '', '');
         $phpDocNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode([new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode('@var', $varTagValueNode)]);

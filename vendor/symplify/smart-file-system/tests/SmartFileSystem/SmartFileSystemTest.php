@@ -12,11 +12,11 @@ final class SmartFileSystemTest extends \RectorPrefix20210503\PHPUnit\Framework\
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    protected function setUp() : void
+    protected function setUp()
     {
         $this->smartFileSystem = new \RectorPrefix20210503\Symplify\SmartFileSystem\SmartFileSystem();
     }
-    public function testReadFileToSmartFileInfo() : void
+    public function testReadFileToSmartFileInfo()
     {
         $readFileToSmartFileInfo = $this->smartFileSystem->readFileToSmartFileInfo(__DIR__ . '/Source/file.txt');
         $this->assertInstanceof(\Symplify\SmartFileSystem\SmartFileInfo::class, $readFileToSmartFileInfo);

@@ -156,7 +156,7 @@ declare(strict_types=1);
 use Rector\Symfony\Rector\Class_\ChangeFileLoaderInExtensionAndKernelRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
 
     $services->set(ChangeFileLoaderInExtensionAndKernelRector::class)
@@ -304,7 +304,7 @@ declare(strict_types=1);
 use Rector\Symfony\Rector\MethodCall\ContainerGetToConstructorInjectionRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
 
     $services->set(ContainerGetToConstructorInjectionRector::class)
@@ -589,7 +589,7 @@ declare(strict_types=1);
 use Rector\Symfony\Rector\MethodCall\GetToConstructorInjectionRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
 
     $services->set(GetToConstructorInjectionRector::class)
@@ -637,7 +637,7 @@ Change logout handler to an event listener that listens to LogoutEvent
 +final class SomeLogoutHandler implements EventSubscriberInterface
  {
 -    public function logout(Request $request, Response $response, TokenInterface $token)
-+    public function onLogout(LogoutEvent $logoutEvent): void
++    public function onLogout(LogoutEvent $logoutEvent)
      {
 +        $request = $logoutEvent->getRequest();
 +        $response = $logoutEvent->getResponse();
@@ -681,7 +681,7 @@ Change logout success handler to an event listener that listens to LogoutEvent
      private $httpUtils;
 
 -    public function __construct(HttpUtils $httpUtils)
-+    public function onLogout(LogoutEvent $logoutEvent): void
++    public function onLogout(LogoutEvent $logoutEvent)
      {
 -        $this->httpUtils = $httpUtils;
 +        if ($logoutEvent->getResponse() !== null) {
@@ -1051,7 +1051,7 @@ Change RouteCollectionBuilder to RoutingConfiguratorRector
      use MicroKernelTrait;
 
 -    protected function configureRoutes(RouteCollectionBuilder $routes)
-+    protected function configureRouting(RoutingConfigurator $routes): void
++    protected function configureRouting(RoutingConfigurator $routes)
      {
 -        $routes->add('/admin', 'App\Controller\AdminController::dashboard', 'admin_dashboard');
 -    }

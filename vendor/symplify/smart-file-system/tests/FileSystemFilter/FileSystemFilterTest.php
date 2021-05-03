@@ -11,11 +11,11 @@ final class FileSystemFilterTest extends \RectorPrefix20210503\PHPUnit\Framework
      * @var FileSystemFilter
      */
     private $fileSystemFilter;
-    protected function setUp() : void
+    protected function setUp()
     {
         $this->fileSystemFilter = new \RectorPrefix20210503\Symplify\SmartFileSystem\FileSystemFilter();
     }
-    public function testSeparateFilesAndDirectories() : void
+    public function testSeparateFilesAndDirectories()
     {
         $sources = [__DIR__, __DIR__ . '/FileSystemFilterTest.php'];
         $files = $this->fileSystemFilter->filterFiles($sources);

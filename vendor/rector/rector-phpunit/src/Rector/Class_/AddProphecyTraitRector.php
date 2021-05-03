@@ -49,7 +49,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ExampleTest extends TestCase
 {
-    public function testOne(): void
+    public function testOne()
     {
         $prophecy = $this->prophesize(\AnInterface::class);
     }
@@ -63,7 +63,7 @@ final class ExampleTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testOne(): void
+    public function testOne()
     {
         $prophecy = $this->prophesize(\AnInterface::class);
     }

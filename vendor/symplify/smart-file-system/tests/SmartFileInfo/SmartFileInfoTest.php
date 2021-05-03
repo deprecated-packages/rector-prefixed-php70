@@ -9,12 +9,12 @@ use RectorPrefix20210503\Symplify\SmartFileSystem\Exception\FileNotFoundExceptio
 use Symplify\SmartFileSystem\SmartFileInfo;
 final class SmartFileInfoTest extends \RectorPrefix20210503\PHPUnit\Framework\TestCase
 {
-    public function testInvalidPath() : void
+    public function testInvalidPath()
     {
         $this->expectException(\RectorPrefix20210503\Symplify\SmartFileSystem\Exception\FileNotFoundException::class);
         new \Symplify\SmartFileSystem\SmartFileInfo('random');
     }
-    public function testRelatives() : void
+    public function testRelatives()
     {
         $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
         $this->assertNotSame($smartFileInfo->getRelativePath(), $smartFileInfo->getRealPath());
@@ -25,24 +25,24 @@ final class SmartFileInfoTest extends \RectorPrefix20210503\PHPUnit\Framework\Te
         $normalizeFile = $this->normalizePath(__FILE__);
         $this->assertStringEndsWith($normalizedRelativePathname, $normalizeFile);
     }
-    public function testRealPathWithoutSuffix() : void
+    public function testRealPathWithoutSuffix()
     {
         $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/AnotherFile.txt');
         $this->assertStringEndsWith('tests/SmartFileInfo/Source/AnotherFile', $smartFileInfo->getRealPathWithoutSuffix());
     }
-    public function testRelativeToDir() : void
+    public function testRelativeToDir()
     {
         $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/AnotherFile.txt');
         $relativePath = $smartFileInfo->getRelativeFilePathFromDirectory(__DIR__);
         $this->assertSame('Source/AnotherFile.txt', $relativePath);
     }
-    public function testRelativeToDirException() : void
+    public function testRelativeToDirException()
     {
         $this->expectException(\RectorPrefix20210503\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException::class);
         $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
         $smartFileInfo->getRelativeFilePathFromDirectory('non-existing-path');
     }
-    public function testDoesFnmatch() : void
+    public function testDoesFnmatch()
     {
         $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/AnotherFile.txt');
         // Test param

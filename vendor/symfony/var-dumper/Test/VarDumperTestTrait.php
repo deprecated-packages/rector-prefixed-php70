@@ -21,7 +21,7 @@ trait VarDumperTestTrait
      * @internal
      */
     private $varDumperConfig = ['casters' => [], 'flags' => null];
-    protected function setUpVarDumper(array $casters, int $flags = null) : void
+    protected function setUpVarDumper(array $casters, int $flags = null)
     {
         $this->varDumperConfig['casters'] = $casters;
         $this->varDumperConfig['flags'] = $flags;
@@ -29,7 +29,7 @@ trait VarDumperTestTrait
     /**
      * @after
      */
-    protected function tearDownVarDumper() : void
+    protected function tearDownVarDumper()
     {
         $this->varDumperConfig['casters'] = [];
         $this->varDumperConfig['flags'] = null;
