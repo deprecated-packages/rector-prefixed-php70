@@ -689,7 +689,7 @@ class ContainerBuilder extends \RectorPrefix20210503\Symfony\Component\Dependenc
      */
     public function setAlias(string $alias, $id)
     {
-        if ('' === $alias || '\\' === $alias[-1] || \strlen($alias) !== \strcspn($alias, "\0\r\n'")) {
+        if ('' === $alias || '\\' === $alias[\strlen($alias) - 1] || \strlen($alias) !== \strcspn($alias, "\0\r\n'")) {
             throw new \RectorPrefix20210503\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid alias id: "%s".', $alias));
         }
         if (\is_string($id)) {
@@ -813,7 +813,7 @@ class ContainerBuilder extends \RectorPrefix20210503\Symfony\Component\Dependenc
         if ($this->isCompiled()) {
             throw new \RectorPrefix20210503\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('Adding definition to a compiled container is not allowed.');
         }
-        if ('' === $id || '\\' === $id[-1] || \strlen($id) !== \strcspn($id, "\0\r\n'")) {
+        if ('' === $id || '\\' === $id[\strlen($id) - 1] || \strlen($id) !== \strcspn($id, "\0\r\n'")) {
             throw new \RectorPrefix20210503\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service id: "%s".', $id));
         }
         unset($this->aliasDefinitions[$id], $this->removedIds[$id]);
