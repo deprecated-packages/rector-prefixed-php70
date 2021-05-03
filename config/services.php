@@ -49,7 +49,7 @@ use RectorPrefix20210503\Symplify\SmartFileSystem\FileSystemGuard;
 use RectorPrefix20210503\Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use RectorPrefix20210503\Symplify\SmartFileSystem\Json\JsonFileSystem;
 use RectorPrefix20210503\Symplify\SmartFileSystem\SmartFileSystem;
-return static function (\RectorPrefix20210503\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20210503\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
     $services->load('Rector\\Core\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector', __DIR__ . '/../src/Exception', __DIR__ . '/../src/DependencyInjection/CompilerPass', __DIR__ . '/../src/DependencyInjection/Loader', __DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject', __DIR__ . '/../src/Bootstrap', __DIR__ . '/../src/PhpParser/Node/CustomNode', __DIR__ . '/../src/functions']);
