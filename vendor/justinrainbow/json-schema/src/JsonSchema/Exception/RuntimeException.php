@@ -6,11 +6,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210503\JsonSchema\Exception;
+namespace RectorPrefix20210504\JsonSchema\Exception;
 
 /**
  * Wrapper for the RuntimeException
  */
-class RuntimeException extends \RuntimeException implements \RectorPrefix20210503\JsonSchema\Exception\ExceptionInterface
+class RuntimeException extends \RuntimeException implements \RectorPrefix20210504\JsonSchema\Exception\ExceptionInterface
 {
 }

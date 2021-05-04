@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210503\Symplify\SetConfigResolver\Console;
+namespace RectorPrefix20210504\Symplify\SetConfigResolver\Console;
 
-use RectorPrefix20210503\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20210504\Symfony\Component\Console\Input\InputInterface;
 final class OptionValueResolver
 {
     /**
      * @param string[] $optionNames
      * @return string|null
      */
-    public function getOptionValue(\RectorPrefix20210503\Symfony\Component\Console\Input\InputInterface $input, array $optionNames)
+    public function getOptionValue(\RectorPrefix20210504\Symfony\Component\Console\Input\InputInterface $input, array $optionNames)
     {
         foreach ($optionNames as $optionName) {
             if ($input->hasParameterOption($optionName, \true)) {

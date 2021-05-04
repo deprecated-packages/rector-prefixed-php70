@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210503\JsonSchema\Constraints;
+namespace RectorPrefix20210504\JsonSchema\Constraints;
 
-use RectorPrefix20210503\JsonSchema\Entity\JsonPointer;
+use RectorPrefix20210504\JsonSchema\Entity\JsonPointer;
 /**
  * The Constraints Interface
  *
@@ -36,7 +36,7 @@ interface ConstraintInterface
      * @param string           $constraint the constraint/rule that is broken, e.g.: 'minLength'
      * @param array            $more       more array elements to add to the error
      */
-    public function addError(\RectorPrefix20210503\JsonSchema\Entity\JsonPointer $path = null, $message, $constraint = '', array $more = null);
+    public function addError(\RectorPrefix20210504\JsonSchema\Entity\JsonPointer $path = null, $message, $constraint = '', array $more = null);
     /**
      * checks if the validator has not raised errors
      *
@@ -55,5 +55,5 @@ interface ConstraintInterface
      *
      * @throws \JsonSchema\Exception\ExceptionInterface
      */
-    public function check(&$value, $schema = null, \RectorPrefix20210503\JsonSchema\Entity\JsonPointer $path = null, $i = null);
+    public function check(&$value, $schema = null, \RectorPrefix20210504\JsonSchema\Entity\JsonPointer $path = null, $i = null);
 }
