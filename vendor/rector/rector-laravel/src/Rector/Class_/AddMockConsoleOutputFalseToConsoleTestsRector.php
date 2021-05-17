@@ -24,11 +24,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class AddMockConsoleOutputFalseToConsoleTestsRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var PropertyFetchAnalyzer
+     * @var \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer
      */
     private $propertyFetchAnalyzer;
     /**
-     * @var SetUpClassMethodNodeManipulator
+     * @var \Rector\PHPUnit\NodeManipulator\SetUpClassMethodNodeManipulator
      */
     private $setUpClassMethodNodeManipulator;
     public function __construct(\Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer, \Rector\PHPUnit\NodeManipulator\SetUpClassMethodNodeManipulator $setUpClassMethodNodeManipulator)
@@ -44,7 +44,7 @@ use Illuminate\Foundation\Testing\TestCase;
 
 final class SomeTest extends TestCase
 {
-    public function test()
+    public function test(): void
     {
         $this->assertEquals('content', \trim((new Artisan())::output()));
     }
@@ -56,14 +56,14 @@ use Illuminate\Foundation\Testing\TestCase;
 
 final class SomeTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->mockConsoleOutput = false;
     }
 
-    public function test()
+    public function test(): void
     {
         $this->assertEquals('content', \trim((new Artisan())::output()));
     }

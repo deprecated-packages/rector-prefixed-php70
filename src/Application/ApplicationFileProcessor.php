@@ -4,37 +4,49 @@ declare (strict_types=1);
 namespace Rector\Core\Application;
 
 use Rector\Core\Application\FileDecorator\FileDiffFileDecorator;
+use Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
-use RectorPrefix20210504\Symplify\SmartFileSystem\SmartFileSystem;
+use Rector\FileFormatter\FileFormatter;
+use RectorPrefix20210517\Symplify\SmartFileSystem\SmartFileSystem;
 final class ApplicationFileProcessor
 {
     /**
-     * @var FileProcessorInterface[]
-     */
-    private $fileProcessors = [];
-    /**
-     * @var SmartFileSystem
-     */
-    private $smartFileSystem;
-    /**
-     * @var Configuration
+     * @var \Rector\Core\Configuration\Configuration
      */
     private $configuration;
     /**
-     * @var FileDiffFileDecorator
+     * @var \Symplify\SmartFileSystem\SmartFileSystem
+     */
+    private $smartFileSystem;
+    /**
+     * @var \Rector\Core\Application\FileDecorator\FileDiffFileDecorator
      */
     private $fileDiffFileDecorator;
     /**
+     * @var \Rector\FileFormatter\FileFormatter
+     */
+    private $fileFormatter;
+    /**
+     * @var \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor
+     */
+    private $removedAndAddedFilesProcessor;
+    /**
+     * @var mixed[]
+     */
+    private $fileProcessors = [];
+    /**
      * @param FileProcessorInterface[] $fileProcessors
      */
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210504\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\Application\FileDecorator\FileDiffFileDecorator $fileDiffFileDecorator, array $fileProcessors = [])
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210517\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\Application\FileDecorator\FileDiffFileDecorator $fileDiffFileDecorator, \Rector\FileFormatter\FileFormatter $fileFormatter, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, array $fileProcessors = [])
     {
-        $this->fileProcessors = $fileProcessors;
-        $this->smartFileSystem = $smartFileSystem;
         $this->configuration = $configuration;
+        $this->smartFileSystem = $smartFileSystem;
         $this->fileDiffFileDecorator = $fileDiffFileDecorator;
+        $this->fileFormatter = $fileFormatter;
+        $this->removedAndAddedFilesProcessor = $removedAndAddedFilesProcessor;
+        $this->fileProcessors = $fileProcessors;
     }
     /**
      * @param File[] $files
@@ -43,6 +55,7 @@ final class ApplicationFileProcessor
     public function run(array $files)
     {
         $this->processFiles($files);
+        $this->fileFormatter->format($files);
         $this->fileDiffFileDecorator->decorate($files);
         $this->printFiles($files);
     }
@@ -58,6 +71,7 @@ final class ApplicationFileProcessor
             });
             $fileProcessor->process($supportedFiles);
         }
+        $this->removedAndAddedFilesProcessor->run();
     }
     /**
      * @param File[] $files

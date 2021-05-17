@@ -8,7 +8,6 @@ use Rector\ChangesReporting\ValueObjectFactory\ErrorFactory;
 use Rector\Core\Application\FileDecorator\FileDiffFileDecorator;
 use Rector\Core\Application\FileProcessor;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
-use Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
@@ -18,9 +17,9 @@ use Rector\Core\ValueObject\Application\File;
 use Rector\Core\ValueObject\Application\RectorError;
 use Rector\PostRector\Application\PostFileProcessor;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use RectorPrefix20210504\Symfony\Component\Console\Helper\ProgressBar;
-use RectorPrefix20210504\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210504\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20210517\Symfony\Component\Console\Helper\ProgressBar;
+use RectorPrefix20210517\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210517\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use Throwable;
 final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProcessorInterface
 {
@@ -36,65 +35,59 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
      */
     const PROGRESS_BAR_STEP_MULTIPLIER = 4;
     /**
-     * @var Configuration
-     */
-    private $configuration;
-    /**
      * @var File[]
      */
     private $notParsedFiles = [];
     /**
-     * @var SymfonyStyle
+     * @var \Rector\Core\Configuration\Configuration
      */
-    private $symfonyStyle;
+    private $configuration;
     /**
-     * @var FileProcessor
-     */
-    private $fileProcessor;
-    /**
-     * @var RemovedAndAddedFilesCollector
-     */
-    private $removedAndAddedFilesCollector;
-    /**
-     * @var RemovedAndAddedFilesProcessor
-     */
-    private $removedAndAddedFilesProcessor;
-    /**
-     * @var PrivatesAccessor
-     */
-    private $privatesAccessor;
-    /**
-     * @var FileDiffFileDecorator
-     */
-    private $fileDiffFileDecorator;
-    /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-    /**
-     * @var FormatPerservingPrinter
+     * @var \Rector\Core\PhpParser\Printer\FormatPerservingPrinter
      */
     private $formatPerservingPrinter;
     /**
-     * @var PostFileProcessor
+     * @var \Rector\Core\Application\FileProcessor
+     */
+    private $fileProcessor;
+    /**
+     * @var \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector
+     */
+    private $removedAndAddedFilesCollector;
+    /**
+     * @var \Symfony\Component\Console\Style\SymfonyStyle
+     */
+    private $symfonyStyle;
+    /**
+     * @var \Symplify\PackageBuilder\Reflection\PrivatesAccessor
+     */
+    private $privatesAccessor;
+    /**
+     * @var \Rector\Core\Application\FileDecorator\FileDiffFileDecorator
+     */
+    private $fileDiffFileDecorator;
+    /**
+     * @var \Rector\Core\Provider\CurrentFileProvider
+     */
+    private $currentFileProvider;
+    /**
+     * @var \Rector\PostRector\Application\PostFileProcessor
      */
     private $postFileProcessor;
     /**
-     * @var ErrorFactory
+     * @var \Rector\ChangesReporting\ValueObjectFactory\ErrorFactory
      */
     private $errorFactory;
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\Core\PhpParser\Printer\FormatPerservingPrinter $formatPerservingPrinter, \Rector\Core\Application\FileProcessor $fileProcessor, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, \RectorPrefix20210504\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210504\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Rector\Core\Application\FileDecorator\FileDiffFileDecorator $fileDiffFileDecorator, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider, \Rector\PostRector\Application\PostFileProcessor $postFileProcessor, \Rector\ChangesReporting\ValueObjectFactory\ErrorFactory $errorFactory)
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\Core\PhpParser\Printer\FormatPerservingPrinter $formatPerservingPrinter, \Rector\Core\Application\FileProcessor $fileProcessor, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \RectorPrefix20210517\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210517\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Rector\Core\Application\FileDecorator\FileDiffFileDecorator $fileDiffFileDecorator, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider, \Rector\PostRector\Application\PostFileProcessor $postFileProcessor, \Rector\ChangesReporting\ValueObjectFactory\ErrorFactory $errorFactory)
     {
-        $this->symfonyStyle = $symfonyStyle;
         $this->configuration = $configuration;
+        $this->formatPerservingPrinter = $formatPerservingPrinter;
         $this->fileProcessor = $fileProcessor;
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
-        $this->removedAndAddedFilesProcessor = $removedAndAddedFilesProcessor;
+        $this->symfonyStyle = $symfonyStyle;
         $this->privatesAccessor = $privatesAccessor;
         $this->fileDiffFileDecorator = $fileDiffFileDecorator;
-        $this->configuration = $configuration;
         $this->currentFileProvider = $currentFileProvider;
-        $this->formatPerservingPrinter = $formatPerservingPrinter;
         $this->postFileProcessor = $postFileProcessor;
         $this->errorFactory = $errorFactory;
     }
@@ -130,6 +123,7 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
             $this->currentFileProvider->setFile($file);
             // cannot print file with errors, as print would break everything to original nodes
             if ($file->hasErrors()) {
+                $this->printFileErrors($file);
                 $this->advance($file, 'printing skipped due error');
                 continue;
             }
@@ -140,8 +134,6 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
         if ($this->configuration->shouldShowProgressBar()) {
             $this->symfonyStyle->newLine(2);
         }
-        // 4. remove and add files
-        $this->removedAndAddedFilesProcessor->run();
     }
     public function supports(\Rector\Core\ValueObject\Application\File $file) : bool
     {
@@ -194,7 +186,13 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
                 return;
             }
             $callback($file);
+        } catch (\Rector\Core\Exception\ShouldNotHappenException $shouldNotHappenException) {
+            throw $shouldNotHappenException;
         } catch (\PHPStan\AnalysedCodeException $analysedCodeException) {
+            // inform about missing classes in tests
+            if (\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+                throw $analysedCodeException;
+            }
             $this->notParsedFiles[] = $file;
             $error = $this->errorFactory->createAutoloadError($analysedCodeException);
             $file->addRectorError($error);
@@ -228,7 +226,7 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
     {
         $this->symfonyStyle->progressStart($fileCount * self::PROGRESS_BAR_STEP_MULTIPLIER);
         $progressBar = $this->privatesAccessor->getPrivateProperty($this->symfonyStyle, 'progressBar');
-        if (!$progressBar instanceof \RectorPrefix20210504\Symfony\Component\Console\Helper\ProgressBar) {
+        if (!$progressBar instanceof \RectorPrefix20210517\Symfony\Component\Console\Helper\ProgressBar) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         if ($progressBar->getMaxSteps() < 40) {
@@ -249,6 +247,21 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
             $this->symfonyStyle->writeln($message);
         } elseif ($this->configuration->shouldShowProgressBar()) {
             $this->symfonyStyle->progressAdvance();
+        }
+    }
+    /**
+     * @return void
+     */
+    private function printFileErrors(\Rector\Core\ValueObject\Application\File $file)
+    {
+        if (!$this->symfonyStyle->isVerbose()) {
+            return;
+        }
+        if (!$file->hasErrors()) {
+            return;
+        }
+        foreach ($file->getErrors() as $rectorError) {
+            $this->symfonyStyle->error($rectorError->getMessage());
         }
     }
 }

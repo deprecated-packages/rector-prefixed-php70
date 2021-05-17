@@ -15,7 +15,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\RemovingStatic\NodeAnalyzer\StaticCallPresenceAnalyzer;
-use RectorPrefix20210504\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210517\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -28,21 +28,21 @@ final class DesiredClassTypeToDynamicRector extends \Rector\Core\Rector\Abstract
      */
     private $staticObjectTypes = [];
     /**
-     * @var PropertyNaming
+     * @var \Rector\Naming\Naming\PropertyNaming
      */
     private $propertyNaming;
     /**
-     * @var StaticCallPresenceAnalyzer
+     * @var \Rector\RemovingStatic\NodeAnalyzer\StaticCallPresenceAnalyzer
      */
     private $staticCallPresenceAnalyzer;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\RemovingStatic\NodeAnalyzer\StaticCallPresenceAnalyzer $staticCallPresenceAnalyzer, \RectorPrefix20210504\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\RemovingStatic\NodeAnalyzer\StaticCallPresenceAnalyzer $staticCallPresenceAnalyzer, \RectorPrefix20210517\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
+        $this->propertyNaming = $propertyNaming;
+        $this->staticCallPresenceAnalyzer = $staticCallPresenceAnalyzer;
         $typesToRemoveStaticFrom = $parameterProvider->provideArrayParameter(\Rector\Core\Configuration\Option::TYPES_TO_REMOVE_STATIC_FROM);
         foreach ($typesToRemoveStaticFrom as $typeToRemoveStaticFrom) {
             $this->staticObjectTypes[] = new \PHPStan\Type\ObjectType($typeToRemoveStaticFrom);
         }
-        $this->propertyNaming = $propertyNaming;
-        $this->staticCallPresenceAnalyzer = $staticCallPresenceAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

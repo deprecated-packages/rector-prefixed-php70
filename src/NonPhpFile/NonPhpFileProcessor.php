@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\NonPhpFile;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Contract\Rector\NonPhpRectorInterface;
 use Rector\Core\ValueObject\Application\File;
@@ -14,9 +14,9 @@ use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
 final class NonPhpFileProcessor implements \Rector\Core\Contract\Processor\FileProcessorInterface
 {
     /**
-     * @var NonPhpRectorInterface[]
+     * @var mixed[]
      */
-    private $nonPhpRectors = [];
+    private $nonPhpRectors;
     /**
      * @param NonPhpRectorInterface[] $nonPhpRectors
      */
@@ -39,7 +39,7 @@ final class NonPhpFileProcessor implements \Rector\Core\Contract\Processor\FileP
         $smartFileInfo = $file->getSmartFileInfo();
         // bug in path extension
         foreach ($this->getSupportedFileExtensions() as $supportedFileExtension) {
-            if (\RectorPrefix20210504\Nette\Utils\Strings::endsWith($smartFileInfo->getPathname(), '.' . $supportedFileExtension)) {
+            if (\RectorPrefix20210517\Nette\Utils\Strings::endsWith($smartFileInfo->getPathname(), '.' . $supportedFileExtension)) {
                 return \true;
             }
         }

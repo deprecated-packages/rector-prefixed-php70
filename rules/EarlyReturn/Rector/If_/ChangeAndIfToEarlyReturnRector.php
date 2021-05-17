@@ -25,19 +25,19 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ChangeAndIfToEarlyReturnRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var IfManipulator
+     * @var \Rector\Core\NodeManipulator\IfManipulator
      */
     private $ifManipulator;
     /**
-     * @var InvertedIfFactory
+     * @var \Rector\EarlyReturn\NodeFactory\InvertedIfFactory
      */
     private $invertedIfFactory;
     /**
-     * @var ContextAnalyzer
+     * @var \Rector\NodeNestingScope\ContextAnalyzer
      */
     private $contextAnalyzer;
     /**
-     * @var BooleanAndAnalyzer
+     * @var \Rector\NodeCollector\NodeAnalyzer\BooleanAndAnalyzer
      */
     private $booleanAndAnalyzer;
     public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\EarlyReturn\NodeFactory\InvertedIfFactory $invertedIfFactory, \Rector\NodeNestingScope\ContextAnalyzer $contextAnalyzer, \Rector\NodeCollector\NodeAnalyzer\BooleanAndAnalyzer $booleanAndAnalyzer)
@@ -90,7 +90,7 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
-     * @return \PhpParser\Node|null
+     * @return Node|Node[]|null
      */
     public function refactor(\PhpParser\Node $node)
     {
@@ -126,8 +126,9 @@ CODE_SAMPLE
     }
     /**
      * @param Expr[] $conditions
+     * @return If_|Node[]
      */
-    private function processReplaceIfs(\PhpParser\Node\Stmt\If_ $node, array $conditions, \PhpParser\Node\Stmt\Return_ $ifNextReturnClone) : \PhpParser\Node\Stmt\If_
+    private function processReplaceIfs(\PhpParser\Node\Stmt\If_ $node, array $conditions, \PhpParser\Node\Stmt\Return_ $ifNextReturnClone)
     {
         $ifs = $this->invertedIfFactory->createFromConditions($node, $conditions, $ifNextReturnClone);
         $this->mirrorComments($ifs[0], $node);
@@ -136,7 +137,7 @@ CODE_SAMPLE
         }
         $this->removeNode($node);
         if (!$node->stmts[0] instanceof \PhpParser\Node\Stmt\Return_ && $ifNextReturnClone->expr instanceof \PhpParser\Node\Expr) {
-            $this->addNodeAfterNode($ifNextReturnClone, $node);
+            return [$node, $ifNextReturnClone];
         }
         return $node;
     }
@@ -212,6 +213,6 @@ CODE_SAMPLE
         if ($parent instanceof \PhpParser\Node\Stmt\If_) {
             return $this->isLastIfOrBeforeLastReturn($parent);
         }
-        return \true;
+        return !$this->contextAnalyzer->isHasAssignWithIndirectReturn($parent, $if);
     }
 }

@@ -14,37 +14,37 @@ use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\ValueObject\FrameworkName;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-use RectorPrefix20210504\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
-use RectorPrefix20210504\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
+use RectorPrefix20210517\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use RectorPrefix20210517\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 final class InjectMethodFactory
 {
     /**
-     * @var PhpDocInfoFactory
-     */
-    private $phpDocInfoFactory;
-    /**
-     * @var PropertyNaming
-     */
-    private $propertyNaming;
-    /**
-     * @var ClassNaming
+     * @var \Rector\CodingStyle\Naming\ClassNaming
      */
     private $classNaming;
     /**
-     * @var TypeFactory
-     */
-    private $typeFactory;
-    /**
-     * @var NodeFactory
+     * @var \Rector\Core\PhpParser\Node\NodeFactory
      */
     private $nodeFactory;
+    /**
+     * @var \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    /**
+     * @var \Rector\Naming\Naming\PropertyNaming
+     */
+    private $propertyNaming;
+    /**
+     * @var \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory
+     */
+    private $typeFactory;
     public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
+        $this->classNaming = $classNaming;
+        $this->nodeFactory = $nodeFactory;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->propertyNaming = $propertyNaming;
-        $this->classNaming = $classNaming;
         $this->typeFactory = $typeFactory;
-        $this->nodeFactory = $nodeFactory;
     }
     /**
      * @param ObjectType[] $objectTypes
@@ -53,12 +53,12 @@ final class InjectMethodFactory
     {
         $objectTypes = $this->typeFactory->uniquateTypes($objectTypes);
         $shortClassName = $this->classNaming->getShortName($className);
-        $methodBuilder = new \RectorPrefix20210504\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder('inject' . $shortClassName);
+        $methodBuilder = new \RectorPrefix20210517\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder('inject' . $shortClassName);
         $methodBuilder->makePublic();
         foreach ($objectTypes as $objectType) {
             /** @var ObjectType $objectType */
             $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
-            $paramBuilder = new \RectorPrefix20210504\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder($propertyName);
+            $paramBuilder = new \RectorPrefix20210517\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder($propertyName);
             $paramBuilder->setType(new \PhpParser\Node\Name\FullyQualified($objectType->getClassName()));
             $methodBuilder->addParam($paramBuilder);
             $assign = $this->nodeFactory->createPropertyAssignment($propertyName);

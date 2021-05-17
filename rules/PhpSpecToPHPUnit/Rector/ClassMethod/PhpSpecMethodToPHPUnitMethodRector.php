@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PhpSpecToPHPUnit\Rector\ClassMethod;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -17,17 +17,17 @@ use Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector;
 final class PhpSpecMethodToPHPUnitMethodRector extends \Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector
 {
     /**
-     * @var PhpSpecRenaming
-     */
-    private $phpSpecRenaming;
-    /**
-     * @var PHPUnitTypeDeclarationDecorator
+     * @var \Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator
      */
     private $phpUnitTypeDeclarationDecorator;
+    /**
+     * @var \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming
+     */
+    private $phpSpecRenaming;
     public function __construct(\Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator $phpUnitTypeDeclarationDecorator, \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming $phpSpecRenaming)
     {
-        $this->phpSpecRenaming = $phpSpecRenaming;
         $this->phpUnitTypeDeclarationDecorator = $phpUnitTypeDeclarationDecorator;
+        $this->phpSpecRenaming = $phpSpecRenaming;
     }
     /**
      * @return array<class-string<Node>>
@@ -72,7 +72,7 @@ final class PhpSpecMethodToPHPUnitMethodRector extends \Rector\PhpSpecToPHPUnit\
         // reorder instantiation + expected exception
         $previousStmt = null;
         foreach ((array) $classMethod->stmts as $key => $stmt) {
-            if ($previousStmt && \RectorPrefix20210504\Nette\Utils\Strings::contains($this->print($stmt), 'duringInstantiation') && \RectorPrefix20210504\Nette\Utils\Strings::contains($this->print($previousStmt), 'beConstructedThrough')) {
+            if ($previousStmt && \RectorPrefix20210517\Nette\Utils\Strings::contains($this->print($stmt), 'duringInstantiation') && \RectorPrefix20210517\Nette\Utils\Strings::contains($this->print($previousStmt), 'beConstructedThrough')) {
                 $classMethod->stmts[$key - 1] = $stmt;
                 $classMethod->stmts[$key] = $previousStmt;
             }

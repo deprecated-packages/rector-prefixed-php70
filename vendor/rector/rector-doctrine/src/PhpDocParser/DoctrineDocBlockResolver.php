@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\PhpDocParser;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
@@ -23,25 +23,25 @@ final class DoctrineDocBlockResolver
      */
     const ORM_ENTITY_EMBEDDABLE_SHORT_ANNOTATION_REGEX = '#@ORM\\\\(Entity|Embeddable)#';
     /**
-     * @var PhpDocInfoFactory
-     */
-    private $phpDocInfoFactory;
-    /**
-     * @var NodeRepository
+     * @var \Rector\NodeCollector\NodeCollector\NodeRepository
      */
     private $nodeRepository;
     /**
-     * @var ReflectionProvider
+     * @var \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    /**
+     * @var \PHPStan\Reflection\ReflectionProvider
      */
     private $reflectionProvider;
     /**
-     * @var ShortClassExpander
+     * @var \Rector\TypeDeclaration\PhpDoc\ShortClassExpander
      */
     private $shortClassExpander;
     public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\TypeDeclaration\PhpDoc\ShortClassExpander $shortClassExpander)
     {
-        $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->nodeRepository = $nodeRepository;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->reflectionProvider = $reflectionProvider;
         $this->shortClassExpander = $shortClassExpander;
     }
@@ -99,6 +99,6 @@ final class DoctrineDocBlockResolver
             return \false;
         }
         // dummy check of 3rd party code without running it
-        return (bool) \RectorPrefix20210504\Nette\Utils\Strings::match($resolvedPhpDocBlock->getPhpDocString(), self::ORM_ENTITY_EMBEDDABLE_SHORT_ANNOTATION_REGEX);
+        return (bool) \RectorPrefix20210517\Nette\Utils\Strings::match($resolvedPhpDocBlock->getPhpDocString(), self::ORM_ENTITY_EMBEDDABLE_SHORT_ANNOTATION_REGEX);
     }
 }

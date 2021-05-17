@@ -68,7 +68,7 @@ CODE_SAMPLE
     }
     /**
      * @param Stmt $node
-     * @return \PhpParser\Node|null
+     * @return Node|Node[]|null
      */
     public function refactor(\PhpParser\Node $node)
     {
@@ -150,7 +150,7 @@ CODE_SAMPLE
         return $stmt;
     }
     /**
-     * @return \PhpParser\Node|null
+     * @return mixed[]|null
      */
     private function refactorAlreadyCreatedNode(\PhpParser\Node\Stmt $stmt, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Expr\Variable $variable)
     {
@@ -163,8 +163,7 @@ CODE_SAMPLE
         if (!$assertFuncCall instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
         }
-        $this->addNodeAfterNode($assertFuncCall, $stmt);
-        return $stmt;
+        return [$stmt, new \PhpParser\Node\Stmt\Expression($assertFuncCall)];
     }
     /**
      * @return \PhpParser\Node\Expr\FuncCall|null

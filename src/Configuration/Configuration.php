@@ -3,13 +3,12 @@
 declare (strict_types=1);
 namespace Rector\Core\Configuration;
 
-use RectorPrefix20210504\Jean85\PrettyVersions;
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
 use Rector\Core\Exception\Configuration\InvalidConfigurationException;
 use Rector\Core\ValueObject\Bootstrap\BootstrapConfigs;
-use RectorPrefix20210504\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20210504\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210517\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20210517\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\SmartFileSystem\SmartFileInfo;
 final class Configuration
 {
@@ -46,7 +45,7 @@ final class Configuration
      */
     private $paths = [];
     /**
-     * @var ParameterProvider
+     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
      */
     private $parameterProvider;
     /**
@@ -58,10 +57,10 @@ final class Configuration
      */
     private $showDiffs = \true;
     /**
-     * @var BootstrapConfigs|null
+     * @var \Rector\Core\ValueObject\Bootstrap\BootstrapConfigs|null
      */
     private $bootstrapConfigs;
-    public function __construct(\RectorPrefix20210504\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\RectorPrefix20210517\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->isCacheEnabled = (bool) $parameterProvider->provideParameter(\Rector\Core\Configuration\Option::ENABLE_CACHE);
         $this->fileExtensions = (array) $parameterProvider->provideParameter(\Rector\Core\Configuration\Option::FILE_EXTENSIONS);
@@ -72,7 +71,7 @@ final class Configuration
      * Needs to run in the start of the life cycle, since the rest of workflow uses it.
      * @return void
      */
-    public function resolveFromInput(\RectorPrefix20210504\Symfony\Component\Console\Input\InputInterface $input)
+    public function resolveFromInput(\RectorPrefix20210517\Symfony\Component\Console\Input\InputInterface $input)
     {
         $this->isDryRun = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_DRY_RUN);
         $this->shouldClearCache = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE);
@@ -89,11 +88,6 @@ final class Configuration
             $commandLinePaths = $this->correctBashSpacePaths($commandLinePaths);
             $this->paths = $commandLinePaths;
         }
-    }
-    public function getPrettyVersion() : string
-    {
-        $version = \RectorPrefix20210504\Jean85\PrettyVersions::getVersion('rector/rector-prefixed');
-        return $version->getPrettyVersion();
     }
     /**
      * @forTests
@@ -195,7 +189,7 @@ final class Configuration
         }
         return $mainConfigFileInfo->getRelativeFilePathFromCwd();
     }
-    private function canShowProgressBar(\RectorPrefix20210504\Symfony\Component\Console\Input\InputInterface $input) : bool
+    private function canShowProgressBar(\RectorPrefix20210517\Symfony\Component\Console\Input\InputInterface $input) : bool
     {
         $noProgressBar = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_NO_PROGRESS_BAR);
         if ($noProgressBar) {
@@ -223,7 +217,7 @@ final class Configuration
     {
         // fixes bash edge-case that to merges string with space to one
         foreach ($commandLinePaths as $commandLinePath) {
-            if (\RectorPrefix20210504\Nette\Utils\Strings::contains($commandLinePath, ' ')) {
+            if (\RectorPrefix20210517\Nette\Utils\Strings::contains($commandLinePath, ' ')) {
                 $commandLinePaths = \explode(' ', $commandLinePath);
             }
         }

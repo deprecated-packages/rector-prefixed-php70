@@ -12,7 +12,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Transform\ValueObject\StaticCallToFuncCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210504\Webmozart\Assert\Assert;
+use RectorPrefix20210517\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Tests\Transform\Rector\StaticCall\StaticCallToFuncCallRector\StaticCallToFuncCallRectorTest
  */
@@ -23,15 +23,15 @@ final class StaticCallToFuncCallRector extends \Rector\Core\Rector\AbstractRecto
      */
     const STATIC_CALLS_TO_FUNCTIONS = 'static_calls_to_functions';
     /**
-     * @var StaticCallToFuncCall[]
+     * @var mixed[]
      */
     private $staticCallsToFunctions = [];
     /**
-     * @param StaticCallToFuncCall[] $staticCallToFunctions
+     * @param StaticCallToFuncCall[] $staticCallsToFunctions
      */
-    public function __construct(array $staticCallToFunctions = [])
+    public function __construct(array $staticCallsToFunctions = [])
     {
-        $this->staticCallsToFunctions = $staticCallToFunctions;
+        $this->staticCallsToFunctions = $staticCallsToFunctions;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -68,7 +68,7 @@ final class StaticCallToFuncCallRector extends \Rector\Core\Rector\AbstractRecto
     public function configure(array $configuration)
     {
         $staticCallsToFunctions = $configuration[self::STATIC_CALLS_TO_FUNCTIONS] ?? [];
-        \RectorPrefix20210504\Webmozart\Assert\Assert::allIsInstanceOf($staticCallsToFunctions, \Rector\Transform\ValueObject\StaticCallToFuncCall::class);
+        \RectorPrefix20210517\Webmozart\Assert\Assert::allIsInstanceOf($staticCallsToFunctions, \Rector\Transform\ValueObject\StaticCallToFuncCall::class);
         $this->staticCallsToFunctions = $staticCallsToFunctions;
     }
 }

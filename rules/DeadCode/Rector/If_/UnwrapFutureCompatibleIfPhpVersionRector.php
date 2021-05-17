@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\DeadCode\Rector\If_;
 
 use PhpParser\Node;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\If_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\ConditionEvaluator;
@@ -19,11 +20,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class UnwrapFutureCompatibleIfPhpVersionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var ConditionEvaluator
+     * @var \Rector\DeadCode\ConditionEvaluator
      */
     private $conditionEvaluator;
     /**
-     * @var ConditionResolver
+     * @var \Rector\DeadCode\ConditionResolver
      */
     private $conditionResolver;
     public function __construct(\Rector\DeadCode\ConditionEvaluator $conditionEvaluator, \Rector\DeadCode\ConditionResolver $conditionResolver)
@@ -56,11 +57,11 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
-     * @return \PhpParser\Node|null
+     * @return mixed[]|null
      */
     public function refactor(\PhpParser\Node $node)
     {
-        if ((bool) $node->elseifs) {
+        if ($node->elseifs) {
             return null;
         }
         $condition = $this->conditionResolver->resolveFromExpr($node->cond);
@@ -73,35 +74,31 @@ CODE_SAMPLE
         }
         // if is skipped
         if ($result) {
-            $this->refactorIsMatch($node);
-        } else {
-            $this->refactorIsNotMatch($node);
+            return $this->refactorIsMatch($node);
         }
-        return $node;
+        return $this->refactorIsNotMatch($node);
     }
     /**
-     * @return void
+     * @return mixed[]|null
      */
     private function refactorIsMatch(\PhpParser\Node\Stmt\If_ $if)
     {
-        if ((bool) $if->elseifs) {
-            return;
+        if ($if->elseifs) {
+            return null;
         }
-        $this->unwrapStmts($if->stmts, $if);
-        $this->removeNode($if);
+        return $if->stmts;
     }
     /**
-     * @return void
+     * @return mixed[]|null
      */
     private function refactorIsNotMatch(\PhpParser\Node\Stmt\If_ $if)
     {
         // no else → just remove the node
         if ($if->else === null) {
             $this->removeNode($if);
-            return;
+            return null;
         }
         // else is always used
-        $this->unwrapStmts($if->else->stmts, $if);
-        $this->removeNode($if);
+        return $if->else->stmts;
     }
 }

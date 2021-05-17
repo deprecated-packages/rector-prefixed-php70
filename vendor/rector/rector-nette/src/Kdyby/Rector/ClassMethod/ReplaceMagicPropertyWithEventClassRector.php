@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Nette\Kdyby\Rector\ClassMethod;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayItem;
@@ -22,26 +22,26 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ReplaceMagicPropertyWithEventClassRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var EventClassNaming
-     */
-    private $eventClassNaming;
-    /**
-     * @var ListeningClassMethodArgumentManipulator
-     */
-    private $listeningClassMethodArgumentManipulator;
-    /**
-     * @var EventAndListenerTreeProvider
+     * @var \Rector\Nette\Kdyby\DataProvider\EventAndListenerTreeProvider
      */
     private $eventAndListenerTreeProvider;
     /**
-     * @var GetSubscribedEventsClassMethodAnalyzer
+     * @var \Rector\Nette\Kdyby\Naming\EventClassNaming
+     */
+    private $eventClassNaming;
+    /**
+     * @var \Rector\Nette\Kdyby\NodeManipulator\ListeningClassMethodArgumentManipulator
+     */
+    private $listeningClassMethodArgumentManipulator;
+    /**
+     * @var \Rector\Nette\Kdyby\NodeAnalyzer\GetSubscribedEventsClassMethodAnalyzer
      */
     private $getSubscribedEventsClassMethodAnalyzer;
     public function __construct(\Rector\Nette\Kdyby\DataProvider\EventAndListenerTreeProvider $eventAndListenerTreeProvider, \Rector\Nette\Kdyby\Naming\EventClassNaming $eventClassNaming, \Rector\Nette\Kdyby\NodeManipulator\ListeningClassMethodArgumentManipulator $listeningClassMethodArgumentManipulator, \Rector\Nette\Kdyby\NodeAnalyzer\GetSubscribedEventsClassMethodAnalyzer $getSubscribedEventsClassMethodAnalyzer)
     {
+        $this->eventAndListenerTreeProvider = $eventAndListenerTreeProvider;
         $this->eventClassNaming = $eventClassNaming;
         $this->listeningClassMethodArgumentManipulator = $listeningClassMethodArgumentManipulator;
-        $this->eventAndListenerTreeProvider = $eventAndListenerTreeProvider;
         $this->getSubscribedEventsClassMethodAnalyzer = $getSubscribedEventsClassMethodAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -58,7 +58,7 @@ final class ActionLogEventSubscriber implements Subscriber
         ];
     }
 
-    public function onAlbumApprove(Album $album, int $adminId)
+    public function onAlbumApprove(Album $album, int $adminId): void
     {
         $album->play();
     }
@@ -76,7 +76,7 @@ final class ActionLogEventSubscriber implements Subscriber
         ];
     }
 
-    public function onAlbumApprove(AlbumServiceApproveEventAlbum $albumServiceApproveEventAlbum)
+    public function onAlbumApprove(AlbumServiceApproveEventAlbum $albumServiceApproveEventAlbum): void
     {
         $album = $albumServiceApproveEventAlbum->getAlbum();
         $album->play();
@@ -128,7 +128,7 @@ CODE_SAMPLE
             }
             $eventPropertyReferenceName = $this->valueResolver->getValue($arrayKey);
             // is property?
-            if (!\RectorPrefix20210504\Nette\Utils\Strings::contains($eventPropertyReferenceName, '::')) {
+            if (!\RectorPrefix20210517\Nette\Utils\Strings::contains($eventPropertyReferenceName, '::')) {
                 return null;
             }
             $eventClassName = $this->eventClassNaming->createEventClassNameFromClassPropertyReference($eventPropertyReferenceName);

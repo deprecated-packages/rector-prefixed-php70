@@ -6,21 +6,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210504\JsonSchema\Uri;
+namespace RectorPrefix20210517\JsonSchema\Uri;
 
-use RectorPrefix20210504\JsonSchema\Exception\InvalidSchemaMediaTypeException;
-use RectorPrefix20210504\JsonSchema\Exception\JsonDecodingException;
-use RectorPrefix20210504\JsonSchema\Exception\ResourceNotFoundException;
-use RectorPrefix20210504\JsonSchema\Uri\Retrievers\FileGetContents;
-use RectorPrefix20210504\JsonSchema\Uri\Retrievers\UriRetrieverInterface;
-use RectorPrefix20210504\JsonSchema\UriRetrieverInterface as BaseUriRetrieverInterface;
-use RectorPrefix20210504\JsonSchema\Validator;
+use RectorPrefix20210517\JsonSchema\Exception\InvalidSchemaMediaTypeException;
+use RectorPrefix20210517\JsonSchema\Exception\JsonDecodingException;
+use RectorPrefix20210517\JsonSchema\Exception\ResourceNotFoundException;
+use RectorPrefix20210517\JsonSchema\Uri\Retrievers\FileGetContents;
+use RectorPrefix20210517\JsonSchema\Uri\Retrievers\UriRetrieverInterface;
+use RectorPrefix20210517\JsonSchema\UriRetrieverInterface as BaseUriRetrieverInterface;
+use RectorPrefix20210517\JsonSchema\Validator;
 /**
  * Retrieves JSON Schema URIs
  *
  * @author Tyler Akins <fidian@rumkin.com>
  */
-class UriRetriever implements \RectorPrefix20210504\JsonSchema\UriRetrieverInterface
+class UriRetriever implements \RectorPrefix20210517\JsonSchema\UriRetrieverInterface
 {
     /**
      * @var array Map of URL translations
@@ -67,7 +67,7 @@ class UriRetriever implements \RectorPrefix20210504\JsonSchema\UriRetrieverInter
             // Well, we didn't get an invalid one
             return;
         }
-        if (\in_array($contentType, array(\RectorPrefix20210504\JsonSchema\Validator::SCHEMA_MEDIA_TYPE, 'application/json'))) {
+        if (\in_array($contentType, array(\RectorPrefix20210517\JsonSchema\Validator::SCHEMA_MEDIA_TYPE, 'application/json'))) {
             return;
         }
         foreach ($this->allowedInvalidContentTypeEndpoints as $endpoint) {
@@ -75,7 +75,7 @@ class UriRetriever implements \RectorPrefix20210504\JsonSchema\UriRetrieverInter
                 return \true;
             }
         }
-        throw new \RectorPrefix20210504\JsonSchema\Exception\InvalidSchemaMediaTypeException(\sprintf('Media type %s expected', \RectorPrefix20210504\JsonSchema\Validator::SCHEMA_MEDIA_TYPE));
+        throw new \RectorPrefix20210517\JsonSchema\Exception\InvalidSchemaMediaTypeException(\sprintf('Media type %s expected', \RectorPrefix20210517\JsonSchema\Validator::SCHEMA_MEDIA_TYPE));
     }
     /**
      * Get a URI Retriever
@@ -88,7 +88,7 @@ class UriRetriever implements \RectorPrefix20210504\JsonSchema\UriRetrieverInter
     public function getUriRetriever()
     {
         if (\is_null($this->uriRetriever)) {
-            $this->setUriRetriever(new \RectorPrefix20210504\JsonSchema\Uri\Retrievers\FileGetContents());
+            $this->setUriRetriever(new \RectorPrefix20210517\JsonSchema\Uri\Retrievers\FileGetContents());
         }
         return $this->uriRetriever;
     }
@@ -108,7 +108,7 @@ class UriRetriever implements \RectorPrefix20210504\JsonSchema\UriRetrieverInter
      */
     public function resolvePointer($jsonSchema, $uri)
     {
-        $resolver = new \RectorPrefix20210504\JsonSchema\Uri\UriResolver();
+        $resolver = new \RectorPrefix20210517\JsonSchema\Uri\UriResolver();
         $parsed = $resolver->parse($uri);
         if (empty($parsed['fragment'])) {
             return $jsonSchema;
@@ -122,10 +122,10 @@ class UriRetriever implements \RectorPrefix20210504\JsonSchema\UriRetrieverInter
                 if (!empty($jsonSchema->{$pathElement})) {
                     $jsonSchema = $jsonSchema->{$pathElement};
                 } else {
-                    throw new \RectorPrefix20210504\JsonSchema\Exception\ResourceNotFoundException('Fragment "' . $parsed['fragment'] . '" not found' . ' in ' . $uri);
+                    throw new \RectorPrefix20210517\JsonSchema\Exception\ResourceNotFoundException('Fragment "' . $parsed['fragment'] . '" not found' . ' in ' . $uri);
                 }
                 if (!\is_object($jsonSchema)) {
-                    throw new \RectorPrefix20210504\JsonSchema\Exception\ResourceNotFoundException('Fragment part "' . $pathElement . '" is no object ' . ' in ' . $uri);
+                    throw new \RectorPrefix20210517\JsonSchema\Exception\ResourceNotFoundException('Fragment part "' . $pathElement . '" is no object ' . ' in ' . $uri);
                 }
             }
         }
@@ -136,7 +136,7 @@ class UriRetriever implements \RectorPrefix20210504\JsonSchema\UriRetrieverInter
      */
     public function retrieve($uri, $baseUri = null, $translate = \true)
     {
-        $resolver = new \RectorPrefix20210504\JsonSchema\Uri\UriResolver();
+        $resolver = new \RectorPrefix20210517\JsonSchema\Uri\UriResolver();
         $resolvedUri = $fetchUri = $resolver->resolve($uri, $baseUri);
         //fetch URL without #fragment
         $arParts = $resolver->parse($resolvedUri);
@@ -174,7 +174,7 @@ class UriRetriever implements \RectorPrefix20210504\JsonSchema\UriRetrieverInter
         $this->confirmMediaType($uriRetriever, $fetchUri);
         $jsonSchema = \json_decode($contents);
         if (\JSON_ERROR_NONE < ($error = \json_last_error())) {
-            throw new \RectorPrefix20210504\JsonSchema\Exception\JsonDecodingException($error);
+            throw new \RectorPrefix20210517\JsonSchema\Exception\JsonDecodingException($error);
         }
         $this->schemaCache[$fetchUri] = $jsonSchema;
         return $jsonSchema;
@@ -186,7 +186,7 @@ class UriRetriever implements \RectorPrefix20210504\JsonSchema\UriRetrieverInter
      *
      * @return $this for chaining
      */
-    public function setUriRetriever(\RectorPrefix20210504\JsonSchema\Uri\Retrievers\UriRetrieverInterface $uriRetriever)
+    public function setUriRetriever(\RectorPrefix20210517\JsonSchema\Uri\Retrievers\UriRetrieverInterface $uriRetriever)
     {
         $this->uriRetriever = $uriRetriever;
         return $this;
@@ -248,7 +248,7 @@ class UriRetriever implements \RectorPrefix20210504\JsonSchema\UriRetrieverInter
         }
         $baseComponents = $this->parse($baseUri);
         $basePath = $baseComponents['path'];
-        $baseComponents['path'] = \RectorPrefix20210504\JsonSchema\Uri\UriResolver::combineRelativePathWithBasePath($path, $basePath);
+        $baseComponents['path'] = \RectorPrefix20210517\JsonSchema\Uri\UriResolver::combineRelativePathWithBasePath($path, $basePath);
         return $this->generate($baseComponents);
     }
     /**

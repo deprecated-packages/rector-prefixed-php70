@@ -16,7 +16,7 @@ To add a set to your config, use `Rector\PHPUnit\Set\PHPUnitSetList` class and p
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator) {
+return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(PHPUnitSetList::PHPUNIT_90);
 };
 ```

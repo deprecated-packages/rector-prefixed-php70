@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210504\Symfony\Component\VarDumper\Test;
+namespace RectorPrefix20210517\Symfony\Component\VarDumper\Test;
 
-use RectorPrefix20210504\Symfony\Component\VarDumper\Cloner\VarCloner;
-use RectorPrefix20210504\Symfony\Component\VarDumper\Dumper\CliDumper;
+use RectorPrefix20210517\Symfony\Component\VarDumper\Cloner\VarCloner;
+use RectorPrefix20210517\Symfony\Component\VarDumper\Dumper\CliDumper;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
@@ -21,7 +21,7 @@ trait VarDumperTestTrait
      * @internal
      */
     private $varDumperConfig = ['casters' => [], 'flags' => null];
-    protected function setUpVarDumper(array $casters, int $flags = null)
+    protected function setUpVarDumper(array $casters, int $flags = null) : void
     {
         $this->varDumperConfig['casters'] = $casters;
         $this->varDumperConfig['flags'] = $flags;
@@ -29,7 +29,7 @@ trait VarDumperTestTrait
     /**
      * @after
      */
-    protected function tearDownVarDumper()
+    protected function tearDownVarDumper() : void
     {
         $this->varDumperConfig['casters'] = [];
         $this->varDumperConfig['flags'] = null;
@@ -45,14 +45,14 @@ trait VarDumperTestTrait
     protected function getDump($data, $key = null, int $filter = 0) : ?string
     {
         if (null === ($flags = $this->varDumperConfig['flags'])) {
-            $flags = \getenv('DUMP_LIGHT_ARRAY') ? \RectorPrefix20210504\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_LIGHT_ARRAY : 0;
-            $flags |= \getenv('DUMP_STRING_LENGTH') ? \RectorPrefix20210504\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_STRING_LENGTH : 0;
-            $flags |= \getenv('DUMP_COMMA_SEPARATOR') ? \RectorPrefix20210504\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_COMMA_SEPARATOR : 0;
+            $flags = \getenv('DUMP_LIGHT_ARRAY') ? \RectorPrefix20210517\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_LIGHT_ARRAY : 0;
+            $flags |= \getenv('DUMP_STRING_LENGTH') ? \RectorPrefix20210517\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_STRING_LENGTH : 0;
+            $flags |= \getenv('DUMP_COMMA_SEPARATOR') ? \RectorPrefix20210517\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_COMMA_SEPARATOR : 0;
         }
-        $cloner = new \RectorPrefix20210504\Symfony\Component\VarDumper\Cloner\VarCloner();
+        $cloner = new \RectorPrefix20210517\Symfony\Component\VarDumper\Cloner\VarCloner();
         $cloner->addCasters($this->varDumperConfig['casters']);
         $cloner->setMaxItems(-1);
-        $dumper = new \RectorPrefix20210504\Symfony\Component\VarDumper\Dumper\CliDumper(null, null, $flags);
+        $dumper = new \RectorPrefix20210517\Symfony\Component\VarDumper\Dumper\CliDumper(null, null, $flags);
         $dumper->setColors(\false);
         $data = $cloner->cloneVar($data, $filter)->withRefHandles(\false);
         if (null !== $key && null === ($data = $data->seek($key))) {

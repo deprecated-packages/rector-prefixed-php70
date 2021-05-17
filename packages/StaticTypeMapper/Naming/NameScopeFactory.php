@@ -21,11 +21,11 @@ use Rector\StaticTypeMapper\StaticTypeMapper;
 final class NameScopeFactory
 {
     /**
-     * @var StaticTypeMapper
+     * @var \Rector\StaticTypeMapper\StaticTypeMapper
      */
     private $staticTypeMapper;
     /**
-     * @var PhpDocInfoFactory
+     * @var \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
     /**
@@ -33,9 +33,10 @@ final class NameScopeFactory
      * @required
      * @return void
      */
-    public function autowireNameScopeFactory(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    public function autowireNameScopeFactory(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
     {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->staticTypeMapper = $staticTypeMapper;
     }
     public function createNameScopeFromNodeWithoutTemplateTypes(\PhpParser\Node $node) : \PHPStan\Analyser\NameScope
     {
@@ -53,13 +54,10 @@ final class NameScopeFactory
         $templateTypeMap = $this->templateTemplateTypeMap($node);
         return new \PHPStan\Analyser\NameScope($nameScope->getNamespace(), $nameScope->getUses(), $nameScope->getClassName(), null, $templateTypeMap);
     }
-    /**
-     * @return void
-     */
-    public function setStaticTypeMapper(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
-    {
-        $this->staticTypeMapper = $staticTypeMapper;
-    }
+    //    public function setStaticTypeMapper(StaticTypeMapper $staticTypeMapper): void
+    //    {
+    //        $this->staticTypeMapper = $staticTypeMapper;
+    //    }
     /**
      * @param Use_[] $useNodes
      * @return array<string, string>

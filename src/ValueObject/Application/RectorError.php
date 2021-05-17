@@ -7,13 +7,13 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorError
 {
     /**
+     * @var \Symplify\SmartFileSystem\SmartFileInfo
+     */
+    private $fileInfo;
+    /**
      * @var string
      */
     private $message;
-    /**
-     * @var SmartFileInfo
-     */
-    private $fileInfo;
     /**
      * @var int|null
      */

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\NonPhpFile\Rector;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use Rector\Core\Configuration\RenamedClassesDataCollector;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Contract\Rector\NonPhpRectorInterface;
@@ -30,17 +30,17 @@ final class RenameClassNonPhpRector implements \Rector\Core\Contract\Rector\NonP
      */
     const STANDALONE_CLASS_SUFFIX_REGEX = '(?=::)#';
     /**
-     * @var RenamedClassesDataCollector
-     */
-    private $renamedClassesDataCollector;
-    /**
-     * @var RenamedClassesCollector
-     */
-    private $renamedClassesCollector;
-    /**
      * @var array<string, string>
      */
     private $renameClasses = [];
+    /**
+     * @var \Rector\Core\Configuration\RenamedClassesDataCollector
+     */
+    private $renamedClassesDataCollector;
+    /**
+     * @var \Rector\PSR4\Collector\RenamedClassesCollector
+     */
+    private $renamedClassesCollector;
     public function __construct(\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector)
     {
         $this->renamedClassesDataCollector = $renamedClassesDataCollector;
@@ -80,7 +80,7 @@ CODE_SAMPLE
         foreach ($classRenames as $oldClass => $newClass) {
             // the old class is without slashes, it can make mess as similar to a word in the text, so we have to be more strict about it
             $oldClassRegex = $this->createOldClassRegex($oldClass);
-            $newContent = \RectorPrefix20210504\Nette\Utils\Strings::replace($newContent, $oldClassRegex, function (array $match) use($newClass) : string {
+            $newContent = \RectorPrefix20210517\Nette\Utils\Strings::replace($newContent, $oldClassRegex, function (array $match) use($newClass) : string {
                 return ($match['extra_space'] ?? '') . $newClass;
             });
         }
@@ -96,7 +96,7 @@ CODE_SAMPLE
     {
         foreach ($classRenames as $oldClass => $newClass) {
             // to prevent no slash override
-            if (!\RectorPrefix20210504\Nette\Utils\Strings::contains($oldClass, '\\')) {
+            if (!\RectorPrefix20210517\Nette\Utils\Strings::contains($oldClass, '\\')) {
                 continue;
             }
             $doubleSlashOldClass = \str_replace('\\', '\\\\', $oldClass);
@@ -114,7 +114,7 @@ CODE_SAMPLE
     }
     private function createOldClassRegex(string $oldClass) : string
     {
-        if (!\RectorPrefix20210504\Nette\Utils\Strings::contains($oldClass, '\\')) {
+        if (!\RectorPrefix20210517\Nette\Utils\Strings::contains($oldClass, '\\')) {
             return self::STANDALONE_CLASS_PREFIX_REGEX . \preg_quote($oldClass, '#') . self::STANDALONE_CLASS_SUFFIX_REGEX;
         }
         return '#' . \preg_quote($oldClass, '#') . '#';

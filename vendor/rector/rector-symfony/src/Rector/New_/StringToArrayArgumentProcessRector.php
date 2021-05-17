@@ -17,8 +17,8 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use Rector\Core\PhpParser\NodeTransformer;
 use Rector\Core\Rector\AbstractRector;
-use RectorPrefix20210504\Symfony\Component\Console\Input\StringInput;
-use RectorPrefix20210504\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20210517\Symfony\Component\Console\Input\StringInput;
+use RectorPrefix20210517\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -28,7 +28,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class StringToArrayArgumentProcessRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var NodeTransformer
+     * @var \Rector\Core\PhpParser\NodeTransformer
      */
     private $nodeTransformer;
     public function __construct(\Rector\Core\PhpParser\NodeTransformer $nodeTransformer)
@@ -117,8 +117,8 @@ CODE_SAMPLE
      */
     private function splitProcessCommandToItems(string $process) : array
     {
-        $privatesCaller = new \RectorPrefix20210504\Symplify\PackageBuilder\Reflection\PrivatesCaller();
-        return $privatesCaller->callPrivateMethod(new \RectorPrefix20210504\Symfony\Component\Console\Input\StringInput(''), 'tokenize', [$process]);
+        $privatesCaller = new \RectorPrefix20210517\Symplify\PackageBuilder\Reflection\PrivatesCaller();
+        return $privatesCaller->callPrivateMethod(new \RectorPrefix20210517\Symfony\Component\Console\Input\StringInput(''), 'tokenize', [$process]);
     }
     /**
      * @return void

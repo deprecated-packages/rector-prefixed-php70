@@ -1,0 +1,31 @@
+<?php
+
+declare (strict_types=1);
+namespace PHPStan\Type\Generic;
+
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\Traits\UndecidedComparisonCompoundTypeTrait;
+use PHPStan\Type\Type;
+final class TemplateObjectType extends \PHPStan\Type\ObjectType implements \PHPStan\Type\Generic\TemplateType
+{
+    use UndecidedComparisonCompoundTypeTrait;
+    /** @use TemplateTypeTrait<ObjectType> */
+    use TemplateTypeTrait;
+    public function __construct(\PHPStan\Type\Generic\TemplateTypeScope $scope, \PHPStan\Type\Generic\TemplateTypeStrategy $templateTypeStrategy, \PHPStan\Type\Generic\TemplateTypeVariance $templateTypeVariance, string $name, \PHPStan\Type\ObjectType $bound)
+    {
+        parent::__construct($bound->getClassName());
+        $this->scope = $scope;
+        $this->strategy = $templateTypeStrategy;
+        $this->variance = $templateTypeVariance;
+        $this->name = $name;
+        $this->bound = $bound;
+    }
+    public function traverse(callable $cb) : \PHPStan\Type\Type
+    {
+        $newBound = $cb($this->getBound());
+        if ($this->getBound() !== $newBound && $newBound instanceof \PHPStan\Type\ObjectType) {
+            return new self($this->scope, $this->strategy, $this->variance, $this->name, $newBound);
+        }
+        return $this;
+    }
+}

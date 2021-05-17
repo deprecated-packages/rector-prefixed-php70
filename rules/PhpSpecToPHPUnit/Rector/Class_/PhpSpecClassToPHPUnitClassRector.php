@@ -27,30 +27,26 @@ use Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory;
 final class PhpSpecClassToPHPUnitClassRector extends \Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector
 {
     /**
-     * @var ObjectType
-     */
-    private $testedObjectType;
-    /**
-     * @var PhpSpecRenaming
-     */
-    private $phpSpecRenaming;
-    /**
-     * @var LetManipulator
-     */
-    private $letManipulator;
-    /**
-     * @var ClassInsertManipulator
+     * @var \Rector\Core\NodeManipulator\ClassInsertManipulator
      */
     private $classInsertManipulator;
     /**
-     * @var SetUpClassMethodFactory
+     * @var \Rector\PhpSpecToPHPUnit\LetManipulator
+     */
+    private $letManipulator;
+    /**
+     * @var \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming
+     */
+    private $phpSpecRenaming;
+    /**
+     * @var \Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory
      */
     private $setUpClassMethodFactory;
     public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\PhpSpecToPHPUnit\LetManipulator $letManipulator, \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming $phpSpecRenaming, \Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory $setUpClassMethodFactory)
     {
-        $this->phpSpecRenaming = $phpSpecRenaming;
-        $this->letManipulator = $letManipulator;
         $this->classInsertManipulator = $classInsertManipulator;
+        $this->letManipulator = $letManipulator;
+        $this->phpSpecRenaming = $phpSpecRenaming;
         $this->setUpClassMethodFactory = $setUpClassMethodFactory;
     }
     /**
@@ -75,23 +71,23 @@ final class PhpSpecClassToPHPUnitClassRector extends \Rector\PhpSpecToPHPUnit\Re
         $this->phpSpecRenaming->renameClass($node);
         $this->phpSpecRenaming->renameExtends($node);
         $testedClass = $this->phpSpecRenaming->resolveTestedClass($node);
-        $this->testedObjectType = new \PHPStan\Type\ObjectType($testedClass);
-        $this->classInsertManipulator->addPropertyToClass($node, $propertyName, $this->testedObjectType);
+        $testedObjectType = new \PHPStan\Type\ObjectType($testedClass);
+        $this->classInsertManipulator->addPropertyToClass($node, $propertyName, $testedObjectType);
         $classMethod = $node->getMethod('let');
         // add let if missing
         if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             if (!$this->letManipulator->isLetNeededInClass($node)) {
                 return null;
             }
-            $letClassMethod = $this->createLetClassMethod($propertyName);
+            $letClassMethod = $this->createLetClassMethod($propertyName, $testedObjectType);
             $this->classInsertManipulator->addAsFirstMethod($node, $letClassMethod);
         }
-        return $this->removeSelfTypeMethod($node);
+        return $this->removeSelfTypeMethod($node, $testedObjectType);
     }
-    private function createLetClassMethod(string $propertyName) : \PhpParser\Node\Stmt\ClassMethod
+    private function createLetClassMethod(string $propertyName, \PHPStan\Type\ObjectType $testedObjectType) : \PhpParser\Node\Stmt\ClassMethod
     {
         $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
-        $testedObjectType = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($this->testedObjectType);
+        $testedObjectType = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($testedObjectType);
         if (!$testedObjectType instanceof \PhpParser\Node\Name) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
@@ -102,7 +98,7 @@ final class PhpSpecClassToPHPUnitClassRector extends \Rector\PhpSpecToPHPUnit\Re
     /**
      * This is already checked on construction of object
      */
-    private function removeSelfTypeMethod(\PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Stmt\Class_
+    private function removeSelfTypeMethod(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $testedObjectType) : \PhpParser\Node\Stmt\Class_
     {
         foreach ($class->getMethods() as $classMethod) {
             $classMethodStmts = (array) $classMethod->stmts;
@@ -117,7 +113,7 @@ final class PhpSpecClassToPHPUnitClassRector extends \Rector\PhpSpecToPHPUnit\Re
                 continue;
             }
             // not the tested type
-            if (!$this->valueResolver->isValue($innerClassMethodStmt->args[0]->value, $this->testedObjectType->getClassName())) {
+            if (!$this->valueResolver->isValue($innerClassMethodStmt->args[0]->value, $testedObjectType->getClassName())) {
                 continue;
             }
             // remove it

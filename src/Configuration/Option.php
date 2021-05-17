@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Configuration;
 
-use RectorPrefix20210504\Symplify\Skipper\ValueObject\Option as SkipperOption;
+use RectorPrefix20210517\Symplify\Skipper\ValueObject\Option as SkipperOption;
 final class Option
 {
     /**
@@ -79,13 +79,14 @@ final class Option
      */
     const AUTOLOAD_PATHS = 'autoload_paths';
     /**
+     * @deprecated Use $containerConfigurator->import() as it does the same job, just better and more explicit
      * @var string
      */
     const SETS = 'sets';
     /**
      * @var string
      */
-    const SKIP = \RectorPrefix20210504\Symplify\Skipper\ValueObject\Option::SKIP;
+    const SKIP = \RectorPrefix20210517\Symplify\Skipper\ValueObject\Option::SKIP;
     /**
      * @var string
      */
@@ -113,10 +114,6 @@ final class Option
     /**
      * @var string
      */
-    const FIX = 'fix';
-    /**
-     * @var string
-     */
     const PHPSTAN_FOR_RECTOR_PATH = 'phpstan_for_rector_path';
     /**
      * @var string
@@ -130,4 +127,8 @@ final class Option
      * @var string
      */
     const TEMPLATE_TYPE = 'template-type';
+    /**
+     * @var string
+     */
+    const ENABLE_EDITORCONFIG = 'enable_editorconfig';
 }

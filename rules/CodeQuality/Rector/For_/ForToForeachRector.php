@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\For_;
 
-use RectorPrefix20210504\Doctrine\Inflector\Inflector;
+use RectorPrefix20210517\Doctrine\Inflector\Inflector;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
@@ -28,10 +28,6 @@ final class ForToForeachRector extends \Rector\Core\Rector\AbstractRector
      */
     const COUNT = 'count';
     /**
-     * @var Inflector
-     */
-    private $inflector;
-    /**
      * @var string|null
      */
     private $keyValueName;
@@ -40,26 +36,30 @@ final class ForToForeachRector extends \Rector\Core\Rector\AbstractRector
      */
     private $countValueName;
     /**
-     * @var Expr|null
+     * @var \PhpParser\Node\Expr|null
      */
     private $countValueVariableExpr;
     /**
-     * @var Expr|null
+     * @var \PhpParser\Node\Expr|null
      */
     private $iteratedExpr;
     /**
-     * @var ForAnalyzer
+     * @var \Doctrine\Inflector\Inflector
+     */
+    private $inflector;
+    /**
+     * @var \Rector\CodeQuality\NodeAnalyzer\ForAnalyzer
      */
     private $forAnalyzer;
     /**
-     * @var ForeachFactory
+     * @var \Rector\CodeQuality\NodeFactory\ForeachFactory
      */
     private $foreachFactory;
     /**
-     * @var ForeachAnalyzer
+     * @var \Rector\CodeQuality\NodeAnalyzer\ForeachAnalyzer
      */
     private $foreachAnalyzer;
-    public function __construct(\RectorPrefix20210504\Doctrine\Inflector\Inflector $inflector, \Rector\CodeQuality\NodeAnalyzer\ForAnalyzer $forAnalyzer, \Rector\CodeQuality\NodeFactory\ForeachFactory $foreachFactory, \Rector\CodeQuality\NodeAnalyzer\ForeachAnalyzer $foreachAnalyzer)
+    public function __construct(\RectorPrefix20210517\Doctrine\Inflector\Inflector $inflector, \Rector\CodeQuality\NodeAnalyzer\ForAnalyzer $forAnalyzer, \Rector\CodeQuality\NodeFactory\ForeachFactory $foreachFactory, \Rector\CodeQuality\NodeAnalyzer\ForeachAnalyzer $foreachAnalyzer)
     {
         $this->inflector = $inflector;
         $this->forAnalyzer = $forAnalyzer;

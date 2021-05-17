@@ -12,7 +12,6 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Nette\NodeAnalyzer\StaticCallAnalyzer;
@@ -38,26 +37,26 @@ final class RemoveParentAndNameFromComponentConstructorRector extends \Rector\Co
      */
     const NAME = 'name';
     /**
-     * @var StaticCallAnalyzer
+     * @var \PHPStan\Type\ObjectType
      */
-    private $staticCallAnalyzer;
+    private $controlObjectType;
     /**
-     * @var MethodReflectionProvider
-     */
-    private $methodReflectionProvider;
-    /**
-     * @var ParamFinder
+     * @var \Rector\Nette\NodeFinder\ParamFinder
      */
     private $paramFinder;
     /**
-     * @var ObjectType
+     * @var \Rector\Nette\NodeAnalyzer\StaticCallAnalyzer
      */
-    private $controlObjectType;
+    private $staticCallAnalyzer;
+    /**
+     * @var \Rector\NodeCollector\Reflection\MethodReflectionProvider
+     */
+    private $methodReflectionProvider;
     public function __construct(\Rector\Nette\NodeFinder\ParamFinder $paramFinder, \Rector\Nette\NodeAnalyzer\StaticCallAnalyzer $staticCallAnalyzer, \Rector\NodeCollector\Reflection\MethodReflectionProvider $methodReflectionProvider)
     {
+        $this->paramFinder = $paramFinder;
         $this->staticCallAnalyzer = $staticCallAnalyzer;
         $this->methodReflectionProvider = $methodReflectionProvider;
-        $this->paramFinder = $paramFinder;
         $this->controlObjectType = new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Control');
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -180,7 +179,7 @@ CODE_SAMPLE
         }
         $classReflection = $scope->getClassReflection();
         if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            return \false;
         }
         // presenter is not a component
         if ($classReflection->isSubclassOf('Nette\\Application\\UI\\Presenter')) {

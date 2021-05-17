@@ -33,29 +33,29 @@ final class MultiParentingToAbstractDependencyRector extends \Rector\Core\Rector
     /**
      * @var string
      */
-    private $framework;
+    private $framework = \Rector\Core\ValueObject\FrameworkName::SYMFONY;
     /**
      * @var ObjectType[]
      */
     private $injectObjectTypes = [];
     /**
-     * @var ClassMethodNodeRemover
+     * @var \Rector\DependencyInjection\NodeRemover\ClassMethodNodeRemover
      */
     private $classMethodNodeRemover;
     /**
-     * @var InjectMethodFactory
+     * @var \Rector\DependencyInjection\NodeFactory\InjectMethodFactory
      */
     private $injectMethodFactory;
     /**
-     * @var ClassInsertManipulator
+     * @var \Rector\Core\NodeManipulator\ClassInsertManipulator
      */
     private $classInsertManipulator;
     public function __construct(\Rector\DependencyInjection\NodeRemover\ClassMethodNodeRemover $classMethodNodeRemover, \Rector\DependencyInjection\NodeFactory\InjectMethodFactory $injectMethodFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator)
     {
-        $this->injectMethodFactory = $injectMethodFactory;
         $this->classMethodNodeRemover = $classMethodNodeRemover;
-        $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->injectMethodFactory = $injectMethodFactory;
         $this->classInsertManipulator = $classInsertManipulator;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -158,7 +158,7 @@ CODE_SAMPLE
      */
     public function configure(array $configuration)
     {
-        $this->framework = $configuration[self::FRAMEWORK];
+        $this->framework = $configuration[self::FRAMEWORK] ?? \Rector\Core\ValueObject\FrameworkName::SYMFONY;
     }
     /**
      * @return ObjectType[]

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocParser;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
@@ -21,23 +21,23 @@ use Rector\Core\Exception\ShouldNotHappenException;
 final class DoctrineAnnotationDecorator
 {
     /**
-     * @var CurrentNodeProvider
+     * @var \Rector\Core\Configuration\CurrentNodeProvider
      */
     private $currentNodeProvider;
     /**
-     * @var ClassAnnotationMatcher
+     * @var \Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher
      */
     private $classAnnotationMatcher;
     /**
-     * @var StaticDoctrineAnnotationParser
+     * @var \Rector\BetterPhpDocParser\PhpDocParser\StaticDoctrineAnnotationParser
      */
     private $staticDoctrineAnnotationParser;
     /**
-     * @var TokenIteratorFactory
+     * @var \Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory
      */
     private $tokenIteratorFactory;
     /**
-     * @var AttributeMirrorer
+     * @var \Rector\BetterPhpDocParser\Attributes\AttributeMirrorer
      */
     private $attributeMirrorer;
     public function __construct(\Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher $classAnnotationMatcher, \Rector\BetterPhpDocParser\PhpDocParser\StaticDoctrineAnnotationParser $staticDoctrineAnnotationParser, \Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory $tokenIteratorFactory, \Rector\BetterPhpDocParser\Attributes\AttributeMirrorer $attributeMirrorer)
@@ -136,7 +136,7 @@ final class DoctrineAnnotationDecorator
             // known doc tag to annotation class
             $fullyQualifiedAnnotationClass = $this->classAnnotationMatcher->resolveTagFullyQualifiedName($phpDocChildNode->name, $currentPhpNode);
             // not an annotations class
-            if (!\RectorPrefix20210504\Nette\Utils\Strings::contains($fullyQualifiedAnnotationClass, '\\')) {
+            if (!\RectorPrefix20210517\Nette\Utils\Strings::contains($fullyQualifiedAnnotationClass, '\\')) {
                 continue;
             }
             $genericTagValueNode = $phpDocChildNode->value;
@@ -166,10 +166,10 @@ final class DoctrineAnnotationDecorator
             return \true;
         }
         do {
-            if ($composedTokenIterator->isCurrentTokenTypes([\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_CURLY_BRACKET, \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PARENTHESES]) || \RectorPrefix20210504\Nette\Utils\Strings::contains($composedTokenIterator->currentTokenValue(), '(')) {
+            if ($composedTokenIterator->isCurrentTokenTypes([\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_CURLY_BRACKET, \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PARENTHESES]) || \RectorPrefix20210517\Nette\Utils\Strings::contains($composedTokenIterator->currentTokenValue(), '(')) {
                 ++$openBracketCount;
             }
-            if ($composedTokenIterator->isCurrentTokenTypes([\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_CURLY_BRACKET, \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PARENTHESES]) || \RectorPrefix20210504\Nette\Utils\Strings::contains($composedTokenIterator->currentTokenValue(), ')')) {
+            if ($composedTokenIterator->isCurrentTokenTypes([\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_CURLY_BRACKET, \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PARENTHESES]) || \RectorPrefix20210517\Nette\Utils\Strings::contains($composedTokenIterator->currentTokenValue(), ')')) {
                 ++$closeBracketCount;
             }
             $composedTokenIterator->next();

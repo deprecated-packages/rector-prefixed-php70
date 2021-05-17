@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeNameResolver;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\MethodCall;
@@ -20,30 +20,30 @@ use Rector\NodeNameResolver\Regex\RegexPatternDetector;
 final class NodeNameResolver
 {
     /**
-     * @var NodeNameResolverInterface[]
-     */
-    private $nodeNameResolvers = [];
-    /**
-     * @var RegexPatternDetector
+     * @var \Rector\NodeNameResolver\Regex\RegexPatternDetector
      */
     private $regexPatternDetector;
     /**
-     * @var ClassNaming
+     * @var \Rector\CodingStyle\Naming\ClassNaming
      */
     private $classNaming;
     /**
-     * @var InvalidNameNodeReporter
+     * @var \Rector\NodeNameResolver\Error\InvalidNameNodeReporter
      */
     private $invalidNameNodeReporter;
+    /**
+     * @var mixed[]
+     */
+    private $nodeNameResolvers = [];
     /**
      * @param NodeNameResolverInterface[] $nodeNameResolvers
      */
     public function __construct(\Rector\NodeNameResolver\Regex\RegexPatternDetector $regexPatternDetector, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NodeNameResolver\Error\InvalidNameNodeReporter $invalidNameNodeReporter, array $nodeNameResolvers = [])
     {
         $this->regexPatternDetector = $regexPatternDetector;
-        $this->nodeNameResolvers = $nodeNameResolvers;
         $this->classNaming = $classNaming;
         $this->invalidNameNodeReporter = $invalidNameNodeReporter;
+        $this->nodeNameResolvers = $nodeNameResolvers;
     }
     /**
      * @param string[] $names
@@ -150,7 +150,7 @@ final class NodeNameResolver
     public function endsWith(string $currentName, string $expectedName) : bool
     {
         $suffixNamePattern = '#\\w+' . \ucfirst($expectedName) . '#';
-        return (bool) \RectorPrefix20210504\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
+        return (bool) \RectorPrefix20210517\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
     }
     /**
      * @param string|Name|Identifier|ClassLike $name
@@ -193,10 +193,10 @@ final class NodeNameResolver
         }
         // is probably regex pattern
         if ($this->regexPatternDetector->isRegexPattern($name)) {
-            return (bool) \RectorPrefix20210504\Nette\Utils\Strings::match($resolvedName, $name);
+            return (bool) \RectorPrefix20210517\Nette\Utils\Strings::match($resolvedName, $name);
         }
         // is probably fnmatch
-        if (\RectorPrefix20210504\Nette\Utils\Strings::contains($name, '*')) {
+        if (\RectorPrefix20210517\Nette\Utils\Strings::contains($name, '*')) {
             return \fnmatch($name, $resolvedName, \FNM_NOESCAPE);
         }
         // special case

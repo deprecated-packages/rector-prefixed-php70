@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CakePHP\Naming;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PHPStan\Reflection\ReflectionProvider;
 use Rector\CakePHP\ImplicitNameResolver;
 /**
@@ -27,11 +27,11 @@ final class CakePHPFullyQualifiedClassNameResolver
      */
     const PLUGIN_OR_LIB_REGEX = '#(Plugin|Lib)#';
     /**
-     * @var ImplicitNameResolver
+     * @var \Rector\CakePHP\ImplicitNameResolver
      */
     private $implicitNameResolver;
     /**
-     * @var ReflectionProvider
+     * @var \PHPStan\Reflection\ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\Rector\CakePHP\ImplicitNameResolver $implicitNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
@@ -52,8 +52,8 @@ final class CakePHPFullyQualifiedClassNameResolver
         }
         // Chop Lib out as locations moves those files to the top level.
         // But only if Lib is not the last folder.
-        if (\RectorPrefix20210504\Nette\Utils\Strings::match($pseudoNamespace, self::LIB_NAMESPACE_PART_REGEX)) {
-            $pseudoNamespace = \RectorPrefix20210504\Nette\Utils\Strings::replace($pseudoNamespace, '#\\\\Lib#', '');
+        if (\RectorPrefix20210517\Nette\Utils\Strings::match($pseudoNamespace, self::LIB_NAMESPACE_PART_REGEX)) {
+            $pseudoNamespace = \RectorPrefix20210517\Nette\Utils\Strings::replace($pseudoNamespace, '#\\\\Lib#', '');
         }
         // B. is Cake native class?
         $cakePhpVersion = 'Cake\\' . $pseudoNamespace . '\\' . $shortClass;
@@ -61,13 +61,13 @@ final class CakePHPFullyQualifiedClassNameResolver
             return $cakePhpVersion;
         }
         // C. is not plugin nor lib custom App class?
-        if (\RectorPrefix20210504\Nette\Utils\Strings::contains($pseudoNamespace, '\\') && !\RectorPrefix20210504\Nette\Utils\Strings::match($pseudoNamespace, self::PLUGIN_OR_LIB_REGEX)) {
+        if (\RectorPrefix20210517\Nette\Utils\Strings::contains($pseudoNamespace, '\\') && !\RectorPrefix20210517\Nette\Utils\Strings::match($pseudoNamespace, self::PLUGIN_OR_LIB_REGEX)) {
             return 'App\\' . $pseudoNamespace . '\\' . $shortClass;
         }
         return $pseudoNamespace . '\\' . $shortClass;
     }
     private function normalizeFileSystemSlashes(string $pseudoNamespace) : string
     {
-        return \RectorPrefix20210504\Nette\Utils\Strings::replace($pseudoNamespace, self::SLASH_REGEX, '\\');
+        return \RectorPrefix20210517\Nette\Utils\Strings::replace($pseudoNamespace, self::SLASH_REGEX, '\\');
     }
 }

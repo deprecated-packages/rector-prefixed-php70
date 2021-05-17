@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\If_;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Identical;
@@ -23,11 +23,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class SimplifyIfReturnBoolRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var CommentsMerger
+     * @var \Rector\BetterPhpDocParser\Comment\CommentsMerger
      */
     private $commentsMerger;
     /**
-     * @var ExprBoolCaster
+     * @var \Rector\CodeQuality\NodeManipulator\ExprBoolCaster
      */
     private $exprBoolCaster;
     public function __construct(\Rector\BetterPhpDocParser\Comment\CommentsMerger $commentsMerger, \Rector\CodeQuality\NodeManipulator\ExprBoolCaster $exprBoolCaster)
@@ -111,7 +111,7 @@ CODE_SAMPLE
         if (!$this->valueResolver->isFalse($returnedExpr)) {
             return !$this->valueResolver->isTrueOrFalse($nextNode->expr);
         }
-        if (!\RectorPrefix20210504\Nette\Utils\Strings::contains($this->print($if->cond), '!=')) {
+        if (!\RectorPrefix20210517\Nette\Utils\Strings::contains($this->print($if->cond), '!=')) {
             return !$this->valueResolver->isTrueOrFalse($nextNode->expr);
         }
         return \true;

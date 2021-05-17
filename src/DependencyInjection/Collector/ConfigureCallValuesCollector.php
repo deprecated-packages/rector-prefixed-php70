@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Core\DependencyInjection\Collector;
 
-use RectorPrefix20210504\Symfony\Component\DependencyInjection\Definition;
-use RectorPrefix20210504\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use RectorPrefix20210517\Symfony\Component\DependencyInjection\Definition;
+use RectorPrefix20210517\Symplify\PackageBuilder\Yaml\ParametersMerger;
 final class ConfigureCallValuesCollector
 {
     /**
@@ -12,12 +12,12 @@ final class ConfigureCallValuesCollector
      */
     private $configureCallValuesByRectorClass = [];
     /**
-     * @var ParametersMerger
+     * @var \Symplify\PackageBuilder\Yaml\ParametersMerger
      */
     private $parametersMerger;
     public function __construct()
     {
-        $this->parametersMerger = new \RectorPrefix20210504\Symplify\PackageBuilder\Yaml\ParametersMerger();
+        $this->parametersMerger = new \RectorPrefix20210517\Symplify\PackageBuilder\Yaml\ParametersMerger();
     }
     /**
      * @return mixed[]
@@ -29,7 +29,7 @@ final class ConfigureCallValuesCollector
     /**
      * @return void
      */
-    public function collectFromServiceAndClassName(string $className, \RectorPrefix20210504\Symfony\Component\DependencyInjection\Definition $definition)
+    public function collectFromServiceAndClassName(string $className, \RectorPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition)
     {
         foreach ($definition->getMethodCalls() as $methodCall) {
             if ($methodCall[0] !== 'configure') {

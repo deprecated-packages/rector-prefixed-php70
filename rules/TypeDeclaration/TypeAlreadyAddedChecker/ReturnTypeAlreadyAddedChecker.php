@@ -18,6 +18,7 @@ use PHPStan\Type\IntersectionType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use Rector\Core\PhpParser\Comparing\NodeComparator;
@@ -32,21 +33,21 @@ final class ReturnTypeAlreadyAddedChecker
      */
     const FOREACHABLE_TYPES = ['iterable', 'Iterator', 'Traversable', 'array'];
     /**
-     * @var StaticTypeMapper
+     * @var \Rector\NodeNameResolver\NodeNameResolver
+     */
+    private $nodeNameResolver;
+    /**
+     * @var \Rector\StaticTypeMapper\StaticTypeMapper
      */
     private $staticTypeMapper;
     /**
-     * @var NodeComparator
+     * @var \Rector\Core\PhpParser\Comparing\NodeComparator
      */
     private $nodeComparator;
-    /**
-     * @var NodeNameResolver
-     */
-    private $nodeNameResolver;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
-        $this->staticTypeMapper = $staticTypeMapper;
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->staticTypeMapper = $staticTypeMapper;
         $this->nodeComparator = $nodeComparator;
     }
     /**
@@ -80,6 +81,10 @@ final class ReturnTypeAlreadyAddedChecker
         }
         if ($functionLike->returnType->toLowerString() !== 'self') {
             return \false;
+        }
+        // skip "self" by "static" override
+        if ($returnType instanceof \PHPStan\Type\ThisType) {
+            return \true;
         }
         $className = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         $nodeContent = $this->nodeComparator->printWithoutComments($returnNode);

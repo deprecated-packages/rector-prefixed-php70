@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony\Rector\Class_;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
@@ -42,15 +42,17 @@ final class EventListenerToEventSubscriberRector extends \Rector\Core\Rector\Abs
      */
     private $eventNamesToClassConstants = [];
     /**
-     * @var ListenerServiceDefinitionProvider
+     * @var \Rector\Symfony\ApplicationMetadata\ListenerServiceDefinitionProvider
      */
     private $listenerServiceDefinitionProvider;
     /**
-     * @var GetSubscribedEventsClassMethodFactory
+     * @var \Rector\Symfony\NodeFactory\GetSubscribedEventsClassMethodFactory
      */
     private $getSubscribedEventsClassMethodFactory;
     public function __construct(\Rector\Symfony\ApplicationMetadata\ListenerServiceDefinitionProvider $listenerServiceDefinitionProvider, \Rector\Symfony\NodeFactory\GetSubscribedEventsClassMethodFactory $getSubscribedEventsClassMethodFactory)
     {
+        $this->listenerServiceDefinitionProvider = $listenerServiceDefinitionProvider;
+        $this->getSubscribedEventsClassMethodFactory = $getSubscribedEventsClassMethodFactory;
         $this->eventNamesToClassConstants = [
             // kernel events
             new \Rector\Symfony\ValueObject\EventNameToClassAndConstant('kernel.request', self::KERNEL_EVENTS_CLASS, 'REQUEST'),
@@ -66,8 +68,6 @@ final class EventListenerToEventSubscriberRector extends \Rector\Core\Rector\Abs
             new \Rector\Symfony\ValueObject\EventNameToClassAndConstant('console.terminate', self::CONSOLE_EVENTS_CLASS, 'TERMINATE'),
             new \Rector\Symfony\ValueObject\EventNameToClassAndConstant('console.error', self::CONSOLE_EVENTS_CLASS, 'ERROR'),
         ];
-        $this->listenerServiceDefinitionProvider = $listenerServiceDefinitionProvider;
-        $this->getSubscribedEventsClassMethodFactory = $getSubscribedEventsClassMethodFactory;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -156,7 +156,7 @@ CODE_SAMPLE
         $class->implements[] = new \PhpParser\Node\Name\FullyQualified(self::EVENT_SUBSCRIBER_INTERFACE);
         $classShortName = $this->nodeNameResolver->getShortName($class);
         // remove suffix
-        $classShortName = \RectorPrefix20210504\Nette\Utils\Strings::replace($classShortName, self::LISTENER_MATCH_REGEX, '$1');
+        $classShortName = \RectorPrefix20210517\Nette\Utils\Strings::replace($classShortName, self::LISTENER_MATCH_REGEX, '$1');
         $class->name = new \PhpParser\Node\Identifier($classShortName . 'EventSubscriber');
         $classMethod = $this->getSubscribedEventsClassMethodFactory->createFromServiceDefinitionsAndEventsToMethods($eventsToMethods, $this->eventNamesToClassConstants);
         $class->stmts[] = $classMethod;

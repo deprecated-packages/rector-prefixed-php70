@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\DependencyInjection\Rector\Variable;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ReplaceVariableByPropertyFetchRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var VariablesToPropertyFetchCollection
+     * @var \Rector\DependencyInjection\Collector\VariablesToPropertyFetchCollection
      */
     private $variablesToPropertyFetchCollection;
     public function __construct(\Rector\DependencyInjection\Collector\VariablesToPropertyFetchCollection $variablesToPropertyFetchCollection)
@@ -103,7 +103,7 @@ CODE_SAMPLE
         if ($className === null) {
             return \false;
         }
-        if (!\RectorPrefix20210504\Nette\Utils\Strings::endsWith($className, 'Controller')) {
+        if (!\RectorPrefix20210517\Nette\Utils\Strings::endsWith($className, 'Controller')) {
             return \false;
         }
         $classMethod = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);

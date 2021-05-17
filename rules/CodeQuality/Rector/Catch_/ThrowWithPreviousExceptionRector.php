@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\Catch_;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
@@ -33,7 +33,7 @@ final class ThrowWithPreviousExceptionRector extends \Rector\Core\Rector\Abstrac
      */
     const DEFAULT_EXCEPTION_ARGUMENT_POSITION = 2;
     /**
-     * @var ReflectionProvider
+     * @var \PHPStan\Reflection\ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
@@ -142,7 +142,7 @@ CODE_SAMPLE
     {
         $className = $this->getName($exceptionName);
         // is native exception?
-        if (!\RectorPrefix20210504\Nette\Utils\Strings::contains($className, '\\')) {
+        if (!\RectorPrefix20210517\Nette\Utils\Strings::contains($className, '\\')) {
             return self::DEFAULT_EXCEPTION_ARGUMENT_POSITION;
         }
         if (!$this->reflectionProvider->hasClass($className)) {

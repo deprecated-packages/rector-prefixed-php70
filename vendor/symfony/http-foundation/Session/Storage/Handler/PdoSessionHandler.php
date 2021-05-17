@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210504\Symfony\Component\HttpFoundation\Session\Storage\Handler;
+namespace RectorPrefix20210517\Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
 /**
  * Session handler using a PDO connection to read and write data.
@@ -37,7 +37,7 @@ namespace RectorPrefix20210504\Symfony\Component\HttpFoundation\Session\Storage\
  * @author Michael Williams <michael.williams@funsational.com>
  * @author Tobias Schultze <http://tobion.de>
  */
-class PdoSessionHandler extends \RectorPrefix20210504\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
+class PdoSessionHandler extends \RectorPrefix20210517\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
 {
     /**
      * No locking is done. This means sessions are prone to loss of data due to
@@ -374,7 +374,7 @@ class PdoSessionHandler extends \RectorPrefix20210504\Symfony\Component\HttpFoun
     /**
      * Lazy-connects to the database.
      */
-    private function connect(string $dsn)
+    private function connect(string $dsn) : void
     {
         $this->pdo = new \PDO($dsn, $this->username, $this->password, $this->connectionOptions);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -466,7 +466,7 @@ class PdoSessionHandler extends \RectorPrefix20210504\Symfony\Component\HttpFoun
      * due to https://percona.com/blog/2013/12/12/one-more-innodb-gap-lock-to-avoid/ .
      * So we change it to READ COMMITTED.
      */
-    private function beginTransaction()
+    private function beginTransaction() : void
     {
         if (!$this->inTransaction) {
             if ('sqlite' === $this->driver) {
@@ -483,7 +483,7 @@ class PdoSessionHandler extends \RectorPrefix20210504\Symfony\Component\HttpFoun
     /**
      * Helper method to commit a transaction.
      */
-    private function commit()
+    private function commit() : void
     {
         if ($this->inTransaction) {
             try {
@@ -503,7 +503,7 @@ class PdoSessionHandler extends \RectorPrefix20210504\Symfony\Component\HttpFoun
     /**
      * Helper method to rollback a transaction.
      */
-    private function rollback()
+    private function rollback() : void
     {
         // We only need to rollback if we are in a transaction. Otherwise the resulting
         // error would hide the real problem why rollback was called. We might not be

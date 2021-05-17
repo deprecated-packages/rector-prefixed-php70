@@ -8,16 +8,16 @@ use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Symfony\Composer\ComposerNamespaceMatcher;
 use Rector\Symfony\ValueObject\ClassName;
 use Rector\Symfony\ValueObject\ConstantNameAndValue;
-use RectorPrefix20210504\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder;
-use RectorPrefix20210504\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder;
+use RectorPrefix20210517\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder;
+use RectorPrefix20210517\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder;
 final class RouteNameClassFactory
 {
     /**
-     * @var NodeFactory
+     * @var \Rector\Core\PhpParser\Node\NodeFactory
      */
     private $nodeFactory;
     /**
-     * @var ComposerNamespaceMatcher
+     * @var \Rector\Symfony\Composer\ComposerNamespaceMatcher
      */
     private $composerNamespaceMatcher;
     public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\Symfony\Composer\ComposerNamespaceMatcher $composerNamespaceMatcher)
@@ -30,7 +30,7 @@ final class RouteNameClassFactory
      */
     public function create(array $constantNamesAndValues, string $fileLocation) : \PhpParser\Node\Stmt\Namespace_
     {
-        $classBuilder = new \RectorPrefix20210504\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder(\Rector\Symfony\ValueObject\ClassName::ROUTE_CLASS_SHORT_NAME);
+        $classBuilder = new \RectorPrefix20210517\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder(\Rector\Symfony\ValueObject\ClassName::ROUTE_CLASS_SHORT_NAME);
         $classBuilder->makeFinal();
         $namespaceName = $this->composerNamespaceMatcher->matchNamespaceForLocation($fileLocation);
         if ($namespaceName === null) {
@@ -42,7 +42,7 @@ final class RouteNameClassFactory
             $classConst = $this->nodeFactory->createPublicClassConst($constantNameAndValue->getName(), $constantNameAndValue->getValue());
             $classBuilder->addStmt($classConst);
         }
-        $namespaceBuilder = new \RectorPrefix20210504\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder($namespaceName);
+        $namespaceBuilder = new \RectorPrefix20210517\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder($namespaceName);
         $namespaceBuilder->addStmt($classBuilder->getNode());
         return $namespaceBuilder->getNode();
     }

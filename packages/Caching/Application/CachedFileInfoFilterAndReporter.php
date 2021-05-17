@@ -10,15 +10,15 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class CachedFileInfoFilterAndReporter
 {
     /**
-     * @var Configuration
+     * @var \Rector\Core\Configuration\Configuration
      */
     private $configuration;
     /**
-     * @var ChangedFilesDetector
+     * @var \Rector\Caching\Detector\ChangedFilesDetector
      */
     private $changedFilesDetector;
     /**
-     * @var UnchangedFilesFilter
+     * @var \Rector\Caching\UnchangedFilesFilter
      */
     private $unchangedFilesFilter;
     public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Caching\UnchangedFilesFilter $unchangedFilesFilter)
@@ -33,12 +33,10 @@ final class CachedFileInfoFilterAndReporter
      */
     public function filterFileInfos(array $phpFileInfos) : array
     {
-        if (!$this->configuration->isCacheEnabled()) {
-            return $phpFileInfos;
-        }
         // cache stuff
-        if ($this->configuration->shouldClearCache()) {
+        if (!$this->configuration->isCacheEnabled() || $this->configuration->shouldClearCache()) {
             $this->changedFilesDetector->clear();
+            return $phpFileInfos;
         }
         return $this->unchangedFilesFilter->filterAndJoinWithDependentFileInfos($phpFileInfos);
     }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Nette\Kdyby\Rector\ClassMethod;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -24,19 +24,19 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ChangeNetteEventNamesInGetSubscribedEventsRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var GetSubscribedEventsArrayManipulator
+     * @var \Rector\Nette\Kdyby\NodeManipulator\GetSubscribedEventsArrayManipulator
      */
     private $getSubscribedEventsArrayManipulator;
     /**
-     * @var ListeningClassMethodArgumentManipulator
+     * @var \Rector\Nette\Kdyby\NodeManipulator\ListeningClassMethodArgumentManipulator
      */
     private $listeningClassMethodArgumentManipulator;
     /**
-     * @var ListeningMethodsCollector
+     * @var \Rector\Nette\Kdyby\NodeResolver\ListeningMethodsCollector
      */
     private $listeningMethodsCollector;
     /**
-     * @var GetSubscribedEventsClassMethodAnalyzer
+     * @var \Rector\Nette\Kdyby\NodeAnalyzer\GetSubscribedEventsClassMethodAnalyzer
      */
     private $getSubscribedEventsClassMethodAnalyzer;
     public function __construct(\Rector\Nette\Kdyby\NodeManipulator\GetSubscribedEventsArrayManipulator $getSubscribedEventsArrayManipulator, \Rector\Nette\Kdyby\NodeManipulator\ListeningClassMethodArgumentManipulator $listeningClassMethodArgumentManipulator, \Rector\Nette\Kdyby\NodeResolver\ListeningMethodsCollector $listeningMethodsCollector, \Rector\Nette\Kdyby\NodeAnalyzer\GetSubscribedEventsClassMethodAnalyzer $getSubscribedEventsClassMethodAnalyzer)
@@ -155,8 +155,8 @@ CODE_SAMPLE
     private function resolveMethodNameFromKdybyEventName(\PhpParser\Node\Expr $expr) : string
     {
         $kdybyEventName = $this->valueResolver->getValue($expr);
-        if (\RectorPrefix20210504\Nette\Utils\Strings::contains($kdybyEventName, '::')) {
-            return (string) \RectorPrefix20210504\Nette\Utils\Strings::after($kdybyEventName, '::', -1);
+        if (\RectorPrefix20210517\Nette\Utils\Strings::contains($kdybyEventName, '::')) {
+            return (string) \RectorPrefix20210517\Nette\Utils\Strings::after($kdybyEventName, '::', -1);
         }
         throw new \Rector\Core\Exception\NotImplementedYetException($kdybyEventName);
     }

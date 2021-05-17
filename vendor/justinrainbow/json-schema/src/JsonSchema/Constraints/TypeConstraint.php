@@ -6,10 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210504\JsonSchema\Constraints;
+namespace RectorPrefix20210517\JsonSchema\Constraints;
 
-use RectorPrefix20210504\JsonSchema\Entity\JsonPointer;
-use RectorPrefix20210504\JsonSchema\Exception\InvalidArgumentException;
+use RectorPrefix20210517\JsonSchema\Entity\JsonPointer;
+use RectorPrefix20210517\JsonSchema\Exception\InvalidArgumentException;
 use UnexpectedValueException as StandardUnexpectedValueException;
 /**
  * The TypeConstraint Constraints, validates an element against a given type
@@ -17,7 +17,7 @@ use UnexpectedValueException as StandardUnexpectedValueException;
  * @author Robert Schönthal <seroscho@googlemail.com>
  * @author Bruno Prieto Reis <bruno.p.reis@gmail.com>
  */
-class TypeConstraint extends \RectorPrefix20210504\JsonSchema\Constraints\Constraint
+class TypeConstraint extends \RectorPrefix20210517\JsonSchema\Constraints\Constraint
 {
     /**
      * @var array|string[] type wordings for validation error messages
@@ -37,7 +37,7 @@ class TypeConstraint extends \RectorPrefix20210504\JsonSchema\Constraints\Constr
     /**
      * {@inheritdoc}
      */
-    public function check(&$value = null, $schema = null, \RectorPrefix20210504\JsonSchema\Entity\JsonPointer $path = null, $i = null)
+    public function check(&$value = null, $schema = null, \RectorPrefix20210517\JsonSchema\Entity\JsonPointer $path = null, $i = null)
     {
         $type = isset($schema->type) ? $schema->type : null;
         $isValid = \false;
@@ -153,7 +153,7 @@ class TypeConstraint extends \RectorPrefix20210504\JsonSchema\Constraints\Constr
         if ('array' === $type) {
             return $this->getTypeCheck()->isArray($value);
         }
-        $coerce = $this->factory->getConfig(\RectorPrefix20210504\JsonSchema\Constraints\Constraint::CHECK_MODE_COERCE_TYPES);
+        $coerce = $this->factory->getConfig(\RectorPrefix20210517\JsonSchema\Constraints\Constraint::CHECK_MODE_COERCE_TYPES);
         if ('integer' === $type) {
             if ($coerce) {
                 $value = $this->toInteger($value);
@@ -181,7 +181,7 @@ class TypeConstraint extends \RectorPrefix20210504\JsonSchema\Constraints\Constr
         if ('null' === $type) {
             return \is_null($value);
         }
-        throw new \RectorPrefix20210504\JsonSchema\Exception\InvalidArgumentException((\is_object($value) ? 'object' : $value) . ' is an invalid type for ' . $type);
+        throw new \RectorPrefix20210517\JsonSchema\Exception\InvalidArgumentException((\is_object($value) ? 'object' : $value) . ' is an invalid type for ' . $type);
     }
     /**
      * Converts a value to boolean. For example, "true" becomes true.

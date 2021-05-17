@@ -16,7 +16,7 @@ To add a set to your config, use `Rector\Nette\Set\NetteSetList` class and pick 
 use Rector\Nette\Set\NetteSetList;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator) {
+return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(NetteSetList::NETTE_24);
 };
 ```

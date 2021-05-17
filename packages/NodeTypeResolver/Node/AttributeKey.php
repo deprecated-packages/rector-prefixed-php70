@@ -160,4 +160,9 @@ final class AttributeKey
      * @var string
      */
     const HAS_PHP_DOC_INFO_JUST_CHANGED = 'has_php_doc_info_just_changed';
+    /**
+     * Helps with infinite loop detection
+     * @var string
+     */
+    const CREATED_BY_RULE = 'created_by_rule';
 }

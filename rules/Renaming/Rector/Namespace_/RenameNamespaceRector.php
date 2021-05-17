@@ -3,13 +3,14 @@
 declare (strict_types=1);
 namespace Rector\Renaming\Rector\Namespace_;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_;
+use PhpParser\Node\Stmt\UseUse;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Naming\NamespaceMatcher;
@@ -25,13 +26,13 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
     /**
      * @var string
      */
-    const OLD_TO_NEW_NAMESPACES = '$oldToNewNamespaces';
+    const OLD_TO_NEW_NAMESPACES = 'old_to_new_namespaces';
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private $oldToNewNamespaces = [];
     /**
-     * @var NamespaceMatcher
+     * @var \Rector\Naming\NamespaceMatcher
      */
     private $namespaceMatcher;
     public function __construct(\Rector\Naming\NamespaceMatcher $namespaceMatcher)
@@ -76,11 +77,19 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
             $node->uses[0]->name = new \PhpParser\Node\Name($newName);
             return $node;
         }
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        // already resolved above
+        if ($parent instanceof \PhpParser\Node\Stmt\Namespace_) {
+            return null;
+        }
+        if ($parent instanceof \PhpParser\Node\Stmt\UseUse && $parent->type === \PhpParser\Node\Stmt\Use_::TYPE_UNKNOWN) {
+            return null;
+        }
         $newName = $this->isPartialNamespace($node) ? $this->resolvePartialNewName($node, $renamedNamespaceValueObject) : $renamedNamespaceValueObject->getNameInNewNamespace();
         return new \PhpParser\Node\Name\FullyQualified($newName);
     }
     /**
-     * @param mixed[] $configuration
+     * @param array<string, array<string, string>> $configuration
      * @return void
      */
     public function configure(array $configuration)
@@ -120,7 +129,7 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
     {
         $nameInNewNamespace = $renamedNamespace->getNameInNewNamespace();
         // first dummy implementation - improve
-        $cutOffFromTheLeft = \RectorPrefix20210504\Nette\Utils\Strings::length($nameInNewNamespace) - \RectorPrefix20210504\Nette\Utils\Strings::length($name->toString());
-        return \RectorPrefix20210504\Nette\Utils\Strings::substring($nameInNewNamespace, $cutOffFromTheLeft);
+        $cutOffFromTheLeft = \RectorPrefix20210517\Nette\Utils\Strings::length($nameInNewNamespace) - \RectorPrefix20210517\Nette\Utils\Strings::length($name->toString());
+        return \RectorPrefix20210517\Nette\Utils\Strings::substring($nameInNewNamespace, $cutOffFromTheLeft);
     }
 }

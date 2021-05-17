@@ -10,7 +10,7 @@ use Rector\Core\Logging\CurrentRectorProvider;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 use Rector\PostRector\Contract\Rector\PostRectorInterface;
-use RectorPrefix20210504\Symplify\Skipper\Skipper\Skipper;
+use RectorPrefix20210517\Symplify\Skipper\Skipper\Skipper;
 final class PostFileProcessor
 {
     /**
@@ -18,26 +18,26 @@ final class PostFileProcessor
      */
     private $postRectors = [];
     /**
-     * @var Skipper
+     * @var \Symplify\Skipper\Skipper\Skipper
      */
     private $skipper;
     /**
-     * @var CurrentRectorProvider
-     */
-    private $currentRectorProvider;
-    /**
-     * @var CurrentFileProvider
+     * @var \Rector\Core\Provider\CurrentFileProvider
      */
     private $currentFileProvider;
     /**
+     * @var \Rector\Core\Logging\CurrentRectorProvider
+     */
+    private $currentRectorProvider;
+    /**
      * @param PostRectorInterface[] $postRectors
      */
-    public function __construct(\RectorPrefix20210504\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, array $postRectors)
+    public function __construct(\RectorPrefix20210517\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, array $postRectors)
     {
-        $this->postRectors = $this->sortByPriority($postRectors);
         $this->skipper = $skipper;
-        $this->currentRectorProvider = $currentRectorProvider;
         $this->currentFileProvider = $currentFileProvider;
+        $this->currentRectorProvider = $currentRectorProvider;
+        $this->postRectors = $this->sortByPriority($postRectors);
     }
     /**
      * @param Stmt[] $nodes

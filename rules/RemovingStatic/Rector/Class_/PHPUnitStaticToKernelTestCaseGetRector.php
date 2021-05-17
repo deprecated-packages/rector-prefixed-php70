@@ -45,27 +45,27 @@ final class PHPUnitStaticToKernelTestCaseGetRector extends \Rector\Core\Rector\A
      */
     private $newPropertyObjectTypes = [];
     /**
-     * @var PropertyNaming
+     * @var \Rector\Naming\Naming\PropertyNaming
      */
     private $propertyNaming;
     /**
-     * @var ClassInsertManipulator
+     * @var \Rector\Core\NodeManipulator\ClassInsertManipulator
      */
     private $classInsertManipulator;
     /**
-     * @var SetUpClassMethodFactory
+     * @var \Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory
      */
     private $setUpClassMethodFactory;
     /**
-     * @var SetUpFactory
+     * @var \Rector\RemovingStatic\NodeFactory\SetUpFactory
      */
     private $setUpFactory;
     /**
-     * @var SelfContainerFactory
+     * @var \Rector\RemovingStatic\NodeFactory\SelfContainerFactory
      */
     private $selfContainerFactory;
     /**
-     * @var SetUpClassMethodUpdater
+     * @var \Rector\RemovingStatic\NodeAnalyzer\SetUpClassMethodUpdater
      */
     private $setUpClassMethodUpdater;
     public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory $setUpClassMethodFactory, \Rector\RemovingStatic\NodeFactory\SetUpFactory $setUpFactory, \Rector\RemovingStatic\NodeFactory\SelfContainerFactory $selfContainerFactory, \Rector\RemovingStatic\NodeAnalyzer\SetUpClassMethodUpdater $setUpClassMethodUpdater)
@@ -82,14 +82,14 @@ final class PHPUnitStaticToKernelTestCaseGetRector extends \Rector\Core\Rector\A
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert static calls in PHPUnit test cases, to get() from the container of KernelTestCase', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace RectorPrefix20210504;
+namespace RectorPrefix20210517;
 
-use RectorPrefix20210504\PHPUnit\Framework\TestCase;
-final class SomeTestCase extends \RectorPrefix20210504\PHPUnit\Framework\TestCase
+use RectorPrefix20210517\PHPUnit\Framework\TestCase;
+final class SomeTestCase extends \RectorPrefix20210517\PHPUnit\Framework\TestCase
 {
     public function test()
     {
-        $product = \RectorPrefix20210504\EntityFactory::create('product');
+        $product = \RectorPrefix20210517\EntityFactory::create('product');
     }
 }
 \class_alias('SomeTestCase', 'SomeTestCase', \false);

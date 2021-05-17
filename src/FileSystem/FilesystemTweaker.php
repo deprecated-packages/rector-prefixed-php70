@@ -3,15 +3,15 @@
 declare (strict_types=1);
 namespace Rector\Core\FileSystem;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
-use RectorPrefix20210504\Symplify\SmartFileSystem\FileSystemGuard;
+use RectorPrefix20210517\Nette\Utils\Strings;
+use RectorPrefix20210517\Symplify\SmartFileSystem\FileSystemGuard;
 final class FilesystemTweaker
 {
     /**
-     * @var FileSystemGuard
+     * @var \Symplify\SmartFileSystem\FileSystemGuard
      */
     private $fileSystemGuard;
-    public function __construct(\RectorPrefix20210504\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard)
+    public function __construct(\RectorPrefix20210517\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard)
     {
         $this->fileSystemGuard = $fileSystemGuard;
     }
@@ -26,8 +26,8 @@ final class FilesystemTweaker
         $absoluteDirectories = [];
         foreach ($directories as $directory) {
             // is fnmatch for directories
-            if (\RectorPrefix20210504\Nette\Utils\Strings::contains($directory, '*')) {
-                $foundDirectories = $this->foundDirectoriesInGlob($directory);
+            if (\RectorPrefix20210517\Nette\Utils\Strings::contains($directory, '*')) {
+                $foundDirectories = $this->findDirectoriesInGlob($directory);
                 $absoluteDirectories = \array_merge($absoluteDirectories, $foundDirectories);
             } else {
                 // is classic directory
@@ -38,9 +38,29 @@ final class FilesystemTweaker
         return $absoluteDirectories;
     }
     /**
+     * This will turn paths like "src/Symfony/Component/*\/Tests" to existing directory paths
+     *
+     * @param string[] $paths
+     *
      * @return string[]
      */
-    private function foundDirectoriesInGlob(string $directory) : array
+    public function resolveWithFnmatch(array $paths) : array
+    {
+        $absolutePathsFound = [];
+        foreach ($paths as $path) {
+            if (\RectorPrefix20210517\Nette\Utils\Strings::contains($path, '*')) {
+                $foundPaths = $this->foundInGlob($path);
+                $absolutePathsFound = \array_merge($absolutePathsFound, $foundPaths);
+            } else {
+                $absolutePathsFound[] = $path;
+            }
+        }
+        return $absolutePathsFound;
+    }
+    /**
+     * @return string[]
+     */
+    private function findDirectoriesInGlob(string $directory) : array
     {
         $foundDirectories = [];
         foreach ((array) \glob($directory, \GLOB_ONLYDIR) as $foundDirectory) {
@@ -50,5 +70,22 @@ final class FilesystemTweaker
             $foundDirectories[] = $foundDirectory;
         }
         return $foundDirectories;
+    }
+    /**
+     * @return string[]
+     */
+    private function foundInGlob(string $path) : array
+    {
+        $foundPaths = [];
+        foreach ((array) \glob($path) as $foundPath) {
+            if (!\is_string($foundPath)) {
+                continue;
+            }
+            if (!\file_exists($foundPath)) {
+                continue;
+            }
+            $foundPaths[] = $foundPath;
+        }
+        return $foundPaths;
     }
 }

@@ -16,11 +16,11 @@ final class ArgumentFuncCallToMethodCall
     /**
      * @var string|null
      */
-    private $methodIfNoArgs;
+    private $methodIfArgs;
     /**
      * @var string|null
      */
-    private $methodIfArgs;
+    private $methodIfNoArgs;
     /**
      * @param string|null $methodIfArgs
      * @param string|null $methodIfNoArgs

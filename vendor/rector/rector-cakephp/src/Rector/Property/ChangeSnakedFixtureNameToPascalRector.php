@@ -12,11 +12,11 @@ use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210504\Stringy\Stringy;
+use RectorPrefix20210517\Stringy\Stringy;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \aRector\CakePHP\Tests\Rector\Property\ChangeSnakedFixtureNameToPascal\ChangeSnakedFixtureNameToPascalTest
+ * @see \Rector\CakePHP\Tests\Rector\Property\ChangeSnakedFixtureNameToPascal\ChangeSnakedFixtureNameToPascalTest
  *
  * @see https://book.cakephp.org/3.0/en/appendices/3-7-migration-guide.html
  */
@@ -97,7 +97,7 @@ CODE_SAMPLE
         list($prefix, $table) = \explode('.', $string->value);
         $tableParts = \explode('/', $table);
         $pascalCaseTableParts = \array_map(function (string $token) : string {
-            $stringy = new \RectorPrefix20210504\Stringy\Stringy($token);
+            $stringy = new \RectorPrefix20210517\Stringy\Stringy($token);
             return (string) $stringy->upperCamelize();
         }, $tableParts);
         $table = \implode('/', $pascalCaseTableParts);

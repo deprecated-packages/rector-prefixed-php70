@@ -29,7 +29,7 @@ use Rector\PHPUnit\ValueObject\DataProviderClassMethodRecipe;
 use Rector\PHPUnit\ValueObject\ParamAndArg;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210504\Webmozart\Assert\Assert;
+use RectorPrefix20210517\Webmozart\Assert\Assert;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\Class_\ArrayArgumentToDataProviderRector\ArrayArgumentToDataProviderRectorTest
  *
@@ -51,15 +51,15 @@ final class ArrayArgumentToDataProviderRector extends \Rector\Core\Rector\Abstra
      */
     private $dataProviderClassMethodRecipes = [];
     /**
-     * @var DataProviderClassMethodFactory
+     * @var \Rector\PHPUnit\NodeFactory\DataProviderClassMethodFactory
      */
     private $dataProviderClassMethodFactory;
     /**
-     * @var ParamAndArgFromArrayResolver
+     * @var \Rector\PHPUnit\NodeManipulator\ParamAndArgFromArrayResolver
      */
     private $paramAndArgFromArrayResolver;
     /**
-     * @var TestsNodeAnalyzer
+     * @var \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
     public function __construct(\Rector\PHPUnit\NodeFactory\DataProviderClassMethodFactory $dataProviderClassMethodFactory, \Rector\PHPUnit\NodeManipulator\ParamAndArgFromArrayResolver $paramAndArgFromArrayResolver, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
@@ -144,7 +144,7 @@ CODE_SAMPLE
     public function configure(array $arrayArgumentsToDataProviders)
     {
         $arrayArgumentsToDataProviders = $arrayArgumentsToDataProviders[self::ARRAY_ARGUMENTS_TO_DATA_PROVIDERS] ?? [];
-        \RectorPrefix20210504\Webmozart\Assert\Assert::allIsInstanceOf($arrayArgumentsToDataProviders, \Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider::class);
+        \RectorPrefix20210517\Webmozart\Assert\Assert::allIsInstanceOf($arrayArgumentsToDataProviders, \Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider::class);
         $this->arrayArgumentsToDataProviders = $arrayArgumentsToDataProviders;
     }
     /**
@@ -213,9 +213,6 @@ CODE_SAMPLE
             return null;
         }
         $classMethodName = $this->getName($methodNode);
-        if ($classMethodName === null) {
-            return null;
-        }
         return 'provideDataFor' . \ucfirst($classMethodName);
     }
     /**

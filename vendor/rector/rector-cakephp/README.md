@@ -16,7 +16,7 @@ To add a set to your config, use `Rector\CakePHP\Set\CakePHPSetList` class and p
 use Rector\CakePHP\Set\CakePHPSetList;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator) {
+return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(CakePHPSetList::CAKEPHP_40);
 };
 ```

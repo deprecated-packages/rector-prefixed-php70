@@ -5,6 +5,7 @@ namespace Rector\DeadCode\Rector\If_;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\If_;
 use PHPStan\Type\ObjectType;
@@ -20,17 +21,17 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class UnwrapFutureCompatibleIfFunctionExistsRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var IfManipulator
-     */
-    private $ifManipulator;
-    /**
-     * @var FunctionSupportResolver
+     * @var \Rector\DeadCode\FeatureSupport\FunctionSupportResolver
      */
     private $functionSupportResolver;
+    /**
+     * @var \Rector\Core\NodeManipulator\IfManipulator
+     */
+    private $ifManipulator;
     public function __construct(\Rector\DeadCode\FeatureSupport\FunctionSupportResolver $functionSupportResolver, \Rector\Core\NodeManipulator\IfManipulator $ifManipulator)
     {
-        $this->ifManipulator = $ifManipulator;
         $this->functionSupportResolver = $functionSupportResolver;
+        $this->ifManipulator = $ifManipulator;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -69,7 +70,7 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
-     * @return \PhpParser\Node|null
+     * @return mixed[]|null
      */
     public function refactor(\PhpParser\Node $node)
     {
@@ -89,9 +90,7 @@ CODE_SAMPLE
         if (!$this->functionSupportResolver->isFunctionSupported($functionToExistName)) {
             return null;
         }
-        $this->unwrapStmts($node->stmts, $node);
-        $this->removeNode($node);
-        return null;
+        return $node->stmts;
     }
     private function shouldSkip(\PhpParser\Node\Stmt\If_ $if) : bool
     {

@@ -19,23 +19,23 @@ use Rector\StaticTypeMapper\StaticTypeMapper;
 final class PhpDocFromTypeDeclarationDecorator
 {
     /**
-     * @var StaticTypeMapper
+     * @var \Rector\StaticTypeMapper\StaticTypeMapper
      */
     private $staticTypeMapper;
     /**
-     * @var PhpDocInfoFactory
+     * @var \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
     /**
-     * @var NodeNameResolver
+     * @var \Rector\NodeNameResolver\NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var PhpDocTypeChanger
+     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
     /**
-     * @var TypeUnwrapper
+     * @var \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper
      */
     private $typeUnwrapper;
     public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper)
@@ -50,7 +50,7 @@ final class PhpDocFromTypeDeclarationDecorator
      * @param ClassMethod|Function_|Closure $functionLike
      * @return bool True if node was changed
      */
-    public function decorateReturn(\PhpParser\Node\FunctionLike $functionLike) : bool
+    public function decorate(\PhpParser\Node\FunctionLike $functionLike) : bool
     {
         if ($functionLike->returnType === null) {
             return \false;
@@ -63,19 +63,17 @@ final class PhpDocFromTypeDeclarationDecorator
     }
     /**
      * @param ClassMethod|Function_ $functionLike
-     * @param array<class-string<Type>> $excludedTypes
+     * @param array<class-string<Type>> $requiredTypes
      * @return void
      */
-    public function decorateParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike, array $excludedTypes = [])
+    public function decorateParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike, array $requiredTypes)
     {
         if ($param->type === null) {
             return;
         }
         $type = $this->staticTypeMapper->mapPhpParserNodePHPStanType($param->type);
-        foreach ($excludedTypes as $excludedType) {
-            if (\is_a($type, $excludedType, \true)) {
-                return;
-            }
+        if (!$this->isMatchingType($type, $requiredTypes)) {
+            return;
         }
         $this->moveParamTypeToParamDoc($functionLike, $param, $type);
     }
@@ -106,7 +104,7 @@ final class PhpDocFromTypeDeclarationDecorator
         if (!$this->isTypeMatchOrSubType($functionLike->returnType, $requireType)) {
             return \false;
         }
-        return $this->decorateReturn($functionLike);
+        return $this->decorate($functionLike);
     }
     private function isTypeMatchOrSubType(\PhpParser\Node $typeNode, \PHPStan\Type\Type $requireType) : bool
     {
@@ -127,5 +125,17 @@ final class PhpDocFromTypeDeclarationDecorator
         $paramName = $this->nodeNameResolver->getName($param);
         $this->phpDocTypeChanger->changeParamType($phpDocInfo, $type, $param, $paramName);
         $param->type = null;
+    }
+    /**
+     * @param array<class-string<Type>> $requiredTypes
+     */
+    private function isMatchingType(\PHPStan\Type\Type $type, array $requiredTypes) : bool
+    {
+        foreach ($requiredTypes as $requiredType) {
+            if (\is_a($type, $requiredType, \true)) {
+                return \true;
+            }
+        }
+        return \false;
     }
 }

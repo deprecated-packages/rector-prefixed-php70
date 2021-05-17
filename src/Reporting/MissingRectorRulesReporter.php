@@ -5,25 +5,25 @@ namespace Rector\Core\Reporting;
 
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\PostRector\Contract\Rector\PostRectorInterface;
-use RectorPrefix20210504\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210504\Symplify\PackageBuilder\Console\ShellCode;
+use RectorPrefix20210517\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210517\Symplify\PackageBuilder\Console\ShellCode;
 final class MissingRectorRulesReporter
 {
     /**
-     * @var SymfonyStyle
+     * @var mixed[]
+     */
+    private $rectors;
+    /**
+     * @var \Symfony\Component\Console\Style\SymfonyStyle
      */
     private $symfonyStyle;
     /**
-     * @var RectorInterface[]
-     */
-    private $rectors = [];
-    /**
      * @param RectorInterface[] $rectors
      */
-    public function __construct(array $rectors, \RectorPrefix20210504\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    public function __construct(array $rectors, \RectorPrefix20210517\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
-        $this->symfonyStyle = $symfonyStyle;
         $this->rectors = $rectors;
+        $this->symfonyStyle = $symfonyStyle;
     }
     /**
      * @return int|null
@@ -37,7 +37,7 @@ final class MissingRectorRulesReporter
             return null;
         }
         $this->report();
-        return \RectorPrefix20210504\Symplify\PackageBuilder\Console\ShellCode::ERROR;
+        return \RectorPrefix20210517\Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
     /**
      * @return void
@@ -50,8 +50,7 @@ final class MissingRectorRulesReporter
         $this->symfonyStyle->writeln('  $services->set(...);');
         $this->symfonyStyle->newLine(1);
         $this->symfonyStyle->title('2. Add set of rules to "rector.php"');
-        $this->symfonyStyle->writeln('  $parameters = $containerConfigurator->parameters();');
-        $this->symfonyStyle->writeln('  $parameters->set(Option::SETS, [...]);');
+        $this->symfonyStyle->writeln('  $containerConfigurator->import(SetList::...);');
         $this->symfonyStyle->newLine(1);
         $this->symfonyStyle->title('Missing "rector.php" in your project? Let Rector create it for you');
         $this->symfonyStyle->writeln('  vendor/bin/rector init');

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPUnit\Rector\Class_;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
@@ -12,7 +12,7 @@ use PHPStan\Reflection\ReflectionProvider;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
-use Rector\PHPUnit\TestClassResolver\TestClassResolver;
+use Rector\PHPUnit\Naming\TestClassNameResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -25,22 +25,22 @@ final class AddSeeTestAnnotationRector extends \Rector\Core\Rector\AbstractRecto
      */
     const SEE = 'see';
     /**
-     * @var TestClassResolver
-     */
-    private $testClassResolver;
-    /**
-     * @var ReflectionProvider
+     * @var \PHPStan\Reflection\ReflectionProvider
      */
     private $reflectionProvider;
     /**
-     * @var PhpDocTagRemover
+     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover
      */
     private $phpDocTagRemover;
-    public function __construct(\Rector\PHPUnit\TestClassResolver\TestClassResolver $testClassResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)
+    /**
+     * @var \Rector\PHPUnit\Naming\TestClassNameResolver
+     */
+    private $testClassNameResolver;
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover, \Rector\PHPUnit\Naming\TestClassNameResolver $testClassNameResolver)
     {
-        $this->testClassResolver = $testClassResolver;
         $this->reflectionProvider = $reflectionProvider;
         $this->phpDocTagRemover = $phpDocTagRemover;
+        $this->testClassNameResolver = $testClassNameResolver;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -84,23 +84,27 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node)
     {
-        $testCaseClassName = $this->testClassResolver->resolveFromClass($node);
-        if ($testCaseClassName === null) {
+        $className = $this->getName($node);
+        if ($className === null) {
             return null;
         }
-        if ($this->shouldSkipClass($node, $testCaseClassName)) {
+        $possibleTestClassNames = $this->testClassNameResolver->resolve($className);
+        $matchingTestClassName = $this->matchExistingClassName($possibleTestClassNames);
+        if ($this->shouldSkipClass($node)) {
             return null;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        if ($this->hasAlreadySeeAnnotation($phpDocInfo, $testCaseClassName)) {
-            return null;
-        }
         $this->removeNonExistingClassSeeAnnotation($phpDocInfo);
-        $newSeeTagNode = $this->createSeePhpDocTagNode($testCaseClassName);
-        $phpDocInfo->addPhpDocTagNode($newSeeTagNode);
+        if ($matchingTestClassName !== null) {
+            if ($this->hasAlreadySeeAnnotation($phpDocInfo, $matchingTestClassName)) {
+                return null;
+            }
+            $newSeeTagNode = $this->createSeePhpDocTagNode($matchingTestClassName);
+            $phpDocInfo->addPhpDocTagNode($newSeeTagNode);
+        }
         return $node;
     }
-    private function shouldSkipClass(\PhpParser\Node\Stmt\Class_ $class, string $testCaseClassName) : bool
+    private function shouldSkipClass(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         // we are in the test case
         if ($this->isName($class, '*Test')) {
@@ -117,7 +121,7 @@ CODE_SAMPLE
             /** @var GenericTagValueNode $genericTagValueNode */
             $genericTagValueNode = $seePhpDocTagNode->value;
             $seeTagClass = \ltrim($genericTagValueNode->value, '\\');
-            if ($seeTagClass === $testCaseClassName) {
+            if ($this->reflectionProvider->hasClass($seeTagClass)) {
                 return \true;
             }
         }
@@ -167,9 +171,23 @@ CODE_SAMPLE
     }
     private function isSeeTestCaseClass(string $possibleClassName) : bool
     {
-        if (!\RectorPrefix20210504\Nette\Utils\Strings::startsWith($possibleClassName, '\\')) {
+        if (!\RectorPrefix20210517\Nette\Utils\Strings::startsWith($possibleClassName, '\\')) {
             return \false;
         }
-        return \RectorPrefix20210504\Nette\Utils\Strings::endsWith($possibleClassName, 'Test');
+        return \RectorPrefix20210517\Nette\Utils\Strings::endsWith($possibleClassName, 'Test');
+    }
+    /**
+     * @param string[] $classNames
+     * @return string|null
+     */
+    private function matchExistingClassName(array $classNames)
+    {
+        foreach ($classNames as $possibleTestClassName) {
+            if (!$this->reflectionProvider->hasClass($possibleTestClassName)) {
+                continue;
+            }
+            return $possibleTestClassName;
+        }
+        return null;
     }
 }

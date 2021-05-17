@@ -14,14 +14,6 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class File
 {
     /**
-     * @var SmartFileInfo
-     */
-    private $smartFileInfo;
-    /**
-     * @var string
-     */
-    private $fileContent;
-    /**
      * @var bool
      */
     private $hasChanged = \false;
@@ -30,7 +22,7 @@ final class File
      */
     private $originalFileContent;
     /**
-     * @var FileDiff|null
+     * @var \Rector\Core\ValueObject\Reporting\FileDiff|null
      */
     private $fileDiff;
     /**
@@ -53,6 +45,14 @@ final class File
      * @var RectorError[]
      */
     private $rectorErrors = [];
+    /**
+     * @var \Symplify\SmartFileSystem\SmartFileInfo
+     */
+    private $smartFileInfo;
+    /**
+     * @var string
+     */
+    private $fileContent;
     public function __construct(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $fileContent)
     {
         $this->smartFileInfo = $smartFileInfo;

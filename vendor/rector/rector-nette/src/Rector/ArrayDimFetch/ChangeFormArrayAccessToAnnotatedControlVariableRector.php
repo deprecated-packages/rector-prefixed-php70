@@ -17,7 +17,7 @@ use Rector\Nette\NodeAnalyzer\AssignAnalyzer;
 use Rector\Nette\NodeAnalyzer\ControlDimFetchAnalyzer;
 use Rector\Nette\NodeResolver\FormVariableInputNameTypeResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210504\Symplify\PackageBuilder\Php\TypeChecker;
+use RectorPrefix20210517\Symplify\PackageBuilder\Php\TypeChecker;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -26,30 +26,30 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ChangeFormArrayAccessToAnnotatedControlVariableRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var FormVariableInputNameTypeResolver
+     * @var \Rector\Nette\NodeResolver\FormVariableInputNameTypeResolver
      */
     private $formVariableInputNameTypeResolver;
     /**
-     * @var TypeChecker
+     * @var \Symplify\PackageBuilder\Php\TypeChecker
      */
     private $typeChecker;
     /**
-     * @var ArrayDimFetchAnalyzer
+     * @var \Rector\Nette\NodeAnalyzer\ArrayDimFetchAnalyzer
      */
     private $arrayDimFetchAnalyzer;
     /**
-     * @var NetteControlNaming
+     * @var \Rector\Nette\Naming\NetteControlNaming
      */
     private $netteControlNaming;
     /**
-     * @var AssignAnalyzer
+     * @var \Rector\Nette\NodeAnalyzer\AssignAnalyzer
      */
     private $assignAnalyzer;
     /**
-     * @var ControlDimFetchAnalyzer
+     * @var \Rector\Nette\NodeAnalyzer\ControlDimFetchAnalyzer
      */
     private $controlDimFetchAnalyzer;
-    public function __construct(\Rector\Nette\NodeResolver\FormVariableInputNameTypeResolver $formVariableInputNameTypeResolver, \RectorPrefix20210504\Symplify\PackageBuilder\Php\TypeChecker $typeChecker, \Rector\Nette\NodeAnalyzer\ArrayDimFetchAnalyzer $arrayDimFetchAnalyzer, \Rector\Nette\Naming\NetteControlNaming $netteControlNaming, \Rector\Nette\NodeAnalyzer\AssignAnalyzer $assignAnalyzer, \Rector\Nette\NodeAnalyzer\ControlDimFetchAnalyzer $controlDimFetchAnalyzer)
+    public function __construct(\Rector\Nette\NodeResolver\FormVariableInputNameTypeResolver $formVariableInputNameTypeResolver, \RectorPrefix20210517\Symplify\PackageBuilder\Php\TypeChecker $typeChecker, \Rector\Nette\NodeAnalyzer\ArrayDimFetchAnalyzer $arrayDimFetchAnalyzer, \Rector\Nette\Naming\NetteControlNaming $netteControlNaming, \Rector\Nette\NodeAnalyzer\AssignAnalyzer $assignAnalyzer, \Rector\Nette\NodeAnalyzer\ControlDimFetchAnalyzer $controlDimFetchAnalyzer)
     {
         $this->formVariableInputNameTypeResolver = $formVariableInputNameTypeResolver;
         $this->typeChecker = $typeChecker;

@@ -13,7 +13,7 @@ use Rector\Transform\NodeFactory\UnwrapClosureFactory;
 use Rector\Transform\ValueObject\CallableInMethodCallToVariable;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210504\Webmozart\Assert\Assert;
+use RectorPrefix20210517\Webmozart\Assert\Assert;
 /**
  * @changelog https://github.com/nette/caching/commit/5ffe263752af5ccf3866a28305e7b2669ab4da82
  *
@@ -30,7 +30,7 @@ final class CallableInMethodCallToVariableRector extends \Rector\Core\Rector\Abs
      */
     private $callableInMethodCallToVariable = [];
     /**
-     * @var UnwrapClosureFactory
+     * @var \Rector\Transform\NodeFactory\UnwrapClosureFactory
      */
     private $unwrapClosureFactory;
     public function __construct(\Rector\Transform\NodeFactory\UnwrapClosureFactory $unwrapClosureFactory)
@@ -73,7 +73,7 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
-     * @return \PhpParser\Node|null
+     * @return Node|Node[]|null
      */
     public function refactor(\PhpParser\Node $node)
     {
@@ -98,13 +98,13 @@ CODE_SAMPLE
         return null;
     }
     /**
-     * @param mixed[] $configuration
+     * @param array<string, CallableInMethodCallToVariable[]> $configuration
      * @return void
      */
     public function configure(array $configuration)
     {
         $callableInMethodCallToVariable = $configuration[self::CALLABLE_IN_METHOD_CALL_TO_VARIABLE] ?? [];
-        \RectorPrefix20210504\Webmozart\Assert\Assert::allIsInstanceOf($callableInMethodCallToVariable, \Rector\Transform\ValueObject\CallableInMethodCallToVariable::class);
+        \RectorPrefix20210517\Webmozart\Assert\Assert::allIsInstanceOf($callableInMethodCallToVariable, \Rector\Transform\ValueObject\CallableInMethodCallToVariable::class);
         $this->callableInMethodCallToVariable = $callableInMethodCallToVariable;
     }
 }

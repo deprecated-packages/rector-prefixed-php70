@@ -10,19 +10,19 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator;
 use Rector\PHPUnit\NodeManipulator\StmtManipulator;
 use Rector\RemovingStatic\NodeFactory\SetUpFactory;
-use RectorPrefix20210504\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use RectorPrefix20210517\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
 final class SetUpClassMethodFactory
 {
     /**
-     * @var PHPUnitTypeDeclarationDecorator
+     * @var \Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator
      */
     private $phpUnitTypeDeclarationDecorator;
     /**
-     * @var StmtManipulator
+     * @var \Rector\PHPUnit\NodeManipulator\StmtManipulator
      */
     private $stmtManipulator;
     /**
-     * @var SetUpFactory
+     * @var \Rector\RemovingStatic\NodeFactory\SetUpFactory
      */
     private $setUpFactory;
     public function __construct(\Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator $phpUnitTypeDeclarationDecorator, \Rector\PHPUnit\NodeManipulator\StmtManipulator $stmtManipulator, \Rector\RemovingStatic\NodeFactory\SetUpFactory $setUpFactory)
@@ -37,7 +37,7 @@ final class SetUpClassMethodFactory
     public function createSetUpMethod(array $stmts) : \PhpParser\Node\Stmt\ClassMethod
     {
         $stmts = $this->stmtManipulator->normalizeStmts($stmts);
-        $classMethodBuilder = new \RectorPrefix20210504\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder(\Rector\Core\ValueObject\MethodName::SET_UP);
+        $classMethodBuilder = new \RectorPrefix20210517\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder(\Rector\Core\ValueObject\MethodName::SET_UP);
         $classMethodBuilder->makeProtected();
         $classMethodBuilder->addStmt($this->setUpFactory->createParentStaticCall());
         $classMethodBuilder->addStmts($stmts);

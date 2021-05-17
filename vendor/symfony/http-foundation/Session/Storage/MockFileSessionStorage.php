@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210504\Symfony\Component\HttpFoundation\Session\Storage;
+namespace RectorPrefix20210517\Symfony\Component\HttpFoundation\Session\Storage;
 
 /**
  * MockFileSessionStorage is used to mock sessions for
@@ -21,13 +21,13 @@ namespace RectorPrefix20210504\Symfony\Component\HttpFoundation\Session\Storage;
  *
  * @author Drak <drak@zikula.org>
  */
-class MockFileSessionStorage extends \RectorPrefix20210504\Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage
+class MockFileSessionStorage extends \RectorPrefix20210517\Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage
 {
     private $savePath;
     /**
      * @param string $savePath Path of directory to save session files
      */
-    public function __construct(string $savePath = null, string $name = 'MOCKSESSID', \RectorPrefix20210504\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
+    public function __construct(string $savePath = null, string $name = 'MOCKSESSID', \RectorPrefix20210517\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
     {
         if (null === $savePath) {
             $savePath = \sys_get_temp_dir();
@@ -103,7 +103,7 @@ class MockFileSessionStorage extends \RectorPrefix20210504\Symfony\Component\Htt
      * Deletes a session from persistent storage.
      * Deliberately leaves session data in memory intact.
      */
-    private function destroy()
+    private function destroy() : void
     {
         \set_error_handler(static function () {
         });
@@ -123,7 +123,7 @@ class MockFileSessionStorage extends \RectorPrefix20210504\Symfony\Component\Htt
     /**
      * Reads session from storage and loads session.
      */
-    private function read()
+    private function read() : void
     {
         \set_error_handler(static function () {
         });

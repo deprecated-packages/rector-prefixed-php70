@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\NodeCollector\NodeCollector;
 
-use RectorPrefix20210504\Nette\Utils\Arrays;
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Arrays;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\Expr;
@@ -65,42 +65,42 @@ final class NodeRepository
      */
     private $arrayCallablesByTypeAndMethod = [];
     /**
-     * @var NodeNameResolver
-     */
-    private $nodeNameResolver;
-    /**
-     * @var NodeTypeResolver
-     */
-    private $nodeTypeResolver;
-    /**
-     * @var ArrayCallableMethodReferenceAnalyzer
-     */
-    private $arrayCallableMethodReferenceAnalyzer;
-    /**
-     * @var ParsedPropertyFetchNodeCollector
-     */
-    private $parsedPropertyFetchNodeCollector;
-    /**
-     * @var ParsedNodeCollector
-     */
-    private $parsedNodeCollector;
-    /**
-     * @var TypeUnwrapper
-     */
-    private $typeUnwrapper;
-    /**
      * @var array<string, Attribute[]>
      */
     private $attributes = [];
     /**
-     * @var ReflectionProvider
+     * @var \Rector\NodeCollector\NodeAnalyzer\ArrayCallableMethodReferenceAnalyzer
+     */
+    private $arrayCallableMethodReferenceAnalyzer;
+    /**
+     * @var \Rector\NodeCollector\NodeCollector\ParsedPropertyFetchNodeCollector
+     */
+    private $parsedPropertyFetchNodeCollector;
+    /**
+     * @var \Rector\NodeNameResolver\NodeNameResolver
+     */
+    private $nodeNameResolver;
+    /**
+     * @var \Rector\NodeCollector\NodeCollector\ParsedNodeCollector
+     */
+    private $parsedNodeCollector;
+    /**
+     * @var \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper
+     */
+    private $typeUnwrapper;
+    /**
+     * @var \PHPStan\Reflection\ReflectionProvider
      */
     private $reflectionProvider;
+    /**
+     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     */
+    private $nodeTypeResolver;
     public function __construct(\Rector\NodeCollector\NodeAnalyzer\ArrayCallableMethodReferenceAnalyzer $arrayCallableMethodReferenceAnalyzer, \Rector\NodeCollector\NodeCollector\ParsedPropertyFetchNodeCollector $parsedPropertyFetchNodeCollector, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
-        $this->nodeNameResolver = $nodeNameResolver;
         $this->arrayCallableMethodReferenceAnalyzer = $arrayCallableMethodReferenceAnalyzer;
         $this->parsedPropertyFetchNodeCollector = $parsedPropertyFetchNodeCollector;
+        $this->nodeNameResolver = $nodeNameResolver;
         $this->parsedNodeCollector = $parsedNodeCollector;
         $this->typeUnwrapper = $typeUnwrapper;
         $this->reflectionProvider = $reflectionProvider;
@@ -180,7 +180,7 @@ final class NodeRepository
      */
     public function findClassMethod(string $className, string $methodName)
     {
-        if (\RectorPrefix20210504\Nette\Utils\Strings::contains($methodName, '\\')) {
+        if (\RectorPrefix20210517\Nette\Utils\Strings::contains($methodName, '\\')) {
             $message = \sprintf('Class and method arguments are switched in "%s"', __METHOD__);
             throw new \Rector\Core\Exception\ShouldNotHappenException($message);
         }
@@ -203,7 +203,7 @@ final class NodeRepository
      */
     public function getMethodsCalls() : array
     {
-        $calls = \RectorPrefix20210504\Nette\Utils\Arrays::flatten($this->callsByTypeAndMethod);
+        $calls = \RectorPrefix20210517\Nette\Utils\Arrays::flatten($this->callsByTypeAndMethod);
         return \array_filter($calls, function (\PhpParser\Node $node) : bool {
             return $node instanceof \PhpParser\Node\Expr\MethodCall;
         });
@@ -283,7 +283,7 @@ final class NodeRepository
     {
         $classNodes = [];
         foreach ($this->parsedNodeCollector->getClasses() as $className => $classNode) {
-            if (!\RectorPrefix20210504\Nette\Utils\Strings::endsWith($className, $suffix)) {
+            if (!\RectorPrefix20210517\Nette\Utils\Strings::endsWith($className, $suffix)) {
                 continue;
             }
             $classNodes[] = $classNode;

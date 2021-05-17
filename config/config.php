@@ -1,12 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210504;
+namespace RectorPrefix20210517;
 
 use Rector\Core\Bootstrap\ExtensionConfigResolver;
-use Rector\Core\Configuration\Option;
-use RectorPrefix20210504\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210504\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+use RectorPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $containerConfigurator->import(__DIR__ . '/services.php');
     $containerConfigurator->import(__DIR__ . '/services-rules.php');
     $containerConfigurator->import(__DIR__ . '/services-packages.php');
@@ -18,7 +17,4 @@ return static function (\RectorPrefix20210504\Symfony\Component\DependencyInject
     }
     // require only in dev
     $containerConfigurator->import(__DIR__ . '/../utils/compiler/config/config.php', null, 'not_found');
-    // to override extension-loaded config
-    $parameters = $containerConfigurator->parameters();
-    $parameters->set(\Rector\Core\Configuration\Option::PHPSTAN_FOR_RECTOR_PATH, \getcwd() . '/phpstan-for-rector.neon');
 };

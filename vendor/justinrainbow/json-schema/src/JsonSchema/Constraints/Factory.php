@@ -6,14 +6,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210504\JsonSchema\Constraints;
+namespace RectorPrefix20210517\JsonSchema\Constraints;
 
-use RectorPrefix20210504\JsonSchema\Exception\InvalidArgumentException;
-use RectorPrefix20210504\JsonSchema\SchemaStorage;
-use RectorPrefix20210504\JsonSchema\SchemaStorageInterface;
-use RectorPrefix20210504\JsonSchema\Uri\UriRetriever;
-use RectorPrefix20210504\JsonSchema\UriRetrieverInterface;
-use RectorPrefix20210504\JsonSchema\Validator;
+use RectorPrefix20210517\JsonSchema\Exception\InvalidArgumentException;
+use RectorPrefix20210517\JsonSchema\SchemaStorage;
+use RectorPrefix20210517\JsonSchema\SchemaStorageInterface;
+use RectorPrefix20210517\JsonSchema\Uri\UriRetriever;
+use RectorPrefix20210517\JsonSchema\UriRetrieverInterface;
+use RectorPrefix20210517\JsonSchema\Validator;
 /**
  * Factory for centralize constraint initialization.
  */
@@ -30,7 +30,7 @@ class Factory
     /**
      * @var int
      */
-    private $checkMode = \RectorPrefix20210504\JsonSchema\Constraints\Constraint::CHECK_MODE_NORMAL;
+    private $checkMode = \RectorPrefix20210517\JsonSchema\Constraints\Constraint::CHECK_MODE_NORMAL;
     /**
      * @var TypeCheck\TypeCheckInterface[]
      */
@@ -38,11 +38,11 @@ class Factory
     /**
      * @var int Validation context
      */
-    protected $errorContext = \RectorPrefix20210504\JsonSchema\Validator::ERROR_DOCUMENT_VALIDATION;
+    protected $errorContext = \RectorPrefix20210517\JsonSchema\Validator::ERROR_DOCUMENT_VALIDATION;
     /**
      * @var array
      */
-    protected $constraintMap = array('array' => 'RectorPrefix20210504\\JsonSchema\\Constraints\\CollectionConstraint', 'collection' => 'RectorPrefix20210504\\JsonSchema\\Constraints\\CollectionConstraint', 'object' => 'RectorPrefix20210504\\JsonSchema\\Constraints\\ObjectConstraint', 'type' => 'RectorPrefix20210504\\JsonSchema\\Constraints\\TypeConstraint', 'undefined' => 'RectorPrefix20210504\\JsonSchema\\Constraints\\UndefinedConstraint', 'string' => 'RectorPrefix20210504\\JsonSchema\\Constraints\\StringConstraint', 'number' => 'RectorPrefix20210504\\JsonSchema\\Constraints\\NumberConstraint', 'enum' => 'RectorPrefix20210504\\JsonSchema\\Constraints\\EnumConstraint', 'format' => 'RectorPrefix20210504\\JsonSchema\\Constraints\\FormatConstraint', 'schema' => 'RectorPrefix20210504\\JsonSchema\\Constraints\\SchemaConstraint', 'validator' => 'RectorPrefix20210504\\JsonSchema\\Validator');
+    protected $constraintMap = array('array' => 'RectorPrefix20210517\\JsonSchema\\Constraints\\CollectionConstraint', 'collection' => 'RectorPrefix20210517\\JsonSchema\\Constraints\\CollectionConstraint', 'object' => 'RectorPrefix20210517\\JsonSchema\\Constraints\\ObjectConstraint', 'type' => 'RectorPrefix20210517\\JsonSchema\\Constraints\\TypeConstraint', 'undefined' => 'RectorPrefix20210517\\JsonSchema\\Constraints\\UndefinedConstraint', 'string' => 'RectorPrefix20210517\\JsonSchema\\Constraints\\StringConstraint', 'number' => 'RectorPrefix20210517\\JsonSchema\\Constraints\\NumberConstraint', 'enum' => 'RectorPrefix20210517\\JsonSchema\\Constraints\\EnumConstraint', 'format' => 'RectorPrefix20210517\\JsonSchema\\Constraints\\FormatConstraint', 'schema' => 'RectorPrefix20210517\\JsonSchema\\Constraints\\SchemaConstraint', 'validator' => 'RectorPrefix20210517\\JsonSchema\\Validator');
     /**
      * @var array<ConstraintInterface>
      */
@@ -52,19 +52,19 @@ class Factory
      * @param UriRetrieverInterface $uriRetriever
      * @param int                   $checkMode
      */
-    public function __construct(\RectorPrefix20210504\JsonSchema\SchemaStorageInterface $schemaStorage = null, \RectorPrefix20210504\JsonSchema\UriRetrieverInterface $uriRetriever = null, $checkMode = \RectorPrefix20210504\JsonSchema\Constraints\Constraint::CHECK_MODE_NORMAL)
+    public function __construct(\RectorPrefix20210517\JsonSchema\SchemaStorageInterface $schemaStorage = null, \RectorPrefix20210517\JsonSchema\UriRetrieverInterface $uriRetriever = null, $checkMode = \RectorPrefix20210517\JsonSchema\Constraints\Constraint::CHECK_MODE_NORMAL)
     {
         // set provided config options
         $this->setConfig($checkMode);
-        $this->uriRetriever = $uriRetriever ?: new \RectorPrefix20210504\JsonSchema\Uri\UriRetriever();
-        $this->schemaStorage = $schemaStorage ?: new \RectorPrefix20210504\JsonSchema\SchemaStorage($this->uriRetriever);
+        $this->uriRetriever = $uriRetriever ?: new \RectorPrefix20210517\JsonSchema\Uri\UriRetriever();
+        $this->schemaStorage = $schemaStorage ?: new \RectorPrefix20210517\JsonSchema\SchemaStorage($this->uriRetriever);
     }
     /**
      * Set config values
      *
      * @param int $checkMode Set checkMode options - does not preserve existing flags
      */
-    public function setConfig($checkMode = \RectorPrefix20210504\JsonSchema\Constraints\Constraint::CHECK_MODE_NORMAL)
+    public function setConfig($checkMode = \RectorPrefix20210517\JsonSchema\Constraints\Constraint::CHECK_MODE_NORMAL)
     {
         $this->checkMode = $checkMode;
     }
@@ -114,7 +114,7 @@ class Factory
     public function getTypeCheck()
     {
         if (!isset($this->typeCheck[$this->checkMode])) {
-            $this->typeCheck[$this->checkMode] = $this->checkMode & \RectorPrefix20210504\JsonSchema\Constraints\Constraint::CHECK_MODE_TYPE_CAST ? new \RectorPrefix20210504\JsonSchema\Constraints\TypeCheck\LooseTypeCheck() : new \RectorPrefix20210504\JsonSchema\Constraints\TypeCheck\StrictTypeCheck();
+            $this->typeCheck[$this->checkMode] = $this->checkMode & \RectorPrefix20210517\JsonSchema\Constraints\Constraint::CHECK_MODE_TYPE_CAST ? new \RectorPrefix20210517\JsonSchema\Constraints\TypeCheck\LooseTypeCheck() : new \RectorPrefix20210517\JsonSchema\Constraints\TypeCheck\StrictTypeCheck();
         }
         return $this->typeCheck[$this->checkMode];
     }
@@ -128,11 +128,11 @@ class Factory
     {
         // Ensure class exists
         if (!\class_exists($class)) {
-            throw new \RectorPrefix20210504\JsonSchema\Exception\InvalidArgumentException('Unknown constraint ' . $name);
+            throw new \RectorPrefix20210517\JsonSchema\Exception\InvalidArgumentException('Unknown constraint ' . $name);
         }
         // Ensure class is appropriate
-        if (!\in_array('RectorPrefix20210504\\JsonSchema\\Constraints\\ConstraintInterface', \class_implements($class))) {
-            throw new \RectorPrefix20210504\JsonSchema\Exception\InvalidArgumentException('Invalid class ' . $name);
+        if (!\in_array('RectorPrefix20210517\\JsonSchema\\Constraints\\ConstraintInterface', \class_implements($class))) {
+            throw new \RectorPrefix20210517\JsonSchema\Exception\InvalidArgumentException('Invalid class ' . $name);
         }
         $this->constraintMap[$name] = $class;
         return $this;
@@ -149,7 +149,7 @@ class Factory
     public function createInstanceFor($constraintName)
     {
         if (!isset($this->constraintMap[$constraintName])) {
-            throw new \RectorPrefix20210504\JsonSchema\Exception\InvalidArgumentException('Unknown constraint ' . $constraintName);
+            throw new \RectorPrefix20210517\JsonSchema\Exception\InvalidArgumentException('Unknown constraint ' . $constraintName);
         }
         if (!isset($this->instanceCache[$constraintName])) {
             $this->instanceCache[$constraintName] = new $this->constraintMap[$constraintName]($this);

@@ -23,11 +23,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class CreateMockToCreateStubRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var MethodCallManipulator
+     * @var \Rector\Core\NodeManipulator\MethodCallManipulator
      */
     private $methodCallManipulator;
     /**
-     * @var TestsNodeAnalyzer
+     * @var \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
     public function __construct(\Rector\Core\NodeManipulator\MethodCallManipulator $methodCallManipulator, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
@@ -42,7 +42,7 @@ use PHPUnit\Framework\TestCase
 
 class MyTest extends TestCase
 {
-    public function testItBehavesAsExpected()
+    public function testItBehavesAsExpected(): void
     {
         $stub = $this->createMock(\Exception::class);
         $stub->method('getMessage')
@@ -63,7 +63,7 @@ use PHPUnit\Framework\TestCase
 
 class MyTest extends TestCase
 {
-    public function testItBehavesAsExpected()
+    public function testItBehavesAsExpected(): void
     {
         $stub = $this->createStub(\Exception::class);
         $stub->method('getMessage')

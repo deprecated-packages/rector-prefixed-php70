@@ -12,6 +12,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Transform\ValueObject\StaticCallToNew;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20210517\Webmozart\Assert\Assert;
 /**
  * @changelog https://github.com/symfony/symfony/pull/35308
  *
@@ -84,6 +85,7 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $staticCallsToNews = $configuration[self::STATIC_CALLS_TO_NEWS] ?? [];
+        \RectorPrefix20210517\Webmozart\Assert\Assert::allIsAOf($staticCallsToNews, \Rector\Transform\ValueObject\StaticCallToNew::class);
         $this->staticCallsToNews = $staticCallsToNews;
     }
 }

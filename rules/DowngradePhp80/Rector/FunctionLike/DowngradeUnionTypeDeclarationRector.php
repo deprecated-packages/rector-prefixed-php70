@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class DowngradeUnionTypeDeclarationRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var PhpDocFromTypeDeclarationDecorator
+     * @var \Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator
      */
     private $phpDocFromTypeDeclarationDecorator;
     public function __construct(\Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator)
@@ -69,12 +69,12 @@ CODE_SAMPLE
             if (!$param->type instanceof \PhpParser\Node\UnionType) {
                 continue;
             }
-            $this->phpDocFromTypeDeclarationDecorator->decorateParam($param, $node);
+            $this->phpDocFromTypeDeclarationDecorator->decorateParam($param, $node, [\PHPStan\Type\UnionType::class]);
         }
         if (!$node->returnType instanceof \PhpParser\Node\UnionType) {
             return null;
         }
-        if (!$this->phpDocFromTypeDeclarationDecorator->decorateReturn($node)) {
+        if (!$this->phpDocFromTypeDeclarationDecorator->decorate($node)) {
             return null;
         }
         return $node;

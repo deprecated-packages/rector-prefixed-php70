@@ -3,18 +3,13 @@
 declare (strict_types=1);
 namespace Rector\DowngradePhp70\Rector\New_;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
-use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
-use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\Function_;
-use PhpParser\Node\Stmt\Namespace_;
 use Rector\Core\NodeAnalyzer\ClassAnalyzer;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\DowngradePhp70\NodeFactory\ClassFromAnonymousFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -25,14 +20,23 @@ final class DowngradeAnonymousClassRector extends \Rector\Core\Rector\AbstractRe
     /**
      * @var string
      */
-    const CLASS_NAME = 'AnonymousFor_';
+    const ANONYMOUS_CLASS_PREFIX = 'Anonymous__';
     /**
-     * @var ClassAnalyzer
+     * @var Class_[]
+     */
+    private $classes = [];
+    /**
+     * @var \Rector\Core\NodeAnalyzer\ClassAnalyzer
      */
     private $classAnalyzer;
-    public function __construct(\Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer)
+    /**
+     * @var \Rector\DowngradePhp70\NodeFactory\ClassFromAnonymousFactory
+     */
+    private $classFromAnonymousFactory;
+    public function __construct(\Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\DowngradePhp70\NodeFactory\ClassFromAnonymousFactory $classFromAnonymousFactory)
     {
         $this->classAnalyzer = $classAnalyzer;
+        $this->classFromAnonymousFactory = $classFromAnonymousFactory;
     }
     /**
      * @return array<class-string<Node>>
@@ -74,6 +78,26 @@ CODE_SAMPLE
 )]);
     }
     /**
+     * @param Node[] $nodes
+     * @return mixed[]|null
+     */
+    public function beforeTraverse(array $nodes)
+    {
+        $this->classes = [];
+        return parent::beforeTraverse($nodes);
+    }
+    /**
+     * @param Node[] $nodes
+     * @return Node[]
+     */
+    public function afterTraverse(array $nodes)
+    {
+        if ($this->classes === []) {
+            return $nodes;
+        }
+        return \array_merge($nodes, $this->classes);
+    }
+    /**
      * @param New_ $node
      * @return \PhpParser\Node|null
      */
@@ -82,80 +106,16 @@ CODE_SAMPLE
         if (!$this->classAnalyzer->isAnonymousClass($node->class)) {
             return null;
         }
-        $classNode = $this->betterNodeFinder->findParentType($node, \PhpParser\Node\Stmt\Class_::class);
-        if ($classNode instanceof \PhpParser\Node\Stmt\Class_) {
-            return $this->processMoveAnonymousClassInClass($node, $classNode);
-        }
-        $functionNode = $this->betterNodeFinder->findParentType($node, \PhpParser\Node\Stmt\Function_::class);
-        if ($functionNode instanceof \PhpParser\Node\Stmt\Function_) {
-            return $this->processMoveAnonymousClassInFunction($node, $functionNode);
-        }
-        $statement = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
-        return $this->processMoveAnonymousClassInDirectCall($node, $statement);
-    }
-    private function getNamespacedClassName(string $namespace, string $className) : string
-    {
-        return $namespace === '' ? $className : $namespace . '\\' . $className;
-    }
-    private function getClassName(string $namespace, string $shortName) : string
-    {
-        $className = self::CLASS_NAME . $shortName;
-        $namespacedClassName = $this->getNamespacedClassName($namespace, $className);
-        $count = 0;
-        while ($this->nodeRepository->findClass($namespacedClassName)) {
-            $className .= ++$count;
-            $namespacedClassName = $this->getNamespacedClassName($namespace, $className);
-        }
-        return \ucfirst($className);
-    }
-    /**
-     * @return \PhpParser\Node\Expr\New_|null
-     */
-    private function processMoveAnonymousClassInClass(\PhpParser\Node\Expr\New_ $new, \PhpParser\Node\Stmt\Class_ $class)
-    {
-        $namespacedClassName = $this->getName($class->namespacedName);
-        /** @var Identifier $shortClassName */
-        $shortClassName = $class->name;
-        $shortClassName = (string) $this->getName($shortClassName);
-        $namespace = $namespacedClassName === $shortClassName ? '' : \RectorPrefix20210504\Nette\Utils\Strings::substring($namespacedClassName, 0, -\strlen($shortClassName) - 1);
-        $className = $this->getClassName($namespace, $shortClassName);
-        return $this->processMove($new, $className, $class);
-    }
-    /**
-     * @return \PhpParser\Node\Expr\New_|null
-     */
-    private function processMoveAnonymousClassInFunction(\PhpParser\Node\Expr\New_ $new, \PhpParser\Node\Stmt\Function_ $function)
-    {
-        $namespacedFunctionName = (string) $this->getName($function);
-        $shortFunctionName = (string) $this->getName($function->name);
-        $namespace = $namespacedFunctionName === $shortFunctionName ? '' : \RectorPrefix20210504\Nette\Utils\Strings::substring($namespacedFunctionName, 0, -\strlen($shortFunctionName) - 1);
-        $className = $this->getClassName($namespace, $shortFunctionName);
-        return $this->processMove($new, $className, $function);
-    }
-    /**
-     * @return \PhpParser\Node\Expr\New_|null
-     */
-    private function processMoveAnonymousClassInDirectCall(\PhpParser\Node\Expr\New_ $new, \PhpParser\Node\Stmt $stmt)
-    {
-        $parent = $stmt->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        while ($parent instanceof \PhpParser\Node && !$parent instanceof \PhpParser\Node\Stmt\Namespace_) {
-            $parent = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        }
-        $namespace = $parent instanceof \PhpParser\Node\Stmt\Namespace_ ? (string) $this->getName($parent) : '';
-        $suffix = $namespace === '' ? 'NotInfunctionNoNamespace' : 'NotInFunction';
-        $className = $this->getClassName($namespace, $suffix);
-        return $this->processMove($new, $className, $stmt);
-    }
-    /**
-     * @return \PhpParser\Node\Expr\New_|null
-     */
-    private function processMove(\PhpParser\Node\Expr\New_ $new, string $className, \PhpParser\Node $node)
-    {
-        if (!$new->class instanceof \PhpParser\Node\Stmt\Class_) {
+        if (!$node->class instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-        $class = new \PhpParser\Node\Stmt\Class_($className, ['flags' => $new->class->flags, 'extends' => $new->class->extends, 'implements' => $new->class->implements, 'stmts' => $new->class->stmts, 'attrGroups' => $new->class->attrGroups]);
-        $this->addNodeBeforeNode($class, $node);
-        return new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name($className), $new->args);
+        $className = $this->createAnonymousClassName();
+        $this->classes[] = $this->classFromAnonymousFactory->create($className, $node->class);
+        return new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name($className), $node->args);
+    }
+    private function createAnonymousClassName() : string
+    {
+        $fileInfo = $this->file->getSmartFileInfo();
+        return self::ANONYMOUS_CLASS_PREFIX . \md5($fileInfo->getRealPath()) . '__' . \count($this->classes);
     }
 }

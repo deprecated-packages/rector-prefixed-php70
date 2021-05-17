@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\Assign;
 
-use RectorPrefix20210504\Nette\Utils\Json;
-use RectorPrefix20210504\Nette\Utils\JsonException;
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Json;
+use RectorPrefix20210517\Nette\Utils\JsonException;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
@@ -40,19 +40,19 @@ final class ManualJsonStringToJsonEncodeArrayRector extends \Rector\Core\Rector\
      */
     const JSON_STRING_REGEX = '#{(.*?\\:.*?)}#s';
     /**
-     * @var ConcatJoiner
+     * @var \Rector\CodingStyle\Node\ConcatJoiner
      */
     private $concatJoiner;
     /**
-     * @var ConcatManipulator
+     * @var \Rector\CodingStyle\Node\ConcatManipulator
      */
     private $concatManipulator;
     /**
-     * @var JsonEncodeStaticCallFactory
+     * @var \Rector\CodingStyle\NodeFactory\JsonEncodeStaticCallFactory
      */
     private $jsonEncodeStaticCallFactory;
     /**
-     * @var JsonArrayFactory
+     * @var \Rector\CodingStyle\NodeFactory\JsonArrayFactory
      */
     private $jsonArrayFactory;
     public function __construct(\Rector\CodingStyle\Node\ConcatJoiner $concatJoiner, \Rector\CodingStyle\Node\ConcatManipulator $concatManipulator, \Rector\CodingStyle\NodeFactory\JsonEncodeStaticCallFactory $jsonEncodeStaticCallFactory, \Rector\CodingStyle\NodeFactory\JsonArrayFactory $jsonArrayFactory)
@@ -138,12 +138,12 @@ CODE_SAMPLE
     }
     private function isJsonString(string $stringValue) : bool
     {
-        if (!(bool) \RectorPrefix20210504\Nette\Utils\Strings::match($stringValue, self::JSON_STRING_REGEX)) {
+        if (!(bool) \RectorPrefix20210517\Nette\Utils\Strings::match($stringValue, self::JSON_STRING_REGEX)) {
             return \false;
         }
         try {
-            return (bool) \RectorPrefix20210504\Nette\Utils\Json::decode($stringValue, \RectorPrefix20210504\Nette\Utils\Json::FORCE_ARRAY);
-        } catch (\RectorPrefix20210504\Nette\Utils\JsonException $jsonException) {
+            return (bool) \RectorPrefix20210517\Nette\Utils\Json::decode($stringValue, \RectorPrefix20210517\Nette\Utils\Json::FORCE_ARRAY);
+        } catch (\RectorPrefix20210517\Nette\Utils\JsonException $jsonException) {
             return \false;
         }
     }
@@ -184,7 +184,7 @@ CODE_SAMPLE
      */
     private function removeNodesAndCreateJsonEncodeFromStringValue(array $nodesToRemove, string $stringValue, array $placeholderNodes, \PhpParser\Node\Expr\Assign $assign)
     {
-        $stringValue = \RectorPrefix20210504\Nette\Utils\Strings::replace($stringValue, self::UNQUOTED_OBJECT_HASH_REGEX, '$1"$2"');
+        $stringValue = \RectorPrefix20210517\Nette\Utils\Strings::replace($stringValue, self::UNQUOTED_OBJECT_HASH_REGEX, '$1"$2"');
         if (!$this->isJsonString($stringValue)) {
             return null;
         }

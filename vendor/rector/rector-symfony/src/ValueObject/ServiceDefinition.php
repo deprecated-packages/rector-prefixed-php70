@@ -11,36 +11,36 @@ final class ServiceDefinition
      */
     private $id;
     /**
-     * @var bool
-     */
-    private $isPublic = \false;
-    /**
-     * @var bool
-     */
-    private $isSynthetic = \false;
-    /**
-     * @var TagInterface[]
-     */
-    private $tags = [];
-    /**
      * @var string|null
      */
     private $class;
+    /**
+     * @var bool
+     */
+    private $isPublic;
+    /**
+     * @var bool
+     */
+    private $isSynthetic;
     /**
      * @var string|null
      */
     private $alias;
     /**
+     * @var mixed[]
+     */
+    private $tags;
+    /**
      * @param TagInterface[] $tags
      * @param string|null $class
      * @param string|null $alias
      */
-    public function __construct(string $id, $class, bool $public, bool $synthetic, $alias, array $tags)
+    public function __construct(string $id, $class, bool $isPublic, bool $isSynthetic, $alias, array $tags)
     {
         $this->id = $id;
         $this->class = $class;
-        $this->isPublic = $public;
-        $this->isSynthetic = $synthetic;
+        $this->isPublic = $isPublic;
+        $this->isSynthetic = $isSynthetic;
         $this->alias = $alias;
         $this->tags = $tags;
     }

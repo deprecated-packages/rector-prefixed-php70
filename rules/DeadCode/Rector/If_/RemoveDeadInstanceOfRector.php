@@ -6,6 +6,7 @@ namespace Rector\DeadCode\Rector\If_;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\Instanceof_;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\If_;
 use PHPStan\Analyser\Scope;
 use Rector\Core\NodeManipulator\IfManipulator;
@@ -19,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveDeadInstanceOfRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var IfManipulator
+     * @var \Rector\Core\NodeManipulator\IfManipulator
      */
     private $ifManipulator;
     public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator)
@@ -61,7 +62,7 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
-     * @return \PhpParser\Node|null
+     * @return null|Stmt[]|If_
      */
     public function refactor(\PhpParser\Node $node)
     {
@@ -82,7 +83,7 @@ CODE_SAMPLE
         return $node;
     }
     /**
-     * @return \PhpParser\Node\Stmt\If_|null
+     * @return mixed[]|null
      */
     private function processMayDeadInstanceOf(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Expr\Instanceof_ $instanceof)
     {
@@ -93,11 +94,9 @@ CODE_SAMPLE
             return null;
         }
         if ($if->cond === $instanceof) {
-            $this->unwrapStmts($if->stmts, $if);
-            $this->removeNode($if);
-            return null;
+            return $if->stmts;
         }
         $this->removeNode($if);
-        return $if;
+        return null;
     }
 }

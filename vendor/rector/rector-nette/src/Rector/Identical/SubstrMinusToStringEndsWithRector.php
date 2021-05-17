@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\Nette\Rector\Identical;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\BinaryOp\NotIdentical;
@@ -26,7 +25,7 @@ final class SubstrMinusToStringEndsWithRector extends \Rector\Core\Rector\Abstra
      */
     const SUBSTR = 'substr';
     /**
-     * @var BinaryOpAnalyzer
+     * @var \Rector\Nette\NodeAnalyzer\BinaryOpAnalyzer
      */
     private $binaryOpAnalyzer;
     public function __construct(\Rector\Nette\NodeAnalyzer\BinaryOpAnalyzer $binaryOpAnalyzer)
@@ -77,7 +76,7 @@ CODE_SAMPLE
             return null;
         }
         $arguments = [$substrFuncCall->args[0]->value, $string];
-        $staticCall = $this->nodeFactory->createStaticCall(\RectorPrefix20210504\Nette\Utils\Strings::class, 'endsWith', $arguments);
+        $staticCall = $this->nodeFactory->createStaticCall('Nette\\Utils\\Strings', 'endsWith', $arguments);
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             return $staticCall;
         }

@@ -41,12 +41,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210504\\JsonSchema\\": "src\/JsonSchema\/"
+            "RectorPrefix20210517\\JsonSchema\\": "src\/JsonSchema\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210504\\JsonSchema\\Tests\\": "tests\/"
+            "RectorPrefix20210517\\JsonSchema\\Tests\\": "tests\/"
         }
     },
     "repositories": [

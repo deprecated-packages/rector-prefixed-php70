@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\DowngradePhp74\Rector\Property;
 
 use PhpParser\Node;
+use PhpParser\Node\NullableType;
 use PhpParser\Node\Stmt\Property;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Rector\AbstractRector;
@@ -15,7 +16,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class DowngradeTypedPropertyRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var PhpDocTypeChanger
+     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
     public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
@@ -56,6 +57,9 @@ CODE_SAMPLE
     {
         if ($node->type === null) {
             return null;
+        }
+        if ($node->type instanceof \PhpParser\Node\NullableType) {
+            $node->props[0]->default = null;
         }
         $this->decoratePropertyWithDocBlock($node, $node->type);
         $node->type = null;

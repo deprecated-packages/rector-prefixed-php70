@@ -17,7 +17,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class SingularSwitchToIfRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var SwitchManipulator
+     * @var \Rector\Renaming\NodeManipulator\SwitchManipulator
      */
     private $switchManipulator;
     public function __construct(\Rector\Renaming\NodeManipulator\SwitchManipulator $switchManipulator)
@@ -66,7 +66,7 @@ CODE_SAMPLE
     }
     /**
      * @param Switch_ $node
-     * @return \PhpParser\Node|null
+     * @return Node\Stmt[]|If_|null
      */
     public function refactor(\PhpParser\Node $node)
     {
@@ -76,9 +76,7 @@ CODE_SAMPLE
         $onlyCase = $node->cases[0];
         // only default → basically unwrap
         if ($onlyCase->cond === null) {
-            $this->addNodesAfterNode($onlyCase->stmts, $node);
-            $this->removeNode($node);
-            return null;
+            return $onlyCase->stmts;
         }
         $if = new \PhpParser\Node\Stmt\If_(new \PhpParser\Node\Expr\BinaryOp\Identical($node->cond, $onlyCase->cond));
         $if->stmts = $this->switchManipulator->removeBreakNodes($onlyCase->stmts);

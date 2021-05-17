@@ -16,8 +16,8 @@ final class BracketsAwareUnionTypeNode extends \PHPStan\PhpDocParser\Ast\Type\Un
      */
     public function __construct(array $types, bool $isWrappedInBrackets = \false)
     {
-        parent::__construct($types);
         $this->isWrappedInBrackets = $isWrappedInBrackets;
+        parent::__construct($types);
     }
     /**
      * Preserve common format

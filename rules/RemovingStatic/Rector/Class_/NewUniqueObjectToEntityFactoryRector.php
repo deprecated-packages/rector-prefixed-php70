@@ -47,11 +47,11 @@ final class NewUniqueObjectToEntityFactoryRector extends \Rector\Core\Rector\Abs
      */
     private $classesUsingTypes = [];
     /**
-     * @var PropertyNaming
+     * @var \Rector\Naming\Naming\PropertyNaming
      */
     private $propertyNaming;
     /**
-     * @var StaticTypesInClassResolver
+     * @var \Rector\RemovingStatic\StaticTypesInClassResolver
      */
     private $staticTypesInClassResolver;
     public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\RemovingStatic\StaticTypesInClassResolver $staticTypesInClassResolver)
@@ -64,13 +64,13 @@ final class NewUniqueObjectToEntityFactoryRector extends \Rector\Core\Rector\Abs
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert new X to new factories', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace RectorPrefix20210504;
+namespace RectorPrefix20210517;
 
 class SomeClass
 {
     public function run()
     {
-        return new \RectorPrefix20210504\AnotherClass();
+        return new \RectorPrefix20210517\AnotherClass();
     }
 }
 \class_alias('SomeClass', 'SomeClass', \false);
@@ -78,7 +78,7 @@ class AnotherClass
 {
     public function someFun()
     {
-        return \RectorPrefix20210504\StaticClass::staticMethod();
+        return \RectorPrefix20210517\StaticClass::staticMethod();
     }
 }
 \class_alias('AnotherClass', 'AnotherClass', \false);

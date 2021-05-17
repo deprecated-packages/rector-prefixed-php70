@@ -3,15 +3,15 @@
 declare (strict_types=1);
 namespace Rector\ChangesReporting\Output;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use Rector\ChangesReporting\Annotation\RectorsChangelogResolver;
 use Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\Option;
+use Rector\Core\Contract\Console\OutputStyleInterface;
 use Rector\Core\ValueObject\Application\RectorError;
 use Rector\Core\ValueObject\ProcessResult;
 use Rector\Core\ValueObject\Reporting\FileDiff;
-use RectorPrefix20210504\Symfony\Component\Console\Style\SymfonyStyle;
 final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
 {
     /**
@@ -24,21 +24,21 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
      */
     const ON_LINE_REGEX = '# on line #';
     /**
-     * @var SymfonyStyle
-     */
-    private $symfonyStyle;
-    /**
-     * @var Configuration
+     * @var \Rector\Core\Configuration\Configuration
      */
     private $configuration;
     /**
-     * @var RectorsChangelogResolver
+     * @var \Rector\Core\Contract\Console\OutputStyleInterface
+     */
+    private $outputStyle;
+    /**
+     * @var \Rector\ChangesReporting\Annotation\RectorsChangelogResolver
      */
     private $rectorsChangelogResolver;
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210504\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\ChangesReporting\Annotation\RectorsChangelogResolver $rectorsChangelogResolver)
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\Core\Contract\Console\OutputStyleInterface $outputStyle, \Rector\ChangesReporting\Annotation\RectorsChangelogResolver $rectorsChangelogResolver)
     {
-        $this->symfonyStyle = $symfonyStyle;
         $this->configuration = $configuration;
+        $this->outputStyle = $outputStyle;
         $this->rectorsChangelogResolver = $rectorsChangelogResolver;
     }
     /**
@@ -48,7 +48,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
     {
         if ($this->configuration->getOutputFile()) {
             $message = \sprintf('Option "--%s" can be used only with "--%s %s"', \Rector\Core\Configuration\Option::OPTION_OUTPUT_FILE, \Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT, 'json');
-            $this->symfonyStyle->error($message);
+            $this->outputStyle->error($message);
         }
         if ($this->configuration->shouldShowDiffs()) {
             $this->reportFileDiffs($processResult->getFileDiffs());
@@ -59,7 +59,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
             return;
         }
         $message = $this->createSuccessMessage($processResult);
-        $this->symfonyStyle->success($message);
+        $this->outputStyle->success($message);
     }
     public function getName() : string
     {
@@ -77,19 +77,19 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
         // normalize
         \ksort($fileDiffs);
         $message = \sprintf('%d file%s with changes', \count($fileDiffs), \count($fileDiffs) === 1 ? '' : 's');
-        $this->symfonyStyle->title($message);
+        $this->outputStyle->title($message);
         $i = 0;
         foreach ($fileDiffs as $fileDiff) {
             $relativeFilePath = $fileDiff->getRelativeFilePath();
             $message = \sprintf('<options=bold>%d) %s</>', ++$i, $relativeFilePath);
-            $this->symfonyStyle->writeln($message);
-            $this->symfonyStyle->newLine();
-            $this->symfonyStyle->writeln($fileDiff->getDiffConsoleFormatted());
+            $this->outputStyle->writeln($message);
+            $this->outputStyle->newLine();
+            $this->outputStyle->writeln($fileDiff->getDiffConsoleFormatted());
             $rectorsChangelogsLines = $this->createRectorChangelogLines($fileDiff);
             if ($fileDiff->getRectorChanges() !== []) {
-                $this->symfonyStyle->writeln('<options=underscore>Applied rules:</>');
-                $this->symfonyStyle->listing($rectorsChangelogsLines);
-                $this->symfonyStyle->newLine();
+                $this->outputStyle->writeln('<options=underscore>Applied rules:</>');
+                $this->outputStyle->listing($rectorsChangelogsLines);
+                $this->outputStyle->newLine();
             }
         }
     }
@@ -106,7 +106,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
             if ($error->getLine()) {
                 $message .= ' On line: ' . $error->getLine();
             }
-            $this->symfonyStyle->error($message);
+            $this->outputStyle->error($message);
         }
     }
     /**
@@ -116,19 +116,19 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
     {
         if ($processResult->getAddedFilesCount() !== 0) {
             $message = \sprintf('%d files were added', $processResult->getAddedFilesCount());
-            $this->symfonyStyle->note($message);
+            $this->outputStyle->note($message);
         }
         if ($processResult->getRemovedFilesCount() !== 0) {
             $message = \sprintf('%d files were removed', $processResult->getRemovedFilesCount());
-            $this->symfonyStyle->note($message);
+            $this->outputStyle->note($message);
         }
         $this->reportRemovedNodes($processResult);
     }
     private function normalizePathsToRelativeWithLine(string $errorMessage) : string
     {
         $regex = '#' . \preg_quote(\getcwd(), '#') . '/#';
-        $errorMessage = \RectorPrefix20210504\Nette\Utils\Strings::replace($errorMessage, $regex, '');
-        return \RectorPrefix20210504\Nette\Utils\Strings::replace($errorMessage, self::ON_LINE_REGEX, ':');
+        $errorMessage = \RectorPrefix20210517\Nette\Utils\Strings::replace($errorMessage, $regex, '');
+        return \RectorPrefix20210517\Nette\Utils\Strings::replace($errorMessage, self::ON_LINE_REGEX, ':');
     }
     /**
      * @return void
@@ -139,7 +139,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
             return;
         }
         $message = \sprintf('%d nodes were removed', $processResult->getRemovedNodeCount());
-        $this->symfonyStyle->warning($message);
+        $this->outputStyle->warning($message);
     }
     private function createSuccessMessage(\Rector\Core\ValueObject\ProcessResult $processResult) : string
     {
@@ -157,7 +157,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
         $rectorsChangelogs = $this->rectorsChangelogResolver->resolveIncludingMissing($fileDiff->getRectorClasses());
         $rectorsChangelogsLines = [];
         foreach ($rectorsChangelogs as $rectorClass => $changelog) {
-            $rectorShortClass = (string) \RectorPrefix20210504\Nette\Utils\Strings::after($rectorClass, '\\', -1);
+            $rectorShortClass = (string) \RectorPrefix20210517\Nette\Utils\Strings::after($rectorClass, '\\', -1);
             $rectorsChangelogsLines[] = $changelog === null ? $rectorShortClass : $rectorShortClass . ' (' . $changelog . ')';
         }
         return $rectorsChangelogsLines;

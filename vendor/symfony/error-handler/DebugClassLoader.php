@@ -8,15 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210504\Symfony\Component\ErrorHandler;
+namespace RectorPrefix20210517\Symfony\Component\ErrorHandler;
 
-use RectorPrefix20210504\Doctrine\Common\Persistence\Proxy as LegacyProxy;
-use RectorPrefix20210504\Doctrine\Persistence\Proxy;
-use RectorPrefix20210504\Mockery\MockInterface;
-use RectorPrefix20210504\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation;
-use RectorPrefix20210504\PHPUnit\Framework\MockObject\MockObject;
-use RectorPrefix20210504\Prophecy\Prophecy\ProphecySubjectInterface;
-use RectorPrefix20210504\ProxyManager\Proxy\ProxyInterface;
+use RectorPrefix20210517\Composer\InstalledVersions;
+use RectorPrefix20210517\Doctrine\Common\Persistence\Proxy as LegacyProxy;
+use RectorPrefix20210517\Doctrine\Persistence\Proxy;
+use RectorPrefix20210517\Mockery\MockInterface;
+use RectorPrefix20210517\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation;
+use RectorPrefix20210517\PHPUnit\Framework\MockObject\MockObject;
+use RectorPrefix20210517\Prophecy\Prophecy\ProphecySubjectInterface;
+use RectorPrefix20210517\ProxyManager\Proxy\ProxyInterface;
 /**
  * Autoloader checking if the class is really defined in the file found.
  *
@@ -112,8 +113,8 @@ class DebugClassLoader
     public static function enable()
     {
         // Ensures we don't hit https://bugs.php.net/42098
-        \class_exists(\RectorPrefix20210504\Symfony\Component\ErrorHandler\ErrorHandler::class);
-        \class_exists(\RectorPrefix20210504\Psr\Log\LogLevel::class);
+        \class_exists(\RectorPrefix20210517\Symfony\Component\ErrorHandler\ErrorHandler::class);
+        \class_exists(\RectorPrefix20210517\Psr\Log\LogLevel::class);
         if (!\is_array($functions = \spl_autoload_functions())) {
             return;
         }
@@ -165,7 +166,7 @@ class DebugClassLoader
         foreach ($offsets as $getSymbols => $i) {
             $symbols = $getSymbols();
             for (; $i < \count($symbols); ++$i) {
-                if (!\is_subclass_of($symbols[$i], \RectorPrefix20210504\PHPUnit\Framework\MockObject\MockObject::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210504\Prophecy\Prophecy\ProphecySubjectInterface::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210504\Doctrine\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210504\ProxyManager\Proxy\ProxyInterface::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210504\Doctrine\Common\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210504\Mockery\MockInterface::class)) {
+                if (!\is_subclass_of($symbols[$i], \RectorPrefix20210517\PHPUnit\Framework\MockObject\MockObject::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210517\Prophecy\Prophecy\ProphecySubjectInterface::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210517\Doctrine\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210517\ProxyManager\Proxy\ProxyInterface::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210517\Doctrine\Common\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210517\Mockery\MockInterface::class)) {
                     $loader->checkClass($symbols[$i]);
                 }
             }
@@ -323,6 +324,10 @@ class DebugClassLoader
                         self::$method[$class] = self::$method[$use];
                     }
                 } elseif (!$refl->isInterface()) {
+                    if (!\strncmp($vendor, \str_replace('_', '\\', $use), $vendorLen) && 0 === \strpos($className, 'Symfony\\') && (!\class_exists(\RectorPrefix20210517\Composer\InstalledVersions::class) || 'symfony/symfony' !== \RectorPrefix20210517\Composer\InstalledVersions::getRootPackage()['name'])) {
+                        // skip "same vendor" @method deprecations for Symfony\* classes unless symfony/symfony is being tested
+                        continue;
+                    }
                     $hasCall = $refl->hasMethod('__call');
                     $hasStaticCall = $refl->hasMethod('__callStatic');
                     foreach (self::$method[$use] as $method) {
@@ -452,7 +457,7 @@ class DebugClassLoader
                     $finalOrInternal = \true;
                 }
             }
-            if ($finalOrInternal || $method->isConstructor() || \false === \strpos($doc, '@param') || \RectorPrefix20210504\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation::class === $class) {
+            if ($finalOrInternal || $method->isConstructor() || \false === \strpos($doc, '@param') || \RectorPrefix20210517\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation::class === $class) {
                 continue;
             }
             if (!\preg_match_all('#\\n\\s+\\* @param +((?(?!callable *\\().*?|callable *\\(.*\\).*?))(?<= )\\$([a-zA-Z0-9_\\x7f-\\xff]++)#', $doc, $matches, \PREG_SET_ORDER)) {

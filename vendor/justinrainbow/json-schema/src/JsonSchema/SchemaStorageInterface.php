@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210504\JsonSchema;
+namespace RectorPrefix20210517\JsonSchema;
 
 interface SchemaStorageInterface
 {

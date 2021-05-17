@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Reflection;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Reflection\Php\PhpMethodReflection;
@@ -14,21 +14,21 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class MethodReflectionToAstResolver
 {
     /**
-     * @var FileInfoParser
-     */
-    private $fileInfoParser;
-    /**
-     * @var BetterNodeFinder
-     */
-    private $betterNodeFinder;
-    /**
-     * @var NodeNameResolver
-     */
-    private $nodeNameResolver;
-    /**
      * @var array<string, array<string, ClassMethod>>
      */
     private $analyzedMethodsInFileName = [];
+    /**
+     * @var \Rector\FileSystemRector\Parser\FileInfoParser
+     */
+    private $fileInfoParser;
+    /**
+     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     */
+    private $betterNodeFinder;
+    /**
+     * @var \Rector\NodeNameResolver\NodeNameResolver
+     */
+    private $nodeNameResolver;
     public function __construct(\Rector\FileSystemRector\Parser\FileInfoParser $fileInfoParser, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->fileInfoParser = $fileInfoParser;
@@ -46,7 +46,7 @@ final class MethodReflectionToAstResolver
             return null;
         }
         // skip vendor
-        if (\RectorPrefix20210504\Nette\Utils\Strings::contains($fileName, '#\\/vendor\\/#')) {
+        if (\RectorPrefix20210517\Nette\Utils\Strings::contains($fileName, '#\\/vendor\\/#')) {
             return null;
         }
         $methodName = $phpMethodReflection->getName();

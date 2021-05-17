@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\FileSystemRector\ValueObjectFactory;
 
-use RectorPrefix20210504\Nette\Utils\Strings;
+use RectorPrefix20210517\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
@@ -20,30 +20,30 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class AddedFileWithNodesFactory
 {
     /**
-     * @var BetterNodeFinder
+     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
      */
     private $betterNodeFinder;
     /**
-     * @var FileRelocationResolver
-     */
-    private $fileRelocationResolver;
-    /**
-     * @var CategoryNamespaceProvider
+     * @var \Rector\Autodiscovery\Configuration\CategoryNamespaceProvider
      */
     private $categoryNamespaceProvider;
     /**
-     * @var RenamedClassesCollector
+     * @var \Rector\PSR4\FileRelocationResolver
+     */
+    private $fileRelocationResolver;
+    /**
+     * @var \Rector\PSR4\Collector\RenamedClassesCollector
      */
     private $renamedClassesCollector;
     /**
-     * @var FileInfoDeletionAnalyzer
+     * @var \Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer
      */
     private $fileInfoDeletionAnalyzer;
     public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Autodiscovery\Configuration\CategoryNamespaceProvider $categoryNamespaceProvider, \Rector\PSR4\FileRelocationResolver $fileRelocationResolver, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer $fileInfoDeletionAnalyzer)
     {
         $this->betterNodeFinder = $betterNodeFinder;
-        $this->fileRelocationResolver = $fileRelocationResolver;
         $this->categoryNamespaceProvider = $categoryNamespaceProvider;
+        $this->fileRelocationResolver = $fileRelocationResolver;
         $this->renamedClassesCollector = $renamedClassesCollector;
         $this->fileInfoDeletionAnalyzer = $fileInfoDeletionAnalyzer;
     }
@@ -63,7 +63,7 @@ final class AddedFileWithNodesFactory
         }
         // is already in the right group
         $currentNamespaceName = $currentNamespace->name->toString();
-        if (\RectorPrefix20210504\Nette\Utils\Strings::endsWith($currentNamespaceName, '\\' . $desiredGroupName)) {
+        if (\RectorPrefix20210517\Nette\Utils\Strings::endsWith($currentNamespaceName, '\\' . $desiredGroupName)) {
             return null;
         }
         $oldClassName = $currentNamespaceName . '\\' . $this->fileInfoDeletionAnalyzer->clearNameFromTestingPrefix($oldFileInfo->getBasenameWithoutSuffix());
@@ -74,7 +74,7 @@ final class AddedFileWithNodesFactory
         if ($oldClassName === $newClassName) {
             return null;
         }
-        if (\RectorPrefix20210504\Nette\Utils\Strings::match($oldClassName, '#\\b' . $desiredGroupName . '\\b#')) {
+        if (\RectorPrefix20210517\Nette\Utils\Strings::match($oldClassName, '#\\b' . $desiredGroupName . '\\b#')) {
             return null;
         }
         // 1. rename namespace

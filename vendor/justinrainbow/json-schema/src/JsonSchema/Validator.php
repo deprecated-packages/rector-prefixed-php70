@@ -6,10 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210504\JsonSchema;
+namespace RectorPrefix20210517\JsonSchema;
 
-use RectorPrefix20210504\JsonSchema\Constraints\BaseConstraint;
-use RectorPrefix20210504\JsonSchema\Constraints\Constraint;
+use RectorPrefix20210517\JsonSchema\Constraints\BaseConstraint;
+use RectorPrefix20210517\JsonSchema\Constraints\Constraint;
 /**
  * A JsonSchema Constraint
  *
@@ -18,7 +18,7 @@ use RectorPrefix20210504\JsonSchema\Constraints\Constraint;
  *
  * @see    README.md
  */
-class Validator extends \RectorPrefix20210504\JsonSchema\Constraints\BaseConstraint
+class Validator extends \RectorPrefix20210517\JsonSchema\Constraints\BaseConstraint
 {
     const SCHEMA_MEDIA_TYPE = 'application/schema+json';
     const ERROR_NONE = 0x0;
@@ -47,7 +47,7 @@ class Validator extends \RectorPrefix20210504\JsonSchema\Constraints\BaseConstra
         if (\is_object($schema) && \property_exists($schema, 'id')) {
             $schemaURI = $schema->id;
         } else {
-            $schemaURI = \RectorPrefix20210504\JsonSchema\SchemaStorage::INTERNAL_PROVIDED_SCHEMA_URI;
+            $schemaURI = \RectorPrefix20210517\JsonSchema\SchemaStorage::INTERNAL_PROVIDED_SCHEMA_URI;
         }
         $this->factory->getSchemaStorage()->addSchema($schemaURI, $schema);
         $validator = $this->factory->createInstanceFor('schema');
@@ -68,6 +68,6 @@ class Validator extends \RectorPrefix20210504\JsonSchema\Constraints\BaseConstra
      */
     public function coerce(&$value, $schema)
     {
-        return $this->validate($value, $schema, \RectorPrefix20210504\JsonSchema\Constraints\Constraint::CHECK_MODE_COERCE_TYPES);
+        return $this->validate($value, $schema, \RectorPrefix20210517\JsonSchema\Constraints\Constraint::CHECK_MODE_COERCE_TYPES);
     }
 }

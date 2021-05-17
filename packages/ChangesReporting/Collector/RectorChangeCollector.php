@@ -6,18 +6,17 @@ namespace Rector\ChangesReporting\Collector;
 use PhpParser\Node;
 use Rector\ChangesReporting\ValueObject\RectorWithLineChange;
 use Rector\Core\Contract\Rector\RectorInterface;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Logging\CurrentRectorProvider;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 final class RectorChangeCollector
 {
     /**
-     * @var CurrentRectorProvider
+     * @var \Rector\Core\Logging\CurrentRectorProvider
      */
     private $currentRectorProvider;
     /**
-     * @var CurrentFileProvider
+     * @var \Rector\Core\Provider\CurrentFileProvider
      */
     private $currentFileProvider;
     public function __construct(\Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider)
@@ -26,6 +25,7 @@ final class RectorChangeCollector
         $this->currentFileProvider = $currentFileProvider;
     }
     /**
+     * @deprecated Use file-> method instead
      * @return void
      */
     public function notifyNodeFileInfo(\PhpParser\Node $node)
@@ -38,7 +38,7 @@ final class RectorChangeCollector
         }
         $currentRector = $this->currentRectorProvider->getCurrentRector();
         if (!$currentRector instanceof \Rector\Core\Contract\Rector\RectorInterface) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            return;
         }
         $rectorWithLineChange = new \Rector\ChangesReporting\ValueObject\RectorWithLineChange($currentRector, $node->getLine());
         $file->addRectorClassWithLine($rectorWithLineChange);

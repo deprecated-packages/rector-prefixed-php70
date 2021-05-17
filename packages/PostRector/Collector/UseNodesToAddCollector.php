@@ -20,15 +20,15 @@ final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collec
      */
     private $removedShortUsesInFilePath = [];
     /**
-     * @var FullyQualifiedObjectType[][]
+     * @var array<string, FullyQualifiedObjectType[]>
      */
     private $functionUseImportTypesInFilePath = [];
     /**
-     * @var FullyQualifiedObjectType[][]|AliasedObjectType[][]
+     * @var array<string, FullyQualifiedObjectType[]|AliasedObjectType[]>
      */
     private $useImportTypesInFilePath = [];
     /**
-     * @var CurrentFileProvider
+     * @var \Rector\Core\Provider\CurrentFileProvider
      */
     private $currentFileProvider;
     public function __construct(\Rector\Core\Provider\CurrentFileProvider $currentFileProvider)

@@ -1,32 +1,45 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210504;
+namespace RectorPrefix20210517;
 
 use PhpParser\Node;
 use PhpParser\PrettyPrinter\Standard;
-use RectorPrefix20210504\Tracy\Dumper;
-/**
- * @return void
- */
-function dump_node(\PhpParser\Node $node, int $depth = 2)
-{
-    \RectorPrefix20210504\Tracy\Dumper::dump($node, [\RectorPrefix20210504\Tracy\Dumper::DEPTH => $depth]);
+use RectorPrefix20210517\Tracy\Dumper;
+if (!\function_exists('dn')) {
+    /**
+     * @return void
+     */
+    function dn(\PhpParser\Node $node, int $depth = 2)
+    {
+        \RectorPrefix20210517\dump_node($node, $depth);
+    }
 }
-/**
- * @param Node|Node[] $node
- * @return void
- */
-function print_node($node)
-{
-    $standard = new \PhpParser\PrettyPrinter\Standard();
-    if (\is_array($node)) {
-        foreach ($node as $singleNode) {
-            $printedContent = $standard->prettyPrint([$singleNode]);
-            \RectorPrefix20210504\Tracy\Dumper::dump($printedContent);
+if (!\function_exists('dump_node')) {
+    /**
+     * @param Node|Node[] $node
+     * @return void
+     */
+    function dump_node($node, int $depth = 2)
+    {
+        $nodes = \is_array($node) ? $node : [$node];
+        foreach ($nodes as $node) {
+            \RectorPrefix20210517\Tracy\Dumper::dump($node, [\RectorPrefix20210517\Tracy\Dumper::DEPTH => $depth]);
         }
-    } else {
-        $printedContent = $standard->prettyPrint([$node]);
-        \RectorPrefix20210504\Tracy\Dumper::dump($printedContent);
+    }
+}
+if (!\function_exists('print_node')) {
+    /**
+     * @param Node|Node[] $node
+     * @return void
+     */
+    function print_node($node)
+    {
+        $standard = new \PhpParser\PrettyPrinter\Standard();
+        $nodes = \is_array($node) ? $node : [$node];
+        foreach ($nodes as $node) {
+            $printedContent = $standard->prettyPrint([$node]);
+            \RectorPrefix20210517\Tracy\Dumper::dump($printedContent);
+        }
     }
 }

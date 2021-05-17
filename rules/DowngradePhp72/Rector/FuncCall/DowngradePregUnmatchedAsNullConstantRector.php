@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\DowngradePhp72\Rector\FuncCall;
 
-use RectorPrefix20210504\Nette\NotImplementedException;
+use RectorPrefix20210517\Nette\NotImplementedException;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
@@ -41,7 +41,7 @@ final class DowngradePregUnmatchedAsNullConstantRector extends \Rector\Core\Rect
      */
     const FLAG = 'PREG_UNMATCHED_AS_NULL';
     /**
-     * @var IfManipulator
+     * @var \Rector\Core\NodeManipulator\IfManipulator
      */
     private $ifManipulator;
     public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator)
@@ -228,7 +228,7 @@ CODE_SAMPLE
             return $this->processInIf($parent, $funcCall, $replaceEmptystringToNull);
         }
         if (!$parent instanceof \PhpParser\Node) {
-            throw new \RectorPrefix20210504\Nette\NotImplementedException();
+            throw new \RectorPrefix20210517\Nette\NotImplementedException();
         }
         $if = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parent instanceof \PhpParser\Node\Expr\BooleanNot) {

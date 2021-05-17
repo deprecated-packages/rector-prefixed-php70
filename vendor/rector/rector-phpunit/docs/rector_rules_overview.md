@@ -37,7 +37,7 @@ Add Prophecy trait for method using `$this->prophesize()`
  {
 +    use ProphecyTrait;
 +
-     public function testOne()
+     public function testOne(): void
      {
          $prophecy = $this->prophesize(\AnInterface::class);
      }
@@ -83,7 +83,7 @@ use Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
-return static function (ContainerConfigurator $containerConfigurator) {
+return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
     $services->set(ArrayArgumentToDataProviderRector::class)
@@ -457,7 +457,7 @@ Replaces `createMock()` with `createStub()` when relevant
 
  class MyTest extends TestCase
  {
-     public function testItBehavesAsExpected()
+     public function testItBehavesAsExpected(): void
      {
 -        $stub = $this->createMock(\Exception::class);
 +        $stub = $this->createStub(\Exception::class);
@@ -787,46 +787,46 @@ Refactor "*TestListener.php" to particular "*Hook.php" files
 -final class BeforeListHook implements TestListener
 +final class BeforeListHook implements \PHPUnit\Runner\BeforeTestHook, \PHPUnit\Runner\AfterTestHook
  {
--    public function addError(Test $test, \Throwable $t, float $time)
-+    public function executeBeforeTest(Test $test)
+-    public function addError(Test $test, \Throwable $t, float $time): void
++    public function executeBeforeTest(Test $test): void
      {
 -    }
 -
--    public function addWarning(Test $test, Warning $e, float $time)
+-    public function addWarning(Test $test, Warning $e, float $time): void
 -    {
 -    }
 -
--    public function addFailure(Test $test, AssertionFailedError $e, float $time)
+-    public function addFailure(Test $test, AssertionFailedError $e, float $time): void
 -    {
 -    }
 -
--    public function addIncompleteTest(Test $test, \Throwable $t, float $time)
+-    public function addIncompleteTest(Test $test, \Throwable $t, float $time): void
 -    {
 -    }
 -
--    public function addRiskyTest(Test $test, \Throwable $t, float $time)
+-    public function addRiskyTest(Test $test, \Throwable $t, float $time): void
 -    {
 -    }
 -
--    public function addSkippedTest(Test $test, \Throwable $t, float $time)
+-    public function addSkippedTest(Test $test, \Throwable $t, float $time): void
 -    {
 -    }
 -
--    public function startTestSuite(TestSuite $suite)
+-    public function startTestSuite(TestSuite $suite): void
 -    {
 -    }
 -
--    public function endTestSuite(TestSuite $suite)
+-    public function endTestSuite(TestSuite $suite): void
 -    {
 -    }
 -
--    public function startTest(Test $test)
+-    public function startTest(Test $test): void
 -    {
          echo 'start test!';
      }
 
--    public function endTest(Test $test, float $time)
-+    public function executeAfterTest(Test $test, float $time)
+-    public function endTest(Test $test, float $time): void
++    public function executeAfterTest(Test $test, float $time): void
      {
          echo $time;
      }

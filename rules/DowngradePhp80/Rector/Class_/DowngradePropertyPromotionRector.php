@@ -22,7 +22,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class DowngradePropertyPromotionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var ClassInsertManipulator
+     * @var \Rector\Core\NodeManipulator\ClassInsertManipulator
      */
     private $classInsertManipulator;
     public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator)
@@ -69,7 +69,7 @@ CODE_SAMPLE
         if ($promotedParams === []) {
             return null;
         }
-        $properties = $this->addPropertiesFromParams($promotedParams, $node);
+        $properties = $this->resolvePropertiesFromPromotedParams($promotedParams, $node);
         $this->addPropertyAssignsToConstructorClassMethod($properties, $node);
         foreach ($promotedParams as $promotedParam) {
             $promotedParam->flags = 0;
@@ -98,7 +98,7 @@ CODE_SAMPLE
      * @param Param[] $promotedParams
      * @return Property[]
      */
-    private function addPropertiesFromParams(array $promotedParams, \PhpParser\Node\Stmt\Class_ $class) : array
+    private function resolvePropertiesFromPromotedParams(array $promotedParams, \PhpParser\Node\Stmt\Class_ $class) : array
     {
         $properties = $this->createPropertiesFromParams($promotedParams);
         $this->classInsertManipulator->addPropertiesToClass($class, $properties);
@@ -133,6 +133,9 @@ CODE_SAMPLE
             $property = $this->nodeFactory->createProperty($name);
             $property->flags = $param->flags;
             $property->type = $param->type;
+            if ($param->default !== null) {
+                $property->props[0]->default = $param->default;
+            }
             $properties[] = $property;
         }
         return $properties;

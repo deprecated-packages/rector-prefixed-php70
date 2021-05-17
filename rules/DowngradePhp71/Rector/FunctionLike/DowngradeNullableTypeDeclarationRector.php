@@ -22,11 +22,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class DowngradeNullableTypeDeclarationRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var PhpDocTypeChanger
+     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
     /**
-     * @var PhpDocFromTypeDeclarationDecorator
+     * @var \Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator
      */
     private $phpDocFromTypeDeclarationDecorator;
     public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator)
@@ -66,7 +66,7 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @param ClassMethod|Function_ $node
+     * @param ClassMethod|Function_|Closure $node
      * @return \PhpParser\Node|null
      */
     public function refactor(\PhpParser\Node $node)
@@ -77,7 +77,7 @@ CODE_SAMPLE
                 $hasChanged = \true;
             }
         }
-        if ($node->returnType instanceof \PhpParser\Node\NullableType && $this->phpDocFromTypeDeclarationDecorator->decorateReturn($node)) {
+        if ($node->returnType instanceof \PhpParser\Node\NullableType && $this->phpDocFromTypeDeclarationDecorator->decorate($node)) {
             $hasChanged = \true;
         }
         if ($hasChanged) {
@@ -97,7 +97,7 @@ CODE_SAMPLE
         return $param->type instanceof \PhpParser\Node\NullableType;
     }
     /**
-     * @param ClassMethod|Function_ $functionLike
+     * @param ClassMethod|Function_|Closure $functionLike
      */
     private function refactorParamType(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : bool
     {
@@ -109,7 +109,7 @@ CODE_SAMPLE
         return \true;
     }
     /**
-     * @param ClassMethod|Function_ $functionLike
+     * @param ClassMethod|Function_|Closure $functionLike
      * @return void
      */
     private function decorateWithDocBlock(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param)
