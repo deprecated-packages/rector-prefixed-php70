@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210517\Hoa\Stream\IStream;
+namespace RectorPrefix20210518\Hoa\Stream\IStream;
 
 /**
  * Interface \Hoa\Stream\IStream\Touchable.
@@ -43,7 +43,7 @@ namespace RectorPrefix20210517\Hoa\Stream\IStream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-interface Touchable extends \RectorPrefix20210517\Hoa\Stream\IStream\Stream
+interface Touchable extends \RectorPrefix20210518\Hoa\Stream\IStream\Stream
 {
     /**
      * Overwrite file if already exists.

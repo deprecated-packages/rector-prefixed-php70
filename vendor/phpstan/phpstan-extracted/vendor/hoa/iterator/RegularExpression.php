@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210517\Hoa\Iterator;
+namespace RectorPrefix20210518\Hoa\Iterator;
 
 /**
  * Class \Hoa\Iterator\RegularExpression.
@@ -47,7 +47,7 @@ namespace RectorPrefix20210517\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class RegularExpression extends \RectorPrefix20210517\Hoa\Iterator\Filter
+class RegularExpression extends \RectorPrefix20210518\Hoa\Iterator\Filter
 {
     /**
      * Flag: match the entry key instead of the entry value.

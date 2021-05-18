@@ -1,16 +1,16 @@
 <?php
 
-namespace RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Socket;
+namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Socket;
 
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Dns\Resolver\ResolverInterface;
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise;
-final class HappyEyeBallsConnector implements \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Dns\Resolver\ResolverInterface;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise;
+final class HappyEyeBallsConnector implements \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface
 {
     private $loop;
     private $connector;
     private $resolver;
-    public function __construct(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface $connector, \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Dns\Resolver\ResolverInterface $resolver)
+    public function __construct(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface $connector, \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Dns\Resolver\ResolverInterface $resolver)
     {
         $this->loop = $loop;
         $this->connector = $connector;
@@ -25,14 +25,14 @@ final class HappyEyeBallsConnector implements \RectorPrefix20210517\_HumbugBox0b
             $parts = \parse_url($uri);
         }
         if (!$parts || !isset($parts['host'])) {
-            return \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
+            return \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
         }
         $host = \trim($parts['host'], '[]');
         // skip DNS lookup / URI manipulation if this URI already contains an IP
         if (\false !== \filter_var($host, \FILTER_VALIDATE_IP)) {
             return $this->connector->connect($uri);
         }
-        $builder = new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Socket\HappyEyeBallsConnectionBuilder($this->loop, $this->connector, $this->resolver, $uri, $host, $parts);
+        $builder = new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Socket\HappyEyeBallsConnectionBuilder($this->loop, $this->connector, $this->resolver, $uri, $host, $parts);
         return $builder->connect();
     }
 }

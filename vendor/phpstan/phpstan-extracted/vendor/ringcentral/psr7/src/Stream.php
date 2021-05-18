@@ -1,14 +1,14 @@
 <?php
 
-namespace RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
+namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
 
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
 /**
  * PHP stream implementation.
  *
  * @var $stream
  */
-class Stream implements \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
+class Stream implements \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
 {
     private $stream;
     private $size;

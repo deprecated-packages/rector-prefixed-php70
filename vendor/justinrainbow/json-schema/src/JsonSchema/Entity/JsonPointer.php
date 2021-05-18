@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210517\JsonSchema\Entity;
+namespace RectorPrefix20210518\JsonSchema\Entity;
 
-use RectorPrefix20210517\JsonSchema\Exception\InvalidArgumentException;
+use RectorPrefix20210518\JsonSchema\Exception\InvalidArgumentException;
 /**
  * @package JsonSchema\Entity
  *
@@ -32,7 +32,7 @@ class JsonPointer
     public function __construct($value)
     {
         if (!\is_string($value)) {
-            throw new \RectorPrefix20210517\JsonSchema\Exception\InvalidArgumentException('Ref value must be a string');
+            throw new \RectorPrefix20210518\JsonSchema\Exception\InvalidArgumentException('Ref value must be a string');
         }
         $splitRef = \explode('#', $value, 2);
         $this->filename = $splitRef[0];

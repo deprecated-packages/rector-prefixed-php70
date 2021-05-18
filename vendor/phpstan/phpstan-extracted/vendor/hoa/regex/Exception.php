@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210517\Hoa\Regex;
+namespace RectorPrefix20210518\Hoa\Regex;
 
-use RectorPrefix20210517\Hoa\Exception as HoaException;
+use RectorPrefix20210518\Hoa\Exception as HoaException;
 /**
  * Class \Hoa\Regex\Exception.
  *
@@ -44,6 +44,6 @@ use RectorPrefix20210517\Hoa\Exception as HoaException;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Exception extends \RectorPrefix20210517\Hoa\Exception
+class Exception extends \RectorPrefix20210518\Hoa\Exception
 {
 }

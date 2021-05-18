@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210517\Hoa\Exception;
+namespace RectorPrefix20210518\Hoa\Exception;
 
 /**
  * Class \Hoa\Exception\Error.
@@ -43,7 +43,7 @@ namespace RectorPrefix20210517\Hoa\Exception;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Error extends \RectorPrefix20210517\Hoa\Exception\Exception
+class Error extends \RectorPrefix20210518\Hoa\Exception\Exception
 {
     /**
      * Constructor.
@@ -80,7 +80,7 @@ class Error extends \RectorPrefix20210517\Hoa\Exception\Exception
             $trace = \debug_backtrace();
             \array_shift($trace);
             \array_shift($trace);
-            throw new \RectorPrefix20210517\Hoa\Exception\Error($str, $no, $file, $line, $trace);
+            throw new \RectorPrefix20210518\Hoa\Exception\Error($str, $no, $file, $line, $trace);
         });
     }
 }

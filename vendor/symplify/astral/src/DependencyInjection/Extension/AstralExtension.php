@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210517\Symplify\Astral\DependencyInjection\Extension;
+namespace RectorPrefix20210518\Symplify\Astral\DependencyInjection\Extension;
 
-use RectorPrefix20210517\Symfony\Component\Config\FileLocator;
-use RectorPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210517\Symfony\Component\DependencyInjection\Extension\Extension;
-use RectorPrefix20210517\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-final class AstralExtension extends \RectorPrefix20210517\Symfony\Component\DependencyInjection\Extension\Extension
+use RectorPrefix20210518\Symfony\Component\Config\FileLocator;
+use RectorPrefix20210518\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210518\Symfony\Component\DependencyInjection\Extension\Extension;
+use RectorPrefix20210518\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+final class AstralExtension extends \RectorPrefix20210518\Symfony\Component\DependencyInjection\Extension\Extension
 {
     /**
      * @param string[] $configs
      * @return void
      */
-    public function load(array $configs, \RectorPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function load(array $configs, \RectorPrefix20210518\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
-        $phpFileLoader = new \RectorPrefix20210517\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20210517\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));
+        $phpFileLoader = new \RectorPrefix20210518\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20210518\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));
         $phpFileLoader->load('config.php');
     }
 }

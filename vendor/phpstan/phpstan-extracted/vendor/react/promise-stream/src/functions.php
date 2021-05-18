@@ -1,12 +1,12 @@
 <?php
 
-namespace RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\Stream;
+namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\Stream;
 
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitterInterface;
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise;
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface;
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitterInterface;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
 /**
  * Creates a `Promise` which resolves with the stream data buffer.
  *
@@ -46,14 +46,14 @@ use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInter
  * @param ?int                            $maxLength Maximum number of bytes to buffer or null for unlimited.
  * @return PromiseInterface<string,Exception>
  */
-function buffer(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface $stream, $maxLength = null)
+function buffer(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface $stream, $maxLength = null)
 {
     // stream already ended => resolve with empty buffer
     if (!$stream->isReadable()) {
-        return \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\resolve('');
+        return \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\resolve('');
     }
     $buffer = '';
-    $promise = new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\Promise(function ($resolve, $reject) use($stream, $maxLength, &$buffer, &$bufferer) {
+    $promise = new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\Promise(function ($resolve, $reject) use($stream, $maxLength, &$buffer, &$bufferer) {
         $bufferer = function ($data) use(&$buffer, $reject, $maxLength) {
             $buffer .= $data;
             if ($maxLength !== null && isset($buffer[$maxLength])) {
@@ -107,21 +107,21 @@ function buffer(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\Readab
  * @param string                                          $event
  * @return PromiseInterface<mixed,Exception>
  */
-function first(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitterInterface $stream, $event = 'data')
+function first(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitterInterface $stream, $event = 'data')
 {
-    if ($stream instanceof \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface) {
+    if ($stream instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface) {
         // readable or duplex stream not readable => already closed
         // a half-open duplex stream is considered closed if its readable side is closed
         if (!$stream->isReadable()) {
-            return \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \RuntimeException('Stream already closed'));
+            return \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \RuntimeException('Stream already closed'));
         }
-    } elseif ($stream instanceof \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface) {
+    } elseif ($stream instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface) {
         // writable-only stream (not duplex) not writable => already closed
         if (!$stream->isWritable()) {
-            return \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \RuntimeException('Stream already closed'));
+            return \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \RuntimeException('Stream already closed'));
         }
     }
-    return new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\Promise(function ($resolve, $reject) use($stream, $event, &$listener) {
+    return new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\Promise(function ($resolve, $reject) use($stream, $event, &$listener) {
         $listener = function ($data = null) use($stream, $event, &$listener, $resolve) {
             $stream->removeListener($event, $listener);
             $resolve($data);
@@ -170,19 +170,19 @@ function first(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitt
  * @param string                                          $event
  * @return PromiseInterface<array,Exception>
  */
-function all(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitterInterface $stream, $event = 'data')
+function all(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitterInterface $stream, $event = 'data')
 {
     // stream already ended => resolve with empty buffer
-    if ($stream instanceof \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface) {
+    if ($stream instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface) {
         // readable or duplex stream not readable => already closed
         // a half-open duplex stream is considered closed if its readable side is closed
         if (!$stream->isReadable()) {
-            return \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\resolve(array());
+            return \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\resolve(array());
         }
-    } elseif ($stream instanceof \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface) {
+    } elseif ($stream instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface) {
         // writable-only stream (not duplex) not writable => already closed
         if (!$stream->isWritable()) {
-            return \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\resolve(array());
+            return \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\resolve(array());
         }
     }
     $buffer = array();
@@ -190,7 +190,7 @@ function all(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter
         $buffer[] = $data;
     };
     $stream->on($event, $bufferer);
-    $promise = new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\Promise(function ($resolve, $reject) use($stream, &$buffer) {
+    $promise = new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\Promise(function ($resolve, $reject) use($stream, &$buffer) {
         $stream->on('error', function ($error) use($reject) {
             $reject(new \RuntimeException('An error occured on the underlying stream while buffering', 0, $error));
         });
@@ -266,9 +266,9 @@ function all(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter
  * @param PromiseInterface<ReadableStreamInterface,Exception> $promise
  * @return ReadableStreamInterface
  */
-function unwrapReadable(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface $promise)
+function unwrapReadable(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface $promise)
 {
-    return new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\Stream\UnwrapReadableStream($promise);
+    return new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\Stream\UnwrapReadableStream($promise);
 }
 /**
  * Unwraps a `Promise` which resolves with a `WritableStreamInterface`.
@@ -329,7 +329,7 @@ function unwrapReadable(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promi
  * @param PromiseInterface<WritableStreamInterface,Exception> $promise
  * @return WritableStreamInterface
  */
-function unwrapWritable(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface $promise)
+function unwrapWritable(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface $promise)
 {
-    return new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\Stream\UnwrapWritableStream($promise);
+    return new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\Stream\UnwrapWritableStream($promise);
 }

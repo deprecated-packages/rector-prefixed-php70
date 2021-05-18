@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210517\Hoa\Ustring;
+namespace RectorPrefix20210518\Hoa\Ustring;
 
 /**
  * Class \Hoa\Ustring\Search.

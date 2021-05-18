@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator;
+namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator;
 
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette;
 /**
  * PHP code generator utils.
  */
@@ -27,8 +27,8 @@ final class Dumper
     }
     private function dumpVar(&$var, array $parents = [], int $level = 0, int $column = 0) : string
     {
-        if ($var instanceof \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Literal) {
-            return \ltrim(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::indent(\trim((string) $var), $level), "\t");
+        if ($var instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Literal) {
+            return \ltrim(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::indent(\trim((string) $var), $level), "\t");
         } elseif ($var === null) {
             return 'null';
         } elseif (\is_string($var)) {
@@ -38,7 +38,7 @@ final class Dumper
         } elseif (\is_object($var)) {
             return $this->dumpObject($var, $parents, $level);
         } elseif (\is_resource($var)) {
-            throw new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Cannot dump resource.');
+            throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Cannot dump resource.');
         } else {
             return \var_export($var, \true);
         }
@@ -67,7 +67,7 @@ final class Dumper
         if (empty($var)) {
             return '[]';
         } elseif ($level > $this->maxDepth || \in_array($var, $parents ?? [], \true)) {
-            throw new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Nesting level too deep or recursive dependency.');
+            throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Nesting level too deep or recursive dependency.');
         }
         $space = \str_repeat("\t", $level);
         $outInline = '';
@@ -92,18 +92,18 @@ final class Dumper
         if ($var instanceof \Serializable) {
             return 'unserialize(' . $this->dumpString(\serialize($var)) . ')';
         } elseif ($var instanceof \Closure) {
-            throw new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Cannot dump closure.');
+            throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Cannot dump closure.');
         }
         $class = \get_class($var);
         if ((new \ReflectionObject($var))->isAnonymous()) {
-            throw new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Cannot dump anonymous class.');
+            throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Cannot dump anonymous class.');
         } elseif (\in_array($class, [\DateTime::class, \DateTimeImmutable::class], \true)) {
             return $this->format("new \\{$class}(?, new \\DateTimeZone(?))", $var->format('Y-m-d H:i:s.u'), $var->getTimeZone()->getName());
         }
         $arr = (array) $var;
         $space = \str_repeat("\t", $level);
         if ($level > $this->maxDepth || \in_array($var, $parents ?? [], \true)) {
-            throw new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Nesting level too deep or recursive dependency.');
+            throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Nesting level too deep or recursive dependency.');
         }
         $out = "\n";
         $parents[] = $var;
@@ -134,26 +134,26 @@ final class Dumper
             } elseif ($token === '\\?') {
                 $res .= '?';
             } elseif (!$args) {
-                throw new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Insufficient number of arguments.');
+                throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Insufficient number of arguments.');
             } elseif ($token === '?') {
                 $res .= $this->dump(\array_shift($args), \strlen($res) - \strrpos($res, "\n"));
             } elseif ($token === '...?' || $token === '?*') {
                 $arg = \array_shift($args);
                 if (!\is_array($arg)) {
-                    throw new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Argument must be an array.');
+                    throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Argument must be an array.');
                 }
                 $res .= $this->dumpArguments($arg, \strlen($res) - \strrpos($res, "\n"));
             } else {
                 // $  ->  ::
                 $arg = \array_shift($args);
-                if ($arg instanceof \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Literal || !\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::isIdentifier($arg)) {
+                if ($arg instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Literal || !\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::isIdentifier($arg)) {
                     $arg = '{' . $this->dumpVar($arg) . '}';
                 }
                 $res .= \substr($token, 0, -1) . $arg;
             }
         }
         if ($args) {
-            throw new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Insufficient number of placeholders.');
+            throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Insufficient number of placeholders.');
         }
         return $res;
     }

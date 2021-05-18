@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210517\Hoa\File\Exception;
+namespace RectorPrefix20210518\Hoa\File\Exception;
 
-use RectorPrefix20210517\Hoa\Consistency;
-use RectorPrefix20210517\Hoa\Exception as HoaException;
+use RectorPrefix20210518\Hoa\Consistency;
+use RectorPrefix20210518\Hoa\Exception as HoaException;
 /**
  * Class \Hoa\File\Exception.
  *
@@ -45,10 +45,10 @@ use RectorPrefix20210517\Hoa\Exception as HoaException;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Exception extends \RectorPrefix20210517\Hoa\Exception
+class Exception extends \RectorPrefix20210518\Hoa\Exception
 {
 }
 /**
  * Flex entity.
  */
-\RectorPrefix20210517\Hoa\Consistency::flexEntity('RectorPrefix20210517\\Hoa\\File\\Exception\\Exception');
+\RectorPrefix20210518\Hoa\Consistency::flexEntity('RectorPrefix20210518\\Hoa\\File\\Exception\\Exception');

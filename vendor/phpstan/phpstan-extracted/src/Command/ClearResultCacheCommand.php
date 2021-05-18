@@ -4,11 +4,11 @@ declare (strict_types=1);
 namespace PHPStan\Command;
 
 use PHPStan\Analyser\ResultCache\ResultCacheClearer;
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Command\Command;
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputOption;
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface;
-class ClearResultCacheCommand extends \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Command\Command
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Command\Command;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputOption;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface;
+class ClearResultCacheCommand extends \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Command\Command
 {
     const NAME = 'clear-result-cache';
     /** @var string[] */
@@ -26,9 +26,9 @@ class ClearResultCacheCommand extends \RectorPrefix20210517\_HumbugBox0b2f2d5c77
      */
     protected function configure()
     {
-        $this->setName(self::NAME)->setDescription('Clears the result cache.')->setDefinition([new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputOption('configuration', 'c', \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to project configuration file'), new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputOption('autoload-file', 'a', \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path')]);
+        $this->setName(self::NAME)->setDescription('Clears the result cache.')->setDefinition([new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputOption('configuration', 'c', \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to project configuration file'), new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputOption('autoload-file', 'a', \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path')]);
     }
-    protected function execute(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $autoloadFile = $input->getOption('autoload-file');
         $configuration = $input->getOption('configuration');

@@ -6,10 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210517\JsonSchema\Constraints;
+namespace RectorPrefix20210518\JsonSchema\Constraints;
 
-use RectorPrefix20210517\JsonSchema\Entity\JsonPointer;
-use RectorPrefix20210517\JsonSchema\Rfc3339;
+use RectorPrefix20210518\JsonSchema\Entity\JsonPointer;
+use RectorPrefix20210518\JsonSchema\Rfc3339;
 /**
  * Validates against the "format" property
  *
@@ -17,12 +17,12 @@ use RectorPrefix20210517\JsonSchema\Rfc3339;
  *
  * @see   http://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.23
  */
-class FormatConstraint extends \RectorPrefix20210517\JsonSchema\Constraints\Constraint
+class FormatConstraint extends \RectorPrefix20210518\JsonSchema\Constraints\Constraint
 {
     /**
      * {@inheritdoc}
      */
-    public function check(&$element, $schema = null, \RectorPrefix20210517\JsonSchema\Entity\JsonPointer $path = null, $i = null)
+    public function check(&$element, $schema = null, \RectorPrefix20210518\JsonSchema\Entity\JsonPointer $path = null, $i = null)
     {
         if (!isset($schema->format) || $this->factory->getConfig(self::CHECK_MODE_DISABLE_FORMAT)) {
             return;
@@ -39,7 +39,7 @@ class FormatConstraint extends \RectorPrefix20210517\JsonSchema\Constraints\Cons
                 }
                 break;
             case 'date-time':
-                if (null === \RectorPrefix20210517\JsonSchema\Rfc3339::createFromString($element)) {
+                if (null === \RectorPrefix20210518\JsonSchema\Rfc3339::createFromString($element)) {
                     $this->addError($path, \sprintf('Invalid date-time %s, expected format YYYY-MM-DDThh:mm:ssZ or YYYY-MM-DDThh:mm:ss+hh:mm', \json_encode($element)), 'format', array('format' => $schema->format));
                 }
                 break;

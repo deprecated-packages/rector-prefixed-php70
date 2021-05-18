@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Dns\Config;
+namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Dns\Config;
 
 use RuntimeException;
 final class Config

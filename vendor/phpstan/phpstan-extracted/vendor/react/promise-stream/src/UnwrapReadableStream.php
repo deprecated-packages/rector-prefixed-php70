@@ -1,19 +1,19 @@
 <?php
 
-namespace RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\Stream;
+namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\Stream;
 
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
 use InvalidArgumentException;
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface;
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface;
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\Util;
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\Util;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
 /**
  * @internal
  * @see unwrapReadable() instead
  */
-class UnwrapReadableStream extends \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface
+class UnwrapReadableStream extends \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface
 {
     private $promise;
     private $closed = \false;
@@ -22,16 +22,16 @@ class UnwrapReadableStream extends \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\
      *
      * @param PromiseInterface $promise Promise<ReadableStreamInterface, Exception>
      */
-    public function __construct(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface $promise)
+    public function __construct(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface $promise)
     {
         $out = $this;
         $closed =& $this->closed;
         $this->promise = $promise->then(function ($stream) {
-            if (!$stream instanceof \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface) {
+            if (!$stream instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface) {
                 throw new \InvalidArgumentException('Not a readable stream');
             }
             return $stream;
-        })->then(function (\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface $stream) use($out, &$closed) {
+        })->then(function (\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface $stream) use($out, &$closed) {
             // stream is already closed, make sure to close output stream
             if (!$stream->isReadable()) {
                 $out->close();
@@ -78,7 +78,7 @@ class UnwrapReadableStream extends \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\
     public function pause()
     {
         if ($this->promise !== null) {
-            $this->promise->then(function (\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface $stream) {
+            $this->promise->then(function (\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface $stream) {
                 $stream->pause();
             });
         }
@@ -86,14 +86,14 @@ class UnwrapReadableStream extends \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\
     public function resume()
     {
         if ($this->promise !== null) {
-            $this->promise->then(function (\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface $stream) {
+            $this->promise->then(function (\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface $stream) {
                 $stream->resume();
             });
         }
     }
-    public function pipe(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Stream\Util::pipe($this, $dest, $options);
+        \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()
@@ -103,7 +103,7 @@ class UnwrapReadableStream extends \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\
         }
         $this->closed = \true;
         // try to cancel promise once the stream closes
-        if ($this->promise instanceof \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface) {
+        if ($this->promise instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface) {
             $this->promise->cancel();
         }
         $this->promise = null;

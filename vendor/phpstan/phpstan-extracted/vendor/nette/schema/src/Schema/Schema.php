@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\Schema;
+namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\Schema;
 
 interface Schema
 {
@@ -13,7 +13,7 @@ interface Schema
      * Normalization.
      * @return mixed
      */
-    function normalize($value, \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context);
+    function normalize($value, \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context);
     /**
      * Merging.
      * @return mixed
@@ -23,9 +23,9 @@ interface Schema
      * Validation and finalization.
      * @return mixed
      */
-    function complete($value, \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context);
+    function complete($value, \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context);
     /**
      * @return mixed
      */
-    function completeDefault(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context);
+    function completeDefault(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context);
 }

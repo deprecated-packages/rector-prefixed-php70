@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210517\Hoa\Stream;
+namespace RectorPrefix20210518\Hoa\Stream;
 
 /**
  * Class \Hoa\Stream\Composite.
@@ -84,7 +84,7 @@ abstract class Composite
      * @param   \Hoa\Stream  $innerStream    Inner stream.
      * @return  \Hoa\Stream
      */
-    protected function setInnerStream(\RectorPrefix20210517\Hoa\Stream\Stream $innerStream)
+    protected function setInnerStream(\RectorPrefix20210518\Hoa\Stream\Stream $innerStream)
     {
         $old = $this->_innerStream;
         $this->_innerStream = $innerStream;

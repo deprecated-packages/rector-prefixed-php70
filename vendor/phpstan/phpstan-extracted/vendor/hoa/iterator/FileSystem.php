@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210517\Hoa\Iterator;
+namespace RectorPrefix20210518\Hoa\Iterator;
 
 /**
  * Class \Hoa\Iterator\FileSystem.

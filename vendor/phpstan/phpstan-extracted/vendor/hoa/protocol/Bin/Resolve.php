@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210517\Hoa\Protocol\Bin;
+namespace RectorPrefix20210518\Hoa\Protocol\Bin;
 
-use RectorPrefix20210517\Hoa\Console;
-use RectorPrefix20210517\Hoa\Protocol;
+use RectorPrefix20210518\Hoa\Console;
+use RectorPrefix20210518\Hoa\Protocol;
 /**
  * Class \Hoa\Protocol\Bin\Resolve.
  *
@@ -45,14 +45,14 @@ use RectorPrefix20210517\Hoa\Protocol;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Resolve extends \RectorPrefix20210517\Hoa\Console\Dispatcher\Kit
+class Resolve extends \RectorPrefix20210518\Hoa\Console\Dispatcher\Kit
 {
     /**
      * Options description.
      *
      * @var array
      */
-    protected $options = [['exists', \RectorPrefix20210517\Hoa\Console\GetOption::NO_ARGUMENT, 'E'], ['unfold', \RectorPrefix20210517\Hoa\Console\GetOption::NO_ARGUMENT, 'u'], ['tree', \RectorPrefix20210517\Hoa\Console\GetOption::NO_ARGUMENT, 't'], ['no-verbose', \RectorPrefix20210517\Hoa\Console\GetOption::NO_ARGUMENT, 'V'], ['help', \RectorPrefix20210517\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \RectorPrefix20210517\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
+    protected $options = [['exists', \RectorPrefix20210518\Hoa\Console\GetOption::NO_ARGUMENT, 'E'], ['unfold', \RectorPrefix20210518\Hoa\Console\GetOption::NO_ARGUMENT, 'u'], ['tree', \RectorPrefix20210518\Hoa\Console\GetOption::NO_ARGUMENT, 't'], ['no-verbose', \RectorPrefix20210518\Hoa\Console\GetOption::NO_ARGUMENT, 'V'], ['help', \RectorPrefix20210518\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \RectorPrefix20210518\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
     /**
      * The entry method.
      *
@@ -63,7 +63,7 @@ class Resolve extends \RectorPrefix20210517\Hoa\Console\Dispatcher\Kit
         $exists = \true;
         $unfold = \false;
         $tree = \false;
-        $verbose = \RectorPrefix20210517\Hoa\Console::isDirect(\STDOUT);
+        $verbose = \RectorPrefix20210518\Hoa\Console::isDirect(\STDOUT);
         while (\false !== ($c = $this->getOption($v))) {
             switch ($c) {
                 case 'E':
@@ -91,7 +91,7 @@ class Resolve extends \RectorPrefix20210517\Hoa\Console\Dispatcher\Kit
             return $this->usage();
         }
         if (\true === $tree) {
-            $protocol = \RectorPrefix20210517\Hoa\Protocol::getInstance();
+            $protocol = \RectorPrefix20210518\Hoa\Protocol::getInstance();
             $foo = \substr($path, 0, 6);
             if ('hoa://' !== $foo) {
                 return;
@@ -108,7 +108,7 @@ class Resolve extends \RectorPrefix20210517\Hoa\Console\Dispatcher\Kit
             return;
         }
         if (\true === $verbose) {
-            echo \RectorPrefix20210517\Hoa\Console\Cursor::colorize('foreground(yellow)'), $path, \RectorPrefix20210517\Hoa\Console\Cursor::colorize('normal'), ' is equivalent to:', "\n";
+            echo \RectorPrefix20210518\Hoa\Console\Cursor::colorize('foreground(yellow)'), $path, \RectorPrefix20210518\Hoa\Console\Cursor::colorize('normal'), ' is equivalent to:', "\n";
         }
         $resolved = resolve($path, $exists, $unfold);
         foreach ((array) $resolved as $r) {

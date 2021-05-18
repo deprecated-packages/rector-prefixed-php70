@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\File;
 
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Symfony\Component\Finder\Finder;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Symfony\Component\Finder\Finder;
 class FileFinder
 {
     /** @var FileExcluder */
@@ -37,7 +37,7 @@ class FileFinder
             } elseif (\is_file($path)) {
                 $files[] = $this->fileHelper->normalizePath($path);
             } else {
-                $finder = new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Symfony\Component\Finder\Finder();
+                $finder = new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Symfony\Component\Finder\Finder();
                 $finder->followLinks();
                 foreach ($finder->files()->name('*.{' . \implode(',', $this->fileExtensions) . '}')->in($path) as $fileInfo) {
                     $files[] = $this->fileHelper->normalizePath($fileInfo->getPathname());

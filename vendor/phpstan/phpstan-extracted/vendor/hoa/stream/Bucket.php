@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210517\Hoa\Stream;
+namespace RectorPrefix20210518\Hoa\Stream;
 
 /**
  * Class \Hoa\Stream\Bucket.
@@ -114,7 +114,7 @@ class Bucket
      * @param   \Hoa\Stream\Bucket  $bucket    Bucket to add.
      * @return  void
      */
-    public function append(\RectorPrefix20210517\Hoa\Stream\Bucket $bucket)
+    public function append(\RectorPrefix20210518\Hoa\Stream\Bucket $bucket)
     {
         \stream_bucket_append($this->getBrigade(), $bucket->getBucket());
         return;
@@ -125,7 +125,7 @@ class Bucket
      * @param   \Hoa\Stream\Bucket  $bucket    Bucket to add.
      * @return  void
      */
-    public function prepend(\RectorPrefix20210517\Hoa\Stream\Bucket $bucket)
+    public function prepend(\RectorPrefix20210518\Hoa\Stream\Bucket $bucket)
     {
         \stream_bucket_prepend($this->getBrigade(), $bucket->getBucket());
         return;

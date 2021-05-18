@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator;
+namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator;
 
-use RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette;
 /**
  * Class method.
  *
@@ -35,12 +35,12 @@ final class Method
      */
     public static function from($method)
     {
-        return (new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Factory())->fromMethodReflection(\RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\Utils\Callback::toReflection($method));
+        return (new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Factory())->fromMethodReflection(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\Utils\Callback::toReflection($method));
     }
     public function __toString() : string
     {
         try {
-            return (new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Printer())->printMethod($this);
+            return (new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Printer())->printMethod($this);
         } catch (\Throwable $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
@@ -54,7 +54,7 @@ final class Method
      * @param mixed[]|null $args */
     public function setBody($code, $args = null)
     {
-        $this->body = $args === null || $code === null ? $code : (new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Dumper())->format($code, ...$args);
+        $this->body = $args === null || $code === null ? $code : (new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Dumper())->format($code, ...$args);
         return $this;
     }
     /**
@@ -97,9 +97,9 @@ final class Method
     /**
      * @param  string  $name without $
      */
-    public function addPromotedParameter(string $name, $defaultValue = null) : \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\PromotedParameter
+    public function addPromotedParameter(string $name, $defaultValue = null) : \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\PromotedParameter
     {
-        $param = new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\PromotedParameter($name);
+        $param = new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\PromotedParameter($name);
         if (\func_num_args() > 1) {
             $param->setDefaultValue($defaultValue);
         }
@@ -109,8 +109,8 @@ final class Method
      * @return void */
     public function validate()
     {
-        if ($this->abstract && ($this->final || $this->visibility === \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE)) {
-            throw new \RectorPrefix20210517\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException('Method cannot be abstract and final or private.');
+        if ($this->abstract && ($this->final || $this->visibility === \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE)) {
+            throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException('Method cannot be abstract and final or private.');
         }
     }
 }

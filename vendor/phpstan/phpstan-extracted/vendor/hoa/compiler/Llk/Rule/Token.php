@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210517\Hoa\Compiler\Llk\Rule;
+namespace RectorPrefix20210518\Hoa\Compiler\Llk\Rule;
 
-use RectorPrefix20210517\Hoa\Compiler;
-use RectorPrefix20210517\Hoa\File;
+use RectorPrefix20210518\Hoa\Compiler;
+use RectorPrefix20210518\Hoa\File;
 /**
  * Class \Hoa\Compiler\Llk\Rule\Token.
  *
@@ -45,7 +45,7 @@ use RectorPrefix20210517\Hoa\File;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Token extends \RectorPrefix20210517\Hoa\Compiler\Llk\Rule\Rule
+class Token extends \RectorPrefix20210518\Hoa\Compiler\Llk\Rule\Rule
 {
     /**
      * LL(k) compiler of hoa://Library/Regex/Grammar.pp.
@@ -171,9 +171,9 @@ class Token extends \RectorPrefix20210517\Hoa\Compiler\Llk\Rule\Rule
     public function getAST()
     {
         if (null === static::$_regexCompiler) {
-            $stream = new \RectorPrefix20210517\Hoa\File\Read('hoa://Library/Regex/Grammar.pp');
+            $stream = new \RectorPrefix20210518\Hoa\File\Read('hoa://Library/Regex/Grammar.pp');
             $stream->rewind();
-            static::$_regexCompiler = \RectorPrefix20210517\Hoa\Compiler\Llk::load($stream);
+            static::$_regexCompiler = \RectorPrefix20210518\Hoa\Compiler\Llk::load($stream);
         }
         if (null === $this->_ast) {
             $this->_ast = static::$_regexCompiler->parse($this->getRepresentation());

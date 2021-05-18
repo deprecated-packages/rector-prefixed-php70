@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Testing;
 
-use RectorPrefix20210517\Composer\Autoload\ClassLoader;
+use RectorPrefix20210518\Composer\Autoload\ClassLoader;
 use PHPStan\BetterReflection\Reflector\FunctionReflector;
 use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
 use PHPStan\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
@@ -42,7 +42,7 @@ class TestCaseSourceLocatorFactory
     }
     public function create() : \PHPStan\BetterReflection\SourceLocator\Type\SourceLocator
     {
-        $classLoaderReflection = new \ReflectionClass(\RectorPrefix20210517\Composer\Autoload\ClassLoader::class);
+        $classLoaderReflection = new \ReflectionClass(\RectorPrefix20210518\Composer\Autoload\ClassLoader::class);
         if ($classLoaderReflection->getFileName() === \false) {
             throw new \PHPStan\ShouldNotHappenException('Unknown ClassLoader filename');
         }

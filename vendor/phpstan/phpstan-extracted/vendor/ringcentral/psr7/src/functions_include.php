@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210517\_HumbugBox0b2f2d5c77b8;
+namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8;
 
 // Don't redefine the functions if included multiple times.
-if (!\function_exists('RectorPrefix20210517\\_HumbugBox0b2f2d5c77b8\\RingCentral\\Psr7\\str')) {
+if (!\function_exists('RectorPrefix20210518\\_HumbugBox0b2f2d5c77b8\\RingCentral\\Psr7\\str')) {
     require __DIR__ . '/functions.php';
 }
