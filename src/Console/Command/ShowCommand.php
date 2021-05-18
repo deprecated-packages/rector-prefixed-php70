@@ -46,7 +46,7 @@ final class ShowCommand extends \RectorPrefix20210518\Symfony\Component\Console\
      */
     private function reportLoadedRectors()
     {
-        $rectors = \array_filter($this->rectors, function (\Rector\Core\Contract\Rector\RectorInterface $rector) {
+        $rectors = \array_filter($this->rectors, function (\Rector\Core\Contract\Rector\RectorInterface $rector) : bool {
             return !$rector instanceof \Rector\PostRector\Contract\Rector\PostRectorInterface;
         });
         $rectorCount = \count($rectors);

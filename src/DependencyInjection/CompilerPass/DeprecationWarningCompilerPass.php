@@ -17,12 +17,12 @@ final class DeprecationWarningCompilerPass implements \RectorPrefix20210518\Symf
      */
     public function process(\RectorPrefix20210518\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
-        $parametersBag = $containerBuilder->getParameterBag();
+        $parameterBag = $containerBuilder->getParameterBag();
         foreach (self::DEPRECATED_PARAMETERS as $parameter => $message) {
-            if (!$parametersBag->has($parameter)) {
+            if (!$parameterBag->has($parameter)) {
                 continue;
             }
-            $setsParameters = $parametersBag->get($parameter);
+            $setsParameters = $parameterBag->get($parameter);
             if ($setsParameters === []) {
                 continue;
             }

@@ -63,7 +63,7 @@ CODE_SAMPLE
                 return \true;
             }
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
-                return !(bool) $this->betterNodeFinder->find($node, function (\PhpParser\Node $n) use($arrayVariable) {
+                return !(bool) $this->betterNodeFinder->find($node, function (\PhpParser\Node $n) use($arrayVariable) : bool {
                     return $this->nodeComparator->areNodesEqual($arrayVariable, $n);
                 });
             }

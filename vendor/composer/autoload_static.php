@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit140996137ae497acb12773823e477dd8
+class ComposerStaticInit6d29cb48ebd301ef54c209cec5b1f097
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1718,13 +1718,17 @@ class ComposerStaticInit140996137ae497acb12773823e477dd8
         'RectorPrefix20210518\\Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'RectorPrefix20210518\\Webmozart\\Assert\\InvalidArgumentException' => __DIR__ . '/..' . '/webmozart/assert/src/InvalidArgumentException.php',
         'RectorPrefix20210518\\Webmozart\\Assert\\Mixin' => __DIR__ . '/..' . '/webmozart/assert/src/Mixin.php',
+        'Rector\\Arguments\\ArgumentDefaultValueReplacer' => __DIR__ . '/../..' . '/rules/Arguments/ArgumentDefaultValueReplacer.php',
+        'Rector\\Arguments\\Contract\\ArgumentDefaultValueReplacerInterface' => __DIR__ . '/../..' . '/rules/Arguments/Contract/ArgumentDefaultValueReplacerInterface.php',
         'Rector\\Arguments\\NodeAnalyzer\\ArgumentAddingScope' => __DIR__ . '/../..' . '/rules/Arguments/NodeAnalyzer/ArgumentAddingScope.php',
         'Rector\\Arguments\\Rector\\ClassMethod\\ArgumentAdderRector' => __DIR__ . '/../..' . '/rules/Arguments/Rector/ClassMethod/ArgumentAdderRector.php',
         'Rector\\Arguments\\Rector\\ClassMethod\\ArgumentDefaultValueReplacerRector' => __DIR__ . '/../..' . '/rules/Arguments/Rector/ClassMethod/ArgumentDefaultValueReplacerRector.php',
+        'Rector\\Arguments\\Rector\\FuncCall\\FunctionArgumentDefaultValueReplacerRector' => __DIR__ . '/../..' . '/rules/Arguments/Rector/FuncCall/FunctionArgumentDefaultValueReplacerRector.php',
         'Rector\\Arguments\\Rector\\FuncCall\\SwapFuncCallArgumentsRector' => __DIR__ . '/../..' . '/rules/Arguments/Rector/FuncCall/SwapFuncCallArgumentsRector.php',
         'Rector\\Arguments\\Rector\\MethodCall\\ValueObjectWrapArgRector' => __DIR__ . '/../..' . '/rules/Arguments/Rector/MethodCall/ValueObjectWrapArgRector.php',
         'Rector\\Arguments\\ValueObject\\ArgumentAdder' => __DIR__ . '/../..' . '/rules/Arguments/ValueObject/ArgumentAdder.php',
         'Rector\\Arguments\\ValueObject\\ArgumentDefaultValueReplacer' => __DIR__ . '/../..' . '/rules/Arguments/ValueObject/ArgumentDefaultValueReplacer.php',
+        'Rector\\Arguments\\ValueObject\\FuncCallArgumentDefaultValueReplacer' => __DIR__ . '/../..' . '/rules/Arguments/ValueObject/FuncCallArgumentDefaultValueReplacer.php',
         'Rector\\Arguments\\ValueObject\\SwapFuncCallArguments' => __DIR__ . '/../..' . '/rules/Arguments/ValueObject/SwapFuncCallArguments.php',
         'Rector\\Arguments\\ValueObject\\ValueObjectWrapArg' => __DIR__ . '/../..' . '/rules/Arguments/ValueObject/ValueObjectWrapArg.php',
         'Rector\\Autodiscovery\\Analyzer\\ValueObjectClassAnalyzer' => __DIR__ . '/../..' . '/rules/Autodiscovery/Analyzer/ValueObjectClassAnalyzer.php',
@@ -3450,9 +3454,9 @@ class ComposerStaticInit140996137ae497acb12773823e477dd8
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit140996137ae497acb12773823e477dd8::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit140996137ae497acb12773823e477dd8::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit140996137ae497acb12773823e477dd8::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6d29cb48ebd301ef54c209cec5b1f097::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6d29cb48ebd301ef54c209cec5b1f097::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit6d29cb48ebd301ef54c209cec5b1f097::$classMap;
 
         }, null, ClassLoader::class);
     }
