@@ -5,7 +5,7 @@ namespace RectorPrefix20210518\Symplify\EasyTesting\PHPUnit\Behavior;
 
 use RectorPrefix20210518\Symfony\Component\Finder\Finder;
 use RectorPrefix20210518\Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair;
-use RectorPrefix20210518\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Use only in "\PHPUnit\Framework\TestCase"
@@ -41,7 +41,7 @@ trait DirectoryAssertableTrait
     {
         $firstDirectoryFinder = new \RectorPrefix20210518\Symfony\Component\Finder\Finder();
         $firstDirectoryFinder->files()->in($directory);
-        $finderSanitizer = new \RectorPrefix20210518\Symplify\SmartFileSystem\Finder\FinderSanitizer();
+        $finderSanitizer = new \Symplify\SmartFileSystem\Finder\FinderSanitizer();
         return $finderSanitizer->sanitize($firstDirectoryFinder);
     }
     /**

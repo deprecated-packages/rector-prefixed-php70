@@ -2,7 +2,7 @@
 
 namespace RectorPrefix20210518\Composer;
 
-use RectorPrefix20210518\Composer\Autoload\ClassLoader;
+use Composer\Autoload\ClassLoader;
 use RectorPrefix20210518\Composer\Semver\VersionParser;
 class InstalledVersions
 {
@@ -118,7 +118,7 @@ class InstalledVersions
         }
         $installed = array();
         if (self::$canGetVendors) {
-            foreach (\RectorPrefix20210518\Composer\Autoload\ClassLoader::getRegisteredLoaders() as $vendorDir => $loader) {
+            foreach (\Composer\Autoload\ClassLoader::getRegisteredLoaders() as $vendorDir => $loader) {
                 if (isset(self::$installedByVendor[$vendorDir])) {
                     $installed[] = self::$installedByVendor[$vendorDir];
                 } elseif (\is_file($vendorDir . '/composer/installed.php')) {

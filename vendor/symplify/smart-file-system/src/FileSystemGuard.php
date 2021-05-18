@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210518\Symplify\SmartFileSystem;
+namespace Symplify\SmartFileSystem;
 
-use RectorPrefix20210518\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
-use RectorPrefix20210518\Symplify\SmartFileSystem\Exception\FileNotFoundException;
+use Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
+use Symplify\SmartFileSystem\Exception\FileNotFoundException;
 final class FileSystemGuard
 {
     /**
@@ -15,7 +15,7 @@ final class FileSystemGuard
         if (\file_exists($file)) {
             return;
         }
-        throw new \RectorPrefix20210518\Symplify\SmartFileSystem\Exception\FileNotFoundException(\sprintf('File "%s" not found in "%s".', $file, $location));
+        throw new \Symplify\SmartFileSystem\Exception\FileNotFoundException(\sprintf('File "%s" not found in "%s".', $file, $location));
     }
     /**
      * @return void
@@ -29,6 +29,6 @@ final class FileSystemGuard
         if ($extraMessage !== '') {
             $message .= ' ' . $extraMessage;
         }
-        throw new \RectorPrefix20210518\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException($message);
+        throw new \Symplify\SmartFileSystem\Exception\DirectoryNotFoundException($message);
     }
 }

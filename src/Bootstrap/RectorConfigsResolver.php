@@ -5,7 +5,7 @@ namespace Rector\Core\Bootstrap;
 
 use Rector\Core\ValueObject\Bootstrap\BootstrapConfigs;
 use RectorPrefix20210518\Symfony\Component\Console\Input\ArgvInput;
-use RectorPrefix20210518\Symplify\SmartFileSystem\Exception\FileNotFoundException;
+use Symplify\SmartFileSystem\Exception\FileNotFoundException;
 use Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorConfigsResolver
 {
@@ -46,7 +46,7 @@ final class RectorConfigsResolver
         }
         if (!\file_exists($configValue)) {
             $message = \sprintf('File "%s" was not found', $configValue);
-            throw new \RectorPrefix20210518\Symplify\SmartFileSystem\Exception\FileNotFoundException($message);
+            throw new \Symplify\SmartFileSystem\Exception\FileNotFoundException($message);
         }
         return new \Symplify\SmartFileSystem\SmartFileInfo($configValue);
     }

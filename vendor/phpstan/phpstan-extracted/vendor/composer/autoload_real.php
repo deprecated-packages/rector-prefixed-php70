@@ -21,7 +21,7 @@ class ComposerAutoloaderInit76efdea48d97ddd5e412eb932aafadf4
             return self::$loader;
         }
         \spl_autoload_register(array('RectorPrefix20210518\\ComposerAutoloaderInit76efdea48d97ddd5e412eb932aafadf4', 'loadClassLoader'), \true, \true);
-        self::$loader = $loader = new \RectorPrefix20210518\Composer\Autoload\ClassLoader(\dirname(\dirname(__FILE__)));
+        self::$loader = $loader = new \Composer\Autoload\ClassLoader(\dirname(\dirname(__FILE__)));
         \spl_autoload_unregister(array('ComposerAutoloaderInit76efdea48d97ddd5e412eb932aafadf4', 'loadClassLoader'));
         $useStaticLoader = \PHP_VERSION_ID >= 50600 && !\defined('HHVM_VERSION') && (!\function_exists('zend_loader_file_encoded') || !\zend_loader_file_encoded());
         if ($useStaticLoader) {

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Testing;
 
-use RectorPrefix20210518\Composer\Autoload\ClassLoader;
+use Composer\Autoload\ClassLoader;
 use PhpParser\PrettyPrinter\Standard;
 use PHPStan\Analyser\DirectScopeFactory;
 use PHPStan\Analyser\MutatingScope;
@@ -266,10 +266,10 @@ abstract class TestCase extends \RectorPrefix20210518\PHPUnit\Framework\TestCase
         if (self::$reflectors !== null) {
             return self::$reflectors;
         }
-        if (!\class_exists(\RectorPrefix20210518\Composer\Autoload\ClassLoader::class)) {
+        if (!\class_exists(\Composer\Autoload\ClassLoader::class)) {
             self::fail('Composer ClassLoader is unknown');
         }
-        $classLoaderReflection = new \ReflectionClass(\RectorPrefix20210518\Composer\Autoload\ClassLoader::class);
+        $classLoaderReflection = new \ReflectionClass(\Composer\Autoload\ClassLoader::class);
         if ($classLoaderReflection->getFileName() === \false) {
             self::fail('Unknown ClassLoader filename');
         }
