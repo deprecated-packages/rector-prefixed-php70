@@ -23,18 +23,18 @@ final class WrapClickMenuOnIconRector extends \Rector\Core\Rector\AbstractRector
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Backend\\Template\\DocumentTemplate'))) {
+        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate'))) {
             return null;
         }
         if (!$this->isName($node->name, 'wrapClickMenuOnIcon')) {
             return null;
         }
-        return $this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Backend\\Utility\\BackendUtility', 'wrapClickMenuOnIcon', $node->args);
+        return $this->nodeFactory->createStaticCall('TYPO3\\CMS\\Backend\\Utility\\BackendUtility', 'wrapClickMenuOnIcon', $node->args);
     }
     /**
      * @codeCoverageIgnore

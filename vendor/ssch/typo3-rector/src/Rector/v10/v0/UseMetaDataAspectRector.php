@@ -23,12 +23,12 @@ final class UseMetaDataAspectRector extends \Rector\Core\Rector\AbstractRector
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Resource\\File'))) {
+        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Core\\Resource\\File'))) {
             return null;
         }
         if (!$this->isName($node->name, '_getMetaData')) {

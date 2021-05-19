@@ -64,10 +64,10 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         if ([] === $this->commandInputArguments) {
             return null;
@@ -118,6 +118,6 @@ CODE_SAMPLE
     }
     private function createMode(int $mode) : \PhpParser\Node\Expr\ClassConstFetch
     {
-        return $this->nodeFactory->createClassConstFetch('RectorPrefix20210519\\Symfony\\Component\\Console\\Input\\InputArgument', self::MODE_MAPPING[$mode]);
+        return $this->nodeFactory->createClassConstFetch('Symfony\\Component\\Console\\Input\\InputArgument', self::MODE_MAPPING[$mode]);
     }
 }

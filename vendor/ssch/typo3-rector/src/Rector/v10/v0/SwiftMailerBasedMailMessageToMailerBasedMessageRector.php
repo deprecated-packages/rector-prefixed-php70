@@ -26,12 +26,12 @@ final class SwiftMailerBasedMailMessageToMailerBasedMessageRector extends \Recto
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Mail\\MailMessage'))) {
+        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Core\\Mail\\MailMessage'))) {
             return null;
         }
         if (!$this->isNames($node->name, ['setBody', 'addPart', 'attach', 'embed'])) {

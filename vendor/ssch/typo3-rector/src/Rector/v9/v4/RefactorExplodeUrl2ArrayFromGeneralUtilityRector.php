@@ -26,17 +26,17 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends \Rector\Cor
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Assign $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\StaticCall && !$node->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
         }
         /** @var StaticCall|MethodCall $call */
         $call = $node->expr;
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($call, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility'))) {
+        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($call, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Core\\Utility\\GeneralUtility'))) {
             return null;
         }
         if (!$this->isName($call->name, 'explodeUrl2Array')) {

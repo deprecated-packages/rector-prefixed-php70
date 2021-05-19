@@ -58,10 +58,10 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Variable::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Variable $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         $fileInfo = $this->file->getSmartFileInfo();
         if ($this->filesFinder->isExtEmconf($fileInfo)) {

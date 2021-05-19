@@ -26,12 +26,12 @@ final class CallEnableFieldsFromPageRepositoryRector extends \Rector\Core\Rector
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer'))) {
+        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer'))) {
             return null;
         }
         if (!$this->isName($node->name, 'enableFields')) {
@@ -41,7 +41,7 @@ final class CallEnableFieldsFromPageRepositoryRector extends \Rector\Core\Rector
         if ($numberOfMethodArguments > 1) {
             $node->args[1] = new \PhpParser\Node\Arg(\PhpParser\BuilderHelpers::normalizeValue($this->valueResolver->isTrue($node->args[1]->value) ? \true : -1));
         }
-        return $this->nodeFactory->createMethodCall($this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'makeInstance', [$this->nodeFactory->createClassConstReference('RectorPrefix20210519\\TYPO3\\CMS\\Frontend\\Page\\PageRepository')]), 'enableFields', $node->args);
+        return $this->nodeFactory->createMethodCall($this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'makeInstance', [$this->nodeFactory->createClassConstReference('TYPO3\\CMS\\Frontend\\Page\\PageRepository')]), 'enableFields', $node->args);
     }
     /**
      * @codeCoverageIgnore

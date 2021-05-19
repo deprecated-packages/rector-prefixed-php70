@@ -39,21 +39,21 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param StaticCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         $className = $this->getName($node->class);
         $methodName = $this->getName($node->name);
         if ('TYPO3\\CMS\\Core\\Core\\Bootstrap' === $className && 'usesComposerClassLoading' === $methodName) {
-            return $this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Core\\Environment', 'isComposerMode');
+            return $this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Core\\Environment', 'isComposerMode');
         }
         if ('TYPO3\\CMS\\Core\\Utility\\GeneralUtility' === $className && 'getApplicationContext' === $methodName) {
-            return $this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Core\\Environment', 'getContext');
+            return $this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Core\\Environment', 'getContext');
         }
         if ('TYPO3\\CMS\\Extbase\\Service\\EnvironmentService' === $className && 'isEnvironmentInCliMode' === $methodName) {
-            return $this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Core\\Environment', 'isCli');
+            return $this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Core\\Environment', 'isCli');
         }
         return null;
     }

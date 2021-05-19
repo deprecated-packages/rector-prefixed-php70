@@ -46,10 +46,10 @@ final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends \Rector\C
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Assign $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -101,14 +101,14 @@ CODE_SAMPLE
     public function createCallForSettingProperty() : \PhpParser\Node\Expr\MethodCall
     {
         $staticCallContext = $this->createContext();
-        $staticCallAspect = $this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility', self::MAKE_INSTANCE, [$this->nodeFactory->createClassConstReference('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Context\\TypoScriptAspect'), new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('true'))]);
+        $staticCallAspect = $this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Utility\\GeneralUtility', self::MAKE_INSTANCE, [$this->nodeFactory->createClassConstReference('TYPO3\\CMS\\Core\\Context\\TypoScriptAspect'), new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('true'))]);
         $contextCall = $this->nodeFactory->createMethodCall($staticCallContext, 'setAspect');
         $contextCall->args = $this->nodeFactory->createArgs([self::TYPOSCRIPT, $staticCallAspect]);
         return $contextCall;
     }
     private function createContext() : \PhpParser\Node\Expr\StaticCall
     {
-        return $this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility', self::MAKE_INSTANCE, [$this->nodeFactory->createClassConstReference('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Context\\Context')]);
+        return $this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Utility\\GeneralUtility', self::MAKE_INSTANCE, [$this->nodeFactory->createClassConstReference('TYPO3\\CMS\\Core\\Context\\Context')]);
     }
     private function isPropertyForceTemplateParsing(\PhpParser\Node $node) : bool
     {
@@ -119,10 +119,10 @@ CODE_SAMPLE
         if (!$this->isName($nodeName, 'forceTemplateParsing')) {
             return \false;
         }
-        if ($this->isObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController'))) {
+        if ($this->isObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController'))) {
             return \true;
         }
-        if ($this->isObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Core\\TypoScript\\TemplateService'))) {
+        if ($this->isObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Core\\TypoScript\\TemplateService'))) {
             return \true;
         }
         if ($this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals($node, \Ssch\TYPO3Rector\Helper\Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER)) {

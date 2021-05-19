@@ -35,7 +35,7 @@ final class InjectAnnotationRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    const NEW_ANNOTATION = 'RectorPrefix20210519\\TYPO3\\CMS\\Extbase\\Annotation\\Inject';
+    const NEW_ANNOTATION = 'TYPO3\\CMS\\Extbase\\Annotation\\Inject';
     /**
      * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover
      */
@@ -57,10 +57,10 @@ final class InjectAnnotationRector extends \Rector\Core\Rector\AbstractRector
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         $injectMethods = [];
         $properties = $node->getProperties();

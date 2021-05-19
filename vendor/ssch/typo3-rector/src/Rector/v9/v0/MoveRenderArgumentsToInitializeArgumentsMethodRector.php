@@ -45,15 +45,15 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends \Rector
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node->isAbstract()) {
             return null;
         }
-        $desiredObjectTypes = [new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3Fluid\\Fluid\\Core\\ViewHelper\\AbstractViewHelper'), new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3Fluid\\Fluid\\Core\\ViewHelper\\AbstractTagBasedViewHelper'), new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3Fluid\\Fluid\\Core\\ViewHelper\\AbstractConditionViewHelper'), new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Fluid\\Core\\ViewHelper\\AbstractViewHelper'), new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Fluid\\Core\\ViewHelper\\AbstractTagBasedViewHelper'), new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Fluid\\Core\\ViewHelper\\AbstractConditionViewHelper')];
+        $desiredObjectTypes = [new \PHPStan\Type\ObjectType('TYPO3Fluid\\Fluid\\Core\\ViewHelper\\AbstractViewHelper'), new \PHPStan\Type\ObjectType('TYPO3Fluid\\Fluid\\Core\\ViewHelper\\AbstractTagBasedViewHelper'), new \PHPStan\Type\ObjectType('TYPO3Fluid\\Fluid\\Core\\ViewHelper\\AbstractConditionViewHelper'), new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Fluid\\Core\\ViewHelper\\AbstractViewHelper'), new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Fluid\\Core\\ViewHelper\\AbstractTagBasedViewHelper'), new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Fluid\\Core\\ViewHelper\\AbstractConditionViewHelper')];
         if (!$this->nodeTypeResolver->isObjectTypes($node, $desiredObjectTypes)) {
             return null;
         }

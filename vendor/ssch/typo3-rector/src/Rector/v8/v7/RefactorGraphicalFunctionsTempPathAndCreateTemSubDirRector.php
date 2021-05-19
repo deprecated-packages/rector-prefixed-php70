@@ -55,7 +55,7 @@ final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector extends \
      * @param MethodCall|PropertyFetch $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->refactorMethodCall($node);
@@ -84,7 +84,7 @@ CODE_SAMPLE
      */
     private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $node)
     {
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Imaging\\GraphicalFunctions'))) {
+        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Core\\Imaging\\GraphicalFunctions'))) {
             return null;
         }
         if (!$this->isName($node->name, self::CREATE_TEMP_SUB_DIR)) {
@@ -99,7 +99,7 @@ CODE_SAMPLE
         }
         $anonymousFunction = new \PhpParser\Node\Expr\Closure();
         $anonymousFunction->params = [new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable(self::TEMP_PATH)), new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable('dirName'))];
-        $ifIsPartOfStrMethodCall = $this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'isFirstPartOfStr', [new \PhpParser\Node\Expr\Variable(self::TEMP_PATH), new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('PATH_site'))]);
+        $ifIsPartOfStrMethodCall = $this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'isFirstPartOfStr', [new \PhpParser\Node\Expr\Variable(self::TEMP_PATH), new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('PATH_site'))]);
         $ifIsPartOfStr = new \PhpParser\Node\Stmt\If_($ifIsPartOfStrMethodCall);
         $ifIsPartOfStr->stmts[] = new \PhpParser\Node\Stmt\Expression(new \PhpParser\Node\Expr\Assign(new \PhpParser\Node\Expr\Variable(self::TMP_PATH), new \PhpParser\Node\Expr\Variable(self::TEMP_PATH)));
         $ifIsPartOfStr->else = new \PhpParser\Node\Stmt\Else_();
@@ -111,7 +111,7 @@ CODE_SAMPLE
         }
         $isDirFunc = new \PhpParser\Node\Expr\ErrorSuppress($this->nodeFactory->createFuncCall('is_dir', [$concatTempPathAndDirName]));
         $ifIsNotDir = new \PhpParser\Node\Stmt\If_(new \PhpParser\Node\Expr\BooleanNot($isDirFunc));
-        $ifIsNotDir->stmts[] = new \PhpParser\Node\Stmt\Expression($this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'mkdir_deep', [$concatTempPathAndDirName]));
+        $ifIsNotDir->stmts[] = new \PhpParser\Node\Stmt\Expression($this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'mkdir_deep', [$concatTempPathAndDirName]));
         $ifIsNotDir->stmts[] = new \PhpParser\Node\Stmt\Return_($isDirFunc);
         $anonymousFunction->stmts[] = $ifIsNotDir;
         $anonymousFunction->stmts[] = new \PhpParser\Node\Stmt\Return_($this->nodeFactory->createFalse());
@@ -125,7 +125,7 @@ CODE_SAMPLE
      */
     private function refactorPropertyFetch(\PhpParser\Node\Expr\PropertyFetch $node)
     {
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Imaging\\GraphicalFunctions'))) {
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Core\\Imaging\\GraphicalFunctions'))) {
             return null;
         }
         if (!$this->isName($node->name, self::TEMP_PATH)) {

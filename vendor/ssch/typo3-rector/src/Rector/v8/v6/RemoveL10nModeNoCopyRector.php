@@ -36,10 +36,10 @@ final class RemoveL10nModeNoCopyRector extends \Rector\Core\Rector\AbstractRecto
         return [\PhpParser\Node\Stmt\Return_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Return_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isFullTca($node)) {
             return null;

@@ -49,10 +49,10 @@ abstract class AbstractTcaRector extends \Rector\Core\Rector\AbstractRector
         return [\PhpParser\Node\Expr\Array_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Array_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         $this->resetInnerState();
         $this->hasAstBeenChanged = \false;

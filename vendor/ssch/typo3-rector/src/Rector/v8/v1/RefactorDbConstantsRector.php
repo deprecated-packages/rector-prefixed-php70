@@ -29,10 +29,10 @@ final class RefactorDbConstantsRector extends \Rector\Core\Rector\AbstractRector
         return [\PhpParser\Node\Expr\ConstFetch::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ConstFetch $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         $constantsName = $this->getName($node);
         if (null === $constantsName) {

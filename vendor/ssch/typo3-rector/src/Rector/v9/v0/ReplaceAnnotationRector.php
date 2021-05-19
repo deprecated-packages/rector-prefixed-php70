@@ -47,7 +47,7 @@ final class ReplaceAnnotationRector extends \Rector\Core\Rector\AbstractRector i
      * @param Property|ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         foreach ($this->oldToNewAnnotations as $oldAnnotation => $newAnnotation) {
@@ -79,7 +79,7 @@ CODE_SAMPLE
 private $someProperty;
 
 CODE_SAMPLE
-, [self::OLD_TO_NEW_ANNOTATIONS => ['transient' => 'RectorPrefix20210519\\TYPO3\\CMS\\Extbase\\Annotation\\ORM\\Transient']])]);
+, [self::OLD_TO_NEW_ANNOTATIONS => ['transient' => 'TYPO3\\CMS\\Extbase\\Annotation\\ORM\\Transient']])]);
     }
     /**
      * @param mixed[] $configuration

@@ -24,12 +24,12 @@ final class RemoveWakeupCallFromEntityRector extends \Rector\Core\Rector\Abstrac
         return [\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Extbase\\DomainObject\\AbstractDomainObject'))) {
+        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Extbase\\DomainObject\\AbstractDomainObject'))) {
             return null;
         }
         if (!$this->isName($node->name, '__wakeup')) {

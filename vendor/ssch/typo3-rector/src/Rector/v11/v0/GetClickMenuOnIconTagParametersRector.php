@@ -23,12 +23,12 @@ final class GetClickMenuOnIconTagParametersRector extends \Rector\Core\Rector\Ab
         return [\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param StaticCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Backend\\Utility\\BackendUtility'))) {
+        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Backend\\Utility\\BackendUtility'))) {
             return null;
         }
         if (!$this->isName($node->name, 'wrapClickMenuOnIcon')) {
@@ -45,7 +45,7 @@ final class GetClickMenuOnIconTagParametersRector extends \Rector\Core\Rector\Ab
             unset($node->args[3], $node->args[4], $node->args[5], $node->args[6]);
             return $node;
         }
-        return $this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Backend\\Utility\\BackendUtility', 'getClickMenuOnIconTagParameters', [$node->args[0], $node->args[1], $node->args[2]]);
+        return $this->nodeFactory->createStaticCall('TYPO3\\CMS\\Backend\\Utility\\BackendUtility', 'getClickMenuOnIconTagParameters', [$node->args[0], $node->args[1], $node->args[2]]);
     }
     /**
      * @codeCoverageIgnore

@@ -27,7 +27,8 @@ final class VersionResolver
         if ($process->run() !== \RectorPrefix20210519\Symplify\PackageBuilder\Console\ShellCode::SUCCESS) {
             throw new \Rector\Core\Exception\VersionException('You must ensure to run compile from composer git repository clone and that git binary is available.');
         }
-        return \trim($process->getOutput());
+        $version = \trim($process->getOutput());
+        return \trim($version, '"');
     }
     public static function resolverReleaseDateTime() : \DateTime
     {

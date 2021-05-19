@@ -47,10 +47,10 @@ final class ExtEmConfRector extends \Rector\Core\Rector\AbstractRector implement
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Assign $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$node->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return null;

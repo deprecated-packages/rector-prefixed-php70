@@ -32,10 +32,10 @@ final class RemoveFlushCachesRector extends \Rector\Core\Rector\AbstractRector
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         /** @var string $name */
         $name = $this->getName($node);

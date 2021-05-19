@@ -44,7 +44,7 @@ final class SubstituteConstantsModeAndRequestTypeRector extends \Rector\Core\Rec
      * @param ConstFetch|FuncCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         $fileInfo = $this->file->getSmartFileInfo();
         if ($node instanceof \PhpParser\Node\Expr\FuncCall && $this->isName($node, 'defined')) {
@@ -113,13 +113,13 @@ CODE_SAMPLE
      */
     private function createIsBackendCall(array $arguments) : \PhpParser\Node\Expr\MethodCall
     {
-        return $this->nodeFactory->createMethodCall($this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Http\\ApplicationType', 'fromRequest', $arguments), 'isBackend');
+        return $this->nodeFactory->createMethodCall($this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Http\\ApplicationType', 'fromRequest', $arguments), 'isBackend');
     }
     /**
      * @param Expr[] $arguments
      */
     private function createIsFrontendCall(array $arguments) : \PhpParser\Node\Expr\MethodCall
     {
-        return $this->nodeFactory->createMethodCall($this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Http\\ApplicationType', 'fromRequest', $arguments), 'isFrontend');
+        return $this->nodeFactory->createMethodCall($this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Http\\ApplicationType', 'fromRequest', $arguments), 'isFrontend');
     }
 }

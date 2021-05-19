@@ -91,10 +91,10 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Return_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Return_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isFullTca($node)) {
             return null;
@@ -157,7 +157,7 @@ CODE_SAMPLE
     private function extractConfigFromGetFileFieldTcaConfig(\PhpParser\Node $columnConfig) : \PhpParser\Node
     {
         if ($columnConfig instanceof \PhpParser\Node\Expr\StaticCall) {
-            if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($columnConfig, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\ExtensionManagementUtility'))) {
+            if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($columnConfig, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Core\\Utility\\ExtensionManagementUtility'))) {
                 return $columnConfig;
             }
             if (!$this->isName($columnConfig->name, 'getFileFieldTCAConfig')) {

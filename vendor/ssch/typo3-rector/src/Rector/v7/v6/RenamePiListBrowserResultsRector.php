@@ -26,12 +26,12 @@ final class RenamePiListBrowserResultsRector extends \Rector\Core\Rector\Abstrac
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\IndexedSearch\\Controller\\SearchFormController'))) {
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\IndexedSearch\\Controller\\SearchFormController'))) {
             return null;
         }
         if (!$this->isName($node->name, 'pi_list_browseresults')) {

@@ -31,10 +31,10 @@ final class RefactorDeprecationLogRector extends \Rector\Core\Rector\AbstractRec
         return [\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param StaticCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         $className = $this->getName($node->class);
         if ('TYPO3\\CMS\\Core\\Utility\\GeneralUtility' !== $className) {

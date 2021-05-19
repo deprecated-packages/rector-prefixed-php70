@@ -37,7 +37,7 @@ final class RemoveLangCsConvObjAndParserFactoryRector extends \Rector\Core\Recto
      * @param MethodCall|PropertyFetch $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -83,7 +83,7 @@ CODE_SAMPLE
         if (!(\property_exists($node, 'var') && null !== $node->var)) {
             return \false;
         }
-        if ($this->isObjectType($node->var, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Localization\\LanguageService'))) {
+        if ($this->isObjectType($node->var, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Core\\Localization\\LanguageService'))) {
             return \true;
         }
         if ($this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals($node, \Ssch\TYPO3Rector\Helper\Typo3NodeResolver::LANG)) {
@@ -104,10 +104,10 @@ CODE_SAMPLE
             return null;
         }
         if ($this->isName($node->name, 'csConvObj')) {
-            return $this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'makeInstance', [$this->nodeFactory->createClassConstReference('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Charset\\CharsetConverter')]);
+            return $this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'makeInstance', [$this->nodeFactory->createClassConstReference('TYPO3\\CMS\\Core\\Charset\\CharsetConverter')]);
         }
         if ($this->isName($node->name, 'parserFactory')) {
-            return $this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'makeInstance', [$this->nodeFactory->createClassConstReference('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Localization\\LocalizationFactory')]);
+            return $this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'makeInstance', [$this->nodeFactory->createClassConstReference('TYPO3\\CMS\\Core\\Localization\\LocalizationFactory')]);
         }
         return null;
     }

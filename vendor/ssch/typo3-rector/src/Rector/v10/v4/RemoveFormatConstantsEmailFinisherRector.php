@@ -43,12 +43,12 @@ final class RemoveFormatConstantsEmailFinisherRector extends \Rector\Core\Rector
         return [\PhpParser\Node\Expr\ClassConstFetch::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassConstFetch $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (!$this->isObjectType($node->class, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Form\\Domain\\Finishers\\EmailFinisher'))) {
+        if (!$this->isObjectType($node->class, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Form\\Domain\\Finishers\\EmailFinisher'))) {
             return null;
         }
         if (!$this->isNames($node->name, [self::FORMAT_HTML, 'FORMAT_PLAINTEXT'])) {
@@ -74,7 +74,7 @@ final class RemoveFormatConstantsEmailFinisherRector extends \Rector\Core\Rector
      */
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('RectorPrefix20210519\\Remove constants FORMAT_PLAINTEXT and FORMAT_HTML of class TYPO3\\CMS\\Form\\Domain\\Finishers\\EmailFinisher', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove constants FORMAT_PLAINTEXT and FORMAT_HTML of class TYPO3\\CMS\\Form\\Domain\\Finishers\\EmailFinisher', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $this->setOption(self::FORMAT, EmailFinisher::FORMAT_HTML);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'

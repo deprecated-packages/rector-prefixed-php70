@@ -42,9 +42,9 @@ final class RefactorRemovedMarkerMethodsFromHtmlParserRector extends \Rector\Cor
      * @param StaticCall|MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Html\\HtmlParser'))) {
+        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Core\\Html\\HtmlParser'))) {
             return null;
         }
         if ($this->shouldSkip($node)) {
@@ -158,8 +158,8 @@ CODE_SAMPLE
         if ($this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)) {
             $methodName = $this->getName($node->name);
             if (null !== $methodName) {
-                $classConstant = $this->nodeFactory->createClassConstReference('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Service\\MarkerBasedTemplateService');
-                $staticCall = $this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'makeInstance', [$classConstant]);
+                $classConstant = $this->nodeFactory->createClassConstReference('TYPO3\\CMS\\Core\\Service\\MarkerBasedTemplateService');
+                $staticCall = $this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'makeInstance', [$classConstant]);
                 return $this->nodeFactory->createMethodCall($staticCall, $methodName, $node->args);
             }
         }

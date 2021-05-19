@@ -23,18 +23,18 @@ final class UseActionControllerRector extends \Rector\Core\Rector\AbstractRector
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         if (null === $node->extends) {
             return null;
         }
-        if (!$this->isName($node->extends, 'RectorPrefix20210519\\TYPO3\\CMS\\Extbase\\Mvc\\Controller\\AbstractController')) {
+        if (!$this->isName($node->extends, 'TYPO3\\CMS\\Extbase\\Mvc\\Controller\\AbstractController')) {
             return null;
         }
-        $node->extends = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20210519\\TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController');
+        $node->extends = new \PhpParser\Node\Name\FullyQualified('TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController');
         return $node;
     }
     /**

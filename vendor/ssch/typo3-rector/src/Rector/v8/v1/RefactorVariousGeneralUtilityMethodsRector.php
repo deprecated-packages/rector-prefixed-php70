@@ -62,12 +62,12 @@ final class RefactorVariousGeneralUtilityMethodsRector extends \Rector\Core\Rect
         return [\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param StaticCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility'))) {
+        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Core\\Utility\\GeneralUtility'))) {
             return null;
         }
         if (!$this->isNames($node->name, [self::COMPAT_VERSION, self::CONVERT_MICROTIME, self::RAW_URL_ENCODE_JS, self::RAW_URL_ENCODE_FP, self::LCFIRST, self::GET_MAXIMUM_PATH_LENGTH])) {
@@ -75,7 +75,7 @@ final class RefactorVariousGeneralUtilityMethodsRector extends \Rector\Core\Rect
         }
         $nodeName = $this->getName($node->name);
         if (self::COMPAT_VERSION === $nodeName) {
-            return new \PhpParser\Node\Expr\BinaryOp\GreaterOrEqual($this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\VersionNumberUtility', 'convertVersionNumberToInteger', [new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('TYPO3_branch'))]), $this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\VersionNumberUtility', 'convertVersionNumberToInteger', $node->args));
+            return new \PhpParser\Node\Expr\BinaryOp\GreaterOrEqual($this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Utility\\VersionNumberUtility', 'convertVersionNumberToInteger', [new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('TYPO3_branch'))]), $this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Utility\\VersionNumberUtility', 'convertVersionNumberToInteger', $node->args));
         }
         if (self::CONVERT_MICROTIME === $nodeName) {
             $funcCall = $this->nodeFactory->createFuncCall('explode', [new \PhpParser\Node\Scalar\String_(' '), $node->args[0]->value]);

@@ -26,10 +26,10 @@ final class RemovePropertiesFromSimpleDataHandlerControllerRector extends \Recto
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Assign $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node->var instanceof \PhpParser\Node\Expr\Variable) {
             $this->removeVariableNode($node);
@@ -75,7 +75,7 @@ CODE_SAMPLE
         if (null === $classNode) {
             return;
         }
-        if (!$this->isObjectType($classNode, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Backend\\Controller\\SimpleDataHandlerController'))) {
+        if (!$this->isObjectType($classNode, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Backend\\Controller\\SimpleDataHandlerController'))) {
             return;
         }
         if (!$this->isName($assign->expr, 'uPT') && !$this->isName($assign->expr, 'prErr')) {
@@ -92,7 +92,7 @@ CODE_SAMPLE
         if (null === $classNode) {
             return;
         }
-        if (!$this->isObjectType($classNode, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Backend\\Controller\\SimpleDataHandlerController'))) {
+        if (!$this->isObjectType($classNode, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Backend\\Controller\\SimpleDataHandlerController'))) {
             return;
         }
         if (!$this->isName($assign->var, 'uPT') && !$this->isName($assign->var, 'prErr')) {

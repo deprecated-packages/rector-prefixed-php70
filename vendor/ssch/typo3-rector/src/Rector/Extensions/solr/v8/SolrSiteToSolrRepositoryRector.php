@@ -36,12 +36,12 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param StaticCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility'))) {
+        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Core\\Utility\\GeneralUtility'))) {
             return null;
         }
         if (!$this->isName($node->name, 'makeInstance')) {
@@ -57,14 +57,14 @@ CODE_SAMPLE
             return null;
         }
         $firstArgumentObjectType = new \PHPStan\Type\ObjectType($firstArgumentValue);
-        if ($firstArgumentObjectType->isInstanceOf('RectorPrefix20210519\\ApacheSolrForTypo3\\Solr\\Site')->no()) {
+        if ($firstArgumentObjectType->isInstanceOf('ApacheSolrForTypo3\\Solr\\Site')->no()) {
             return null;
         }
         $secondArgumentValue = $this->valueResolver->getValue($secondArgument->value);
         if (!\is_numeric($secondArgumentValue)) {
             return null;
         }
-        $node->args[0]->value = $this->nodeFactory->createClassConstReference('RectorPrefix20210519\\ApacheSolrForTypo3\\Solr\\Domain\\Site\\SiteRepository');
+        $node->args[0]->value = $this->nodeFactory->createClassConstReference('ApacheSolrForTypo3\\Solr\\Domain\\Site\\SiteRepository');
         unset($node->args[1]);
         return $this->nodeFactory->createMethodCall($node, 'getSiteByPageId', [$secondArgument]);
     }

@@ -32,24 +32,24 @@ final class UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector 
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher'))) {
+        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher'))) {
             return null;
         }
         if (!$this->isName($node->name, 'connect')) {
             return null;
         }
-        if (!$this->classConstAnalyzer->isClassConstReference($node->args[0]->value, 'RectorPrefix20210519\\TYPO3\\CMS\\Extensionmanager\\Utility\\InstallUtility')) {
+        if (!$this->classConstAnalyzer->isClassConstReference($node->args[0]->value, 'TYPO3\\CMS\\Extensionmanager\\Utility\\InstallUtility')) {
             return null;
         }
         if (!$this->valueResolver->isValue($node->args[1]->value, 'tablesDefinitionIsBeingBuilt')) {
             return null;
         }
-        $node->args[0]->value = $this->nodeFactory->createClassConstReference('RectorPrefix20210519\\TYPO3\\CMS\\Install\\Service\\SqlExpectedSchemaService');
+        $node->args[0]->value = $this->nodeFactory->createClassConstReference('TYPO3\\CMS\\Install\\Service\\SqlExpectedSchemaService');
         return $node;
     }
     /**

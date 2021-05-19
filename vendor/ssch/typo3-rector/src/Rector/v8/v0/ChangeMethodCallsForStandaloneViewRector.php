@@ -22,7 +22,7 @@ final class ChangeMethodCallsForStandaloneViewRector extends \Rector\Core\Rector
      *
      * @var array<string, array<string, string>>
      */
-    const OLD_TO_NEW_METHODS_BY_CLASS = ['RectorPrefix20210519\\TYPO3\\CMS\\Fluid\\View\\StandaloneView' => ['setLayoutRootPath' => 'setLayoutRootPaths', 'getLayoutRootPath' => 'getLayoutRootPaths', 'setPartialRootPath' => 'setPartialRootPaths', 'getPartialRootPath' => 'getPartialRootPaths']];
+    const OLD_TO_NEW_METHODS_BY_CLASS = ['TYPO3\\CMS\\Fluid\\View\\StandaloneView' => ['setLayoutRootPath' => 'setLayoutRootPaths', 'getLayoutRootPath' => 'getLayoutRootPaths', 'setPartialRootPath' => 'setPartialRootPaths', 'getPartialRootPath' => 'getPartialRootPaths']];
     /**
      * @codeCoverageIgnore
      */
@@ -52,10 +52,10 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         foreach (self::OLD_TO_NEW_METHODS_BY_CLASS as $type => $oldToNewMethods) {
             if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType($type))) {

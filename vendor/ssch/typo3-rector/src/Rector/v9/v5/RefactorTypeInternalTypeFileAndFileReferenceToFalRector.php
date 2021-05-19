@@ -39,10 +39,10 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends \Rec
         return [\PhpParser\Node\Stmt\Return_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Return_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isFullTca($node)) {
             return null;
@@ -107,7 +107,7 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends \Rec
                 if (null !== $allowed) {
                     $args[] = $allowed;
                 }
-                $configValue->value = $this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\ExtensionManagementUtility', 'getFileFieldTCAConfig', $args);
+                $configValue->value = $this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Utility\\ExtensionManagementUtility', 'getFileFieldTCAConfig', $args);
             }
         }
         if ($hasAstBeenChanged) {

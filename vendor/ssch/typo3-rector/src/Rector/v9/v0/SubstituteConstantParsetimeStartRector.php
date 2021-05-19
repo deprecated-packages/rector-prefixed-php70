@@ -36,10 +36,10 @@ final class SubstituteConstantParsetimeStartRector extends \Rector\Core\Rector\A
         return [\PhpParser\Node\Expr::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Expr $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->typo3NodeResolver->isTypo3Global($node, \Ssch\TYPO3Rector\Helper\Typo3NodeResolver::PARSETIME_START)) {
             return null;

@@ -31,12 +31,12 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer'))) {
+        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer'))) {
             return null;
         }
         if (!$this->isNames($node->name, ['getSubpart', 'substituteSubpart', 'substituteSubpartArray', 'substituteMarker', 'substituteMarkerArrayCached', 'substituteMarkerArray', 'substituteMarkerInObject', 'substituteMarkerAndSubpartArrayRecursive', self::FILL_IN_MARKER_ARRAY])) {
@@ -47,13 +47,13 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
             if (null === $methodName) {
                 return null;
             }
-            $classConstant = $this->nodeFactory->createClassConstReference('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Service\\MarkerBasedTemplateService');
-            $staticCall = $this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'makeInstance', [$classConstant]);
+            $classConstant = $this->nodeFactory->createClassConstReference('TYPO3\\CMS\\Core\\Service\\MarkerBasedTemplateService');
+            $staticCall = $this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'makeInstance', [$classConstant]);
             return $this->nodeFactory->createMethodCall($staticCall, $methodName, $node->args);
         }
         if ($this->isName($node->name, self::FILL_IN_MARKER_ARRAY)) {
             $node->args[] = $this->nodeFactory->createArg(new \PhpParser\Node\Expr\BooleanNot($this->nodeFactory->createFuncCall('empty', [$this->nodeFactory->createArg($this->nodeFactory->createPropertyFetch(new \PhpParser\Node\Expr\ArrayDimFetch(new \PhpParser\Node\Expr\Variable('GLOBALS'), new \PhpParser\Node\Scalar\String_('TSFE')), 'xhtmlDoctype'))])));
-            return $this->nodeFactory->createMethodCall($this->nodeFactory->createStaticCall('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'makeInstance', [$this->nodeFactory->createClassConstReference('RectorPrefix20210519\\TYPO3\\CMS\\Core\\Service\\MarkerBasedTemplateService')]), self::FILL_IN_MARKER_ARRAY, $node->args);
+            return $this->nodeFactory->createMethodCall($this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'makeInstance', [$this->nodeFactory->createClassConstReference('TYPO3\\CMS\\Core\\Service\\MarkerBasedTemplateService')]), self::FILL_IN_MARKER_ARRAY, $node->args);
         }
         return null;
     }

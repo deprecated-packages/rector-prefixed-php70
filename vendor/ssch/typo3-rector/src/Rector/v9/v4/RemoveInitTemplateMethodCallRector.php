@@ -39,7 +39,7 @@ final class RemoveInitTemplateMethodCallRector extends \Rector\Core\Rector\Abstr
      * @param Expression|MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor($node)
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->typo3NodeResolver->isMethodCallOnGlobals($node, 'initTemplate', \Ssch\TYPO3Rector\Helper\Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER)) {
             $this->removeNode($node);
@@ -48,7 +48,7 @@ final class RemoveInitTemplateMethodCallRector extends \Rector\Core\Rector\Abstr
         if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
         }
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210519\\TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController'))) {
+        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController'))) {
             return null;
         }
         if (!$this->isName($node->name, 'initTemplate')) {
