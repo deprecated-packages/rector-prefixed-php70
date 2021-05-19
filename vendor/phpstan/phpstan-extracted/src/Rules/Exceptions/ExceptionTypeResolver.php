@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Rules\Exceptions;
 
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings;
 use PHPStan\Reflection\ReflectionProvider;
 class ExceptionTypeResolver
 {
@@ -27,7 +27,7 @@ class ExceptionTypeResolver
     public function isCheckedException(string $className) : bool
     {
         foreach ($this->uncheckedExceptionRegexes as $regex) {
-            if (\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::match($className, $regex) !== null) {
+            if (\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::match($className, $regex) !== null) {
                 return \false;
             }
         }

@@ -6,24 +6,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210518\JsonSchema\Constraints;
+namespace RectorPrefix20210519\JsonSchema\Constraints;
 
-use RectorPrefix20210518\JsonSchema\Entity\JsonPointer;
+use RectorPrefix20210519\JsonSchema\Entity\JsonPointer;
 /**
  * The EnumConstraint Constraints, validates an element against a given set of possibilities
  *
  * @author Robert Schönthal <seroscho@googlemail.com>
  * @author Bruno Prieto Reis <bruno.p.reis@gmail.com>
  */
-class EnumConstraint extends \RectorPrefix20210518\JsonSchema\Constraints\Constraint
+class EnumConstraint extends \RectorPrefix20210519\JsonSchema\Constraints\Constraint
 {
     /**
      * {@inheritdoc}
      */
-    public function check(&$element, $schema = null, \RectorPrefix20210518\JsonSchema\Entity\JsonPointer $path = null, $i = null)
+    public function check(&$element, $schema = null, \RectorPrefix20210519\JsonSchema\Entity\JsonPointer $path = null, $i = null)
     {
         // Only validate enum if the attribute exists
-        if ($element instanceof \RectorPrefix20210518\JsonSchema\Constraints\UndefinedConstraint && (!isset($schema->required) || !$schema->required)) {
+        if ($element instanceof \RectorPrefix20210519\JsonSchema\Constraints\UndefinedConstraint && (!isset($schema->required) || !$schema->required)) {
             return;
         }
         $type = \gettype($element);

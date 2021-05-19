@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Composer\XdebugHandler;
+namespace RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Composer\XdebugHandler;
 
 /**
  * Provides utility functions to prepare a child process command-line and set
@@ -112,11 +112,19 @@ class Process
         }
         if (\function_exists('stream_isatty')) {
             $streamIsatty = function ($stream) {
+                if (\function_exists('stream_isatty')) {
+                    return \stream_isatty($stream);
+                }
+                if (!\is_resource($stream)) {
+                    \trigger_error('stream_isatty() expects parameter 1 to be resource, ' . \gettype($stream) . ' given', \E_USER_WARNING);
+                    return \false;
+                }
                 if ('\\' === \DIRECTORY_SEPARATOR) {
                     $stat = @\fstat($stream);
+                    // Check if formatted mode is S_IFCHR
                     return $stat ? 020000 === ($stat['mode'] & 0170000) : \false;
                 }
-                return @\posix_isatty($stream);
+                return \function_exists('posix_isatty') && @\posix_isatty($stream);
             };
             return $streamIsatty($output);
         }

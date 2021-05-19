@@ -7,11 +7,11 @@ use PHPStan\BetterReflection\Reflection\ReflectionClass;
 use PHPStan\BetterReflection\Util\Autoload\ClassLoaderMethod\Exception\SignatureCheckFailed;
 use PHPStan\BetterReflection\Util\Autoload\ClassPrinter\ClassPrinterInterface;
 use PHPStan\BetterReflection\Util\Autoload\ClassPrinter\PhpParserPrinter;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Roave\Signature\CheckerInterface;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Roave\Signature\Encoder\Sha1SumEncoder;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Roave\Signature\FileContentChecker;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Roave\Signature\FileContentSigner;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Roave\Signature\SignerInterface;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Roave\Signature\CheckerInterface;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Roave\Signature\Encoder\Sha1SumEncoder;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Roave\Signature\FileContentChecker;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Roave\Signature\FileContentSigner;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Roave\Signature\SignerInterface;
 use function file_exists;
 use function file_get_contents;
 use function file_put_contents;
@@ -27,7 +27,7 @@ final class FileCacheLoader implements \PHPStan\BetterReflection\Util\Autoload\C
     private $signer;
     /** @var CheckerInterface */
     private $checker;
-    public function __construct(string $cacheDirectory, \PHPStan\BetterReflection\Util\Autoload\ClassPrinter\ClassPrinterInterface $classPrinter, \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Roave\Signature\SignerInterface $signer, \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Roave\Signature\CheckerInterface $checker)
+    public function __construct(string $cacheDirectory, \PHPStan\BetterReflection\Util\Autoload\ClassPrinter\ClassPrinterInterface $classPrinter, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Roave\Signature\SignerInterface $signer, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Roave\Signature\CheckerInterface $checker)
     {
         $this->cacheDirectory = $cacheDirectory;
         $this->classPrinter = $classPrinter;
@@ -58,6 +58,6 @@ final class FileCacheLoader implements \PHPStan\BetterReflection\Util\Autoload\C
      */
     public static function defaultFileCacheLoader(string $cacheDirectory)
     {
-        return new self($cacheDirectory, new \PHPStan\BetterReflection\Util\Autoload\ClassPrinter\PhpParserPrinter(), new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Roave\Signature\FileContentSigner(new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Roave\Signature\Encoder\Sha1SumEncoder()), new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Roave\Signature\FileContentChecker(new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Roave\Signature\Encoder\Sha1SumEncoder()));
+        return new self($cacheDirectory, new \PHPStan\BetterReflection\Util\Autoload\ClassPrinter\PhpParserPrinter(), new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Roave\Signature\FileContentSigner(new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Roave\Signature\Encoder\Sha1SumEncoder()), new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Roave\Signature\FileContentChecker(new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Roave\Signature\Encoder\Sha1SumEncoder()));
     }
 }

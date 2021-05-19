@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210518\Hoa\Iterator\Recursive;
+namespace RectorPrefix20210519\Hoa\Iterator\Recursive;
 
 /**
  * Class \Hoa\Iterator\Recursive\CallbackFilter.

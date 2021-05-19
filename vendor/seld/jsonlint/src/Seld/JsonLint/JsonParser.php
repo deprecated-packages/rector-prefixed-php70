@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210518\Seld\JsonLint;
+namespace RectorPrefix20210519\Seld\JsonLint;
 
 use stdClass;
 /**
@@ -56,7 +56,7 @@ class JsonParser
     {
         try {
             $this->parse($input, $flags);
-        } catch (\RectorPrefix20210518\Seld\JsonLint\ParsingException $e) {
+        } catch (\RectorPrefix20210519\Seld\JsonLint\ParsingException $e) {
             return $e;
         }
         return null;
@@ -80,7 +80,7 @@ class JsonParser
         $recovering = 0;
         $TERROR = 2;
         $EOF = 1;
-        $this->lexer = new \RectorPrefix20210518\Seld\JsonLint\Lexer();
+        $this->lexer = new \RectorPrefix20210519\Seld\JsonLint\Lexer();
         $this->lexer->setInput($input);
         $yyloc = $this->lexer->yylloc;
         $this->lstack[] = $yyloc;
@@ -146,7 +146,7 @@ class JsonParser
                 // just recovered from another error
                 if ($recovering == 3) {
                     if ($symbol == $EOF) {
-                        throw new \RectorPrefix20210518\Seld\JsonLint\ParsingException($errStr ?: 'Parsing halted.');
+                        throw new \RectorPrefix20210519\Seld\JsonLint\ParsingException($errStr ?: 'Parsing halted.');
                     }
                     // discard current lookahead and grab another
                     $yyleng = $this->lexer->yyleng;
@@ -162,7 +162,7 @@ class JsonParser
                         break;
                     }
                     if ($state == 0) {
-                        throw new \RectorPrefix20210518\Seld\JsonLint\ParsingException($errStr ?: 'Parsing halted.');
+                        throw new \RectorPrefix20210519\Seld\JsonLint\ParsingException($errStr ?: 'Parsing halted.');
                     }
                     $this->popStack(1);
                     $state = $this->stack[\count($this->stack) - 1];
@@ -178,7 +178,7 @@ class JsonParser
             }
             // this shouldn't happen, unless resolve defaults are off
             if (\is_array($action[0]) && \count($action) > 1) {
-                throw new \RectorPrefix20210518\Seld\JsonLint\ParsingException('Parse Error: multiple actions possible at state: ' . $state . ', token: ' . $symbol);
+                throw new \RectorPrefix20210519\Seld\JsonLint\ParsingException('Parse Error: multiple actions possible at state: ' . $state . ', token: ' . $symbol);
             }
             switch ($action[0]) {
                 case 1:
@@ -219,7 +219,7 @@ class JsonParser
                         'last_column' => $this->lstack[\count($this->lstack) - 1]['last_column'],
                     );
                     $r = $this->performAction($yyval, $yytext, $yyleng, $yylineno, $action[1], $this->vstack);
-                    if (!$r instanceof \RectorPrefix20210518\Seld\JsonLint\Undefined) {
+                    if (!$r instanceof \RectorPrefix20210519\Seld\JsonLint\Undefined) {
                         return $r;
                     }
                     if ($len) {
@@ -240,7 +240,7 @@ class JsonParser
     }
     protected function parseError($str, $hash)
     {
-        throw new \RectorPrefix20210518\Seld\JsonLint\ParsingException($str, $hash);
+        throw new \RectorPrefix20210519\Seld\JsonLint\ParsingException($str, $hash);
     }
     // $$ = $tokens // needs to be passed by ref?
     // $ = $token
@@ -307,7 +307,7 @@ class JsonParser
                         $errStr = 'Parse error on line ' . ($yylineno + 1) . ":\n";
                         $errStr .= $this->lexer->showPosition() . "\n";
                         $errStr .= "Duplicate key: " . $tokens[$len][0];
-                        throw new \RectorPrefix20210518\Seld\JsonLint\DuplicateKeyException($errStr, $tokens[$len][0], array('line' => $yylineno + 1));
+                        throw new \RectorPrefix20210519\Seld\JsonLint\DuplicateKeyException($errStr, $tokens[$len][0], array('line' => $yylineno + 1));
                     } elseif ($this->flags & self::ALLOW_DUPLICATE_KEYS && isset($tokens[$len - 2][$key])) {
                         $duplicateCount = 1;
                         do {
@@ -327,7 +327,7 @@ class JsonParser
                         $errStr = 'Parse error on line ' . ($yylineno + 1) . ":\n";
                         $errStr .= $this->lexer->showPosition() . "\n";
                         $errStr .= "Duplicate key: " . $tokens[$len][0];
-                        throw new \RectorPrefix20210518\Seld\JsonLint\DuplicateKeyException($errStr, $tokens[$len][0], array('line' => $yylineno + 1));
+                        throw new \RectorPrefix20210519\Seld\JsonLint\DuplicateKeyException($errStr, $tokens[$len][0], array('line' => $yylineno + 1));
                     } elseif ($this->flags & self::ALLOW_DUPLICATE_KEYS && isset($tokens[$len - 2]->{$key})) {
                         $duplicateCount = 1;
                         do {
@@ -352,7 +352,7 @@ class JsonParser
                 $yyval->token = $tokens[$len - 2];
                 break;
         }
-        return new \RectorPrefix20210518\Seld\JsonLint\Undefined();
+        return new \RectorPrefix20210519\Seld\JsonLint\Undefined();
     }
     private function stringInterpolation($match)
     {

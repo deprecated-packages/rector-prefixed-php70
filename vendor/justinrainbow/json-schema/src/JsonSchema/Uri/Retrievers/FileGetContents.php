@@ -6,15 +6,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210518\JsonSchema\Uri\Retrievers;
+namespace RectorPrefix20210519\JsonSchema\Uri\Retrievers;
 
-use RectorPrefix20210518\JsonSchema\Exception\ResourceNotFoundException;
+use RectorPrefix20210519\JsonSchema\Exception\ResourceNotFoundException;
 /**
  * Tries to retrieve JSON schemas from a URI using file_get_contents()
  *
  * @author Sander Coolen <sander@jibber.nl>
  */
-class FileGetContents extends \RectorPrefix20210518\JsonSchema\Uri\Retrievers\AbstractRetriever
+class FileGetContents extends \RectorPrefix20210519\JsonSchema\Uri\Retrievers\AbstractRetriever
 {
     protected $messageBody;
     /**
@@ -31,13 +31,13 @@ class FileGetContents extends \RectorPrefix20210518\JsonSchema\Uri\Retrievers\Ab
         $response = \file_get_contents($uri);
         \restore_error_handler();
         if ($errorMessage) {
-            throw new \RectorPrefix20210518\JsonSchema\Exception\ResourceNotFoundException($errorMessage);
+            throw new \RectorPrefix20210519\JsonSchema\Exception\ResourceNotFoundException($errorMessage);
         }
         if (\false === $response) {
-            throw new \RectorPrefix20210518\JsonSchema\Exception\ResourceNotFoundException('JSON schema not found at ' . $uri);
+            throw new \RectorPrefix20210519\JsonSchema\Exception\ResourceNotFoundException('JSON schema not found at ' . $uri);
         }
         if ($response == '' && \substr($uri, 0, 7) == 'file://' && \substr($uri, -1) == '/') {
-            throw new \RectorPrefix20210518\JsonSchema\Exception\ResourceNotFoundException('JSON schema not found at ' . $uri);
+            throw new \RectorPrefix20210519\JsonSchema\Exception\ResourceNotFoundException('JSON schema not found at ' . $uri);
         }
         $this->messageBody = $response;
         if (!empty($http_response_header)) {

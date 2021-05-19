@@ -13,7 +13,7 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionFunction;
-use RectorPrefix20210518\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20210519\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class VariableToConstantGuard
 {
     /**
@@ -32,7 +32,7 @@ final class VariableToConstantGuard
      * @var \Symplify\PackageBuilder\Reflection\PrivatesAccessor
      */
     private $privatesAccessor;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20210518\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20210519\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->reflectionProvider = $reflectionProvider;
@@ -73,7 +73,11 @@ final class VariableToConstantGuard
         }
         // this is needed, as native function reflection does not have access to referenced parameters
         if ($functionReflection instanceof \PHPStan\Reflection\Native\NativeFunctionReflection) {
-            $nativeFunctionReflection = new \ReflectionFunction($functionReflection->getName());
+            $functionName = $functionReflection->getName();
+            if (!\function_exists($functionName)) {
+                return [];
+            }
+            $nativeFunctionReflection = new \ReflectionFunction($functionName);
         } else {
             $nativeFunctionReflection = $this->privatesAccessor->getPrivateProperty($functionReflection, 'reflection');
         }

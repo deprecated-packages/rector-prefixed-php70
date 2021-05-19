@@ -6,16 +6,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210518\JsonSchema\Uri;
+namespace RectorPrefix20210519\JsonSchema\Uri;
 
-use RectorPrefix20210518\JsonSchema\Exception\UriResolverException;
-use RectorPrefix20210518\JsonSchema\UriResolverInterface;
+use RectorPrefix20210519\JsonSchema\Exception\UriResolverException;
+use RectorPrefix20210519\JsonSchema\UriResolverInterface;
 /**
  * Resolves JSON Schema URIs
  *
  * @author Sander Coolen <sander@jibber.nl>
  */
-class UriResolver implements \RectorPrefix20210518\JsonSchema\UriResolverInterface
+class UriResolver implements \RectorPrefix20210519\JsonSchema\UriResolverInterface
 {
     /**
      * Parses a URI into five main components
@@ -111,7 +111,7 @@ class UriResolver implements \RectorPrefix20210518\JsonSchema\UriResolverInterfa
         \preg_match('|^/?(\\.\\./(?:\\./)*)*|', $relativePath, $match);
         $numLevelUp = \strlen($match[0]) / 3 + 1;
         if ($numLevelUp >= \count($basePathSegments)) {
-            throw new \RectorPrefix20210518\JsonSchema\Exception\UriResolverException(\sprintf("Unable to resolve URI '%s' from base '%s'", $relativePath, $basePath));
+            throw new \RectorPrefix20210519\JsonSchema\Exception\UriResolverException(\sprintf("Unable to resolve URI '%s' from base '%s'", $relativePath, $basePath));
         }
         $basePathSegments = \array_slice($basePathSegments, 0, -$numLevelUp);
         $path = \preg_replace('|^/?(\\.\\./(\\./)*)*|', '', $relativePath);

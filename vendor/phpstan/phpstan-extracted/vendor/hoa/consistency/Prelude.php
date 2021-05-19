@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210518;
+namespace RectorPrefix20210519;
 
 /**
  * Hoa
@@ -75,7 +75,7 @@ $define('_final', 64);
 $define('_dynamic', ~\_static);
 $define('_concrete', ~\_abstract);
 $define('_overridable', ~\_final);
-$define('WITH_COMPOSER', \class_exists('RectorPrefix20210518\\Composer\\Autoload\\ClassLoader', \false) || 'cli' === \PHP_SAPI && \file_exists(__DIR__ . \DS . '..' . \DS . '..' . \DS . 'autoload.php'));
+$define('WITH_COMPOSER', \class_exists('RectorPrefix20210519\\Composer\\Autoload\\ClassLoader', \false) || 'cli' === \PHP_SAPI && \file_exists(__DIR__ . \DS . '..' . \DS . '..' . \DS . 'autoload.php'));
 /**
  * Alias of \Hoa\Consistency\Xcallable.
  *
@@ -83,12 +83,12 @@ $define('WITH_COMPOSER', \class_exists('RectorPrefix20210518\\Composer\\Autoload
  * @param   mixed   $able    Second callable part (if needed).
  * @return  mixed
  */
-if (!\function_exists('RectorPrefix20210518\\xcallable')) {
+if (!\function_exists('RectorPrefix20210519\\xcallable')) {
     function xcallable($call, $able = '')
     {
-        if ($call instanceof \RectorPrefix20210518\Hoa\Consistency\Xcallable) {
+        if ($call instanceof \RectorPrefix20210519\Hoa\Consistency\Xcallable) {
             return $call;
         }
-        return new \RectorPrefix20210518\Hoa\Consistency\Xcallable($call, $able);
+        return new \RectorPrefix20210519\Hoa\Consistency\Xcallable($call, $able);
     }
 }

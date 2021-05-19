@@ -1,12 +1,12 @@
 <?php
 
-namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\EventLoop;
+namespace RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop;
 
 use BadMethodCallException;
 use Event;
 use EventBase;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\EventLoop\Tick\FutureTickQueue;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\EventLoop\Timer\Timer;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\Tick\FutureTickQueue;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\Timer\Timer;
 use SplObjectStorage;
 /**
  * An `ext-libevent` based event loop.
@@ -32,7 +32,7 @@ use SplObjectStorage;
  *
  * @link https://pecl.php.net/package/libevent
  */
-final class ExtLibeventLoop implements \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface
+final class ExtLibeventLoop implements \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface
 {
     /** @internal */
     const MICROSECONDS_PER_SECOND = 1000000;
@@ -54,9 +54,9 @@ final class ExtLibeventLoop implements \RectorPrefix20210518\_HumbugBox0b2f2d5c7
             throw new \BadMethodCallException('Cannot create ExtLibeventLoop, ext-libevent extension missing');
         }
         $this->eventBase = \event_base_new();
-        $this->futureTickQueue = new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\EventLoop\Tick\FutureTickQueue();
+        $this->futureTickQueue = new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\Tick\FutureTickQueue();
         $this->timerEvents = new \SplObjectStorage();
-        $this->signals = new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\EventLoop\SignalsHandler();
+        $this->signals = new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\SignalsHandler();
         $this->createTimerCallback();
         $this->createStreamCallback();
     }
@@ -108,17 +108,17 @@ final class ExtLibeventLoop implements \RectorPrefix20210518\_HumbugBox0b2f2d5c7
     }
     public function addTimer($interval, $callback)
     {
-        $timer = new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\EventLoop\Timer\Timer($interval, $callback, \false);
+        $timer = new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\Timer\Timer($interval, $callback, \false);
         $this->scheduleTimer($timer);
         return $timer;
     }
     public function addPeriodicTimer($interval, $callback)
     {
-        $timer = new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\EventLoop\Timer\Timer($interval, $callback, \true);
+        $timer = new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\Timer\Timer($interval, $callback, \true);
         $this->scheduleTimer($timer);
         return $timer;
     }
-    public function cancelTimer(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\EventLoop\TimerInterface $timer)
+    public function cancelTimer(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\TimerInterface $timer)
     {
         if ($this->timerEvents->contains($timer)) {
             $event = $this->timerEvents[$timer];
@@ -173,7 +173,7 @@ final class ExtLibeventLoop implements \RectorPrefix20210518\_HumbugBox0b2f2d5c7
      *
      * @param TimerInterface $timer
      */
-    private function scheduleTimer(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\EventLoop\TimerInterface $timer)
+    private function scheduleTimer(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\TimerInterface $timer)
     {
         $this->timerEvents[$timer] = $event = \event_timer_new();
         \event_timer_set($event, $this->timerCallback, $timer);
@@ -199,7 +199,7 @@ final class ExtLibeventLoop implements \RectorPrefix20210518\_HumbugBox0b2f2d5c7
             }
             // Reschedule periodic timers ...
             if ($timer->isPeriodic()) {
-                \event_add($timers[$timer], $timer->getInterval() * \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\EventLoop\ExtLibeventLoop::MICROSECONDS_PER_SECOND);
+                \event_add($timers[$timer], $timer->getInterval() * \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\ExtLibeventLoop::MICROSECONDS_PER_SECOND);
                 // Clean-up one shot timers ...
             } else {
                 $that->cancelTimer($timer);

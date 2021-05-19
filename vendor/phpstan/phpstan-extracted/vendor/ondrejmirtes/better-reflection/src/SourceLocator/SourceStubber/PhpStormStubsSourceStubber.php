@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace PHPStan\BetterReflection\SourceLocator\SourceStubber;
 
 use Error;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\JetBrains\PHPStormStub\PhpStormStubsMap;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\JetBrains\PHPStormStub\PhpStormStubsMap;
 use ParseError;
 use PhpParser\BuilderFactory;
 use PhpParser\BuilderHelpers;
@@ -87,9 +87,9 @@ final class PhpStormStubsSourceStubber implements \PHPStan\BetterReflection\Sour
         $this->nodeTraverser = new \PhpParser\NodeTraverser();
         $this->nodeTraverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver());
         $this->nodeTraverser->addVisitor($this->cachingVisitor);
-        $this->classMap = \array_change_key_case(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\JetBrains\PHPStormStub\PhpStormStubsMap::CLASSES);
-        $this->functionMap = \array_change_key_case(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\JetBrains\PHPStormStub\PhpStormStubsMap::FUNCTIONS);
-        $this->constantMap = \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\JetBrains\PHPStormStub\PhpStormStubsMap::CONSTANTS;
+        $this->classMap = \array_change_key_case(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\JetBrains\PHPStormStub\PhpStormStubsMap::CLASSES);
+        $this->functionMap = \array_change_key_case(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\JetBrains\PHPStormStub\PhpStormStubsMap::FUNCTIONS);
+        $this->constantMap = \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\JetBrains\PHPStormStub\PhpStormStubsMap::CONSTANTS;
     }
     public function hasClass(string $className) : bool
     {

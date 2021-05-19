@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210518\Symplify\EasyTesting\HttpKernel;
+namespace RectorPrefix20210519\Symplify\EasyTesting\HttpKernel;
 
-use RectorPrefix20210518\Symfony\Component\Config\Loader\LoaderInterface;
-use RectorPrefix20210518\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class EasyTestingKernel extends \RectorPrefix20210518\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use RectorPrefix20210519\Symfony\Component\Config\Loader\LoaderInterface;
+use RectorPrefix20210519\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class EasyTestingKernel extends \RectorPrefix20210519\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
      * @return void
      */
-    public function registerContainerConfiguration(\RectorPrefix20210518\Symfony\Component\Config\Loader\LoaderInterface $loader)
+    public function registerContainerConfiguration(\RectorPrefix20210519\Symfony\Component\Config\Loader\LoaderInterface $loader)
     {
         $loader->load(__DIR__ . '/../../config/config.php');
     }

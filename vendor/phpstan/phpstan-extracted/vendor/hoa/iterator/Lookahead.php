@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210518\Hoa\Iterator;
+namespace RectorPrefix20210519\Hoa\Iterator;
 
 /**
  * Class \Hoa\Iterator\Lookahead.
@@ -43,7 +43,7 @@ namespace RectorPrefix20210518\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Lookahead extends \RectorPrefix20210518\Hoa\Iterator\IteratorIterator implements \RectorPrefix20210518\Hoa\Iterator\Outer
+class Lookahead extends \RectorPrefix20210519\Hoa\Iterator\IteratorIterator implements \RectorPrefix20210519\Hoa\Iterator\Outer
 {
     /**
      * Current iterator.

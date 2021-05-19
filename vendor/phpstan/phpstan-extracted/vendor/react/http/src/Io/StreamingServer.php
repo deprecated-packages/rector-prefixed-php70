@@ -1,20 +1,20 @@
 <?php
 
-namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Http\Io;
+namespace RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Io;
 
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Http\Message\Response;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Http\Message\ServerRequest;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Message\Response;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Message\ServerRequest;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
 /**
  * The internal `StreamingServer` class is responsible for handling incoming connections and then
  * processing each incoming HTTP request.
@@ -79,7 +79,7 @@ use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInter
  * @see self::listen()
  * @internal
  */
-final class StreamingServer extends \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter
+final class StreamingServer extends \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter
 {
     private $callback;
     private $parser;
@@ -96,22 +96,22 @@ final class StreamingServer extends \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8
      * @param callable $requestHandler
      * @see self::listen()
      */
-    public function __construct(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, $requestHandler)
+    public function __construct(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, $requestHandler)
     {
         if (!\is_callable($requestHandler)) {
             throw new \InvalidArgumentException('Invalid request handler given');
         }
         $this->loop = $loop;
         $this->callback = $requestHandler;
-        $this->parser = new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Http\Io\RequestHeaderParser();
+        $this->parser = new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Io\RequestHeaderParser();
         $that = $this;
-        $this->parser->on('headers', function (\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface $request, \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $conn) use($that) {
+        $this->parser->on('headers', function (\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface $request, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $conn) use($that) {
             $that->handleRequest($conn, $request);
         });
-        $this->parser->on('error', function (\Exception $e, \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $conn) use($that) {
+        $this->parser->on('error', function (\Exception $e, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $conn) use($that) {
             $that->emit('error', array($e));
             // parsing failed => assume dummy request and send appropriate error
-            $that->writeError($conn, $e->getCode() !== 0 ? $e->getCode() : 400, new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Http\Message\ServerRequest('GET', '/'));
+            $that->writeError($conn, $e->getCode() !== 0 ? $e->getCode() : 400, new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Message\ServerRequest('GET', '/'));
         });
     }
     /**
@@ -120,12 +120,12 @@ final class StreamingServer extends \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8
      * @param ServerInterface $socket
      * @see \React\Http\Server::listen()
      */
-    public function listen(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface $socket)
+    public function listen(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface $socket)
     {
         $socket->on('connection', array($this->parser, 'handle'));
     }
     /** @internal */
-    public function handleRequest(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $conn, \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface $request)
+    public function handleRequest(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $conn, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface $request)
     {
         if ($request->getProtocolVersion() !== '1.0' && '100-continue' === \strtolower($request->getHeaderLine('Expect'))) {
             $conn->write("HTTP/1.1 100 Continue\r\n\r\n");
@@ -136,30 +136,30 @@ final class StreamingServer extends \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8
             $response = $callback($request);
         } catch (\Exception $error) {
             // request handler callback throws an Exception
-            $response = \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\reject($error);
+            $response = \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\reject($error);
         } catch (\Throwable $error) {
             // @codeCoverageIgnoreStart
             // request handler callback throws a PHP7+ Error
-            $response = \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\reject($error);
+            $response = \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\reject($error);
             // @codeCoverageIgnoreEnd
         }
         // cancel pending promise once connection closes
-        if ($response instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface) {
+        if ($response instanceof \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface) {
             $conn->on('close', function () use($response) {
                 $response->cancel();
             });
         }
         // happy path: response returned, handle and return immediately
-        if ($response instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface) {
+        if ($response instanceof \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface) {
             return $this->handleResponse($conn, $request, $response);
         }
         // did not return a promise? this is an error, convert into one for rejection below.
-        if (!$response instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface) {
-            $response = \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Promise\resolve($response);
+        if (!$response instanceof \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface) {
+            $response = \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\resolve($response);
         }
         $that = $this;
         $response->then(function ($response) use($that, $conn, $request) {
-            if (!$response instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface) {
+            if (!$response instanceof \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface) {
                 $message = 'The response callback is expected to resolve with an object implementing Psr\\Http\\Message\\ResponseInterface, but resolved with "%s" instead.';
                 $message = \sprintf($message, \is_object($response) ? \get_class($response) : \gettype($response));
                 $exception = new \RuntimeException($message);
@@ -180,9 +180,9 @@ final class StreamingServer extends \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8
         });
     }
     /** @internal */
-    public function writeError(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $conn, $code, \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface $request)
+    public function writeError(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $conn, $code, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface $request)
     {
-        $response = new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Http\Message\Response($code, array('Content-Type' => 'text/plain'), 'Error ' . $code);
+        $response = new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Message\Response($code, array('Content-Type' => 'text/plain'), 'Error ' . $code);
         // append reason phrase to response body if known
         $reason = $response->getReasonPhrase();
         if ($reason !== '') {
@@ -193,7 +193,7 @@ final class StreamingServer extends \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8
         $this->handleResponse($conn, $request, $response);
     }
     /** @internal */
-    public function handleResponse(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $connection, \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface $request, \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface $response)
+    public function handleResponse(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $connection, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface $request, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface $response)
     {
         // return early and close response body if connection is already closed
         $body = $response->getBody();
@@ -249,7 +249,7 @@ final class StreamingServer extends \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8
         }
         // 101 (Switching Protocols) response (for Upgrade request) forwards upgraded data through duplex stream
         // 2xx (Successful) response to CONNECT forwards tunneled application data through duplex stream
-        if (($code === 101 || $method === 'CONNECT' && $code >= 200 && $code < 300) && $body instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Http\Io\HttpBodyStream && $body->input instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface) {
+        if (($code === 101 || $method === 'CONNECT' && $code >= 200 && $code < 300) && $body instanceof \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Io\HttpBodyStream && $body->input instanceof \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface) {
             if ($request->getBody()->isReadable()) {
                 // request is still streaming => wait for request close before forwarding following data from connection
                 $request->getBody()->on('close', function () use($connection, $body) {
@@ -277,9 +277,9 @@ final class StreamingServer extends \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8
             $body = '';
         }
         // this is a non-streaming response body or the body stream already closed?
-        if (!$body instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface || !$body->isReadable()) {
+        if (!$body instanceof \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface || !$body->isReadable()) {
             // add final chunk if a streaming body is already closed and uses `Transfer-Encoding: chunked`
-            if ($body instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface && $chunked) {
+            if ($body instanceof \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface && $chunked) {
                 $body = "0\r\n\r\n";
             }
             // end connection after writing response headers and body
@@ -289,7 +289,7 @@ final class StreamingServer extends \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8
         }
         $connection->write($headers . "\r\n");
         if ($chunked) {
-            $body = new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Http\Io\ChunkedEncoder($body);
+            $body = new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Io\ChunkedEncoder($body);
         }
         // Close response stream once connection closes.
         // Note that this TCP/IP close detection may take some time,

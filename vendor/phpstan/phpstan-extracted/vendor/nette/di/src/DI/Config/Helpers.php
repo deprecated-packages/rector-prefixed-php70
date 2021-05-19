@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\DI\Config;
+namespace RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\DI\Config;
 
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette;
 /**
  * Configuration helpers.
  * @deprecated
@@ -22,7 +22,7 @@ final class Helpers
      */
     public static function merge($left, $right)
     {
-        return \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::merge($left, $right);
+        return \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::merge($left, $right);
     }
     /**
      * Return true if array prevents merging and removes this information.

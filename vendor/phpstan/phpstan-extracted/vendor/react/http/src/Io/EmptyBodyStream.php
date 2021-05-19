@@ -1,12 +1,12 @@
 <?php
 
-namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Http\Io;
+namespace RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Io;
 
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\Util;
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Stream\Util;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Bridge between an empty StreamInterface from PSR-7 and ReadableStreamInterface from ReactPHP
  *
@@ -24,7 +24,7 @@ use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInter
  * @see ReadableStreamInterface
  * @internal
  */
-class EmptyBodyStream extends \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface, \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface
+class EmptyBodyStream extends \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface
 {
     private $closed = \false;
     public function isReadable()
@@ -39,9 +39,9 @@ class EmptyBodyStream extends \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Evene
     {
         // NOOP
     }
-    public function pipe(\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\React\Stream\Util::pipe($this, $dest, $options);
+        \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

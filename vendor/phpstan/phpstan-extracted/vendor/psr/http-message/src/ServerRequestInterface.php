@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Psr\Http\Message;
+namespace RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Psr\Http\Message;
 
 /**
  * Representation of an incoming, server-side HTTP request.
@@ -40,7 +40,7 @@ namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Psr\Http\Message;
  * be implemented such that they retain the internal state of the current
  * message and return an instance that contains the changed state.
  */
-interface ServerRequestInterface extends \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface
+interface ServerRequestInterface extends \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface
 {
     /**
      * Retrieve server parameters.

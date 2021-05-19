@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210518\Seld\PharUtils;
+namespace RectorPrefix20210519\Seld\PharUtils;
 
 class Linter
 {

@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator;
+namespace RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator;
 
-use RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette;
 /**
  * Class/Interface/Trait description.
  *
@@ -49,7 +49,7 @@ final class ClassType
      */
     public static function from($class)
     {
-        return (new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Factory())->fromClassReflection(new \ReflectionClass($class));
+        return (new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Factory())->fromClassReflection(new \ReflectionClass($class));
     }
     /**
      * @param  string|object  $class
@@ -57,9 +57,9 @@ final class ClassType
      */
     public static function withBodiesFrom($class)
     {
-        return (new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Factory())->fromClassReflection(new \ReflectionClass($class), \true);
+        return (new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Factory())->fromClassReflection(new \ReflectionClass($class), \true);
     }
-    public function __construct(string $name = null, \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\PhpNamespace $namespace = null)
+    public function __construct(string $name = null, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\PhpNamespace $namespace = null)
     {
         $this->setName($name);
         $this->namespace = $namespace;
@@ -67,7 +67,7 @@ final class ClassType
     public function __toString() : string
     {
         try {
-            return (new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Printer())->printClass($this, $this->namespace);
+            return (new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Printer())->printClass($this, $this->namespace);
         } catch (\Throwable $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
@@ -86,8 +86,8 @@ final class ClassType
      * @param string|null $name */
     public function setName($name)
     {
-        if ($name !== null && !\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::isIdentifier($name)) {
-            throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException("Value '{$name}' is not valid class name.");
+        if ($name !== null && !\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::isIdentifier($name)) {
+            throw new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException("Value '{$name}' is not valid class name.");
         }
         $this->name = $name;
         return $this;
@@ -133,7 +133,7 @@ final class ClassType
     public function setType(string $type)
     {
         if (!\in_array($type, [self::TYPE_CLASS, self::TYPE_INTERFACE, self::TYPE_TRAIT], \true)) {
-            throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Argument must be class|interface|trait.');
+            throw new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Argument must be class|interface|trait.');
         }
         $this->type = $type;
         return $this;
@@ -169,7 +169,7 @@ final class ClassType
     public function setExtends($names)
     {
         if (!\is_string($names) && !\is_array($names)) {
-            throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Argument must be string or string[].');
+            throw new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Argument must be string or string[].');
         }
         $this->validateNames((array) $names);
         $this->extends = $names;
@@ -258,17 +258,17 @@ final class ClassType
      */
     public function addMember($member)
     {
-        if ($member instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Method) {
+        if ($member instanceof \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Method) {
             if ($this->isInterface()) {
                 $member->setBody(null);
             }
             $this->methods[$member->getName()] = $member;
-        } elseif ($member instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Property) {
+        } elseif ($member instanceof \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Property) {
             $this->properties[$member->getName()] = $member;
-        } elseif ($member instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Constant) {
+        } elseif ($member instanceof \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Constant) {
             $this->consts[$member->getName()] = $member;
         } else {
-            throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Argument must be Method|Property|Constant.');
+            throw new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Argument must be Method|Property|Constant.');
         }
         return $this;
     }
@@ -280,7 +280,7 @@ final class ClassType
     {
         $this->consts = [];
         foreach ($consts as $k => $v) {
-            $const = $v instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Constant ? $v : (new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Constant($k))->setValue($v);
+            $const = $v instanceof \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Constant ? $v : (new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Constant($k))->setValue($v);
             $this->consts[$const->getName()] = $const;
         }
         return $this;
@@ -290,9 +290,9 @@ final class ClassType
     {
         return $this->consts;
     }
-    public function addConstant(string $name, $value) : \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Constant
+    public function addConstant(string $name, $value) : \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Constant
     {
-        return $this->consts[$name] = (new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Constant($name))->setValue($value);
+        return $this->consts[$name] = (new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Constant($name))->setValue($value);
     }
     /** @return static */
     public function removeConstant(string $name)
@@ -308,8 +308,8 @@ final class ClassType
     {
         $this->properties = [];
         foreach ($props as $v) {
-            if (!$v instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Property) {
-                throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Argument must be Nette\\PhpGenerator\\Property[].');
+            if (!$v instanceof \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Property) {
+                throw new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Argument must be Nette\\PhpGenerator\\Property[].');
             }
             $this->properties[$v->getName()] = $v;
         }
@@ -320,19 +320,19 @@ final class ClassType
     {
         return $this->properties;
     }
-    public function getProperty(string $name) : \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Property
+    public function getProperty(string $name) : \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Property
     {
         if (!isset($this->properties[$name])) {
-            throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException("Property '{$name}' not found.");
+            throw new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException("Property '{$name}' not found.");
         }
         return $this->properties[$name];
     }
     /**
      * @param  string  $name  without $
      */
-    public function addProperty(string $name, $value = null) : \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Property
+    public function addProperty(string $name, $value = null) : \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Property
     {
-        return $this->properties[$name] = (new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Property($name))->setValue($value);
+        return $this->properties[$name] = (new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Property($name))->setValue($value);
     }
     /**
      * @param  string  $name without $
@@ -355,8 +355,8 @@ final class ClassType
     {
         $this->methods = [];
         foreach ($methods as $v) {
-            if (!$v instanceof \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Method) {
-                throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Argument must be Nette\\PhpGenerator\\Method[].');
+            if (!$v instanceof \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Method) {
+                throw new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Argument must be Nette\\PhpGenerator\\Method[].');
             }
             $this->methods[$v->getName()] = $v;
         }
@@ -367,16 +367,16 @@ final class ClassType
     {
         return $this->methods;
     }
-    public function getMethod(string $name) : \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Method
+    public function getMethod(string $name) : \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Method
     {
         if (!isset($this->methods[$name])) {
-            throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException("Method '{$name}' not found.");
+            throw new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException("Method '{$name}' not found.");
         }
         return $this->methods[$name];
     }
-    public function addMethod(string $name) : \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Method
+    public function addMethod(string $name) : \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Method
     {
-        $method = new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Method($name);
+        $method = new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Method($name);
         if ($this->isInterface()) {
             $method->setBody(null);
         } else {
@@ -399,9 +399,9 @@ final class ClassType
     public function validate()
     {
         if ($this->abstract && $this->final) {
-            throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException('Class cannot be abstract and final.');
+            throw new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException('Class cannot be abstract and final.');
         } elseif (!$this->name && ($this->abstract || $this->final)) {
-            throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException('Anonymous class cannot be abstract or final.');
+            throw new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException('Anonymous class cannot be abstract or final.');
         }
     }
     /**
@@ -410,8 +410,8 @@ final class ClassType
     private function validateNames(array $names)
     {
         foreach ($names as $name) {
-            if (!\RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::isNamespaceIdentifier($name, \true)) {
-                throw new \RectorPrefix20210518\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException("Value '{$name}' is not valid class name.");
+            if (!\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::isNamespaceIdentifier($name, \true)) {
+                throw new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException("Value '{$name}' is not valid class name.");
             }
         }
     }
