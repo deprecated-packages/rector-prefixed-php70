@@ -1,13 +1,13 @@
 <?php
 
-namespace RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
+namespace RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
 
-use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
 /**
  * Stream that when read returns bytes for a streaming multipart or
  * multipart/form-data stream.
  */
-class MultipartStream extends \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\StreamDecoratorTrait implements \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
+class MultipartStream extends \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\StreamDecoratorTrait implements \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
 {
     private $boundary;
     /**
@@ -56,7 +56,7 @@ class MultipartStream extends \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\RingC
      */
     protected function createStream(array $elements)
     {
-        $stream = new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\AppendStream();
+        $stream = new \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\AppendStream();
         foreach ($elements as $element) {
             $this->addElement($stream, $element);
         }
@@ -64,7 +64,7 @@ class MultipartStream extends \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\RingC
         $stream->addStream(stream_for("--{$this->boundary}--\r\n"));
         return $stream;
     }
-    private function addElement(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\AppendStream $stream, array $element)
+    private function addElement(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\AppendStream $stream, array $element)
     {
         foreach (array('contents', 'name') as $key) {
             if (!\array_key_exists($key, $element)) {

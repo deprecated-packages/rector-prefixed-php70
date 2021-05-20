@@ -33,11 +33,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210519\Hoa\Stream;
+namespace RectorPrefix20210520\Hoa\Stream;
 
-use RectorPrefix20210519\Hoa\Consistency;
-use RectorPrefix20210519\Hoa\Event;
-use RectorPrefix20210519\Hoa\Protocol;
+use RectorPrefix20210520\Hoa\Consistency;
+use RectorPrefix20210520\Hoa\Event;
+use RectorPrefix20210520\Hoa\Protocol;
 /**
  * Class \Hoa\Stream.
  *
@@ -46,7 +46,7 @@ use RectorPrefix20210519\Hoa\Protocol;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-abstract class Stream implements \RectorPrefix20210519\Hoa\Stream\IStream\Stream, \RectorPrefix20210519\Hoa\Event\Listenable
+abstract class Stream implements \RectorPrefix20210520\Hoa\Stream\IStream\Stream, \RectorPrefix20210520\Hoa\Event\Listenable
 {
     use Event\Listens;
     /**
@@ -136,7 +136,7 @@ abstract class Stream implements \RectorPrefix20210519\Hoa\Stream\IStream\Stream
         $this->_streamName = $streamName;
         $this->_context = $context;
         $this->_hasBeenDeferred = $wait;
-        $this->setListener(new \RectorPrefix20210519\Hoa\Event\Listener($this, ['authrequire', 'authresult', 'complete', 'connect', 'failure', 'mimetype', 'progress', 'redirect', 'resolve', 'size']));
+        $this->setListener(new \RectorPrefix20210520\Hoa\Event\Listener($this, ['authrequire', 'authresult', 'complete', 'connect', 'failure', 'mimetype', 'progress', 'redirect', 'resolve', 'size']));
         if (\true === $wait) {
             return;
         }
@@ -155,20 +155,20 @@ abstract class Stream implements \RectorPrefix20210519\Hoa\Stream\IStream\Stream
      * @return  array
      * @throws  \Hoa\Stream\Exception
      */
-    private static function &_getStream($streamName, \RectorPrefix20210519\Hoa\Stream\Stream $handler, $context = null)
+    private static function &_getStream($streamName, \RectorPrefix20210520\Hoa\Stream\Stream $handler, $context = null)
     {
         $name = \md5($streamName);
         if (null !== $context) {
-            if (\false === \RectorPrefix20210519\Hoa\Stream\Context::contextExists($context)) {
-                throw new \RectorPrefix20210519\Hoa\Stream\Exception('Context %s was not previously declared, cannot retrieve ' . 'this context.', 0, $context);
+            if (\false === \RectorPrefix20210520\Hoa\Stream\Context::contextExists($context)) {
+                throw new \RectorPrefix20210520\Hoa\Stream\Exception('Context %s was not previously declared, cannot retrieve ' . 'this context.', 0, $context);
             }
-            $context = \RectorPrefix20210519\Hoa\Stream\Context::getInstance($context);
+            $context = \RectorPrefix20210520\Hoa\Stream\Context::getInstance($context);
         }
         if (!isset(self::$_register[$name])) {
             self::$_register[$name] = [self::NAME => $streamName, self::HANDLER => $handler, self::RESOURCE => $handler->_open($streamName, $context), self::CONTEXT => $context];
-            \RectorPrefix20210519\Hoa\Event::register('hoa://Event/Stream/' . $streamName, $handler);
+            \RectorPrefix20210520\Hoa\Event::register('hoa://Event/Stream/' . $streamName, $handler);
             // Add :open-ready?
-            \RectorPrefix20210519\Hoa\Event::register('hoa://Event/Stream/' . $streamName . ':close-before', $handler);
+            \RectorPrefix20210520\Hoa\Event::register('hoa://Event/Stream/' . $streamName . ':close-before', $handler);
         } else {
             $handler->_borrowing = \true;
         }
@@ -187,7 +187,7 @@ abstract class Stream implements \RectorPrefix20210519\Hoa\Stream\IStream\Stream
      * @return  resource
      * @throws  \Hoa\Exception\Exception
      */
-    protected abstract function &_open($streamName, \RectorPrefix20210519\Hoa\Stream\Context $context = null);
+    protected abstract function &_open($streamName, \RectorPrefix20210520\Hoa\Stream\Context $context = null);
     /**
      * Close the current stream.
      * Note: this method is protected, but do not forget that it could be
@@ -207,11 +207,11 @@ abstract class Stream implements \RectorPrefix20210519\Hoa\Stream\IStream\Stream
         $context = $this->_context;
         if (\true === $this->hasBeenDeferred()) {
             if (null === $context) {
-                $handle = \RectorPrefix20210519\Hoa\Stream\Context::getInstance(\uniqid());
+                $handle = \RectorPrefix20210520\Hoa\Stream\Context::getInstance(\uniqid());
                 $handle->setParameters(['notification' => [$this, '_notify']]);
                 $context = $handle->getId();
-            } elseif (\true === \RectorPrefix20210519\Hoa\Stream\Context::contextExists($context)) {
-                $handle = \RectorPrefix20210519\Hoa\Stream\Context::getInstance($context);
+            } elseif (\true === \RectorPrefix20210520\Hoa\Stream\Context::contextExists($context)) {
+                $handle = \RectorPrefix20210520\Hoa\Stream\Context::getInstance($context);
                 $parameters = $handle->getParameters();
                 if (!isset($parameters['notification'])) {
                     $handle->setParameters(['notification' => [$this, '_notify']]);
@@ -234,14 +234,14 @@ abstract class Stream implements \RectorPrefix20210519\Hoa\Stream\IStream\Stream
         if (!isset(self::$_register[$name])) {
             return;
         }
-        \RectorPrefix20210519\Hoa\Event::notify('hoa://Event/Stream/' . $streamName . ':close-before', $this, new \RectorPrefix20210519\Hoa\Event\Bucket());
+        \RectorPrefix20210520\Hoa\Event::notify('hoa://Event/Stream/' . $streamName . ':close-before', $this, new \RectorPrefix20210520\Hoa\Event\Bucket());
         if (\false === $this->_close()) {
             return;
         }
         unset(self::$_register[$name]);
         $this->_bucket[self::HANDLER] = null;
-        \RectorPrefix20210519\Hoa\Event::unregister('hoa://Event/Stream/' . $streamName);
-        \RectorPrefix20210519\Hoa\Event::unregister('hoa://Event/Stream/' . $streamName . ':close-before');
+        \RectorPrefix20210520\Hoa\Event::unregister('hoa://Event/Stream/' . $streamName);
+        \RectorPrefix20210520\Hoa\Event::unregister('hoa://Event/Stream/' . $streamName . ':close-before');
         return;
     }
     /**
@@ -306,7 +306,7 @@ abstract class Stream implements \RectorPrefix20210519\Hoa\Stream\IStream\Stream
     public function _setStream($stream)
     {
         if (\false === \is_resource($stream) && ('resource' !== \gettype($stream) || 'Unknown' !== \get_resource_type($stream))) {
-            throw new \RectorPrefix20210519\Hoa\Stream\Exception('Try to change the stream resource with an invalid one; ' . 'given %s.', 1, \gettype($stream));
+            throw new \RectorPrefix20210520\Hoa\Stream\Exception('Try to change the stream resource with an invalid one; ' . 'given %s.', 1, \gettype($stream));
         }
         $old = $this->_bucket[self::RESOURCE];
         $this->_bucket[self::RESOURCE] = $stream;
@@ -450,7 +450,7 @@ abstract class Stream implements \RectorPrefix20210519\Hoa\Stream\IStream\Stream
     public function _notify($ncode, $severity, $message, $code, $transferred, $max)
     {
         static $_map = [\STREAM_NOTIFY_AUTH_REQUIRED => 'authrequire', \STREAM_NOTIFY_AUTH_RESULT => 'authresult', \STREAM_NOTIFY_COMPLETED => 'complete', \STREAM_NOTIFY_CONNECT => 'connect', \STREAM_NOTIFY_FAILURE => 'failure', \STREAM_NOTIFY_MIME_TYPE_IS => 'mimetype', \STREAM_NOTIFY_PROGRESS => 'progress', \STREAM_NOTIFY_REDIRECTED => 'redirect', \STREAM_NOTIFY_RESOLVE => 'resolve', \STREAM_NOTIFY_FILE_SIZE_IS => 'size'];
-        $this->getListener()->fire($_map[$ncode], new \RectorPrefix20210519\Hoa\Event\Bucket(['code' => $code, 'severity' => $severity, 'message' => $message, 'transferred' => $transferred, 'max' => $max]));
+        $this->getListener()->fire($_map[$ncode], new \RectorPrefix20210520\Hoa\Event\Bucket(['code' => $code, 'severity' => $severity, 'message' => $message, 'transferred' => $transferred, 'max' => $max]));
         return;
     }
     /**
@@ -500,7 +500,7 @@ abstract class Stream implements \RectorPrefix20210519\Hoa\Stream\IStream\Stream
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class _Protocol extends \RectorPrefix20210519\Hoa\Protocol\Node
+class _Protocol extends \RectorPrefix20210520\Hoa\Protocol\Node
 {
     /**
      * Component's name.
@@ -516,16 +516,16 @@ class _Protocol extends \RectorPrefix20210519\Hoa\Protocol\Node
      */
     public function reachId($id)
     {
-        return \RectorPrefix20210519\Hoa\Stream\Stream::getStreamHandler($id);
+        return \RectorPrefix20210520\Hoa\Stream\Stream::getStreamHandler($id);
     }
 }
 /**
  * Flex entity.
  */
-\RectorPrefix20210519\Hoa\Consistency::flexEntity('RectorPrefix20210519\\Hoa\\Stream\\Stream');
+\RectorPrefix20210520\Hoa\Consistency::flexEntity('RectorPrefix20210520\\Hoa\\Stream\\Stream');
 /**
  * Add the `hoa://Library/Stream` node. Should be use to reach/get an entry
  * in the stream register.
  */
-$protocol = \RectorPrefix20210519\Hoa\Protocol::getInstance();
-$protocol['Library'][] = new \RectorPrefix20210519\Hoa\Stream\_Protocol();
+$protocol = \RectorPrefix20210520\Hoa\Protocol::getInstance();
+$protocol['Library'][] = new \RectorPrefix20210520\Hoa\Stream\_Protocol();

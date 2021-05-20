@@ -33,12 +33,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210519\Hoa\Regex\Visitor;
+namespace RectorPrefix20210520\Hoa\Regex\Visitor;
 
-use RectorPrefix20210519\Hoa\Math;
-use RectorPrefix20210519\Hoa\Regex;
-use RectorPrefix20210519\Hoa\Ustring;
-use RectorPrefix20210519\Hoa\Visitor;
+use RectorPrefix20210520\Hoa\Math;
+use RectorPrefix20210520\Hoa\Regex;
+use RectorPrefix20210520\Hoa\Ustring;
+use RectorPrefix20210520\Hoa\Visitor;
 /**
  * Class \Hoa\Regex\Visitor\Isotropic.
  *
@@ -47,7 +47,7 @@ use RectorPrefix20210519\Hoa\Visitor;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Isotropic implements \RectorPrefix20210519\Hoa\Visitor\Visit
+class Isotropic implements \RectorPrefix20210520\Hoa\Visitor\Visit
 {
     /**
      * Numeric-sampler.
@@ -60,7 +60,7 @@ class Isotropic implements \RectorPrefix20210519\Hoa\Visitor\Visit
      *
      * @param   \Hoa\Math\Sampler  $sampler    Numeric-sampler.
      */
-    public function __construct(\RectorPrefix20210519\Hoa\Math\Sampler $sampler)
+    public function __construct(\RectorPrefix20210520\Hoa\Math\Sampler $sampler)
     {
         $this->_sampler = $sampler;
         return;
@@ -74,7 +74,7 @@ class Isotropic implements \RectorPrefix20210519\Hoa\Visitor\Visit
      * @return  mixed
      * @throws  \Hoa\Regex\Exception
      */
-    public function visit(\RectorPrefix20210519\Hoa\Visitor\Element $element, &$handle = null, $eldnah = null)
+    public function visit(\RectorPrefix20210520\Hoa\Visitor\Element $element, &$handle = null, $eldnah = null)
     {
         switch ($element->getId()) {
             case '#expression':
@@ -131,18 +131,18 @@ class Isotropic implements \RectorPrefix20210519\Hoa\Visitor\Visit
             case '#negativeclass':
                 $c = [];
                 foreach ($element->getChildren() as $child) {
-                    $c[\RectorPrefix20210519\Hoa\Ustring::toCode($child->accept($this, $handle, $eldnah))] = \true;
+                    $c[\RectorPrefix20210520\Hoa\Ustring::toCode($child->accept($this, $handle, $eldnah))] = \true;
                 }
                 do {
                     // all printable ASCII.
                     $i = $this->_sampler->getInteger(32, 126);
                 } while (isset($c[$i]));
-                return \RectorPrefix20210519\Hoa\Ustring::fromCode($i);
+                return \RectorPrefix20210520\Hoa\Ustring::fromCode($i);
             case '#range':
                 $out = null;
                 $left = $element->getChild(0)->accept($this, $handle, $eldnah);
                 $right = $element->getChild(1)->accept($this, $handle, $eldnah);
-                return \RectorPrefix20210519\Hoa\Ustring::fromCode($this->_sampler->getInteger(\RectorPrefix20210519\Hoa\Ustring::toCode($left), \RectorPrefix20210519\Hoa\Ustring::toCode($right)));
+                return \RectorPrefix20210520\Hoa\Ustring::fromCode($this->_sampler->getInteger(\RectorPrefix20210520\Hoa\Ustring::toCode($left), \RectorPrefix20210520\Hoa\Ustring::toCode($right)));
             case 'token':
                 $value = $element->getValueValue();
                 switch ($element->getValueToken()) {
@@ -162,7 +162,7 @@ class Isotropic implements \RectorPrefix20210519\Hoa\Visitor\Visit
                             case 't':
                                 return "\t";
                             default:
-                                return \RectorPrefix20210519\Hoa\Ustring::fromCode(\intval(\substr($value, 1)));
+                                return \RectorPrefix20210520\Hoa\Ustring::fromCode(\intval(\substr($value, 1)));
                         }
                         break;
                     case 'dynamic_character':
@@ -170,9 +170,9 @@ class Isotropic implements \RectorPrefix20210519\Hoa\Visitor\Visit
                         switch ($value[0]) {
                             case 'x':
                                 $value = \trim($value, 'x{}');
-                                return \RectorPrefix20210519\Hoa\Ustring::fromCode(\hexdec($value));
+                                return \RectorPrefix20210520\Hoa\Ustring::fromCode(\hexdec($value));
                             default:
-                                return \RectorPrefix20210519\Hoa\Ustring::fromCode(\octdec($value));
+                                return \RectorPrefix20210520\Hoa\Ustring::fromCode(\octdec($value));
                         }
                         break;
                     case 'character_type':
@@ -186,14 +186,14 @@ class Isotropic implements \RectorPrefix20210519\Hoa\Visitor\Visit
                             case 'd':
                                 return $this->_sampler->getInteger(0, 9);
                             case 'h':
-                                $h = [\RectorPrefix20210519\Hoa\Ustring::fromCode(0x9), \RectorPrefix20210519\Hoa\Ustring::fromCode(0x20), \RectorPrefix20210519\Hoa\Ustring::fromCode(0xa0)];
+                                $h = [\RectorPrefix20210520\Hoa\Ustring::fromCode(0x9), \RectorPrefix20210520\Hoa\Ustring::fromCode(0x20), \RectorPrefix20210520\Hoa\Ustring::fromCode(0xa0)];
                                 return $h[$this->_sampler->getInteger(0, \count($h) - 1)];
                             case 'v':
-                                $v = [\RectorPrefix20210519\Hoa\Ustring::fromCode(0xa), \RectorPrefix20210519\Hoa\Ustring::fromCode(0xb), \RectorPrefix20210519\Hoa\Ustring::fromCode(0xc), \RectorPrefix20210519\Hoa\Ustring::fromCode(0xd)];
+                                $v = [\RectorPrefix20210520\Hoa\Ustring::fromCode(0xa), \RectorPrefix20210520\Hoa\Ustring::fromCode(0xb), \RectorPrefix20210520\Hoa\Ustring::fromCode(0xc), \RectorPrefix20210520\Hoa\Ustring::fromCode(0xd)];
                                 return $v[$this->_sampler->getInteger(0, \count($v) - 1)];
                             case 'w':
                                 $w = \array_merge(\range(0x41, 0x5a), \range(0x61, 0x7a), [0x5f]);
-                                return \RectorPrefix20210519\Hoa\Ustring::fromCode($w[$this->_sampler->getInteger(0, \count($w) - 1)]);
+                                return \RectorPrefix20210520\Hoa\Ustring::fromCode($w[$this->_sampler->getInteger(0, \count($w) - 1)]);
                             default:
                                 return '?';
                         }
@@ -201,7 +201,7 @@ class Isotropic implements \RectorPrefix20210519\Hoa\Visitor\Visit
                     case 'literal':
                         if ('.' === $value) {
                             $w = \array_merge(\range(0x41, 0x5a), \range(0x61, 0x7a), [0x5f]);
-                            return \RectorPrefix20210519\Hoa\Ustring::fromCode($w[$this->_sampler->getInteger(0, \count($w) - 1)]);
+                            return \RectorPrefix20210520\Hoa\Ustring::fromCode($w[$this->_sampler->getInteger(0, \count($w) - 1)]);
                         }
                         return \str_replace('\\\\', '\\', \preg_replace('#\\\\(?!\\\\)#', '', $value));
                 }
@@ -209,7 +209,7 @@ class Isotropic implements \RectorPrefix20210519\Hoa\Visitor\Visit
             case '#internal_options':
                 break;
             default:
-                throw new \RectorPrefix20210519\Hoa\Regex\Exception('Unsupported node: %s.', 0, $element->getId());
+                throw new \RectorPrefix20210520\Hoa\Regex\Exception('Unsupported node: %s.', 0, $element->getId());
         }
         return;
     }

@@ -1,15 +1,15 @@
 <?php
 
-namespace RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Clue\React\Block;
+namespace RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Clue\React\Block;
 
-use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
-use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface;
-use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface;
+use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
+use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface;
+use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface;
 use UnderflowException;
 use Exception;
-use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise;
-use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\Timer;
-use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\Timer\TimeoutException;
+use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Promise;
+use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Promise\Timer;
+use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Promise\Timer\TimeoutException;
 /**
  * Wait/sleep for `$time` seconds.
  *
@@ -31,9 +31,9 @@ use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\Timer\TimeoutExcep
  * @param LoopInterface $loop
  * @return void
  */
-function sleep($time, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop)
+function sleep($time, \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop)
 {
-    await(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\Timer\resolve($time, $loop), $loop);
+    await(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Promise\Timer\resolve($time, $loop), $loop);
 }
 /**
  * Block waiting for the given `$promise` to be fulfilled.
@@ -81,14 +81,14 @@ function sleep($time, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLo
  * @throws Exception when the promise is rejected
  * @throws TimeoutException if the $timeout is given and triggers
  */
-function await(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface $promise, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, $timeout = null)
+function await(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface $promise, \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, $timeout = null)
 {
     $wait = \true;
     $resolved = null;
     $exception = null;
     $rejected = \false;
     if ($timeout !== null) {
-        $promise = \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\Timer\timeout($promise, $timeout, $loop);
+        $promise = \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Promise\Timer\timeout($promise, $timeout, $loop);
     }
     $promise->then(function ($c) use(&$resolved, &$wait, $loop) {
         $resolved = $c;
@@ -156,7 +156,7 @@ function await(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\Promis
  * @throws Exception if ALL promises are rejected
  * @throws TimeoutException if the $timeout is given and triggers
  */
-function awaitAny(array $promises, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, $timeout = null)
+function awaitAny(array $promises, \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, $timeout = null)
 {
     // Explicitly overwrite argument with null value. This ensure that this
     // argument does not show up in the stack trace in PHP 7+ only.
@@ -167,11 +167,11 @@ function awaitAny(array $promises, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\
         if (!$all) {
             throw new \UnderflowException('Empty input array');
         }
-        $ret = await(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\any($all)->then(null, function () {
+        $ret = await(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Promise\any($all)->then(null, function () {
             // rejects with an array of rejection reasons => reject with Exception instead
             throw new \Exception('All promises rejected');
         }), $loop, $timeout);
-    } catch (\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\Timer\TimeoutException $e) {
+    } catch (\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Promise\Timer\TimeoutException $e) {
         // the timeout fired
         // => try to cancel all promises (rejected ones will be ignored anyway)
         _cancelAllPromises($all);
@@ -231,14 +231,14 @@ function awaitAny(array $promises, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\
  * @throws Exception when ANY promise is rejected
  * @throws TimeoutException if the $timeout is given and triggers
  */
-function awaitAll(array $promises, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, $timeout = null)
+function awaitAll(array $promises, \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, $timeout = null)
 {
     // Explicitly overwrite argument with null value. This ensure that this
     // argument does not show up in the stack trace in PHP 7+ only.
     $all = $promises;
     $promises = null;
     try {
-        return await(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\all($all), $loop, $timeout);
+        return await(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Promise\all($all), $loop, $timeout);
     } catch (\Exception $e) {
         // ANY of the given promises rejected or the timeout fired
         // => try to cancel all promises (rejected ones will be ignored anyway)
@@ -256,7 +256,7 @@ function awaitAll(array $promises, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\
 function _cancelAllPromises(array $promises)
 {
     foreach ($promises as $promise) {
-        if ($promise instanceof \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface) {
+        if ($promise instanceof \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface) {
             $promise->cancel();
         }
     }

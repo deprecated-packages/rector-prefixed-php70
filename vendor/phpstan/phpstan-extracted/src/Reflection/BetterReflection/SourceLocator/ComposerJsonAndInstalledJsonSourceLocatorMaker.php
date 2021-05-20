@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Reflection\BetterReflection\SourceLocator;
 
-use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\Utils\Json;
+use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\Utils\Json;
 use PHPStan\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use PHPStan\BetterReflection\SourceLocator\Type\Composer\Psr\Psr0Mapping;
 use PHPStan\BetterReflection\SourceLocator\Type\Composer\Psr\Psr4Mapping;
@@ -39,18 +39,18 @@ class ComposerJsonAndInstalledJsonSourceLocatorMaker
         $installedJsonDirectoryPath = \dirname($installedJsonPath);
         try {
             $composerJsonContents = \PHPStan\File\FileReader::read($composerJsonPath);
-            $composer = \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\Utils\Json::decode($composerJsonContents, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\Utils\Json::FORCE_ARRAY);
+            $composer = \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\Utils\Json::decode($composerJsonContents, \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\Utils\Json::FORCE_ARRAY);
         } catch (\PHPStan\File\CouldNotReadFileException $e) {
             return null;
-        } catch (\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\Utils\JsonException $e) {
+        } catch (\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\Utils\JsonException $e) {
             return null;
         }
         try {
             $installedJsonContents = \PHPStan\File\FileReader::read($installedJsonPath);
-            $installedJson = \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\Utils\Json::decode($installedJsonContents, \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\Utils\Json::FORCE_ARRAY);
+            $installedJson = \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\Utils\Json::decode($installedJsonContents, \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\Utils\Json::FORCE_ARRAY);
         } catch (\PHPStan\File\CouldNotReadFileException $e) {
             return null;
-        } catch (\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Nette\Utils\JsonException $e) {
+        } catch (\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\Utils\JsonException $e) {
             return null;
         }
         $installed = $installedJson['packages'] ?? $installedJson;

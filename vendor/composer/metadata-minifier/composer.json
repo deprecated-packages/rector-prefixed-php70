@@ -27,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210519\\Composer\\MetadataMinifier\\": "src"
+            "RectorPrefix20210520\\Composer\\MetadataMinifier\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210519\\Composer\\Test\\MetadataMinifier\\": "tests"
+            "RectorPrefix20210520\\Composer\\Test\\MetadataMinifier\\": "tests"
         }
     },
     "extra": {

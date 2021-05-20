@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210519\Symfony\Component\VarExporter\Internal;
+namespace RectorPrefix20210520\Symfony\Component\VarExporter\Internal;
 
-use RectorPrefix20210519\Symfony\Component\VarExporter\Exception\ClassNotFoundException;
+use RectorPrefix20210520\Symfony\Component\VarExporter\Exception\ClassNotFoundException;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
@@ -62,7 +62,7 @@ class Hydrator
             };
         }
         if (!\class_exists($class) && !\interface_exists($class, \false) && !\trait_exists($class, \false)) {
-            throw new \RectorPrefix20210519\Symfony\Component\VarExporter\Exception\ClassNotFoundException($class);
+            throw new \RectorPrefix20210520\Symfony\Component\VarExporter\Exception\ClassNotFoundException($class);
         }
         $classReflector = new \ReflectionClass($class);
         if (!$classReflector->isInternal()) {

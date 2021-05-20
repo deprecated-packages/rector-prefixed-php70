@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210519\Hoa\Compiler\Llk;
+namespace RectorPrefix20210520\Hoa\Compiler\Llk;
 
-use RectorPrefix20210519\Hoa\Visitor;
+use RectorPrefix20210520\Hoa\Visitor;
 /**
  * Class \Hoa\Compiler\Llk\TreeNode.
  *
@@ -44,7 +44,7 @@ use RectorPrefix20210519\Hoa\Visitor;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class TreeNode implements \RectorPrefix20210519\Hoa\Visitor\Element
+class TreeNode implements \RectorPrefix20210520\Hoa\Visitor\Element
 {
     /**
      * ID (should be something like #ruleName or token).
@@ -171,7 +171,7 @@ class TreeNode implements \RectorPrefix20210519\Hoa\Visitor\Element
      * @param   \Hoa\Compiler\Llk\TreeNode  $child    Child.
      * @return  \Hoa\Compiler\Llk\TreeNode
      */
-    public function prependChild(\RectorPrefix20210519\Hoa\Compiler\Llk\TreeNode $child)
+    public function prependChild(\RectorPrefix20210520\Hoa\Compiler\Llk\TreeNode $child)
     {
         \array_unshift($this->_children, $child);
         return $this;
@@ -182,7 +182,7 @@ class TreeNode implements \RectorPrefix20210519\Hoa\Visitor\Element
      * @param   \Hoa\Compiler\Llk\TreeNode  $child    Child.
      * @return  \Hoa\Compiler\Llk\TreeNode
      */
-    public function appendChild(\RectorPrefix20210519\Hoa\Compiler\Llk\TreeNode $child)
+    public function appendChild(\RectorPrefix20210520\Hoa\Compiler\Llk\TreeNode $child)
     {
         $this->_children[] = $child;
         return $this;
@@ -243,7 +243,7 @@ class TreeNode implements \RectorPrefix20210519\Hoa\Visitor\Element
      * @param   \Hoa\Compiler\Llk\TreeNode  $parent    Parent.
      * @return  \Hoa\Compiler\Llk\TreeNode
      */
-    public function setParent(\RectorPrefix20210519\Hoa\Compiler\Llk\TreeNode $parent)
+    public function setParent(\RectorPrefix20210520\Hoa\Compiler\Llk\TreeNode $parent)
     {
         $old = $this->_parent;
         $this->_parent = $parent;
@@ -275,7 +275,7 @@ class TreeNode implements \RectorPrefix20210519\Hoa\Visitor\Element
      * @param   mixed               $eldnah     Handle (no reference).
      * @return  mixed
      */
-    public function accept(\RectorPrefix20210519\Hoa\Visitor\Visit $visitor, &$handle = null, $eldnah = null)
+    public function accept(\RectorPrefix20210520\Hoa\Visitor\Visit $visitor, &$handle = null, $eldnah = null)
     {
         return $visitor->visit($this, $handle, $eldnah);
     }

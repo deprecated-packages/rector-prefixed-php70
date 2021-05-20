@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Symplify\SmartFileSystem\Json;
 
-use RectorPrefix20210519\Nette\Utils\Arrays;
-use RectorPrefix20210519\Nette\Utils\Json;
+use RectorPrefix20210520\Nette\Utils\Arrays;
+use RectorPrefix20210520\Nette\Utils\Json;
 use Symplify\SmartFileSystem\FileSystemGuard;
 use Symplify\SmartFileSystem\SmartFileSystem;
 /**
@@ -32,7 +32,7 @@ final class JsonFileSystem
     {
         $this->fileSystemGuard->ensureFileExists($filePath, __METHOD__);
         $fileContent = $this->smartFileSystem->readFile($filePath);
-        return \RectorPrefix20210519\Nette\Utils\Json::decode($fileContent, \RectorPrefix20210519\Nette\Utils\Json::FORCE_ARRAY);
+        return \RectorPrefix20210520\Nette\Utils\Json::decode($fileContent, \RectorPrefix20210520\Nette\Utils\Json::FORCE_ARRAY);
     }
     /**
      * @param array<string, mixed> $jsonArray
@@ -40,7 +40,7 @@ final class JsonFileSystem
      */
     public function writeJsonToFilePath(array $jsonArray, string $filePath)
     {
-        $jsonContent = \RectorPrefix20210519\Nette\Utils\Json::encode($jsonArray, \RectorPrefix20210519\Nette\Utils\Json::PRETTY) . \PHP_EOL;
+        $jsonContent = \RectorPrefix20210520\Nette\Utils\Json::encode($jsonArray, \RectorPrefix20210520\Nette\Utils\Json::PRETTY) . \PHP_EOL;
         $this->smartFileSystem->dumpFile($filePath, $jsonContent);
     }
     /**
@@ -50,7 +50,7 @@ final class JsonFileSystem
     public function mergeArrayToJsonFile(string $filePath, array $newJsonArray)
     {
         $jsonArray = $this->loadFilePathToJson($filePath);
-        $newComposerJsonArray = \RectorPrefix20210519\Nette\Utils\Arrays::mergeTree($jsonArray, $newJsonArray);
+        $newComposerJsonArray = \RectorPrefix20210520\Nette\Utils\Arrays::mergeTree($jsonArray, $newJsonArray);
         $this->writeJsonToFilePath($newComposerJsonArray, $filePath);
     }
 }

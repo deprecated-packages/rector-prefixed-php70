@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210519\Hoa\Event;
+namespace RectorPrefix20210520\Hoa\Event;
 
 /**
  * Interface \Hoa\Event\Source.

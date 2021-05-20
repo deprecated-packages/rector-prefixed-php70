@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210519\Hoa\Iterator;
+namespace RectorPrefix20210520\Hoa\Iterator;
 
-use RectorPrefix20210519\Hoa\Consistency;
+use RectorPrefix20210520\Hoa\Consistency;
 /**
  * Interface \Hoa\Iterator.
  *
@@ -50,4 +50,4 @@ interface Iterator extends \Iterator
 /**
  * Flex entity.
  */
-\RectorPrefix20210519\Hoa\Consistency::flexEntity('RectorPrefix20210519\\Hoa\\Iterator\\Iterator');
+\RectorPrefix20210520\Hoa\Consistency::flexEntity('RectorPrefix20210520\\Hoa\\Iterator\\Iterator');

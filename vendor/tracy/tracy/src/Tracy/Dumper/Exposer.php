@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210519\Tracy\Dumper;
+namespace RectorPrefix20210520\Tracy\Dumper;
 
 /**
  * Exposes internal PHP objects.
@@ -17,20 +17,20 @@ final class Exposer
      * @param object $obj
      * @return void
      */
-    public static function exposeObject($obj, \RectorPrefix20210519\Tracy\Dumper\Value $value, \RectorPrefix20210519\Tracy\Dumper\Describer $describer)
+    public static function exposeObject($obj, \RectorPrefix20210520\Tracy\Dumper\Value $value, \RectorPrefix20210520\Tracy\Dumper\Describer $describer)
     {
         $tmp = (array) $obj;
         $values = $tmp;
         // bug #79477, PHP < 7.4.6
         $props = self::getProperties(\get_class($obj));
         foreach (\array_diff_key($values, $props) as $k => $v) {
-            $describer->addPropertyTo($value, (string) $k, $v, \RectorPrefix20210519\Tracy\Dumper\Value::PROP_DYNAMIC, $describer->getReferenceId($values, $k));
+            $describer->addPropertyTo($value, (string) $k, $v, \RectorPrefix20210520\Tracy\Dumper\Value::PROP_DYNAMIC, $describer->getReferenceId($values, $k));
         }
         foreach ($props as $k => list($name, $class, $type)) {
             if (\array_key_exists($k, $values)) {
                 $describer->addPropertyTo($value, $name, $values[$k], $type, $describer->getReferenceId($values, $k), $class);
             } else {
-                $value->items[] = [$name, new \RectorPrefix20210519\Tracy\Dumper\Value(\RectorPrefix20210519\Tracy\Dumper\Value::TYPE_TEXT, 'unset'), $type === \RectorPrefix20210519\Tracy\Dumper\Value::PROP_PRIVATE ? $class : $type];
+                $value->items[] = [$name, new \RectorPrefix20210520\Tracy\Dumper\Value(\RectorPrefix20210520\Tracy\Dumper\Value::TYPE_TEXT, 'unset'), $type === \RectorPrefix20210520\Tracy\Dumper\Value::PROP_PRIVATE ? $class : $type];
             }
         }
     }
@@ -48,11 +48,11 @@ final class Exposer
             if ($prop->isStatic() || $prop->getDeclaringClass()->getName() !== $class) {
                 // nothing
             } elseif ($prop->isPrivate()) {
-                $props["\0" . $class . "\0" . $name] = [$name, $class, \RectorPrefix20210519\Tracy\Dumper\Value::PROP_PRIVATE];
+                $props["\0" . $class . "\0" . $name] = [$name, $class, \RectorPrefix20210520\Tracy\Dumper\Value::PROP_PRIVATE];
             } elseif ($prop->isProtected()) {
-                $props["\0*\0" . $name] = [$name, $class, \RectorPrefix20210519\Tracy\Dumper\Value::PROP_PROTECTED];
+                $props["\0*\0" . $name] = [$name, $class, \RectorPrefix20210520\Tracy\Dumper\Value::PROP_PROTECTED];
             } else {
-                $props[$name] = [$name, $class, \RectorPrefix20210519\Tracy\Dumper\Value::PROP_PUBLIC];
+                $props[$name] = [$name, $class, \RectorPrefix20210520\Tracy\Dumper\Value::PROP_PUBLIC];
                 unset($parentProps["\0*\0" . $name]);
             }
         }
@@ -61,7 +61,7 @@ final class Exposer
     /**
      * @return void
      */
-    public static function exposeClosure(\Closure $obj, \RectorPrefix20210519\Tracy\Dumper\Value $value, \RectorPrefix20210519\Tracy\Dumper\Describer $describer)
+    public static function exposeClosure(\Closure $obj, \RectorPrefix20210520\Tracy\Dumper\Value $value, \RectorPrefix20210520\Tracy\Dumper\Describer $describer)
     {
         $rc = new \ReflectionFunction($obj);
         if ($describer->location) {
@@ -73,7 +73,7 @@ final class Exposer
         }
         $value->value .= '(' . \implode(', ', $params) . ')';
         $uses = [];
-        $useValue = new \RectorPrefix20210519\Tracy\Dumper\Value(\RectorPrefix20210519\Tracy\Dumper\Value::TYPE_OBJECT);
+        $useValue = new \RectorPrefix20210520\Tracy\Dumper\Value(\RectorPrefix20210520\Tracy\Dumper\Value::TYPE_OBJECT);
         $useValue->depth = $value->depth + 1;
         foreach ($rc->getStaticVariables() as $name => $v) {
             $uses[] = '$' . $name;
@@ -88,32 +88,32 @@ final class Exposer
     /**
      * @return void
      */
-    public static function exposeArrayObject(\ArrayObject $obj, \RectorPrefix20210519\Tracy\Dumper\Value $value, \RectorPrefix20210519\Tracy\Dumper\Describer $describer)
+    public static function exposeArrayObject(\ArrayObject $obj, \RectorPrefix20210520\Tracy\Dumper\Value $value, \RectorPrefix20210520\Tracy\Dumper\Describer $describer)
     {
         $flags = $obj->getFlags();
         $obj->setFlags(\ArrayObject::STD_PROP_LIST);
         self::exposeObject($obj, $value, $describer);
         $obj->setFlags($flags);
-        $describer->addPropertyTo($value, 'storage', $obj->getArrayCopy(), \RectorPrefix20210519\Tracy\Dumper\Value::PROP_PRIVATE, null, \ArrayObject::class);
+        $describer->addPropertyTo($value, 'storage', $obj->getArrayCopy(), \RectorPrefix20210520\Tracy\Dumper\Value::PROP_PRIVATE, null, \ArrayObject::class);
     }
     /**
      * @return void
      */
-    public static function exposeDOMNode(\DOMNode $obj, \RectorPrefix20210519\Tracy\Dumper\Value $value, \RectorPrefix20210519\Tracy\Dumper\Describer $describer)
+    public static function exposeDOMNode(\DOMNode $obj, \RectorPrefix20210520\Tracy\Dumper\Value $value, \RectorPrefix20210520\Tracy\Dumper\Describer $describer)
     {
         $props = \preg_match_all('#^\\s*\\[([^\\]]+)\\] =>#m', \print_r($obj, \true), $tmp) ? $tmp[1] : [];
         \sort($props);
         foreach ($props as $p) {
-            $describer->addPropertyTo($value, $p, $obj->{$p}, \RectorPrefix20210519\Tracy\Dumper\Value::PROP_PUBLIC);
+            $describer->addPropertyTo($value, $p, $obj->{$p}, \RectorPrefix20210520\Tracy\Dumper\Value::PROP_PUBLIC);
         }
     }
     /**
      * @param  \DOMNodeList|\DOMNamedNodeMap  $obj
      * @return void
      */
-    public static function exposeDOMNodeList($obj, \RectorPrefix20210519\Tracy\Dumper\Value $value, \RectorPrefix20210519\Tracy\Dumper\Describer $describer)
+    public static function exposeDOMNodeList($obj, \RectorPrefix20210520\Tracy\Dumper\Value $value, \RectorPrefix20210520\Tracy\Dumper\Describer $describer)
     {
-        $describer->addPropertyTo($value, 'length', $obj->length, \RectorPrefix20210519\Tracy\Dumper\Value::PROP_PUBLIC);
+        $describer->addPropertyTo($value, 'length', $obj->length, \RectorPrefix20210520\Tracy\Dumper\Value::PROP_PUBLIC);
         $describer->addPropertyTo($value, 'items', \iterator_to_array($obj));
     }
     public static function exposeSplFileInfo(\SplFileInfo $obj) : array
@@ -131,7 +131,7 @@ final class Exposer
     /**
      * @return void
      */
-    public static function exposePhpIncompleteClass(\__PHP_Incomplete_Class $obj, \RectorPrefix20210519\Tracy\Dumper\Value $value, \RectorPrefix20210519\Tracy\Dumper\Describer $describer)
+    public static function exposePhpIncompleteClass(\__PHP_Incomplete_Class $obj, \RectorPrefix20210520\Tracy\Dumper\Value $value, \RectorPrefix20210520\Tracy\Dumper\Describer $describer)
     {
         $values = (array) $obj;
         $class = $values['__PHP_Incomplete_Class_Name'];
@@ -141,10 +141,10 @@ final class Exposer
             if (isset($k[0]) && $k[0] === "\0") {
                 $info = \explode("\0", $k);
                 $k = \end($info);
-                $type = $info[1] === '*' ? \RectorPrefix20210519\Tracy\Dumper\Value::PROP_PROTECTED : \RectorPrefix20210519\Tracy\Dumper\Value::PROP_PRIVATE;
-                $decl = $type === \RectorPrefix20210519\Tracy\Dumper\Value::PROP_PRIVATE ? $info[1] : null;
+                $type = $info[1] === '*' ? \RectorPrefix20210520\Tracy\Dumper\Value::PROP_PROTECTED : \RectorPrefix20210520\Tracy\Dumper\Value::PROP_PRIVATE;
+                $decl = $type === \RectorPrefix20210520\Tracy\Dumper\Value::PROP_PRIVATE ? $info[1] : null;
             } else {
-                $type = \RectorPrefix20210519\Tracy\Dumper\Value::PROP_PUBLIC;
+                $type = \RectorPrefix20210520\Tracy\Dumper\Value::PROP_PUBLIC;
                 $k = (string) $k;
                 $decl = null;
             }

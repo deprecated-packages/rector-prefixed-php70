@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Dns\Query;
+namespace RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Dns\Query;
 
 interface ExecutorInterface
 {
@@ -39,5 +39,5 @@ interface ExecutorInterface
      * @return \React\Promise\PromiseInterface<\React\Dns\Model\Message,\Exception>
      *     resolves with response message on success or rejects with an Exception on error
      */
-    public function query(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Dns\Query\Query $query);
+    public function query(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Dns\Query\Query $query);
 }

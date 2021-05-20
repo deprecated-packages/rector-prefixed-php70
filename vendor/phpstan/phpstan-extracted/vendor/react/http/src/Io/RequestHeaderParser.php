@@ -1,11 +1,11 @@
 <?php
 
-namespace RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Io;
+namespace RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Http\Io;
 
-use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
-use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface;
-use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Message\ServerRequest;
-use RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface;
+use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface;
+use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Http\Message\ServerRequest;
+use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface;
 use Exception;
 /**
  * [Internal] Parses an incoming request header from an input stream
@@ -18,10 +18,10 @@ use Exception;
  *
  * @internal
  */
-class RequestHeaderParser extends \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter
+class RequestHeaderParser extends \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter
 {
     private $maxSize = 8192;
-    public function handle(\RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $conn)
+    public function handle(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $conn)
     {
         $buffer = '';
         $maxSize = $this->maxSize;
@@ -59,17 +59,17 @@ class RequestHeaderParser extends \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\E
             }
             if ($contentLength === 0) {
                 // happy path: request body is known to be empty
-                $stream = new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Io\EmptyBodyStream();
+                $stream = new \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Http\Io\EmptyBodyStream();
                 $request = $request->withBody($stream);
             } else {
                 // otherwise body is present => delimit using Content-Length or ChunkedDecoder
-                $stream = new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Io\CloseProtectionStream($conn);
+                $stream = new \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Http\Io\CloseProtectionStream($conn);
                 if ($contentLength !== null) {
-                    $stream = new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Io\LengthLimitedStream($stream, $contentLength);
+                    $stream = new \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Http\Io\LengthLimitedStream($stream, $contentLength);
                 } else {
-                    $stream = new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Io\ChunkedDecoder($stream);
+                    $stream = new \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Http\Io\ChunkedDecoder($stream);
                 }
-                $request = $request->withBody(new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Io\HttpBodyStream($stream, $contentLength));
+                $request = $request->withBody(new \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Http\Io\HttpBodyStream($stream, $contentLength));
             }
             $bodyBuffer = isset($buffer[$endOfHeader + 4]) ? \substr($buffer, $endOfHeader + 4) : '';
             $buffer = '';
@@ -177,7 +177,7 @@ class RequestHeaderParser extends \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\E
             $serverParams['SERVER_ADDR'] = $localParts['host'];
             $serverParams['SERVER_PORT'] = $localParts['port'];
         }
-        $request = new \RectorPrefix20210519\_HumbugBox0b2f2d5c77b8\React\Http\Message\ServerRequest($start['method'], $uri, $fields, '', $start['version'], $serverParams);
+        $request = new \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Http\Message\ServerRequest($start['method'], $uri, $fields, '', $start['version'], $serverParams);
         // only assign request target if it is not in origin-form (happy path for most normal requests)
         if ($start['target'][0] !== '/') {
             $request = $request->withRequestTarget($start['target']);

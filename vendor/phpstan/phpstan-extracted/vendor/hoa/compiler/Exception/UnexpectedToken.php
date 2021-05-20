@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210519\Hoa\Compiler\Exception;
+namespace RectorPrefix20210520\Hoa\Compiler\Exception;
 
 /**
  * Class \Hoa\Compiler\Exception\UnexpectedToken.
@@ -43,6 +43,6 @@ namespace RectorPrefix20210519\Hoa\Compiler\Exception;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class UnexpectedToken extends \RectorPrefix20210519\Hoa\Compiler\Exception\UnrecognizedToken
+class UnexpectedToken extends \RectorPrefix20210520\Hoa\Compiler\Exception\UnrecognizedToken
 {
 }

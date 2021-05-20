@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210519\_HumbugBox0b2f2d5c77b8;
+namespace RectorPrefix20210520\_HumbugBox0b2f2d5c77b8;
 
 if (\class_exists('ReflectionUnionType', \false)) {
     return;
