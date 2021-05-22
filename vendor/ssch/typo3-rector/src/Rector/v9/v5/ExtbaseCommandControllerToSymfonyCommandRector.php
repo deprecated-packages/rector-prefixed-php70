@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v5;
 
-use RectorPrefix20210520\Nette\Utils\Strings;
+use RectorPrefix20210522\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -31,17 +31,6 @@ use Symplify\SmartFileSystem\SmartFileSystem;
  */
 final class ExtbaseCommandControllerToSymfonyCommandRector extends \Rector\Core\Rector\AbstractRector
 {
-    /**
-     * @var string
-     */
-    const GENERATED_FILE_COMMANDS_TEMPLATE = <<<'CODE_SAMPLE'
-<?php
-
-declare (strict_types=1);
-namespace RectorPrefix20210520;
-
-return [];
-CODE_SAMPLE;
     /**
      * @var \Symplify\SmartFileSystem\SmartFileSystem
      */
@@ -135,8 +124,8 @@ CODE_SAMPLE;
             $descriptionPhpDocNode = $commandPhpDocInfo->getByType(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode::class);
             $methodParameters = $commandMethod->params;
             $commandDescription = null !== $descriptionPhpDocNode ? (string) $descriptionPhpDocNode : '';
-            $commandTemplate = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/../../../../templates/maker/Command.tpl.php');
-            $commandName = \RectorPrefix20210520\Nette\Utils\Strings::firstUpper($commandMethodName);
+            $commandTemplate = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/../../../../templates/maker/Commands/Command.tpl.php');
+            $commandName = \RectorPrefix20210522\Nette\Utils\Strings::firstUpper($commandMethodName);
             $commandContent = $commandTemplate->getContents();
             $filePath = \sprintf('%s/Classes/Command/%s.php', $extensionDirectory, $commandName);
             // Do not overwrite existing file
@@ -168,7 +157,7 @@ CODE_SAMPLE;
             $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
             $this->createDeepDirectoryFromFilePath($filePath);
             $this->removedAndAddedFilesCollector->addAddedFile(new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($filePath, $changedSetConfigContent));
-            $newCommandName = \sprintf('%s:%s', \RectorPrefix20210520\Nette\Utils\Strings::lower($vendorName), \RectorPrefix20210520\Nette\Utils\Strings::lower($commandName));
+            $newCommandName = \sprintf('%s:%s', \RectorPrefix20210522\Nette\Utils\Strings::lower($vendorName), \RectorPrefix20210522\Nette\Utils\Strings::lower($commandName));
             $newCommandsWithFullQualifiedNamespace[$newCommandName] = \sprintf('%s\\%s', $commandNamespace, $commandName);
         }
         $this->addNewCommandsToCommandsFile($commandsFilePath, $newCommandsWithFullQualifiedNamespace);
@@ -234,7 +223,7 @@ CODE_SAMPLE
             if (null === $methodName) {
                 return null;
             }
-            return \RectorPrefix20210520\Nette\Utils\Strings::endsWith($methodName, 'Command');
+            return \RectorPrefix20210522\Nette\Utils\Strings::endsWith($methodName, 'Command');
         });
     }
     /**
@@ -248,10 +237,8 @@ CODE_SAMPLE
             $nodes = $this->parser->parseFileInfo($commandsSmartFileInfo);
         } else {
             $this->createDeepDirectoryFromFilePath($commandsFilePath);
-            $nodes = $this->nikicParser->parse(self::GENERATED_FILE_COMMANDS_TEMPLATE);
-            if (null === $nodes) {
-                $nodes = [];
-            }
+            $defaultsCommandsTemplate = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/../../../../templates/maker/Commands/Commands.tpl.php');
+            $nodes = $this->parser->parseFileInfo($defaultsCommandsTemplate);
         }
         $this->decorateNamesToFullyQualified($nodes);
         $nodeTraverser = new \PhpParser\NodeTraverser();

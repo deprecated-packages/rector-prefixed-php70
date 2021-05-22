@@ -33,11 +33,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210520\Hoa\Compiler\Llk\Sampler;
+namespace RectorPrefix20210522\Hoa\Compiler\Llk\Sampler;
 
-use RectorPrefix20210520\Hoa\Compiler;
-use RectorPrefix20210520\Hoa\Iterator;
-use RectorPrefix20210520\Hoa\Visitor;
+use RectorPrefix20210522\Hoa\Compiler;
+use RectorPrefix20210522\Hoa\Iterator;
+use RectorPrefix20210522\Hoa\Visitor;
 /**
  * Class \Hoa\Compiler\Llk\Sampler\BoundedExhaustive.
  *
@@ -49,7 +49,7 @@ use RectorPrefix20210520\Hoa\Visitor;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class BoundedExhaustive extends \RectorPrefix20210520\Hoa\Compiler\Llk\Sampler\Sampler implements \RectorPrefix20210520\Hoa\Iterator
+class BoundedExhaustive extends \RectorPrefix20210522\Hoa\Compiler\Llk\Sampler\Sampler implements \RectorPrefix20210522\Hoa\Iterator
 {
     /**
      * Stack of rules to explore.
@@ -88,7 +88,7 @@ class BoundedExhaustive extends \RectorPrefix20210520\Hoa\Compiler\Llk\Sampler\S
      * @param   \Hoa\Visitor\Visit        $tokenSampler    Token sampler.
      * @param   int                       $length          Max data length.
      */
-    public function __construct(\RectorPrefix20210520\Hoa\Compiler\Llk\Parser $compiler, \RectorPrefix20210520\Hoa\Visitor\Visit $tokenSampler, $length = 5)
+    public function __construct(\RectorPrefix20210522\Hoa\Compiler\Llk\Parser $compiler, \RectorPrefix20210522\Hoa\Visitor\Visit $tokenSampler, $length = 5)
     {
         parent::__construct($compiler, $tokenSampler);
         $this->setLength($length);
@@ -132,8 +132,8 @@ class BoundedExhaustive extends \RectorPrefix20210520\Hoa\Compiler\Llk\Sampler\S
         $this->_current = null;
         $this->_key = -1;
         $this->_trace = [];
-        $handle = new \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Ekzit($ruleName, 0);
-        $this->_todo = [$handle, new \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Entry($ruleName, 0, [$handle])];
+        $handle = new \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Ekzit($ruleName, 0);
+        $this->_todo = [$handle, new \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Entry($ruleName, 0, [$handle])];
         return;
     }
     /**
@@ -148,7 +148,7 @@ class BoundedExhaustive extends \RectorPrefix20210520\Hoa\Compiler\Llk\Sampler\S
         }
         $handle = null;
         foreach ($this->_trace as $trace) {
-            if ($trace instanceof \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Token) {
+            if ($trace instanceof \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Token) {
                 $handle .= $this->generateToken($trace);
             }
         }
@@ -165,7 +165,7 @@ class BoundedExhaustive extends \RectorPrefix20210520\Hoa\Compiler\Llk\Sampler\S
     {
         while (0 < \count($this->_todo)) {
             $pop = \array_pop($this->_todo);
-            if ($pop instanceof \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Ekzit) {
+            if ($pop instanceof \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Ekzit) {
                 $this->_trace[] = $pop;
             } else {
                 $ruleName = $pop->getRule();
@@ -186,22 +186,22 @@ class BoundedExhaustive extends \RectorPrefix20210520\Hoa\Compiler\Llk\Sampler\S
      * @param   int                     $next    Next rule.
      * @return  bool
      */
-    protected function boundedExhaustive(\RectorPrefix20210520\Hoa\Compiler\Llk\Rule $rule, $next)
+    protected function boundedExhaustive(\RectorPrefix20210522\Hoa\Compiler\Llk\Rule $rule, $next)
     {
         $children = $rule->getChildren();
-        if ($rule instanceof \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Repetition) {
+        if ($rule instanceof \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Repetition) {
             if (0 === $next) {
-                $this->_trace[] = new \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), $rule->getMin());
+                $this->_trace[] = new \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), $rule->getMin());
                 \array_pop($this->_todo);
-                $this->_todo[] = new \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Ekzit($rule->getName(), $rule->getMin(), $this->_todo);
+                $this->_todo[] = new \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Ekzit($rule->getName(), $rule->getMin(), $this->_todo);
                 for ($i = 0, $min = $rule->getMin(); $i < $min; ++$i) {
-                    $this->_todo[] = new \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Ekzit($children, 0);
-                    $this->_todo[] = new \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Entry($children, 0);
+                    $this->_todo[] = new \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Ekzit($children, 0);
+                    $this->_todo[] = new \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Entry($children, 0);
                 }
             } else {
                 $nbToken = 0;
                 foreach ($this->_trace as $trace) {
-                    if ($trace instanceof \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Token) {
+                    if ($trace instanceof \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Token) {
                         ++$nbToken;
                     }
                 }
@@ -209,32 +209,32 @@ class BoundedExhaustive extends \RectorPrefix20210520\Hoa\Compiler\Llk\Sampler\S
                 if (-1 != $max && $next > $max) {
                     return \false;
                 }
-                $this->_todo[] = new \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Ekzit($rule->getName(), $next, $this->_todo);
-                $this->_todo[] = new \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Ekzit($children, 0);
-                $this->_todo[] = new \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Entry($children, 0);
+                $this->_todo[] = new \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Ekzit($rule->getName(), $next, $this->_todo);
+                $this->_todo[] = new \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Ekzit($children, 0);
+                $this->_todo[] = new \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Entry($children, 0);
             }
             return \true;
-        } elseif ($rule instanceof \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Choice) {
+        } elseif ($rule instanceof \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Choice) {
             if (\count($children) <= $next) {
                 return \false;
             }
-            $this->_trace[] = new \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), $next, $this->_todo);
+            $this->_trace[] = new \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), $next, $this->_todo);
             $nextRule = $children[$next];
-            $this->_todo[] = new \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Ekzit($nextRule, 0);
-            $this->_todo[] = new \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Entry($nextRule, 0);
+            $this->_todo[] = new \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Ekzit($nextRule, 0);
+            $this->_todo[] = new \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Entry($nextRule, 0);
             return \true;
-        } elseif ($rule instanceof \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Concatenation) {
-            $this->_trace[] = new \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), $next);
+        } elseif ($rule instanceof \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Concatenation) {
+            $this->_trace[] = new \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), $next);
             for ($i = \count($children) - 1; $i >= 0; --$i) {
                 $nextRule = $children[$i];
-                $this->_todo[] = new \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Ekzit($nextRule, 0);
-                $this->_todo[] = new \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Entry($nextRule, 0);
+                $this->_todo[] = new \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Ekzit($nextRule, 0);
+                $this->_todo[] = new \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Entry($nextRule, 0);
             }
             return \true;
-        } elseif ($rule instanceof \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Token) {
+        } elseif ($rule instanceof \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Token) {
             $nbToken = 0;
             foreach ($this->_trace as $trace) {
-                if ($trace instanceof \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Token) {
+                if ($trace instanceof \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Token) {
                     ++$nbToken;
                 }
             }
@@ -257,12 +257,12 @@ class BoundedExhaustive extends \RectorPrefix20210520\Hoa\Compiler\Llk\Sampler\S
         $found = \false;
         do {
             $last = \array_pop($this->_trace);
-            if ($last instanceof \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Entry) {
+            if ($last instanceof \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Entry) {
                 $rule = $this->_rules[$last->getRule()];
-                $found = $rule instanceof \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Choice;
-            } elseif ($last instanceof \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Ekzit) {
+                $found = $rule instanceof \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Choice;
+            } elseif ($last instanceof \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Ekzit) {
                 $rule = $this->_rules[$last->getRule()];
-                $found = $rule instanceof \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Repetition;
+                $found = $rule instanceof \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Repetition;
             }
         } while (0 < \count($this->_trace) && \false === $found);
         if (\false === $found) {
@@ -271,7 +271,7 @@ class BoundedExhaustive extends \RectorPrefix20210520\Hoa\Compiler\Llk\Sampler\S
         $rule = $last->getRule();
         $next = $last->getData() + 1;
         $this->_todo = $last->getTodo();
-        $this->_todo[] = new \RectorPrefix20210520\Hoa\Compiler\Llk\Rule\Entry($rule, $next, $this->_todo);
+        $this->_todo[] = new \RectorPrefix20210522\Hoa\Compiler\Llk\Rule\Entry($rule, $next, $this->_todo);
         return \true;
     }
     /**
@@ -284,7 +284,7 @@ class BoundedExhaustive extends \RectorPrefix20210520\Hoa\Compiler\Llk\Sampler\S
     public function setLength($length)
     {
         if (0 >= $length) {
-            throw new \RectorPrefix20210520\Hoa\Compiler\Llk\Sampler\Exception('Length must be greater than 0, given %d.', 0, $length);
+            throw new \RectorPrefix20210522\Hoa\Compiler\Llk\Sampler\Exception('Length must be greater than 0, given %d.', 0, $length);
         }
         $old = $this->_length;
         $this->_length = $length;

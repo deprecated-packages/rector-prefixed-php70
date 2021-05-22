@@ -41,10 +41,10 @@ class IgnoredError
         // normalize newlines to allow working with ignore-patterns independent of used OS newline-format
         $errorMessage = $error->getMessage();
         $errorMessage = \str_replace(['\\r\\n', '\\r'], '\\n', $errorMessage);
-        $ignoredErrorPattern = \str_replace([\preg_quote('RectorPrefix20210520\\r\\n'), \preg_quote('\\r')], \preg_quote('\\n'), $ignoredErrorPattern);
+        $ignoredErrorPattern = \str_replace([\preg_quote('RectorPrefix20210522\\r\\n'), \preg_quote('\\r')], \preg_quote('\\n'), $ignoredErrorPattern);
         if ($path !== null) {
             $fileExcluder = new \PHPStan\File\FileExcluder($fileHelper, [$path], []);
-            if (\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) === null) {
+            if (\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) === null) {
                 return \false;
             }
             $isExcluded = $fileExcluder->isExcludedFromAnalysing($error->getFilePath());
@@ -53,6 +53,6 @@ class IgnoredError
             }
             return $isExcluded;
         }
-        return \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) !== null;
+        return \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) !== null;
     }
 }

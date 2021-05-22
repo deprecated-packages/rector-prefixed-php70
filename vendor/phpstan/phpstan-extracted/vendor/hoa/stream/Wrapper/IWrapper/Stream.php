@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210520\Hoa\Stream\Wrapper\IWrapper;
+namespace RectorPrefix20210522\Hoa\Stream\Wrapper\IWrapper;
 
 /**
  * Interface \Hoa\Stream\Wrapper\IWrapper\Stream.

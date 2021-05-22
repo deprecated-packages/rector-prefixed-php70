@@ -1,14 +1,14 @@
 <?php
 
-namespace RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
+namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
 
-use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
 /**
  * Reads from multiple streams, one after the other.
  *
  * This is a read-only stream decorator.
  */
-class AppendStream implements \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
+class AppendStream implements \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
 {
     /** @var StreamInterface[] Streams being decorated */
     private $streams = array();
@@ -42,7 +42,7 @@ class AppendStream implements \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Psr\H
      *
      * @throws \InvalidArgumentException if the stream is not readable
      */
-    public function addStream(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface $stream)
+    public function addStream(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface $stream)
     {
         if (!$stream->isReadable()) {
             throw new \InvalidArgumentException('Each stream must be readable');

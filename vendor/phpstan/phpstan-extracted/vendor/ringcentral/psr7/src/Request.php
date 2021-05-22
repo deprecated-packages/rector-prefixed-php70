@@ -1,15 +1,15 @@
 <?php
 
-namespace RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
+namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
 
 use InvalidArgumentException;
-use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface;
-use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
-use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\UriInterface;
+use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface;
+use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\UriInterface;
 /**
  * PSR-7 request implementation.
  */
-class Request extends \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\MessageTrait implements \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface
+class Request extends \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\MessageTrait implements \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface
 {
     /** @var string */
     private $method;
@@ -29,9 +29,9 @@ class Request extends \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\RingCentral\P
     public function __construct($method, $uri, array $headers = array(), $body = null, $protocolVersion = '1.1')
     {
         if (\is_string($uri)) {
-            $uri = new \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Uri($uri);
-        } elseif (!$uri instanceof \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\UriInterface) {
-            throw new \InvalidArgumentException('RectorPrefix20210520\\_HumbugBox0b2f2d5c77b8\\URI must be a string or Psr\\Http\\Message\\UriInterface');
+            $uri = new \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Uri($uri);
+        } elseif (!$uri instanceof \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\UriInterface) {
+            throw new \InvalidArgumentException('RectorPrefix20210522\\_HumbugBox0b2f2d5c77b8\\URI must be a string or Psr\\Http\\Message\\UriInterface');
         }
         $this->method = \strtoupper($method);
         $this->uri = $uri;
@@ -82,7 +82,7 @@ class Request extends \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\RingCentral\P
     {
         return $this->uri;
     }
-    public function withUri(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\UriInterface $uri, $preserveHost = \false)
+    public function withUri(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\UriInterface $uri, $preserveHost = \false)
     {
         if ($uri === $this->uri) {
             return $this;

@@ -3,19 +3,21 @@
 declare (strict_types=1);
 namespace Ssch\TYPO3Rector\TypoScript\Visitors;
 
-use RectorPrefix20210520\Helmich\TypoScriptParser\Parser\AST\Operator\Assignment;
-use RectorPrefix20210520\Helmich\TypoScriptParser\Parser\AST\Scalar as ScalarValue;
-use RectorPrefix20210520\Helmich\TypoScriptParser\Parser\AST\Statement;
-use RectorPrefix20210520\Nette\Utils\Strings;
+use RectorPrefix20210522\Helmich\TypoScriptParser\Parser\AST\Operator\Assignment;
+use RectorPrefix20210522\Helmich\TypoScriptParser\Parser\AST\Scalar as ScalarValue;
+use RectorPrefix20210522\Helmich\TypoScriptParser\Parser\AST\Statement;
+use RectorPrefix20210522\Nette\Utils\Strings;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Ssch\TYPO3Rector\Contract\TypoScript\ConvertToPhpFileInterface;
-use RectorPrefix20210520\Symfony\Component\VarExporter\VarExporter;
+use RectorPrefix20210522\Symfony\Component\VarExporter\VarExporter;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Breaking-87623-ReplaceConfigpersistenceclassesTyposcriptConfiguration.html
+ * @see \Ssch\TYPO3Rector\Tests\TypoScript\TypoScriptProcessorTest
  */
 final class ExtbasePersistenceVisitor extends \Ssch\TYPO3Rector\TypoScript\Visitors\AbstractVisitor implements \Ssch\TYPO3Rector\Contract\TypoScript\ConvertToPhpFileInterface, \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
@@ -23,17 +25,6 @@ final class ExtbasePersistenceVisitor extends \Ssch\TYPO3Rector\TypoScript\Visit
      * @var string
      */
     const FILENAME = 'filename';
-    /**
-     * @var string
-     */
-    const GENERATED_FILE_TEMPLATE = <<<'CODE_SAMPLE'
-<?php
-
-declare(strict_types = 1);
-
-return %s;
-
-CODE_SAMPLE;
     /**
      * @var string
      */
@@ -46,19 +37,24 @@ CODE_SAMPLE;
      * @var array<string, array<string, mixed>>
      */
     private static $persistenceArray = [];
+    /**
+     * @var \Symplify\SmartFileSystem\SmartFileInfo
+     */
+    private $fileTemplate;
     public function __construct(\Rector\Core\Configuration\Configuration $configuration)
     {
         $this->filename = \dirname((string) $configuration->getMainConfigFilePath()) . '/Configuration_Extbase_Persistence_Classes.php';
+        $this->fileTemplate = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/../../../templates/maker/Extbase/Persistence.tpl.php');
     }
     /**
      * @return void
      */
-    public function enterNode(\RectorPrefix20210520\Helmich\TypoScriptParser\Parser\AST\Statement $statement)
+    public function enterNode(\RectorPrefix20210522\Helmich\TypoScriptParser\Parser\AST\Statement $statement)
     {
-        if (!$statement instanceof \RectorPrefix20210520\Helmich\TypoScriptParser\Parser\AST\Operator\Assignment) {
+        if (!$statement instanceof \RectorPrefix20210522\Helmich\TypoScriptParser\Parser\AST\Operator\Assignment) {
             return;
         }
-        if (!\RectorPrefix20210520\Nette\Utils\Strings::contains($statement->object->absoluteName, 'persistence.classes')) {
+        if (!\RectorPrefix20210522\Nette\Utils\Strings::contains($statement->object->absoluteName, 'persistence.classes')) {
             return;
         }
         $paths = \explode('.', $statement->object->absoluteName);
@@ -97,7 +93,7 @@ CODE_SAMPLE
         if ([] === self::$persistenceArray) {
             return null;
         }
-        $content = \sprintf(self::GENERATED_FILE_TEMPLATE, \RectorPrefix20210520\Symfony\Component\VarExporter\VarExporter::export(self::$persistenceArray));
+        $content = \str_replace('__PERSISTENCE_ARRAY__', \RectorPrefix20210522\Symfony\Component\VarExporter\VarExporter::export(self::$persistenceArray), $this->fileTemplate->getContents());
         return new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($this->filename, $content);
     }
     public function getMessage() : string
@@ -118,7 +114,7 @@ CODE_SAMPLE
      * @param string[] $paths
      * @return void
      */
-    private function extractSubClasses(array $paths, \RectorPrefix20210520\Helmich\TypoScriptParser\Parser\AST\Operator\Assignment $statement)
+    private function extractSubClasses(array $paths, \RectorPrefix20210522\Helmich\TypoScriptParser\Parser\AST\Operator\Assignment $statement)
     {
         if (!\in_array(self::SUBCLASSES, $paths, \true)) {
             return;
@@ -135,7 +131,7 @@ CODE_SAMPLE
      * @param string[] $paths
      * @return void
      */
-    private function extractMapping(string $name, array $paths, \RectorPrefix20210520\Helmich\TypoScriptParser\Parser\AST\Operator\Assignment $statement)
+    private function extractMapping(string $name, array $paths, \RectorPrefix20210522\Helmich\TypoScriptParser\Parser\AST\Operator\Assignment $statement)
     {
         if (!\in_array($name, $paths, \true)) {
             return;
@@ -152,7 +148,7 @@ CODE_SAMPLE
      * @param string[] $paths
      * @return void
      */
-    private function extractColumns(array $paths, \RectorPrefix20210520\Helmich\TypoScriptParser\Parser\AST\Operator\Assignment $statement)
+    private function extractColumns(array $paths, \RectorPrefix20210522\Helmich\TypoScriptParser\Parser\AST\Operator\Assignment $statement)
     {
         if (!\in_array('columns', $paths, \true)) {
             return;

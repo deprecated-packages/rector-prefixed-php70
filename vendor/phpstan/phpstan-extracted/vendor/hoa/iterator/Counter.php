@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210520\Hoa\Iterator;
+namespace RectorPrefix20210522\Hoa\Iterator;
 
 /**
  * Class \Hoa\Iterator\Counter.
@@ -43,7 +43,7 @@ namespace RectorPrefix20210520\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Counter implements \RectorPrefix20210520\Hoa\Iterator\Iterator
+class Counter implements \RectorPrefix20210522\Hoa\Iterator\Iterator
 {
     /**
      * From (lower bound).
@@ -88,7 +88,7 @@ class Counter implements \RectorPrefix20210520\Hoa\Iterator\Iterator
     public function __construct($from, $to, $step)
     {
         if ($step <= 0) {
-            throw new \RectorPrefix20210520\Hoa\Iterator\Exception('The step must be non-negative; given %d.', 0, $step);
+            throw new \RectorPrefix20210522\Hoa\Iterator\Exception('The step must be non-negative; given %d.', 0, $step);
         }
         $this->_from = $from;
         $this->_to = $to;

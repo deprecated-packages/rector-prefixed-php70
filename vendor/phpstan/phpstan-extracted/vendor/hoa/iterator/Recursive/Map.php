@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210520\Hoa\Iterator\Recursive;
+namespace RectorPrefix20210522\Hoa\Iterator\Recursive;
 
 /**
  * Class \Hoa\Iterator\Recursive\Map.

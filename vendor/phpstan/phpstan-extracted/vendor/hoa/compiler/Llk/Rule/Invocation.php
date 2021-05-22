@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210520\Hoa\Compiler\Llk\Rule;
+namespace RectorPrefix20210522\Hoa\Compiler\Llk\Rule;
 
 /**
  * Class \Hoa\Compiler\Llk\Rule\Invocation.

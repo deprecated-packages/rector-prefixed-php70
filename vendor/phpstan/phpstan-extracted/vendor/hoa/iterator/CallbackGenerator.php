@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210520\Hoa\Iterator;
+namespace RectorPrefix20210522\Hoa\Iterator;
 
 /**
  * Class \Hoa\Iterator\CallbackGenerator.
@@ -43,7 +43,7 @@ namespace RectorPrefix20210520\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class CallbackGenerator implements \RectorPrefix20210520\Hoa\Iterator\Iterator
+class CallbackGenerator implements \RectorPrefix20210522\Hoa\Iterator\Iterator
 {
     /**
      * Callback.

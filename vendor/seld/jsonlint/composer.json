@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210520\\Seld\\JsonLint\\": "src\/Seld\/JsonLint\/"
+            "RectorPrefix20210522\\Seld\\JsonLint\\": "src\/Seld\/JsonLint\/"
         }
     },
     "bin": [

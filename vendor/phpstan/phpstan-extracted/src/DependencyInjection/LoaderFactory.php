@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\DependencyInjection;
 
-use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Loader;
+use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Loader;
 use PHPStan\File\FileHelper;
 class LoaderFactory
 {
@@ -25,7 +25,7 @@ class LoaderFactory
         $this->currentWorkingDirectory = $currentWorkingDirectory;
         $this->generateBaselineFile = $generateBaselineFile;
     }
-    public function createLoader() : \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Loader
+    public function createLoader() : \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Loader
     {
         $loader = new \PHPStan\DependencyInjection\NeonLoader($this->fileHelper, $this->generateBaselineFile);
         $loader->addAdapter('dist', \PHPStan\DependencyInjection\NeonAdapter::class);

@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Dns\Query;
+namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Dns\Query;
 
-use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Promise\Promise;
+use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Promise\Promise;
 /**
  * Cooperatively resolves hosts via the given base executor to ensure same query is not run concurrently
  *
@@ -34,16 +34,16 @@ use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Promise\Promise;
  * );
  * ```
  */
-final class CoopExecutor implements \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Dns\Query\ExecutorInterface
+final class CoopExecutor implements \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Dns\Query\ExecutorInterface
 {
     private $executor;
     private $pending = array();
     private $counts = array();
-    public function __construct(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Dns\Query\ExecutorInterface $base)
+    public function __construct(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Dns\Query\ExecutorInterface $base)
     {
         $this->executor = $base;
     }
-    public function query(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Dns\Query\Query $query)
+    public function query(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Dns\Query\Query $query)
     {
         $key = $this->serializeQueryToIdentity($query);
         if (isset($this->pending[$key])) {
@@ -68,7 +68,7 @@ final class CoopExecutor implements \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8
         // when no other child promise is awaiting the same query.
         $pending =& $this->pending;
         $counts =& $this->counts;
-        return new \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Promise\Promise(function ($resolve, $reject) use($promise) {
+        return new \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Promise\Promise(function ($resolve, $reject) use($promise) {
             $promise->then($resolve, $reject);
         }, function () use(&$promise, $key, $query, &$pending, &$counts) {
             if (--$counts[$key] < 1) {
@@ -79,7 +79,7 @@ final class CoopExecutor implements \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8
             throw new \RuntimeException('DNS query for ' . $query->name . ' has been cancelled');
         });
     }
-    private function serializeQueryToIdentity(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\Dns\Query\Query $query)
+    private function serializeQueryToIdentity(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Dns\Query\Query $query)
     {
         return \sprintf('%s:%s:%s', $query->name, $query->type, $query->class);
     }

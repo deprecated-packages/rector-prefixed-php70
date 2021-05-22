@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\EventLoop\Timer;
+namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\EventLoop\Timer;
 
-use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\EventLoop\TimerInterface;
+use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\EventLoop\TimerInterface;
 /**
  * A scheduler implementation that can hold multiple timer instances
  *
@@ -31,18 +31,18 @@ final class Timers
     {
         return $this->time ?: $this->updateTime();
     }
-    public function add(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\EventLoop\TimerInterface $timer)
+    public function add(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\EventLoop\TimerInterface $timer)
     {
         $id = \spl_object_hash($timer);
         $this->timers[$id] = $timer;
         $this->schedule[$id] = $timer->getInterval() + $this->updateTime();
         $this->sorted = \false;
     }
-    public function contains(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\EventLoop\TimerInterface $timer)
+    public function contains(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\EventLoop\TimerInterface $timer)
     {
         return isset($this->timers[\spl_object_hash($timer)]);
     }
-    public function cancel(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\React\EventLoop\TimerInterface $timer)
+    public function cancel(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\EventLoop\TimerInterface $timer)
     {
         $id = \spl_object_hash($timer);
         unset($this->timers[$id], $this->schedule[$id]);

@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions;
+namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions;
 
-use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Nette;
 /**
  * Definition used by ContainerBuilder.
  */
@@ -31,7 +31,7 @@ abstract class Definition
     public final function setName(string $name)
     {
         if ($this->name) {
-            throw new \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException('Name already has been set.');
+            throw new \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException('Name already has been set.');
         }
         $this->name = $name;
         return $this;
@@ -53,9 +53,9 @@ abstract class Definition
         if ($type === null) {
             $this->type = null;
         } elseif (!\class_exists($type) && !\interface_exists($type)) {
-            throw new \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException("Service '{$this->name}': Class or interface '{$type}' not found.");
+            throw new \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException("Service '{$this->name}': Class or interface '{$type}' not found.");
         } else {
-            $this->type = \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::normalizeClass($type);
+            $this->type = \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::normalizeClass($type);
         }
         return $this;
     }
@@ -124,15 +124,15 @@ abstract class Definition
     /**
      * @return void
      */
-    public abstract function resolveType(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\DI\Resolver $resolver);
+    public abstract function resolveType(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Nette\DI\Resolver $resolver);
     /**
      * @return void
      */
-    public abstract function complete(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\DI\Resolver $resolver);
+    public abstract function complete(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Nette\DI\Resolver $resolver);
     /**
      * @return void
      */
-    public abstract function generateMethod(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Method $method, \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Nette\DI\PhpGenerator $generator);
+    public abstract function generateMethod(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Method $method, \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Nette\DI\PhpGenerator $generator);
     /**
      * @param callable|null $notifier
      * @return void

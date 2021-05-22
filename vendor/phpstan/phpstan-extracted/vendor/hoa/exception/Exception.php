@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210520\Hoa\Exception;
+namespace RectorPrefix20210522\Hoa\Exception;
 
-use RectorPrefix20210520\Hoa\Consistency;
-use RectorPrefix20210520\Hoa\Event;
+use RectorPrefix20210522\Hoa\Consistency;
+use RectorPrefix20210522\Hoa\Event;
 /**
  * Class \Hoa\Exception\Exception.
  *
@@ -45,7 +45,7 @@ use RectorPrefix20210520\Hoa\Event;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Exception extends \RectorPrefix20210520\Hoa\Exception\Idle implements \RectorPrefix20210520\Hoa\Event\Source
+class Exception extends \RectorPrefix20210522\Hoa\Exception\Idle implements \RectorPrefix20210522\Hoa\Event\Source
 {
     /**
      * Create an exception.
@@ -61,8 +61,8 @@ class Exception extends \RectorPrefix20210520\Hoa\Exception\Idle implements \Rec
     public function __construct($message, $code = 0, $arguments = [], $previous = null)
     {
         parent::__construct($message, $code, $arguments, $previous);
-        if (\false === \RectorPrefix20210520\Hoa\Event::eventExists('hoa://Event/Exception')) {
-            \RectorPrefix20210520\Hoa\Event::register('hoa://Event/Exception', __CLASS__);
+        if (\false === \RectorPrefix20210522\Hoa\Event::eventExists('hoa://Event/Exception')) {
+            \RectorPrefix20210522\Hoa\Event::register('hoa://Event/Exception', __CLASS__);
         }
         $this->send();
         return;
@@ -74,11 +74,11 @@ class Exception extends \RectorPrefix20210520\Hoa\Exception\Idle implements \Rec
      */
     public function send()
     {
-        \RectorPrefix20210520\Hoa\Event::notify('hoa://Event/Exception', $this, new \RectorPrefix20210520\Hoa\Event\Bucket($this));
+        \RectorPrefix20210522\Hoa\Event::notify('hoa://Event/Exception', $this, new \RectorPrefix20210522\Hoa\Event\Bucket($this));
         return;
     }
 }
 /**
  * Flex entity.
  */
-\RectorPrefix20210520\Hoa\Consistency::flexEntity('RectorPrefix20210520\\Hoa\\Exception\\Exception');
+\RectorPrefix20210522\Hoa\Consistency::flexEntity('RectorPrefix20210522\\Hoa\\Exception\\Exception');

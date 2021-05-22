@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210520\Hoa\Consistency;
+namespace RectorPrefix20210522\Hoa\Consistency;
 
 /**
  * Class Hoa\Consistency\Consistency.
@@ -236,7 +236,7 @@ class Consistency
         return \sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x', \mt_rand(0, 0xffff), \mt_rand(0, 0xffff), \mt_rand(0, 0xffff), \mt_rand(0, 0xfff) | 0x4000, \mt_rand(0, 0x3fff) | 0x8000, \mt_rand(0, 0xffff), \mt_rand(0, 0xffff), \mt_rand(0, 0xffff));
     }
 }
-namespace RectorPrefix20210520\_HumbugBox0b2f2d5c77b8;
+namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8;
 
 if (70000 > \PHP_VERSION_ID && \false === \interface_exists('Throwable', \false)) {
     /**
@@ -276,4 +276,4 @@ if (50600 > \PHP_VERSION_ID) {
 /**
  * Flex entity.
  */
-\RectorPrefix20210520\Hoa\Consistency\Consistency::flexEntity('RectorPrefix20210520\\Hoa\\Consistency\\Consistency');
+\RectorPrefix20210522\Hoa\Consistency\Consistency::flexEntity('RectorPrefix20210522\\Hoa\\Consistency\\Consistency');

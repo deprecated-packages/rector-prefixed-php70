@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210520\Hoa\Ustring\Bin;
+namespace RectorPrefix20210522\Hoa\Ustring\Bin;
 
-use RectorPrefix20210520\Hoa\Console;
-use RectorPrefix20210520\Hoa\Ustring;
+use RectorPrefix20210522\Hoa\Console;
+use RectorPrefix20210522\Hoa\Ustring;
 /**
  * Class Hoa\Ustring\Bin\Tocode.
  *
@@ -45,14 +45,14 @@ use RectorPrefix20210520\Hoa\Ustring;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Tocode extends \RectorPrefix20210520\Hoa\Console\Dispatcher\Kit
+class Tocode extends \RectorPrefix20210522\Hoa\Console\Dispatcher\Kit
 {
     /**
      * Options description.
      *
      * @var array
      */
-    protected $options = [['base', \RectorPrefix20210520\Hoa\Console\GetOption::REQUIRED_ARGUMENT, 'b'], ['help', \RectorPrefix20210520\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \RectorPrefix20210520\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
+    protected $options = [['base', \RectorPrefix20210522\Hoa\Console\GetOption::REQUIRED_ARGUMENT, 'b'], ['help', \RectorPrefix20210522\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \RectorPrefix20210522\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
     /**
      * The entry method.
      *
@@ -76,7 +76,7 @@ class Tocode extends \RectorPrefix20210520\Hoa\Console\Dispatcher\Kit
             }
         }
         $this->parser->listInputs($char);
-        $code = \base_convert((string) \RectorPrefix20210520\Hoa\Ustring::toCode($char), 10, $base);
+        $code = \base_convert((string) \RectorPrefix20210522\Hoa\Ustring::toCode($char), 10, $base);
         echo $code, "\n";
         return;
     }

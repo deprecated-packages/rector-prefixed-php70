@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210520\JsonSchema\Constraints\TypeCheck;
+namespace RectorPrefix20210522\JsonSchema\Constraints\TypeCheck;
 
-class LooseTypeCheck implements \RectorPrefix20210520\JsonSchema\Constraints\TypeCheck\TypeCheckInterface
+class LooseTypeCheck implements \RectorPrefix20210522\JsonSchema\Constraints\TypeCheck\TypeCheckInterface
 {
     public static function isObject($value)
     {

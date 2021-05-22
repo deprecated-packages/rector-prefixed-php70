@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210520\_HumbugBox0b2f2d5c77b8;
+namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8;
 
-#[Attribute(\RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Attribute::TARGET_CLASS)]
+#[Attribute(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Attribute::TARGET_CLASS)]
 final class Attribute
 {
     const TARGET_CLASS = 1;

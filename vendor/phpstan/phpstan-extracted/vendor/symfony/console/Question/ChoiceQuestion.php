@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Question;
+namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Question;
 
-use RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Exception\InvalidArgumentException;
+use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Exception\InvalidArgumentException;
 /**
  * Represents a choice question.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ChoiceQuestion extends \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Question\Question
+class ChoiceQuestion extends \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Question\Question
 {
     private $choices;
     private $multiselect = \false;
@@ -116,7 +116,7 @@ class ChoiceQuestion extends \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Symfon
             if ($multiselect) {
                 // Check for a separated comma values
                 if (!\preg_match('/^[^,]+(?:,[^,]+)*$/', $selected, $matches)) {
-                    throw new \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf($errorMessage, $selected));
+                    throw new \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf($errorMessage, $selected));
                 }
                 $selectedChoices = \explode(',', $selected);
             } else {
@@ -136,7 +136,7 @@ class ChoiceQuestion extends \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Symfon
                     }
                 }
                 if (\count($results) > 1) {
-                    throw new \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The provided answer is ambiguous. Value should be one of "%s".', \implode('" or "', $results)));
+                    throw new \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The provided answer is ambiguous. Value should be one of "%s".', \implode('" or "', $results)));
                 }
                 $result = \array_search($value, $choices);
                 if (!$isAssoc) {
@@ -149,7 +149,7 @@ class ChoiceQuestion extends \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Symfon
                     $result = $value;
                 }
                 if (\false === $result) {
-                    throw new \RectorPrefix20210520\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf($errorMessage, $value));
+                    throw new \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf($errorMessage, $value));
                 }
                 $multiselectChoices[] = (string) $result;
             }
