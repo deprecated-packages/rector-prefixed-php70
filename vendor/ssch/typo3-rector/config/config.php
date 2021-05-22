@@ -21,7 +21,7 @@ return static function (\RectorPrefix20210522\Symfony\Component\DependencyInject
     $containerConfigurator->import(__DIR__ . '/../utils/**/config/config.php', null, \true);
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire();
-    $services->load('RectorPrefix20210522\Ssch\\TYPO3Rector\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector', __DIR__ . '/../src/Set', __DIR__ . '/../src/ValueObject', __DIR__ . '/../src/TypoScript/Conditions', __DIR__ . '/../src/TypoScript/Visitors', __DIR__ . '/../src/FlexForms/Rector', __DIR__ . '/../src/Yaml/Form/Rector', __DIR__ . '/../src/Resources/Icons/Rector']);
+    $services->load('Ssch\\TYPO3Rector\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector', __DIR__ . '/../src/Set', __DIR__ . '/../src/ValueObject', __DIR__ . '/../src/TypoScript/Conditions', __DIR__ . '/../src/TypoScript/Visitors', __DIR__ . '/../src/FlexForms/Rector', __DIR__ . '/../src/Yaml/Form/Rector', __DIR__ . '/../src/Resources/Icons/Rector']);
     // Add some general TYPO3 rules
     $services->set(\Ssch\TYPO3Rector\Rector\General\ConvertTypo3ConfVarsRector::class);
     $services->set(\Ssch\TYPO3Rector\Rector\General\ExtEmConfRector::class);
