@@ -73,12 +73,11 @@ CODE_SAMPLE
     private function matchStrContainsOrNotStrContains(\PhpParser\Node\Expr $expr)
     {
         $expr = $expr instanceof \PhpParser\Node\Expr\BooleanNot ? $expr->expr : $expr;
-        if (!$expr instanceof \PhpParser\Node\Expr\FuncCall) {
-            return null;
+        if ($expr instanceof \PhpParser\Node\Expr\FuncCall) {
+            if ($this->isName($expr, 'str_contains')) {
+                return $expr;
+            }
         }
-        if (!$this->isName($expr, 'str_contains')) {
-            return null;
-        }
-        return $expr;
+        return null;
     }
 }
