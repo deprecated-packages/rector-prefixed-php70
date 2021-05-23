@@ -10,6 +10,7 @@ use PHPStan\Type\Type;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
 use Rector\StaticTypeMapper\Mapper\PhpParserNodeMapper;
+use RectorPrefix20210523\Symfony\Contracts\Service\Attribute\Required;
 final class NullableTypeNodeMapper implements \Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface
 {
     /**
@@ -25,9 +26,9 @@ final class NullableTypeNodeMapper implements \Rector\StaticTypeMapper\Contract\
         $this->typeFactory = $typeFactory;
     }
     /**
-     * @required
      * @return void
      */
+    #[Required]
     public function autowireNullableTypeNodeMapper(\Rector\StaticTypeMapper\Mapper\PhpParserNodeMapper $phpParserNodeMapper)
     {
         $this->phpParserNodeMapper = $phpParserNodeMapper;

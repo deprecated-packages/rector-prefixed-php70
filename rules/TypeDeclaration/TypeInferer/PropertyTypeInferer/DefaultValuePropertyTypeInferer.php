@@ -20,7 +20,10 @@ final class DefaultValuePropertyTypeInferer
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
+    /**
+     * @return \PHPStan\Type\Type|null
+     */
+    public function inferProperty(\PhpParser\Node\Stmt\Property $property)
     {
         $propertyProperty = $property->props[0];
         if ($propertyProperty->default === null) {

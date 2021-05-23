@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\RemovingStatic\Printer;
 
-use RectorPrefix20210522\Nette\Utils\Strings;
+use RectorPrefix20210523\Nette\Utils\Strings;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Namespace_;
 use Rector\Core\Exception\ShouldNotHappenException;
@@ -59,12 +59,12 @@ final class FactoryClassPrinter
     {
         $file = $this->currentFileProvider->getFile();
         $smartFileInfo = $file->getSmartFileInfo();
-        $directoryPath = \RectorPrefix20210522\Nette\Utils\Strings::before($smartFileInfo->getRealPath(), \DIRECTORY_SEPARATOR, -1);
+        $directoryPath = \RectorPrefix20210523\Nette\Utils\Strings::before($smartFileInfo->getRealPath(), \DIRECTORY_SEPARATOR, -1);
         $resolvedOldClass = $this->nodeNameResolver->getName($oldClass);
         if ($resolvedOldClass === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        $bareClassName = \RectorPrefix20210522\Nette\Utils\Strings::after($resolvedOldClass, '\\', -1) . 'Factory.php';
+        $bareClassName = \RectorPrefix20210523\Nette\Utils\Strings::after($resolvedOldClass, '\\', -1) . 'Factory.php';
         return $directoryPath . \DIRECTORY_SEPARATOR . $bareClassName;
     }
 }

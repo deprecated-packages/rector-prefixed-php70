@@ -8,6 +8,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
 use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
 use Rector\NodeNameResolver\NodeNameResolver;
+use RectorPrefix20210523\Symfony\Contracts\Service\Attribute\Required;
 final class ClassNameResolver implements \Rector\NodeNameResolver\Contract\NodeNameResolverInterface
 {
     /**
@@ -15,9 +16,9 @@ final class ClassNameResolver implements \Rector\NodeNameResolver\Contract\NodeN
      */
     private $nodeNameResolver;
     /**
-     * @required
      * @return void
      */
+    #[Required]
     public function autowireClassNameResolver(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;

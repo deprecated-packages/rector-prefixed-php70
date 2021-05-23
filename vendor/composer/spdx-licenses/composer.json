@@ -37,12 +37,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210522\\Composer\\Spdx\\": "src"
+            "RectorPrefix20210523\\Composer\\Spdx\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210522\\Composer\\Spdx\\": "tests"
+            "RectorPrefix20210523\\Composer\\Spdx\\": "tests"
         }
     },
     "extra": {

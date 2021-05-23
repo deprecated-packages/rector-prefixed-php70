@@ -1,9 +1,9 @@
 <?php
 
-namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Http\Middleware;
+namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Http\Middleware;
 
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface;
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Http\Io\MultipartParser;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Http\Io\MultipartParser;
 final class RequestBodyParserMiddleware
 {
     private $multipart;
@@ -13,9 +13,9 @@ final class RequestBodyParserMiddleware
      */
     public function __construct($uploadMaxFilesize = null, $maxFileUploads = null)
     {
-        $this->multipart = new \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Http\Io\MultipartParser($uploadMaxFilesize, $maxFileUploads);
+        $this->multipart = new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Http\Io\MultipartParser($uploadMaxFilesize, $maxFileUploads);
     }
-    public function __invoke(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface $request, $next)
+    public function __invoke(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface $request, $next)
     {
         $type = \strtolower($request->getHeaderLine('Content-Type'));
         list($type) = \explode(';', $type);
@@ -27,7 +27,7 @@ final class RequestBodyParserMiddleware
         }
         return $next($request);
     }
-    private function parseFormUrlencoded(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface $request)
+    private function parseFormUrlencoded(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface $request)
     {
         // parse string into array structure
         // ignore warnings due to excessive data structures (max_input_vars and max_input_nesting_level)

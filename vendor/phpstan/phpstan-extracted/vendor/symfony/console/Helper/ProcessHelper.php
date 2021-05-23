@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Helper;
+namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Helper;
 
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface;
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Exception\ProcessFailedException;
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Exception\ProcessFailedException;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process;
 /**
  * The ProcessHelper class provides helpers to run external processes.
  *
@@ -21,7 +21,7 @@ use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Proces
  *
  * @final since Symfony 4.2
  */
-class ProcessHelper extends \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Helper\Helper
+class ProcessHelper extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Helper\Helper
 {
     /**
      * Runs an external process.
@@ -34,26 +34,26 @@ class ProcessHelper extends \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony
      *
      * @return Process The process that ran
      */
-    public function run(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface $output, $cmd, $error = null, callable $callback = null, $verbosity = \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE)
+    public function run(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface $output, $cmd, $error = null, callable $callback = null, $verbosity = \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE)
     {
-        if (!\class_exists(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process::class)) {
+        if (!\class_exists(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process::class)) {
             throw new \LogicException('The ProcessHelper cannot be run as the Process component is not installed. Try running "compose require symfony/process".');
         }
-        if ($output instanceof \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+        if ($output instanceof \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $output = $output->getErrorOutput();
         }
         $formatter = $this->getHelperSet()->get('debug_formatter');
-        if ($cmd instanceof \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process) {
+        if ($cmd instanceof \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process) {
             $cmd = [$cmd];
         }
         if (!\is_array($cmd)) {
             @\trigger_error(\sprintf('Passing a command as a string to "%s()" is deprecated since Symfony 4.2, pass it the command as an array of arguments instead.', __METHOD__), \E_USER_DEPRECATED);
-            $cmd = [\method_exists(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process::class, 'fromShellCommandline') ? \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process::fromShellCommandline($cmd) : new \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process($cmd)];
+            $cmd = [\method_exists(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process::class, 'fromShellCommandline') ? \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process::fromShellCommandline($cmd) : new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process($cmd)];
         }
         if (\is_string($cmd[0] ?? null)) {
-            $process = new \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process($cmd);
+            $process = new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process($cmd);
             $cmd = [];
-        } elseif (($cmd[0] ?? null) instanceof \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process) {
+        } elseif (($cmd[0] ?? null) instanceof \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process) {
             $process = $cmd[0];
             unset($cmd[0]);
         } else {
@@ -92,11 +92,11 @@ class ProcessHelper extends \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony
      *
      * @see run()
      */
-    public function mustRun(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface $output, $cmd, $error = null, callable $callback = null)
+    public function mustRun(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface $output, $cmd, $error = null, callable $callback = null)
     {
         $process = $this->run($output, $cmd, $error, $callback);
         if (!$process->isSuccessful()) {
-            throw new \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Exception\ProcessFailedException($process);
+            throw new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Exception\ProcessFailedException($process);
         }
         return $process;
     }
@@ -105,14 +105,14 @@ class ProcessHelper extends \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony
      *
      * @return callable
      */
-    public function wrapCallback(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface $output, \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process $process, callable $callback = null)
+    public function wrapCallback(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface $output, \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process $process, callable $callback = null)
     {
-        if ($output instanceof \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+        if ($output instanceof \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $output = $output->getErrorOutput();
         }
         $formatter = $this->getHelperSet()->get('debug_formatter');
         return function ($type, $buffer) use($output, $process, $callback, $formatter) {
-            $output->write($formatter->progress(\spl_object_hash($process), $this->escapeString($buffer), \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process::ERR === $type));
+            $output->write($formatter->progress(\spl_object_hash($process), $this->escapeString($buffer), \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Process\Process::ERR === $type));
             if (null !== $callback) {
                 $callback($type, $buffer);
             }

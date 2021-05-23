@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210522\Hoa\Compiler\Exception;
+namespace RectorPrefix20210523\Hoa\Compiler\Exception;
 
 /**
  * Class \Hoa\Compiler\Exception\IllegalToken.
@@ -43,7 +43,7 @@ namespace RectorPrefix20210522\Hoa\Compiler\Exception;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class IllegalToken extends \RectorPrefix20210522\Hoa\Compiler\Exception\Exception
+class IllegalToken extends \RectorPrefix20210523\Hoa\Compiler\Exception\Exception
 {
     /**
      * Column.

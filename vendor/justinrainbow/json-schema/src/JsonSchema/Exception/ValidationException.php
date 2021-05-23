@@ -6,8 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210522\JsonSchema\Exception;
+namespace RectorPrefix20210523\JsonSchema\Exception;
 
-class ValidationException extends \RectorPrefix20210522\JsonSchema\Exception\RuntimeException
+class ValidationException extends \RectorPrefix20210523\JsonSchema\Exception\RuntimeException
 {
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
+namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
 
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
 /**
  * Provides a buffer stream that can be written to to fill a buffer, and read
  * from to remove bytes from the buffer.
@@ -11,7 +11,7 @@ use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
  * what the configured high water mark of the stream is, or the maximum
  * preferred size of the buffer.
  */
-class BufferStream implements \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
+class BufferStream implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
 {
     private $hwm;
     private $buffer = '';

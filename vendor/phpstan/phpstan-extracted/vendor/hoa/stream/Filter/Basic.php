@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210522\Hoa\Stream\Filter;
+namespace RectorPrefix20210523\Hoa\Stream\Filter;
 
-use RectorPrefix20210522\Hoa\Stream;
+use RectorPrefix20210523\Hoa\Stream;
 /**
  * Class \Hoa\Stream\Filter\Basic.
  *
@@ -45,7 +45,7 @@ use RectorPrefix20210522\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-abstract class Basic extends \php_user_filter implements \RectorPrefix20210522\Hoa\Stream\IStream\Stream
+abstract class Basic extends \php_user_filter implements \RectorPrefix20210523\Hoa\Stream\IStream\Stream
 {
     /**
      * Filter processed successfully with data available in the out bucket
@@ -108,8 +108,8 @@ abstract class Basic extends \php_user_filter implements \RectorPrefix20210522\H
      */
     public function filter($in, $out, &$consumed, $closing)
     {
-        $iBucket = new \RectorPrefix20210522\Hoa\Stream\Bucket($in);
-        $oBucket = new \RectorPrefix20210522\Hoa\Stream\Bucket($out);
+        $iBucket = new \RectorPrefix20210523\Hoa\Stream\Bucket($in);
+        $oBucket = new \RectorPrefix20210523\Hoa\Stream\Bucket($out);
         while (\false === $iBucket->eob()) {
             $consumed += $iBucket->getLength();
             $oBucket->append($iBucket);

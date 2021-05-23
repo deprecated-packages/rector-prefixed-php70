@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Roave\Signature\Encoder;
+namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Roave\Signature\Encoder;
 
-final class HmacEncoder implements \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Roave\Signature\Encoder\EncoderInterface
+final class HmacEncoder implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Roave\Signature\Encoder\EncoderInterface
 {
     /**
      * @var string

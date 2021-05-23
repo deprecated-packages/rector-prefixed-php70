@@ -1,11 +1,11 @@
 <?php
 
-namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Http\Io;
+namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Http\Io;
 
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Stream\Util;
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\Util;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
 use Exception;
 /**
  * [Internal] Decodes "Transfer-Encoding: chunked" from given stream and returns only payload data.
@@ -14,7 +14,7 @@ use Exception;
  *
  * @internal
  */
-class ChunkedDecoder extends \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface
+class ChunkedDecoder extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface
 {
     const CRLF = "\r\n";
     const MAX_CHUNK_HEADER_SIZE = 1024;
@@ -24,7 +24,7 @@ class ChunkedDecoder extends \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Evenem
     private $chunkSize = 0;
     private $transferredSize = 0;
     private $headerCompleted = \false;
-    public function __construct(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface $input)
+    public function __construct(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface $input)
     {
         $this->input = $input;
         $this->input->on('data', array($this, 'handleData'));
@@ -44,9 +44,9 @@ class ChunkedDecoder extends \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Evenem
     {
         $this->input->resume();
     }
-    public function pipe(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Stream\Util::pipe($this, $dest, $options);
+        \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

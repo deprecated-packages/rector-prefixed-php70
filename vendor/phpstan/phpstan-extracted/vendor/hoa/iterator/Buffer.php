@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210522\Hoa\Iterator;
+namespace RectorPrefix20210523\Hoa\Iterator;
 
 /**
  * Class \Hoa\Iterator\Buffer.
@@ -43,7 +43,7 @@ namespace RectorPrefix20210522\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Buffer extends \RectorPrefix20210522\Hoa\Iterator\IteratorIterator implements \RectorPrefix20210522\Hoa\Iterator\Outer
+class Buffer extends \RectorPrefix20210523\Hoa\Iterator\IteratorIterator implements \RectorPrefix20210523\Hoa\Iterator\Outer
 {
     /**
      * Buffer key index.

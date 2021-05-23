@@ -13,6 +13,7 @@ use PHPStan\Type\Type;
 use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
+use RectorPrefix20210523\Symfony\Contracts\Service\Attribute\Required;
 final class ClassMethodOrClassConstTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
@@ -20,9 +21,9 @@ final class ClassMethodOrClassConstTypeResolver implements \Rector\NodeTypeResol
      */
     private $nodeTypeResolver;
     /**
-     * @required
      * @return void
      */
+    #[Required]
     public function autowireClassMethodOrClassConstTypeResolver(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;

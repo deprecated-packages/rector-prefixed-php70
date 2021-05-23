@@ -1,17 +1,17 @@
 <?php
 
-namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Http;
+namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Http;
 
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface;
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Request;
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Uri;
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Http\Io\ReadableBodyStream;
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Http\Io\Sender;
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Http\Io\Transaction;
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface;
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface;
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Request;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Uri;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Http\Io\ReadableBodyStream;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Http\Io\Sender;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Http\Io\Transaction;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
 use InvalidArgumentException;
 /**
  * @final This class is final and shouldn't be extended as it is likely to be marked final in a future relase.
@@ -55,9 +55,9 @@ class Browser
      * @param ConnectorInterface|null $connector [optional] Connector to use.
      *     Should be `null` in order to use default Connector.
      */
-    public function __construct(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface $connector = null)
+    public function __construct(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface $connector = null)
     {
-        $this->transaction = new \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Http\Io\Transaction(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Http\Io\Sender::createFromLoop($loop, $connector), $loop);
+        $this->transaction = new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Http\Io\Transaction(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Http\Io\Sender::createFromLoop($loop, $connector), $loop);
     }
     /**
      * Sends an HTTP GET request
@@ -557,7 +557,7 @@ class Browser
             $browser->baseUrl = null;
             return $browser;
         }
-        $browser->baseUrl = new \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Uri($baseUrl);
+        $browser->baseUrl = new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Uri($baseUrl);
         if (!\in_array($browser->baseUrl->getScheme(), array('http', 'https')) || $browser->baseUrl->getHost() === '') {
             throw new \InvalidArgumentException('Base URL must be absolute');
         }
@@ -690,11 +690,11 @@ class Browser
     {
         if ($this->baseUrl !== null) {
             // ensure we're actually below the base URL
-            $url = \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Uri::resolve($this->baseUrl, $url);
+            $url = \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Uri::resolve($this->baseUrl, $url);
         }
-        if ($body instanceof \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface) {
-            $body = new \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\React\Http\Io\ReadableBodyStream($body);
+        if ($body instanceof \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface) {
+            $body = new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Http\Io\ReadableBodyStream($body);
         }
-        return $this->transaction->send(new \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Request($method, $url, $headers, $body, $this->protocolVersion));
+        return $this->transaction->send(new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Request($method, $url, $headers, $body, $this->protocolVersion));
     }
 }

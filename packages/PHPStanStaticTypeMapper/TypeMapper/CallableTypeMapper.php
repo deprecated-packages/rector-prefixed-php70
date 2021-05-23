@@ -13,6 +13,7 @@ use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareCallableTypeNode;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
+use RectorPrefix20210523\Symfony\Contracts\Service\Attribute\Required;
 final class CallableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
 {
     /**
@@ -20,9 +21,9 @@ final class CallableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
      */
     private $phpStanStaticTypeMapper;
     /**
-     * @required
      * @return void
      */
+    #[Required]
     public function autowireCallableTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;

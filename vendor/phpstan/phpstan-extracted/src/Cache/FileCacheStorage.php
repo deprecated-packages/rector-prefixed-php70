@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Cache;
 
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Nette\Utils\Random;
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Utils\Random;
 use PHPStan\File\FileWriter;
 class FileCacheStorage implements \PHPStan\Cache\CacheStorage
 {
@@ -65,7 +65,7 @@ class FileCacheStorage implements \PHPStan\Cache\CacheStorage
         $this->makeDir($this->directory);
         $this->makeDir($firstDirectory);
         $this->makeDir($secondDirectory);
-        $tmpPath = \sprintf('%s/%s.tmp', $this->directory, \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Nette\Utils\Random::generate());
+        $tmpPath = \sprintf('%s/%s.tmp', $this->directory, \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Utils\Random::generate());
         $errorBefore = \error_get_last();
         $exported = @\var_export(new \PHPStan\Cache\CacheItem($variableKey, $data), \true);
         $errorAfter = \error_get_last();

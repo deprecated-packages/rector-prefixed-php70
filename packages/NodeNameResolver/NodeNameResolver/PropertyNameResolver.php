@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
 use Rector\NodeNameResolver\NodeNameResolver;
+use RectorPrefix20210523\Symfony\Contracts\Service\Attribute\Required;
 final class PropertyNameResolver implements \Rector\NodeNameResolver\Contract\NodeNameResolverInterface
 {
     /**
@@ -14,9 +15,9 @@ final class PropertyNameResolver implements \Rector\NodeNameResolver\Contract\No
      */
     private $nodeNameResolver;
     /**
-     * @required
      * @return void
      */
+    #[Required]
     public function autowirePropertyNameResolver(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;

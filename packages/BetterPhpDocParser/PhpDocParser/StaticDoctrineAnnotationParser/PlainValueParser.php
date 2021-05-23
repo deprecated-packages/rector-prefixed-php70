@@ -14,6 +14,7 @@ use Rector\BetterPhpDocParser\PhpDocParser\StaticDoctrineAnnotationParser;
 use Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\ShouldNotHappenException;
+use RectorPrefix20210523\Symfony\Contracts\Service\Attribute\Required;
 final class PlainValueParser
 {
     /**
@@ -38,9 +39,9 @@ final class PlainValueParser
         $this->currentNodeProvider = $currentNodeProvider;
     }
     /**
-     * @required
      * @return void
      */
+    #[Required]
     public function autowirePlainValueParser(\Rector\BetterPhpDocParser\PhpDocParser\StaticDoctrineAnnotationParser $staticDoctrineAnnotationParser, \Rector\BetterPhpDocParser\PhpDocParser\StaticDoctrineAnnotationParser\ArrayParser $arrayParser)
     {
         $this->staticDoctrineAnnotationParser = $staticDoctrineAnnotationParser;

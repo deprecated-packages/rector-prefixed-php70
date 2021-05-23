@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
-use RectorPrefix20210522\Nette\Utils\Strings;
+use RectorPrefix20210523\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
@@ -21,6 +21,7 @@ use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedGenericObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
+use RectorPrefix20210523\Symfony\Contracts\Service\Attribute\Required;
 final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
 {
     /**
@@ -84,9 +85,9 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
         return new \PhpParser\Node\Name('object');
     }
     /**
-     * @required
      * @return void
      */
+    #[Required]
     public function autowireObjectTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
@@ -114,7 +115,7 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
         if ($genericObjectType instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedGenericObjectType) {
             return '\\' . $genericObjectType->getClassName();
         }
-        if (\RectorPrefix20210522\Nette\Utils\Strings::contains($genericObjectType->getClassName(), '\\')) {
+        if (\RectorPrefix20210523\Nette\Utils\Strings::contains($genericObjectType->getClassName(), '\\')) {
             return '\\' . $genericObjectType->getClassName();
         }
         return $genericObjectType->getClassName();

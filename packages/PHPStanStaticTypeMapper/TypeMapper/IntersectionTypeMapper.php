@@ -10,6 +10,7 @@ use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareIntersectionTypeNode;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
+use RectorPrefix20210523\Symfony\Contracts\Service\Attribute\Required;
 final class IntersectionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
 {
     /**
@@ -17,9 +18,9 @@ final class IntersectionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Co
      */
     private $phpStanStaticTypeMapper;
     /**
-     * @required
      * @return void
      */
+    #[Required]
     public function autowireIntersectionTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;

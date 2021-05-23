@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8;
+namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8;
 
 require_once __DIR__ . '/src/Rules/Methods/MethodAttributesRule.php';
 require_once __DIR__ . '/src/Rules/Methods/IncompatibleDefaultParameterTypeRule.php';

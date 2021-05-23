@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210522\Hoa\File;
+namespace RectorPrefix20210523\Hoa\File;
 
-use RectorPrefix20210522\Hoa\Event;
+use RectorPrefix20210523\Hoa\Event;
 /**
  * Class \Hoa\File\Watcher.
  *
@@ -44,7 +44,7 @@ use RectorPrefix20210522\Hoa\Event;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Watcher extends \RectorPrefix20210522\Hoa\File\Finder implements \RectorPrefix20210522\Hoa\Event\Listenable
+class Watcher extends \RectorPrefix20210523\Hoa\File\Finder implements \RectorPrefix20210523\Hoa\Event\Listenable
 {
     use Event\Listens;
     /**
@@ -61,7 +61,7 @@ class Watcher extends \RectorPrefix20210522\Hoa\File\Finder implements \RectorPr
     public function __construct($latency = null)
     {
         parent::__construct();
-        $this->setListener(new \RectorPrefix20210522\Hoa\Event\Listener($this, ['new', 'modify', 'move']));
+        $this->setListener(new \RectorPrefix20210523\Hoa\Event\Listener($this, ['new', 'modify', 'move']));
         if (null !== $latency) {
             $this->setLatency($latency);
         }
@@ -85,7 +85,7 @@ class Watcher extends \RectorPrefix20210522\Hoa\File\Finder implements \RectorPr
         while (\true) {
             foreach ($current as $name => $c) {
                 if (!isset($previous[$name])) {
-                    $this->getListener()->fire('new', new \RectorPrefix20210522\Hoa\Event\Bucket(['file' => $c]));
+                    $this->getListener()->fire('new', new \RectorPrefix20210523\Hoa\Event\Bucket(['file' => $c]));
                     continue;
                 }
                 if (null === $c->getHash()) {
@@ -93,12 +93,12 @@ class Watcher extends \RectorPrefix20210522\Hoa\File\Finder implements \RectorPr
                     continue;
                 }
                 if ($previous[$name]->getHash() != $c->getHash()) {
-                    $this->getListener()->fire('modify', new \RectorPrefix20210522\Hoa\Event\Bucket(['file' => $c]));
+                    $this->getListener()->fire('modify', new \RectorPrefix20210523\Hoa\Event\Bucket(['file' => $c]));
                 }
                 unset($previous[$name]);
             }
             foreach ($previous as $p) {
-                $this->getListener()->fire('move', new \RectorPrefix20210522\Hoa\Event\Bucket(['file' => $p]));
+                $this->getListener()->fire('move', new \RectorPrefix20210523\Hoa\Event\Bucket(['file' => $p]));
             }
             \usleep($this->getLatency() * 1000000);
             $previous = $current;

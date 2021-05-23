@@ -1,7 +1,7 @@
 <?php
 
-namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Clue\React\Block;
+namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Clue\React\Block;
 
-if (!\function_exists('RectorPrefix20210522\\_HumbugBox0b2f2d5c77b8\\Clue\\React\\Block\\sleep')) {
+if (!\function_exists('RectorPrefix20210523\\_HumbugBox0b2f2d5c77b8\\Clue\\React\\Block\\sleep')) {
     require __DIR__ . '/functions.php';
 }

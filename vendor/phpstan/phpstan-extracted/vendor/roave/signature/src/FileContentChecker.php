@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Roave\Signature;
+namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Roave\Signature;
 
-use RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Roave\Signature\Encoder\EncoderInterface;
-final class FileContentChecker implements \RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Roave\Signature\CheckerInterface
+use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Roave\Signature\Encoder\EncoderInterface;
+final class FileContentChecker implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Roave\Signature\CheckerInterface
 {
     /**
      * @var EncoderInterface
@@ -13,7 +13,7 @@ final class FileContentChecker implements \RectorPrefix20210522\_HumbugBox0b2f2d
     /**
      * {@inheritDoc}
      */
-    public function __construct(\RectorPrefix20210522\_HumbugBox0b2f2d5c77b8\Roave\Signature\Encoder\EncoderInterface $encoder)
+    public function __construct(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Roave\Signature\Encoder\EncoderInterface $encoder)
     {
         $this->encoder = $encoder;
     }
