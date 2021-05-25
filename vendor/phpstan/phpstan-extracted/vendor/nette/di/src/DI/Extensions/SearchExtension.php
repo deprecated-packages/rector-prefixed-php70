@@ -5,16 +5,16 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions;
+namespace RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions;
 
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Loaders\RobotLoader;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Utils\Arrays;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Loaders\RobotLoader;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Utils\Arrays;
 /**
  * Services auto-discovery.
  */
-final class SearchExtension extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\DI\CompilerExtension
+final class SearchExtension extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\CompilerExtension
 {
     /** @var array */
     private $classes = [];
@@ -24,9 +24,9 @@ final class SearchExtension extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8
     {
         $this->tempDir = $tempDir;
     }
-    public function getConfigSchema() : \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema
+    public function getConfigSchema() : \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema
     {
-        return \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::arrayOf(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::structure(['in' => \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::string()->required(), 'files' => \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::anyOf(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::listOf('string'), \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'classes' => \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::anyOf(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::listOf('string'), \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'extends' => \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::anyOf(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::listOf('string'), \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'implements' => \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::anyOf(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::listOf('string'), \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'exclude' => \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::structure(['classes' => \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::anyOf(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::listOf('string'), \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'extends' => \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::anyOf(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::listOf('string'), \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'implements' => \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::anyOf(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::listOf('string'), \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::string()->castTo('array'))->default([])]), 'tags' => \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::array()]))->before(function ($val) {
+        return \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::arrayOf(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::structure(['in' => \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::string()->required(), 'files' => \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::anyOf(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::listOf('string'), \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'classes' => \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::anyOf(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::listOf('string'), \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'extends' => \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::anyOf(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::listOf('string'), \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'implements' => \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::anyOf(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::listOf('string'), \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'exclude' => \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::structure(['classes' => \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::anyOf(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::listOf('string'), \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'extends' => \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::anyOf(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::listOf('string'), \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'implements' => \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::anyOf(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::listOf('string'), \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::string()->castTo('array'))->default([])]), 'tags' => \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::array()]))->before(function ($val) {
             return \is_string($val['in'] ?? null) ? ['default' => $val] : $val;
         });
     }
@@ -34,7 +34,7 @@ final class SearchExtension extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8
     {
         foreach (\array_filter($this->config) as $name => $batch) {
             if (!\is_dir($batch->in)) {
-                throw new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\DI\InvalidConfigurationException("Option '{$this->name} › {$name} › in' must be valid directory name, '{$batch->in}' given.");
+                throw new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\InvalidConfigurationException("Option '{$this->name} › {$name} › in' must be valid directory name, '{$batch->in}' given.");
             }
             foreach ($this->findClasses($batch) as $class) {
                 $this->classes[$class] = \array_merge($this->classes[$class] ?? [], $batch->tags);
@@ -43,7 +43,7 @@ final class SearchExtension extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8
     }
     public function findClasses(\stdClass $config) : array
     {
-        $robot = new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Loaders\RobotLoader();
+        $robot = new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Loaders\RobotLoader();
         $robot->setTempDirectory($this->tempDir);
         $robot->addDirectory($config->in);
         $robot->acceptFiles = $config->files ?: ['*.php'];
@@ -58,12 +58,12 @@ final class SearchExtension extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8
         $found = [];
         foreach ($classes as $class) {
             if (!\class_exists($class) && !\interface_exists($class) && !\trait_exists($class)) {
-                throw new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException("Class {$class} was found, but it cannot be loaded by autoloading.");
+                throw new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException("Class {$class} was found, but it cannot be loaded by autoloading.");
             }
             $rc = new \ReflectionClass($class);
-            if (($rc->isInstantiable() || $rc->isInterface() && \count($methods = $rc->getMethods()) === 1 && $methods[0]->name === 'create') && (!$acceptRE || \preg_match($acceptRE, $rc->name)) && (!$rejectRE || !\preg_match($rejectRE, $rc->name)) && (!$acceptParent || \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Utils\Arrays::some($acceptParent, function ($nm) use($rc) {
+            if (($rc->isInstantiable() || $rc->isInterface() && \count($methods = $rc->getMethods()) === 1 && $methods[0]->name === 'create') && (!$acceptRE || \preg_match($acceptRE, $rc->name)) && (!$rejectRE || !\preg_match($rejectRE, $rc->name)) && (!$acceptParent || \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Utils\Arrays::some($acceptParent, function ($nm) use($rc) {
                 return $rc->isSubclassOf($nm);
-            })) && (!$rejectParent || \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Utils\Arrays::every($rejectParent, function ($nm) use($rc) {
+            })) && (!$rejectParent || \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Utils\Arrays::every($rejectParent, function ($nm) use($rc) {
                 return !$rc->isSubclassOf($nm);
             }))) {
                 $found[] = $rc->name;
@@ -85,7 +85,7 @@ final class SearchExtension extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8
             } else {
                 $def = $builder->addFactoryDefinition(null)->setImplement($class);
             }
-            $def->setTags(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Utils\Arrays::normalize($tags, \true));
+            $def->setTags(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Utils\Arrays::normalize($tags, \true));
         }
     }
     /**

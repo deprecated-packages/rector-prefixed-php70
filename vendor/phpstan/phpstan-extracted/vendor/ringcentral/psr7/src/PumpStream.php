@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
+namespace RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
 
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
 /**
  * Provides a read only stream that pumps data from a PHP callable.
  *
@@ -13,7 +13,7 @@ use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
  * the read() function of the PumpStream. The provided callable MUST return
  * false when there is no more data to read.
  */
-class PumpStream implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
+class PumpStream implements \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
 {
     /** @var callable */
     private $source;
@@ -40,7 +40,7 @@ class PumpStream implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Htt
         $this->source = $source;
         $this->size = isset($options['size']) ? $options['size'] : null;
         $this->metadata = isset($options['metadata']) ? $options['metadata'] : array();
-        $this->buffer = new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\BufferStream();
+        $this->buffer = new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\BufferStream();
     }
     public function __toString()
     {

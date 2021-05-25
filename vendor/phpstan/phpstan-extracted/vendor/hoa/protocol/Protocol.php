@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210523\Hoa\Protocol;
+namespace RectorPrefix20210525\Hoa\Protocol;
 
-use RectorPrefix20210523\Hoa\Consistency;
+use RectorPrefix20210525\Hoa\Consistency;
 /**
  * Class \Hoa\Protocol\Protocol.
  *
@@ -44,7 +44,7 @@ use RectorPrefix20210523\Hoa\Consistency;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Protocol extends \RectorPrefix20210523\Hoa\Protocol\Node
+class Protocol extends \RectorPrefix20210525\Hoa\Protocol\Node
 {
     /**
      * No resolution value.
@@ -95,9 +95,9 @@ class Protocol extends \RectorPrefix20210523\Hoa\Protocol\Node
     {
         $root = \dirname(\dirname(__DIR__));
         $cwd = 'cli' === \PHP_SAPI ? \dirname(\realpath($_SERVER['argv'][0])) : \getcwd();
-        $this[] = new \RectorPrefix20210523\Hoa\Protocol\Node('Application', $cwd . DS, [new \RectorPrefix20210523\Hoa\Protocol\Node('Public', 'Public' . DS)]);
-        $this[] = new \RectorPrefix20210523\Hoa\Protocol\Node('Data', \dirname($cwd) . DS, [new \RectorPrefix20210523\Hoa\Protocol\Node('Etc', 'Etc' . DS, [new \RectorPrefix20210523\Hoa\Protocol\Node('Configuration', 'Configuration' . DS), new \RectorPrefix20210523\Hoa\Protocol\Node('Locale', 'Locale' . DS)]), new \RectorPrefix20210523\Hoa\Protocol\Node('Lost+found', 'Lost+found' . DS), new \RectorPrefix20210523\Hoa\Protocol\Node('Temporary', 'Temporary' . DS), new \RectorPrefix20210523\Hoa\Protocol\Node('Variable', 'Variable' . DS, [new \RectorPrefix20210523\Hoa\Protocol\Node('Cache', 'Cache' . DS), new \RectorPrefix20210523\Hoa\Protocol\Node('Database', 'Database' . DS), new \RectorPrefix20210523\Hoa\Protocol\Node('Log', 'Log' . DS), new \RectorPrefix20210523\Hoa\Protocol\Node('Private', 'Private' . DS), new \RectorPrefix20210523\Hoa\Protocol\Node('Run', 'Run' . DS), new \RectorPrefix20210523\Hoa\Protocol\Node('Test', 'Test' . DS)])]);
-        $this[] = new \RectorPrefix20210523\Hoa\Protocol\Node\Library('Library', $root . DS . 'Hoathis' . DS . RS . $root . DS . 'Hoa' . DS);
+        $this[] = new \RectorPrefix20210525\Hoa\Protocol\Node('Application', $cwd . DS, [new \RectorPrefix20210525\Hoa\Protocol\Node('Public', 'Public' . DS)]);
+        $this[] = new \RectorPrefix20210525\Hoa\Protocol\Node('Data', \dirname($cwd) . DS, [new \RectorPrefix20210525\Hoa\Protocol\Node('Etc', 'Etc' . DS, [new \RectorPrefix20210525\Hoa\Protocol\Node('Configuration', 'Configuration' . DS), new \RectorPrefix20210525\Hoa\Protocol\Node('Locale', 'Locale' . DS)]), new \RectorPrefix20210525\Hoa\Protocol\Node('Lost+found', 'Lost+found' . DS), new \RectorPrefix20210525\Hoa\Protocol\Node('Temporary', 'Temporary' . DS), new \RectorPrefix20210525\Hoa\Protocol\Node('Variable', 'Variable' . DS, [new \RectorPrefix20210525\Hoa\Protocol\Node('Cache', 'Cache' . DS), new \RectorPrefix20210525\Hoa\Protocol\Node('Database', 'Database' . DS), new \RectorPrefix20210525\Hoa\Protocol\Node('Log', 'Log' . DS), new \RectorPrefix20210525\Hoa\Protocol\Node('Private', 'Private' . DS), new \RectorPrefix20210525\Hoa\Protocol\Node('Run', 'Run' . DS), new \RectorPrefix20210525\Hoa\Protocol\Node('Test', 'Test' . DS)])]);
+        $this[] = new \RectorPrefix20210525\Hoa\Protocol\Node\Library('Library', $root . DS . 'Hoathis' . DS . RS . $root . DS . 'Hoa' . DS);
         return;
     }
     /**
@@ -175,4 +175,4 @@ class Protocol extends \RectorPrefix20210523\Hoa\Protocol\Node
 /**
  * Flex entity.
  */
-\RectorPrefix20210523\Hoa\Consistency::flexEntity('RectorPrefix20210523\\Hoa\\Protocol\\Protocol');
+\RectorPrefix20210525\Hoa\Consistency::flexEntity('RectorPrefix20210525\\Hoa\\Protocol\\Protocol');

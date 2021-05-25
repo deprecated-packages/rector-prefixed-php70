@@ -6,16 +6,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210523\JsonSchema\Constraints;
+namespace RectorPrefix20210525\JsonSchema\Constraints;
 
-use RectorPrefix20210523\JsonSchema\Entity\JsonPointer;
+use RectorPrefix20210525\JsonSchema\Entity\JsonPointer;
 /**
  * The ObjectConstraint Constraints, validates an object against a given schema
  *
  * @author Robert Schönthal <seroscho@googlemail.com>
  * @author Bruno Prieto Reis <bruno.p.reis@gmail.com>
  */
-class ObjectConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\Constraint
+class ObjectConstraint extends \RectorPrefix20210525\JsonSchema\Constraints\Constraint
 {
     /**
      * @var array List of properties to which a default value has been applied
@@ -24,9 +24,9 @@ class ObjectConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\Cons
     /**
      * {@inheritdoc}
      */
-    public function check(&$element, $schema = null, \RectorPrefix20210523\JsonSchema\Entity\JsonPointer $path = null, $properties = null, $additionalProp = null, $patternProperties = null, $appliedDefaults = array())
+    public function check(&$element, $schema = null, \RectorPrefix20210525\JsonSchema\Entity\JsonPointer $path = null, $properties = null, $additionalProp = null, $patternProperties = null, $appliedDefaults = array())
     {
-        if ($element instanceof \RectorPrefix20210523\JsonSchema\Constraints\UndefinedConstraint) {
+        if ($element instanceof \RectorPrefix20210525\JsonSchema\Constraints\UndefinedConstraint) {
             return;
         }
         $this->appliedDefaults = $appliedDefaults;
@@ -42,7 +42,7 @@ class ObjectConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\Cons
         // validate additional element properties & constraints
         $this->validateElement($element, $matches, $schema, $path, $properties, $additionalProp);
     }
-    public function validatePatternProperties($element, \RectorPrefix20210523\JsonSchema\Entity\JsonPointer $path = null, $patternProperties)
+    public function validatePatternProperties($element, \RectorPrefix20210525\JsonSchema\Entity\JsonPointer $path = null, $patternProperties)
     {
         $try = array('/', '#', '+', '~', '%');
         $matches = array();
@@ -79,7 +79,7 @@ class ObjectConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\Cons
      * @param \StdClass        $properties     Properties
      * @param mixed            $additionalProp Additional properties
      */
-    public function validateElement($element, $matches, $schema = null, \RectorPrefix20210523\JsonSchema\Entity\JsonPointer $path = null, $properties = null, $additionalProp = null)
+    public function validateElement($element, $matches, $schema = null, \RectorPrefix20210525\JsonSchema\Entity\JsonPointer $path = null, $properties = null, $additionalProp = null)
     {
         $this->validateMinMaxConstraint($element, $schema, $path);
         foreach ($element as $i => $value) {
@@ -103,7 +103,7 @@ class ObjectConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\Cons
             }
             $property = $this->getProperty($element, $i, $this->factory->createInstanceFor('undefined'));
             if (\is_object($property)) {
-                $this->validateMinMaxConstraint(!$property instanceof \RectorPrefix20210523\JsonSchema\Constraints\UndefinedConstraint ? $property : $element, $definition, $path);
+                $this->validateMinMaxConstraint(!$property instanceof \RectorPrefix20210525\JsonSchema\Constraints\UndefinedConstraint ? $property : $element, $definition, $path);
             }
         }
     }
@@ -114,7 +114,7 @@ class ObjectConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\Cons
      * @param \stdClass        $properties Property definitions
      * @param JsonPointer|null $path       Path?
      */
-    public function validateProperties(&$element, $properties = null, \RectorPrefix20210523\JsonSchema\Entity\JsonPointer $path = null)
+    public function validateProperties(&$element, $properties = null, \RectorPrefix20210525\JsonSchema\Entity\JsonPointer $path = null)
     {
         $undefinedConstraint = $this->factory->createInstanceFor('undefined');
         foreach ($properties as $i => $value) {
@@ -151,7 +151,7 @@ class ObjectConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\Cons
      * @param \stdClass        $objectDefinition ObjectConstraint definition
      * @param JsonPointer|null $path             Path to test?
      */
-    protected function validateMinMaxConstraint($element, $objectDefinition, \RectorPrefix20210523\JsonSchema\Entity\JsonPointer $path = null)
+    protected function validateMinMaxConstraint($element, $objectDefinition, \RectorPrefix20210525\JsonSchema\Entity\JsonPointer $path = null)
     {
         // Verify minimum number of properties
         if (isset($objectDefinition->minProperties) && !\is_object($objectDefinition->minProperties)) {

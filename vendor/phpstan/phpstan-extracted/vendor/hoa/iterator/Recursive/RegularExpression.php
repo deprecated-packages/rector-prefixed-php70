@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210523\Hoa\Iterator\Recursive;
+namespace RectorPrefix20210525\Hoa\Iterator\Recursive;
 
-use RectorPrefix20210523\Hoa\Iterator;
+use RectorPrefix20210525\Hoa\Iterator;
 /**
  * Class \Hoa\Iterator\Recursive\RegularExpression.
  *
@@ -48,7 +48,7 @@ use RectorPrefix20210523\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class RegularExpression extends \RectorPrefix20210523\Hoa\Iterator\RegularExpression implements \RectorPrefix20210523\Hoa\Iterator\Recursive\Recursive
+class RegularExpression extends \RectorPrefix20210525\Hoa\Iterator\RegularExpression implements \RectorPrefix20210525\Hoa\Iterator\Recursive\Recursive
 {
     /**
      * Constructor.

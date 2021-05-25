@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Event;
+namespace RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Event;
 
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Command\Command;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Command\Command;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Allows to manipulate the exit code of a command after its execution.
  *
@@ -20,10 +20,10 @@ use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output
  *
  * @final since Symfony 4.4
  */
-class ConsoleTerminateEvent extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Event\ConsoleEvent
+class ConsoleTerminateEvent extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Event\ConsoleEvent
 {
     private $exitCode;
-    public function __construct(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Command\Command $command, \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface $output, int $exitCode)
+    public function __construct(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Command\Command $command, \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface $output, int $exitCode)
     {
         parent::__construct($command, $input, $output);
         $this->setExitCode($exitCode);

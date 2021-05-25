@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210523;
+namespace RectorPrefix20210525;
 
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\ProjectType;
-use RectorPrefix20210523\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210523\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+use RectorPrefix20210525\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix20210525\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $parameters = $containerConfigurator->parameters();
     // paths and extensions
     $parameters->set(\Rector\Core\Configuration\Option::PATHS, []);

@@ -5,11 +5,11 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Traits;
+namespace RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Traits;
 
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Dumper;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Parameter;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Dumper;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Parameter;
 /**
  * @internal
  */
@@ -32,7 +32,7 @@ trait FunctionLike
      * @param string $code */
     public function setBody($code, $args = null)
     {
-        $this->body = $args === null ? $code : (new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Dumper())->format($code, ...$args);
+        $this->body = $args === null ? $code : (new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Dumper())->format($code, ...$args);
         return $this;
     }
     public function getBody() : string
@@ -43,7 +43,7 @@ trait FunctionLike
      * @param mixed[]|null $args */
     public function addBody(string $code, $args = null)
     {
-        $this->body .= ($args === null ? $code : (new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Dumper())->format($code, ...$args)) . "\n";
+        $this->body .= ($args === null ? $code : (new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Dumper())->format($code, ...$args)) . "\n";
         return $this;
     }
     /**
@@ -54,8 +54,8 @@ trait FunctionLike
     {
         $this->parameters = [];
         foreach ($val as $v) {
-            if (!$v instanceof \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Parameter) {
-                throw new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Argument must be Nette\\PhpGenerator\\Parameter[].');
+            if (!$v instanceof \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Parameter) {
+                throw new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Argument must be Nette\\PhpGenerator\\Parameter[].');
             }
             $this->parameters[$v->getName()] = $v;
         }
@@ -69,9 +69,9 @@ trait FunctionLike
     /**
      * @param  string  $name without $
      */
-    public function addParameter(string $name, $defaultValue = null) : \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Parameter
+    public function addParameter(string $name, $defaultValue = null) : \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Parameter
     {
-        $param = new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Parameter($name);
+        $param = new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Parameter($name);
         if (\func_num_args() > 1) {
             $param->setDefaultValue($defaultValue);
         }

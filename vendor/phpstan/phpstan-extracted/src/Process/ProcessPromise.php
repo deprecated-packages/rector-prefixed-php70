@@ -4,11 +4,11 @@ declare (strict_types=1);
 namespace PHPStan\Process;
 
 use PHPStan\Process\Runnable\Runnable;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\ChildProcess\Process;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Promise\ExtendedPromiseInterface;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\ChildProcess\Process;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Promise\ExtendedPromiseInterface;
 class ProcessPromise implements \PHPStan\Process\Runnable\Runnable
 {
     /** @var LoopInterface */
@@ -23,12 +23,12 @@ class ProcessPromise implements \PHPStan\Process\Runnable\Runnable
     private $process = null;
     /** @var bool */
     private $canceled = \false;
-    public function __construct(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, string $name, string $command)
+    public function __construct(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, string $name, string $command)
     {
         $this->loop = $loop;
         $this->name = $name;
         $this->command = $command;
-        $this->deferred = new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred();
+        $this->deferred = new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred();
     }
     public function getName() : string
     {
@@ -37,7 +37,7 @@ class ProcessPromise implements \PHPStan\Process\Runnable\Runnable
     /**
      * @return ExtendedPromiseInterface&CancellablePromiseInterface
      */
-    public function run() : \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface
+    public function run() : \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface
     {
         $tmpStdOutResource = \tmpfile();
         if ($tmpStdOutResource === \false) {
@@ -47,7 +47,7 @@ class ProcessPromise implements \PHPStan\Process\Runnable\Runnable
         if ($tmpStdErrResource === \false) {
             throw new \PHPStan\ShouldNotHappenException('Failed creating temp file for stderr.');
         }
-        $this->process = new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\ChildProcess\Process($this->command, null, null, [1 => $tmpStdOutResource, 2 => $tmpStdErrResource]);
+        $this->process = new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\ChildProcess\Process($this->command, null, null, [1 => $tmpStdOutResource, 2 => $tmpStdErrResource]);
         $this->process->start($this->loop);
         $this->process->on('exit', function ($exitCode) use($tmpStdOutResource, $tmpStdErrResource) {
             if ($this->canceled) {

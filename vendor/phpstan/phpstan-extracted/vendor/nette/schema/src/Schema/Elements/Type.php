@@ -5,14 +5,14 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Elements;
+namespace RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Elements;
 
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\DynamicParameter;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema;
-final class Type implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\DynamicParameter;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema;
+final class Type implements \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema
 {
     use Base;
     use Nette\SmartObject;
@@ -43,7 +43,7 @@ final class Type implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\S
      */
     public function dynamic()
     {
-        $this->type .= '|' . \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\DynamicParameter::class;
+        $this->type .= '|' . \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\DynamicParameter::class;
         return $this;
     }
     /**
@@ -70,7 +70,7 @@ final class Type implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\S
      */
     public function items($type = 'mixed')
     {
-        $this->items = $type instanceof \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema ? $type : new self($type);
+        $this->items = $type instanceof \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema ? $type : new self($type);
         return $this;
     }
     /**
@@ -83,7 +83,7 @@ final class Type implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\S
         return $this;
     }
     /********************* processing ****************d*g**/
-    public function normalize($value, \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
+    public function normalize($value, \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
     {
         $value = $this->doNormalize($value, $context);
         if (\is_array($value) && $this->items) {
@@ -97,8 +97,8 @@ final class Type implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\S
     }
     public function merge($value, $base)
     {
-        if (\is_array($value) && isset($value[\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::PREVENT_MERGING])) {
-            unset($value[\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::PREVENT_MERGING]);
+        if (\is_array($value) && isset($value[\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::PREVENT_MERGING])) {
+            unset($value[\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::PREVENT_MERGING]);
             return $value;
         }
         if (\is_array($value) && \is_array($base) && $this->items) {
@@ -113,9 +113,9 @@ final class Type implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\S
             }
             return $base;
         }
-        return \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::merge($value, $base);
+        return \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::merge($value, $base);
     }
-    public function complete($value, \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
+    public function complete($value, \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
     {
         if ($value === null && \is_array($this->default)) {
             $value = [];
@@ -129,8 +129,8 @@ final class Type implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\S
             $context->addError("The option %path% expects to match pattern '{$this->pattern}', '{$value}' given.");
             return;
         }
-        if ($value instanceof \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\DynamicParameter) {
-            $context->dynamics[] = [$value, \str_replace('|' . \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\DynamicParameter::class, '', $expected)];
+        if ($value instanceof \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\DynamicParameter) {
+            $context->dynamics[] = [$value, \str_replace('|' . \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\DynamicParameter::class, '', $expected)];
         }
         if ($this->items) {
             $errCount = \count($context->errors);
@@ -143,7 +143,7 @@ final class Type implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\S
                 return null;
             }
         }
-        $value = \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::merge($value, $this->default);
+        $value = \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::merge($value, $this->default);
         return $this->doFinalize($value, $context);
     }
 }

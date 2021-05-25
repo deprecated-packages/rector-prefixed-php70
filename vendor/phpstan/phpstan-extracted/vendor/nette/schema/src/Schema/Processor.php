@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema;
+namespace RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema;
 
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette;
 /**
  * Schema validator.
  */
@@ -27,7 +27,7 @@ final class Processor
      * @return mixed
      * @throws ValidationException
      */
-    public function process(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema $schema, $data)
+    public function process(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema $schema, $data)
     {
         $context = $this->createContext();
         $data = $schema->normalize($data, $context);
@@ -41,7 +41,7 @@ final class Processor
      * @return mixed
      * @throws ValidationException
      */
-    public function processMultiple(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema $schema, array $dataset)
+    public function processMultiple(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema $schema, array $dataset)
     {
         $context = $this->createContext();
         $flatten = null;
@@ -59,7 +59,7 @@ final class Processor
     /**
      * @return void
      */
-    private function throwsErrors(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
+    private function throwsErrors(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
     {
         $messages = [];
         foreach ($context->errors as $error) {
@@ -67,12 +67,12 @@ final class Processor
             $messages[] = \str_replace(' %path%', $error->path ? $pathStr : '', $error->message);
         }
         if ($messages) {
-            throw new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\ValidationException($messages[0], $messages);
+            throw new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\ValidationException($messages[0], $messages);
         }
     }
-    private function createContext() : \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context
+    private function createContext() : \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context
     {
-        $context = new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context();
+        $context = new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context();
         $context->skipDefaults = $this->skipDefaults;
         $this->onNewContext($context);
         return $context;

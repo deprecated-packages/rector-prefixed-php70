@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Analyser;
 
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -329,7 +329,7 @@ class MutatingScope implements \PHPStan\Analyser\Scope
             // list from https://www.php.net/manual/en/function.clearstatcache.php
             // stat(), lstat(), file_exists(), is_writable(), is_readable(), is_executable(), is_file(), is_dir(), is_link(), filectime(), fileatime(), filemtime(), fileinode(), filegroup(), fileowner(), filesize(), filetype(), and fileperms().
             foreach (['stat', 'lstat', 'file_exists', 'is_writable', 'is_readable', 'is_executable', 'is_file', 'is_dir', 'is_link', 'filectime', 'fileatime', 'filemtime', 'fileinode', 'filegroup', 'fileowner', 'filesize', 'filetype', 'fileperms'] as $functionName) {
-                if (!\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::startsWith((string) $exprString, $functionName . '(') && !\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::startsWith((string) $exprString, '\\' . $functionName . '(')) {
+                if (!\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::startsWith((string) $exprString, $functionName . '(') && !\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::startsWith((string) $exprString, '\\' . $functionName . '(')) {
                     continue;
                 }
                 unset($moreSpecificTypes[$exprString]);
@@ -2018,7 +2018,7 @@ class MutatingScope implements \PHPStan\Analyser\Scope
             }
             $variableTypes[$variableName] = \PHPStan\Analyser\VariableTypeHolder::createYes($variableType);
             foreach ($this->moreSpecificTypes as $exprString => $moreSpecificType) {
-                $matches = \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::matchAll((string) $exprString, '#^\\$([a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*)#');
+                $matches = \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::matchAll((string) $exprString, '#^\\$([a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*)#');
                 if ($matches === []) {
                     continue;
                 }
@@ -2243,7 +2243,7 @@ class MutatingScope implements \PHPStan\Analyser\Scope
         $variableString = $this->printer->prettyPrintExpr(new \PhpParser\Node\Expr\Variable($variableName));
         $moreSpecificTypeHolders = $this->moreSpecificTypes;
         foreach (\array_keys($moreSpecificTypeHolders) as $key) {
-            $matches = \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::matchAll((string) $key, '#\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*#');
+            $matches = \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::matchAll((string) $key, '#\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*#');
             if ($matches === []) {
                 continue;
             }
@@ -2377,19 +2377,19 @@ class MutatingScope implements \PHPStan\Analyser\Scope
         $invalidated = \false;
         foreach (\array_keys($moreSpecificTypeHolders) as $exprString) {
             $exprString = (string) $exprString;
-            if (\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::startsWith($exprString, $exprStringToInvalidate)) {
+            if (\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::startsWith($exprString, $exprStringToInvalidate)) {
                 if ($exprString === $exprStringToInvalidate && $requireMoreCharacters) {
                     continue;
                 }
                 $nextLetter = \substr($exprString, \strlen($exprStringToInvalidate), 1);
-                if (\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::match($nextLetter, '#[a-zA-Z_0-9\\x7f-\\xff]#') === null) {
+                if (\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::match($nextLetter, '#[a-zA-Z_0-9\\x7f-\\xff]#') === null) {
                     unset($moreSpecificTypeHolders[$exprString]);
                     unset($nativeExpressionTypes[$exprString]);
                     $invalidated = \true;
                     continue;
                 }
             }
-            $matches = \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::matchAll($exprString, '#\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*#');
+            $matches = \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::matchAll($exprString, '#\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*#');
             if ($matches === []) {
                 continue;
             }
@@ -2476,7 +2476,7 @@ class MutatingScope implements \PHPStan\Analyser\Scope
                 $scope = $scope->removeTypeFromExpression($expr, $type);
             }
             if (!$expr instanceof \PhpParser\Node\Expr\Variable || !\is_string($expr->name) || $specifiedTypes->shouldOverwrite()) {
-                $match = \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::match((string) $typeSpecification['exprString'], '#^\\$([a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*)#');
+                $match = \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::match((string) $typeSpecification['exprString'], '#^\\$([a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*)#');
                 if ($match !== null) {
                     $skipVariables[$match[1]] = \true;
                 }

@@ -6,19 +6,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210523\JsonSchema\Constraints;
+namespace RectorPrefix20210525\JsonSchema\Constraints;
 
-use RectorPrefix20210523\JsonSchema\Constraints\TypeCheck\LooseTypeCheck;
-use RectorPrefix20210523\JsonSchema\Entity\JsonPointer;
-use RectorPrefix20210523\JsonSchema\Exception\ValidationException;
-use RectorPrefix20210523\JsonSchema\Uri\UriResolver;
+use RectorPrefix20210525\JsonSchema\Constraints\TypeCheck\LooseTypeCheck;
+use RectorPrefix20210525\JsonSchema\Entity\JsonPointer;
+use RectorPrefix20210525\JsonSchema\Exception\ValidationException;
+use RectorPrefix20210525\JsonSchema\Uri\UriResolver;
 /**
  * The UndefinedConstraint Constraints
  *
  * @author Robert Schönthal <seroscho@googlemail.com>
  * @author Bruno Prieto Reis <bruno.p.reis@gmail.com>
  */
-class UndefinedConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\Constraint
+class UndefinedConstraint extends \RectorPrefix20210525\JsonSchema\Constraints\Constraint
 {
     /**
      * @var array List of properties to which a default value has been applied
@@ -27,12 +27,12 @@ class UndefinedConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\C
     /**
      * {@inheritdoc}
      */
-    public function check(&$value, $schema = null, \RectorPrefix20210523\JsonSchema\Entity\JsonPointer $path = null, $i = null, $fromDefault = \false)
+    public function check(&$value, $schema = null, \RectorPrefix20210525\JsonSchema\Entity\JsonPointer $path = null, $i = null, $fromDefault = \false)
     {
         if (\is_null($schema) || !\is_object($schema)) {
             return;
         }
-        $path = $this->incrementPath($path ?: new \RectorPrefix20210523\JsonSchema\Entity\JsonPointer(''), $i);
+        $path = $this->incrementPath($path ?: new \RectorPrefix20210525\JsonSchema\Entity\JsonPointer(''), $i);
         if ($fromDefault) {
             $path->setFromDefault();
         }
@@ -51,14 +51,14 @@ class UndefinedConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\C
      * @param JsonPointer $path
      * @param string      $i
      */
-    public function validateTypes(&$value, $schema, \RectorPrefix20210523\JsonSchema\Entity\JsonPointer $path, $i = null)
+    public function validateTypes(&$value, $schema, \RectorPrefix20210525\JsonSchema\Entity\JsonPointer $path, $i = null)
     {
         // check array
         if ($this->getTypeCheck()->isArray($value)) {
             $this->checkArray($value, $schema, $path, $i);
         }
         // check object
-        if (\RectorPrefix20210523\JsonSchema\Constraints\TypeCheck\LooseTypeCheck::isObject($value)) {
+        if (\RectorPrefix20210525\JsonSchema\Constraints\TypeCheck\LooseTypeCheck::isObject($value)) {
             // object processing should always be run on assoc arrays,
             // so use LooseTypeCheck here even if CHECK_MODE_TYPE_CAST
             // is not set (i.e. don't use $this->getTypeCheck() here).
@@ -85,7 +85,7 @@ class UndefinedConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\C
      * @param JsonPointer $path
      * @param string      $i
      */
-    protected function validateCommonProperties(&$value, $schema, \RectorPrefix20210523\JsonSchema\Entity\JsonPointer $path, $i = '')
+    protected function validateCommonProperties(&$value, $schema, \RectorPrefix20210525\JsonSchema\Entity\JsonPointer $path, $i = '')
     {
         // if it extends another schema, it must pass that schema as well
         if (isset($schema->extends)) {
@@ -110,7 +110,7 @@ class UndefinedConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\C
                 // Draft 4 - Required is an array of strings - e.g. "required": ["foo", ...]
                 foreach ($schema->required as $required) {
                     if (!$this->getTypeCheck()->propertyExists($value, $required)) {
-                        $this->addError($this->incrementPath($path ?: new \RectorPrefix20210523\JsonSchema\Entity\JsonPointer(''), $required), 'The property ' . $required . ' is required', 'required');
+                        $this->addError($this->incrementPath($path ?: new \RectorPrefix20210525\JsonSchema\Entity\JsonPointer(''), $required), 'The property ' . $required . ' is required', 'required');
                     }
                 }
             } elseif (isset($schema->required) && !\is_array($schema->required)) {
@@ -201,23 +201,23 @@ class UndefinedConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\C
         }
         // apply defaults if appropriate
         $requiredOnly = $this->factory->getConfig(self::CHECK_MODE_ONLY_REQUIRED_DEFAULTS);
-        if (isset($schema->properties) && \RectorPrefix20210523\JsonSchema\Constraints\TypeCheck\LooseTypeCheck::isObject($value)) {
+        if (isset($schema->properties) && \RectorPrefix20210525\JsonSchema\Constraints\TypeCheck\LooseTypeCheck::isObject($value)) {
             // $value is an object or assoc array, and properties are defined - treat as an object
             foreach ($schema->properties as $currentProperty => $propertyDefinition) {
                 $propertyDefinition = $this->factory->getSchemaStorage()->resolveRefSchema($propertyDefinition);
-                if (!\RectorPrefix20210523\JsonSchema\Constraints\TypeCheck\LooseTypeCheck::propertyExists($value, $currentProperty) && \property_exists($propertyDefinition, 'default') && $this->shouldApplyDefaultValue($requiredOnly, $propertyDefinition, $currentProperty, $schema)) {
+                if (!\RectorPrefix20210525\JsonSchema\Constraints\TypeCheck\LooseTypeCheck::propertyExists($value, $currentProperty) && \property_exists($propertyDefinition, 'default') && $this->shouldApplyDefaultValue($requiredOnly, $propertyDefinition, $currentProperty, $schema)) {
                     // assign default value
                     if (\is_object($propertyDefinition->default)) {
-                        \RectorPrefix20210523\JsonSchema\Constraints\TypeCheck\LooseTypeCheck::propertySet($value, $currentProperty, clone $propertyDefinition->default);
+                        \RectorPrefix20210525\JsonSchema\Constraints\TypeCheck\LooseTypeCheck::propertySet($value, $currentProperty, clone $propertyDefinition->default);
                     } else {
-                        \RectorPrefix20210523\JsonSchema\Constraints\TypeCheck\LooseTypeCheck::propertySet($value, $currentProperty, $propertyDefinition->default);
+                        \RectorPrefix20210525\JsonSchema\Constraints\TypeCheck\LooseTypeCheck::propertySet($value, $currentProperty, $propertyDefinition->default);
                     }
                     $this->appliedDefaults[] = $currentProperty;
                 }
             }
-        } elseif (isset($schema->items) && \RectorPrefix20210523\JsonSchema\Constraints\TypeCheck\LooseTypeCheck::isArray($value)) {
+        } elseif (isset($schema->items) && \RectorPrefix20210525\JsonSchema\Constraints\TypeCheck\LooseTypeCheck::isArray($value)) {
             $items = array();
-            if (\RectorPrefix20210523\JsonSchema\Constraints\TypeCheck\LooseTypeCheck::isArray($schema->items)) {
+            if (\RectorPrefix20210525\JsonSchema\Constraints\TypeCheck\LooseTypeCheck::isArray($schema->items)) {
                 $items = $schema->items;
             } elseif (isset($schema->minItems) && \count($value) < $schema->minItems) {
                 $items = \array_fill(\count($value), $schema->minItems - \count($value), $schema->items);
@@ -248,7 +248,7 @@ class UndefinedConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\C
      * @param JsonPointer $path
      * @param string      $i
      */
-    protected function validateOfProperties(&$value, $schema, \RectorPrefix20210523\JsonSchema\Entity\JsonPointer $path, $i = '')
+    protected function validateOfProperties(&$value, $schema, \RectorPrefix20210525\JsonSchema\Entity\JsonPointer $path, $i = '')
     {
         // Verify type
         if ($value instanceof self) {
@@ -276,7 +276,7 @@ class UndefinedConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\C
                     if ($isValid = \count($this->getErrors()) == \count($initErrors)) {
                         break;
                     }
-                } catch (\RectorPrefix20210523\JsonSchema\Exception\ValidationException $e) {
+                } catch (\RectorPrefix20210525\JsonSchema\Exception\ValidationException $e) {
                     $isValid = \false;
                 }
             }
@@ -298,7 +298,7 @@ class UndefinedConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\C
                         $matchedSchemas++;
                     }
                     $allErrors = \array_merge($allErrors, \array_values($this->getErrors()));
-                } catch (\RectorPrefix20210523\JsonSchema\Exception\ValidationException $e) {
+                } catch (\RectorPrefix20210525\JsonSchema\Exception\ValidationException $e) {
                     // deliberately do nothing here - validation failed, but we want to check
                     // other schema options in the OneOf field.
                 }
@@ -319,7 +319,7 @@ class UndefinedConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\C
      * @param JsonPointer $path
      * @param string      $i
      */
-    protected function validateDependencies($value, $dependencies, \RectorPrefix20210523\JsonSchema\Entity\JsonPointer $path, $i = '')
+    protected function validateDependencies($value, $dependencies, \RectorPrefix20210525\JsonSchema\Entity\JsonPointer $path, $i = '')
     {
         foreach ($dependencies as $key => $dependency) {
             if ($this->getTypeCheck()->propertyExists($value, $key)) {
@@ -344,7 +344,7 @@ class UndefinedConstraint extends \RectorPrefix20210523\JsonSchema\Constraints\C
     }
     protected function validateUri($schema, $schemaUri = null)
     {
-        $resolver = new \RectorPrefix20210523\JsonSchema\Uri\UriResolver();
+        $resolver = new \RectorPrefix20210525\JsonSchema\Uri\UriResolver();
         $retriever = $this->factory->getUriRetriever();
         $jsonSchema = null;
         if ($resolver->isValid($schemaUri)) {

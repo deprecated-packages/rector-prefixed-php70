@@ -1,11 +1,11 @@
 <?php
 
-namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Http\Message;
+namespace RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Message;
 
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Http\Io\HttpBodyStream;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Response as Psr7Response;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Io\HttpBodyStream;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Response as Psr7Response;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
 /**
  * Represents an outgoing server response message.
  *
@@ -30,7 +30,7 @@ use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
  *
  * @see \Psr\Http\Message\ResponseInterface
  */
-final class Response extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Response
+final class Response extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Response
 {
     /**
      * @param int                                            $status  HTTP status code (e.g. 200/404)
@@ -42,9 +42,9 @@ final class Response extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCe
      */
     public function __construct($status = 200, array $headers = array(), $body = '', $version = '1.1', $reason = null)
     {
-        if ($body instanceof \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface && !$body instanceof \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface) {
-            $body = new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Http\Io\HttpBodyStream($body, null);
-        } elseif (!\is_string($body) && !$body instanceof \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface) {
+        if ($body instanceof \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface && !$body instanceof \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface) {
+            $body = new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Io\HttpBodyStream($body, null);
+        } elseif (!\is_string($body) && !$body instanceof \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface) {
             throw new \InvalidArgumentException('Invalid response body given');
         }
         parent::__construct($status, $headers, $body, $version, $reason);

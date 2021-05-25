@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210523;
+namespace RectorPrefix20210525;
 
 if (\PHP_VERSION_ID < 80000) {
     if (\class_exists('Attribute', \false)) {

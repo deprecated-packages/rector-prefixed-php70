@@ -5,7 +5,7 @@ namespace PHPStan\Command\Symfony;
 
 use PHPStan\Command\Output;
 use PHPStan\Command\OutputStyle;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @internal
  */
@@ -15,7 +15,7 @@ class SymfonyOutput implements \PHPStan\Command\Output
     private $symfonyOutput;
     /** @var OutputStyle */
     private $style;
-    public function __construct(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface $symfonyOutput, \PHPStan\Command\OutputStyle $style)
+    public function __construct(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface $symfonyOutput, \PHPStan\Command\OutputStyle $style)
     {
         $this->symfonyOutput = $symfonyOutput;
         $this->style = $style;
@@ -25,21 +25,21 @@ class SymfonyOutput implements \PHPStan\Command\Output
      */
     public function writeFormatted(string $message)
     {
-        $this->symfonyOutput->write($message, \false, \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL);
+        $this->symfonyOutput->write($message, \false, \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL);
     }
     /**
      * @return void
      */
     public function writeLineFormatted(string $message)
     {
-        $this->symfonyOutput->writeln($message, \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL);
+        $this->symfonyOutput->writeln($message, \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL);
     }
     /**
      * @return void
      */
     public function writeRaw(string $message)
     {
-        $this->symfonyOutput->write($message, \false, \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW);
+        $this->symfonyOutput->write($message, \false, \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW);
     }
     public function getStyle() : \PHPStan\Command\OutputStyle
     {

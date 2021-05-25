@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Symfony\Composer;
 
-use RectorPrefix20210523\Nette\Utils\Strings;
-use RectorPrefix20210523\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
+use RectorPrefix20210525\Nette\Utils\Strings;
+use RectorPrefix20210525\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use Symplify\SmartFileSystem\SmartFileSystem;
 final class ComposerNamespaceMatcher
 {
@@ -16,7 +16,7 @@ final class ComposerNamespaceMatcher
      * @var \Symplify\ComposerJsonManipulator\ComposerJsonFactory
      */
     private $composerJsonFactory;
-    public function __construct(\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \RectorPrefix20210523\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory)
+    public function __construct(\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \RectorPrefix20210525\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory)
     {
         $this->smartFileSystem = $smartFileSystem;
         $this->composerJsonFactory = $composerJsonFactory;
@@ -37,7 +37,7 @@ final class ComposerNamespaceMatcher
                 $directory = [$directory];
             }
             foreach ($directory as $singleDirectory) {
-                if (!\RectorPrefix20210523\Nette\Utils\Strings::startsWith($path, $singleDirectory)) {
+                if (!\RectorPrefix20210525\Nette\Utils\Strings::startsWith($path, $singleDirectory)) {
                     continue;
                 }
                 return \rtrim($namespace, '\\');

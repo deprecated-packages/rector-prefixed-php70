@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Ci;
+namespace RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Ci;
 
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\CiDetector;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Env;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\TrinaryLogic;
-class GitHubActions extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Ci\AbstractCi
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\CiDetector;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Env;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\TrinaryLogic;
+class GitHubActions extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Ci\AbstractCi
 {
     const GITHUB_BASE_URL = 'https://github.com';
-    public static function isDetected(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Env $env) : bool
+    public static function isDetected(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Env $env) : bool
     {
         return $env->get('GITHUB_ACTIONS') !== \false;
     }
     public function getCiName() : string
     {
-        return \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\CiDetector::CI_GITHUB_ACTIONS;
+        return \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\CiDetector::CI_GITHUB_ACTIONS;
     }
-    public function isPullRequest() : \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\TrinaryLogic
+    public function isPullRequest() : \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\TrinaryLogic
     {
-        return \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('GITHUB_EVENT_NAME') === 'pull_request');
+        return \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('GITHUB_EVENT_NAME') === 'pull_request');
     }
     public function getBuildNumber() : string
     {

@@ -1,11 +1,11 @@
 <?php
 
-namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Http\Io;
+namespace RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Io;
 
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\Util;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Stream\Util;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Limits the amount of data the given stream can emit
  *
@@ -14,13 +14,13 @@ use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInter
  *
  * @internal
  */
-class LengthLimitedStream extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface
+class LengthLimitedStream extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface
 {
     private $stream;
     private $closed = \false;
     private $transferredLength = 0;
     private $maxLength;
-    public function __construct(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface $stream, $maxLength)
+    public function __construct(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface $stream, $maxLength)
     {
         $this->stream = $stream;
         $this->maxLength = $maxLength;
@@ -41,9 +41,9 @@ class LengthLimitedStream extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\E
     {
         $this->stream->resume();
     }
-    public function pipe(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Stream\Util::pipe($this, $dest, $options);
+        \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

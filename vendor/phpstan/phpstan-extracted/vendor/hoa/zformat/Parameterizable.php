@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210523\Hoa\Zformat;
+namespace RectorPrefix20210525\Hoa\Zformat;
 
 /**
  * Interface \Hoa\Zformat\Parameterizable.

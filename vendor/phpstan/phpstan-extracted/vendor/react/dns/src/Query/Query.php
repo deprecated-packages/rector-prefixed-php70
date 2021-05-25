@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Dns\Query;
+namespace RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Dns\Query;
 
 /**
  * This class represents a single question in a query/response message

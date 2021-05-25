@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210523\Hoa\Event;
+namespace RectorPrefix20210525\Hoa\Event;
 
 /**
  * Interface \Hoa\Event\Listenable.
@@ -43,7 +43,7 @@ namespace RectorPrefix20210523\Hoa\Event;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-interface Listenable extends \RectorPrefix20210523\Hoa\Event\Source
+interface Listenable extends \RectorPrefix20210525\Hoa\Event\Source
 {
     /**
      * Attach a callable to a listenable component.

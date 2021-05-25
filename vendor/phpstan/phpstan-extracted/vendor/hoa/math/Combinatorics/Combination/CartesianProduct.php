@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210523\Hoa\Math\Combinatorics\Combination;
+namespace RectorPrefix20210525\Hoa\Math\Combinatorics\Combination;
 
-use RectorPrefix20210523\Hoa\Iterator;
+use RectorPrefix20210525\Hoa\Iterator;
 /**
  * Class \Hoa\Math\Combinatorics\Combination\CartesianProduct.
  *
@@ -50,7 +50,7 @@ use RectorPrefix20210523\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class CartesianProduct implements \RectorPrefix20210523\Hoa\Iterator
+class CartesianProduct implements \RectorPrefix20210525\Hoa\Iterator
 {
     /**
      * All sets.
@@ -92,9 +92,9 @@ class CartesianProduct implements \RectorPrefix20210523\Hoa\Iterator
     {
         foreach (\func_get_args() as $s) {
             if (\is_array($s)) {
-                $s = new \RectorPrefix20210523\Hoa\Iterator\Map($s);
+                $s = new \RectorPrefix20210525\Hoa\Iterator\Map($s);
             } else {
-                $s = new \RectorPrefix20210523\Hoa\Iterator\IteratorIterator($s);
+                $s = new \RectorPrefix20210525\Hoa\Iterator\IteratorIterator($s);
             }
             $this->_sets[] = $s;
         }

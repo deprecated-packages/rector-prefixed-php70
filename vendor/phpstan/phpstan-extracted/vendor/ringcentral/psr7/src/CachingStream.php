@@ -1,13 +1,13 @@
 <?php
 
-namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
+namespace RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
 
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
 /**
  * Stream decorator that can cache previously read bytes from a sequentially
  * read stream.
  */
-class CachingStream extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\StreamDecoratorTrait implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
+class CachingStream extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\StreamDecoratorTrait implements \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
 {
     /** @var StreamInterface Stream being wrapped */
     private $remoteStream;
@@ -19,10 +19,10 @@ class CachingStream extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCen
      * @param StreamInterface $stream Stream to cache
      * @param StreamInterface $target Optionally specify where data is cached
      */
-    public function __construct(\RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface $stream, \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface $target = null)
+    public function __construct(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface $stream, \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface $target = null)
     {
         $this->remoteStream = $stream;
-        parent::__construct($target ?: new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Stream(\fopen('php://temp', 'r+')));
+        parent::__construct($target ?: new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Stream(\fopen('php://temp', 'r+')));
     }
     public function getSize()
     {
@@ -105,7 +105,7 @@ class CachingStream extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCen
     }
     private function cacheEntireStream()
     {
-        $target = new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\FnStream(array('write' => 'strlen'));
+        $target = new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\FnStream(array('write' => 'strlen'));
         copy_to_stream($this, $target);
         return $this->tell();
     }

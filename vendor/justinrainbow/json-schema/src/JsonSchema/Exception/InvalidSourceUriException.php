@@ -6,11 +6,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210523\JsonSchema\Exception;
+namespace RectorPrefix20210525\JsonSchema\Exception;
 
 /**
  * Wrapper for the InvalidSourceUriException
  */
-class InvalidSourceUriException extends \RectorPrefix20210523\JsonSchema\Exception\InvalidArgumentException
+class InvalidSourceUriException extends \RectorPrefix20210525\JsonSchema\Exception\InvalidArgumentException
 {
 }

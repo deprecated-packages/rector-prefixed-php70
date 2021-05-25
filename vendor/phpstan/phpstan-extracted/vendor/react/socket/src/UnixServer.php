@@ -1,9 +1,9 @@
 <?php
 
-namespace RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Socket;
+namespace RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Socket;
 
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
-use RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
 use RuntimeException;
 /**
@@ -19,7 +19,7 @@ use RuntimeException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-final class UnixServer extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface
+final class UnixServer extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface
 {
     private $master;
     private $loop;
@@ -41,7 +41,7 @@ final class UnixServer extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Even
      * @throws InvalidArgumentException if the listening address is invalid
      * @throws RuntimeException if listening on this address fails (already in use etc.)
      */
-    public function __construct($path, \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, array $context = array())
+    public function __construct($path, \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, array $context = array())
     {
         $this->loop = $loop;
         if (\strpos($path, '://') === \false) {
@@ -109,7 +109,7 @@ final class UnixServer extends \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\Even
     /** @internal */
     public function handleConnection($socket)
     {
-        $connection = new \RectorPrefix20210523\_HumbugBox0b2f2d5c77b8\React\Socket\Connection($socket, $this->loop);
+        $connection = new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Socket\Connection($socket, $this->loop);
         $connection->unix = \true;
         $this->emit('connection', array($connection));
     }
