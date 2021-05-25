@@ -451,6 +451,10 @@ final class PhpDocInfo
     {
         $this->isSingleLine = \false;
     }
+    public function getNode() : \PhpParser\Node
+    {
+        return $this->node;
+    }
     /**
      * @param \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode|null $phpDocTagValueNode
      */
