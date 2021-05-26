@@ -8,7 +8,7 @@ use PHPStan\Analyser\IgnoredErrorHelper;
 use PHPStan\Analyser\ResultCache\ResultCacheManagerFactory;
 use PHPStan\Internal\BytesHelper;
 use PHPStan\PhpDoc\StubValidator;
-use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface;
 class AnalyseApplication
 {
     /** @var AnalyserRunner */
@@ -43,7 +43,7 @@ class AnalyseApplication
      * @param mixed[]|null $projectConfigArray
      * @return AnalysisResult
      */
-    public function analyse(array $files, bool $onlyFiles, \PHPStan\Command\Output $stdOutput, \PHPStan\Command\Output $errorOutput, bool $defaultLevelUsed, bool $debug, $projectConfigFile, $projectConfigArray, \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Command\AnalysisResult
+    public function analyse(array $files, bool $onlyFiles, \PHPStan\Command\Output $stdOutput, \PHPStan\Command\Output $errorOutput, bool $defaultLevelUsed, bool $debug, $projectConfigFile, $projectConfigArray, \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Command\AnalysisResult
     {
         $this->updateMemoryLimitFile();
         $projectStubFiles = [];
@@ -105,7 +105,7 @@ class AnalyseApplication
      * @param string[] $allAnalysedFiles
      * @param string|null $projectConfigFile
      */
-    private function runAnalyser(array $files, array $allAnalysedFiles, bool $debug, $projectConfigFile, \PHPStan\Command\Output $stdOutput, \PHPStan\Command\Output $errorOutput, \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Analyser\AnalyserResult
+    private function runAnalyser(array $files, array $allAnalysedFiles, bool $debug, $projectConfigFile, \PHPStan\Command\Output $stdOutput, \PHPStan\Command\Output $errorOutput, \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Analyser\AnalyserResult
     {
         $filesCount = \count($files);
         $allAnalysedFilesCount = \count($allAnalysedFiles);

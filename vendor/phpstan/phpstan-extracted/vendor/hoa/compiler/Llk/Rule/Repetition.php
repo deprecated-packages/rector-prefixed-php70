@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210525\Hoa\Compiler\Llk\Rule;
+namespace RectorPrefix20210526\Hoa\Compiler\Llk\Rule;
 
-use RectorPrefix20210525\Hoa\Compiler;
+use RectorPrefix20210526\Hoa\Compiler;
 /**
  * Class \Hoa\Compiler\Llk\Rule\Repetition.
  *
@@ -44,7 +44,7 @@ use RectorPrefix20210525\Hoa\Compiler;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Repetition extends \RectorPrefix20210525\Hoa\Compiler\Llk\Rule\Rule
+class Repetition extends \RectorPrefix20210526\Hoa\Compiler\Llk\Rule\Rule
 {
     /**
      * Minimum bound.
@@ -73,7 +73,7 @@ class Repetition extends \RectorPrefix20210525\Hoa\Compiler\Llk\Rule\Rule
         $min = \max(0, (int) $min);
         $max = \max(-1, (int) $max);
         if (-1 !== $max && $min > $max) {
-            throw new \RectorPrefix20210525\Hoa\Compiler\Exception\Rule('Cannot repeat with a min (%d) greater than max (%d).', 0, [$min, $max]);
+            throw new \RectorPrefix20210526\Hoa\Compiler\Exception\Rule('Cannot repeat with a min (%d) greater than max (%d).', 0, [$min, $max]);
         }
         $this->_min = $min;
         $this->_max = $max;

@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210525\Hoa\Compiler\Llk\Sampler;
+namespace RectorPrefix20210526\Hoa\Compiler\Llk\Sampler;
 
-use RectorPrefix20210525\Hoa\Compiler;
+use RectorPrefix20210526\Hoa\Compiler;
 /**
  * Class \Hoa\Compiler\Llk\Sampler\Exception.
  *
@@ -44,6 +44,6 @@ use RectorPrefix20210525\Hoa\Compiler;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Exception extends \RectorPrefix20210525\Hoa\Compiler\Exception
+class Exception extends \RectorPrefix20210526\Hoa\Compiler\Exception
 {
 }

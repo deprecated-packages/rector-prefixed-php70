@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210525\Hoa\Protocol\Node;
+namespace RectorPrefix20210526\Hoa\Protocol\Node;
 
 /**
  * Class \Hoa\Protocol\Node\Library.
@@ -43,7 +43,7 @@ namespace RectorPrefix20210525\Hoa\Protocol\Node;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Library extends \RectorPrefix20210525\Hoa\Protocol\Node\Node
+class Library extends \RectorPrefix20210526\Hoa\Protocol\Node\Node
 {
     /**
      * Queue of the component.

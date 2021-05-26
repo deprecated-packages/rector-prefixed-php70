@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210525\Hoa\Iterator\Recursive;
+namespace RectorPrefix20210526\Hoa\Iterator\Recursive;
 
 /**
  * Class \Hoa\Iterator\Recursive\Mock.
@@ -44,7 +44,7 @@ namespace RectorPrefix20210525\Hoa\Iterator\Recursive;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Mock implements \RectorPrefix20210525\Hoa\Iterator\Recursive\Recursive
+class Mock implements \RectorPrefix20210526\Hoa\Iterator\Recursive\Recursive
 {
     /**
      * Current iterator.

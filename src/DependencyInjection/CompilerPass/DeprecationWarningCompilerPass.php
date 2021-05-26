@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace Rector\Core\DependencyInjection\CompilerPass;
 
 use Rector\Core\Configuration\Option;
-use RectorPrefix20210525\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use RectorPrefix20210525\Symfony\Component\DependencyInjection\ContainerBuilder;
-final class DeprecationWarningCompilerPass implements \RectorPrefix20210525\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+use RectorPrefix20210526\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use RectorPrefix20210526\Symfony\Component\DependencyInjection\ContainerBuilder;
+final class DeprecationWarningCompilerPass implements \RectorPrefix20210526\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var array<string, string>
@@ -15,7 +15,7 @@ final class DeprecationWarningCompilerPass implements \RectorPrefix20210525\Symf
     /**
      * @return void
      */
-    public function process(\RectorPrefix20210525\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function process(\RectorPrefix20210526\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         $parameterBag = $containerBuilder->getParameterBag();
         foreach (self::DEPRECATED_PARAMETERS as $parameter => $message) {

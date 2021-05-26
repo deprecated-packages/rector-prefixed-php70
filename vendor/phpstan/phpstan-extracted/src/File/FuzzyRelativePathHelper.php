@@ -45,7 +45,7 @@ class FuzzyRelativePathHelper implements \PHPStan\File\RelativePathHelper
             $pathArray = \explode($directorySeparator, $path);
             $pathTempParts = [];
             foreach ($pathArray as $i => $pathPart) {
-                if (\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::endsWith($pathPart, '.php')) {
+                if (\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::endsWith($pathPart, '.php')) {
                     continue;
                 }
                 if (!isset($pathToTrimArray[$i])) {

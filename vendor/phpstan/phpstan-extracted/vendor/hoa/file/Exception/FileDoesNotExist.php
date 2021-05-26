@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210525\Hoa\File\Exception;
+namespace RectorPrefix20210526\Hoa\File\Exception;
 
 /**
  * Class \Hoa\File\Exception\FileDoesNotExist.
@@ -43,6 +43,6 @@ namespace RectorPrefix20210525\Hoa\File\Exception;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class FileDoesNotExist extends \RectorPrefix20210525\Hoa\File\Exception\Exception
+class FileDoesNotExist extends \RectorPrefix20210526\Hoa\File\Exception\Exception
 {
 }

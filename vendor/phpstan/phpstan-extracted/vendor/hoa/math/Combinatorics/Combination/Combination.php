@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210525\Hoa\Math\Combinatorics\Combination;
+namespace RectorPrefix20210526\Hoa\Math\Combinatorics\Combination;
 
-use RectorPrefix20210525\Hoa\Consistency;
+use RectorPrefix20210526\Hoa\Consistency;
 /**
  * Class \Hoa\Math\Combinatorics\Combination.
  *
@@ -89,4 +89,4 @@ class Combination
 /**
  * Flex entity.
  */
-\RectorPrefix20210525\Hoa\Consistency::flexEntity('RectorPrefix20210525\\Hoa\\Math\\Combinatorics\\Combination\\Combination');
+\RectorPrefix20210526\Hoa\Consistency::flexEntity('RectorPrefix20210526\\Hoa\\Math\\Combinatorics\\Combination\\Combination');

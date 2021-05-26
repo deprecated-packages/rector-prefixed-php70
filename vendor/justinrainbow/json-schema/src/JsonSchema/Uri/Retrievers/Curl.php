@@ -6,23 +6,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210525\JsonSchema\Uri\Retrievers;
+namespace RectorPrefix20210526\JsonSchema\Uri\Retrievers;
 
-use RectorPrefix20210525\JsonSchema\Exception\RuntimeException;
-use RectorPrefix20210525\JsonSchema\Validator;
+use RectorPrefix20210526\JsonSchema\Exception\RuntimeException;
+use RectorPrefix20210526\JsonSchema\Validator;
 /**
  * Tries to retrieve JSON schemas from a URI using cURL library
  *
  * @author Sander Coolen <sander@jibber.nl>
  */
-class Curl extends \RectorPrefix20210525\JsonSchema\Uri\Retrievers\AbstractRetriever
+class Curl extends \RectorPrefix20210526\JsonSchema\Uri\Retrievers\AbstractRetriever
 {
     protected $messageBody;
     public function __construct()
     {
         if (!\function_exists('curl_init')) {
             // Cannot test this, because curl_init is present on all test platforms plus mock
-            throw new \RectorPrefix20210525\JsonSchema\Exception\RuntimeException('cURL not installed');
+            throw new \RectorPrefix20210526\JsonSchema\Exception\RuntimeException('cURL not installed');
             // @codeCoverageIgnore
         }
     }
@@ -37,10 +37,10 @@ class Curl extends \RectorPrefix20210525\JsonSchema\Uri\Retrievers\AbstractRetri
         \curl_setopt($ch, \CURLOPT_URL, $uri);
         \curl_setopt($ch, \CURLOPT_HEADER, \true);
         \curl_setopt($ch, \CURLOPT_RETURNTRANSFER, \true);
-        \curl_setopt($ch, \CURLOPT_HTTPHEADER, array('Accept: ' . \RectorPrefix20210525\JsonSchema\Validator::SCHEMA_MEDIA_TYPE));
+        \curl_setopt($ch, \CURLOPT_HTTPHEADER, array('Accept: ' . \RectorPrefix20210526\JsonSchema\Validator::SCHEMA_MEDIA_TYPE));
         $response = \curl_exec($ch);
         if (\false === $response) {
-            throw new \RectorPrefix20210525\JsonSchema\Exception\ResourceNotFoundException('JSON schema not found');
+            throw new \RectorPrefix20210526\JsonSchema\Exception\ResourceNotFoundException('JSON schema not found');
         }
         $this->fetchMessageBody($response);
         $this->fetchContentType($response);

@@ -75,7 +75,7 @@ use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Php\SimpleXMLElementClassPropertyReflectionExtension;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeAliasResolver;
-abstract class TestCase extends \RectorPrefix20210525\PHPUnit\Framework\TestCase
+abstract class TestCase extends \RectorPrefix20210526\PHPUnit\Framework\TestCase
 {
     /** @var bool */
     public static $useStaticReflectionProvider = \false;

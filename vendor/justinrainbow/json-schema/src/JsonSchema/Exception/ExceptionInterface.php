@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210525\JsonSchema\Exception;
+namespace RectorPrefix20210526\JsonSchema\Exception;
 
 interface ExceptionInterface
 {

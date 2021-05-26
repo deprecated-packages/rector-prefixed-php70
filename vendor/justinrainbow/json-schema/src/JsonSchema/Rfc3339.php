@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210525\JsonSchema;
+namespace RectorPrefix20210526\JsonSchema;
 
 class Rfc3339
 {

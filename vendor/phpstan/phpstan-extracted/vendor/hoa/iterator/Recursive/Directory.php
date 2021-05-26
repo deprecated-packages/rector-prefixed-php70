@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210525\Hoa\Iterator\Recursive;
+namespace RectorPrefix20210526\Hoa\Iterator\Recursive;
 
 /**
  * Class \Hoa\Iterator\Recursive\Directory.
@@ -100,7 +100,7 @@ class Directory extends \RecursiveDirectoryIterator
         if (null !== $this->_splFileInfoClass && $out instanceof \SplFileInfo) {
             $out->setInfoClass($this->_splFileInfoClass);
             $out = $out->getFileInfo();
-            if ($out instanceof \RectorPrefix20210525\Hoa\Iterator\SplFileInfo) {
+            if ($out instanceof \RectorPrefix20210526\Hoa\Iterator\SplFileInfo) {
                 $out->setRelativePath($this->getRelativePath());
             }
         }

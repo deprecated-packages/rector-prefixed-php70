@@ -5,7 +5,7 @@
  *
  * @filesource
  */
-namespace RectorPrefix20210525\JsonSchema\Uri\Retrievers;
+namespace RectorPrefix20210526\JsonSchema\Uri\Retrievers;
 
 /**
  * AbstractRetriever implements the default shared behavior
@@ -13,7 +13,7 @@ namespace RectorPrefix20210525\JsonSchema\Uri\Retrievers;
  *
  * @author Steven Garcia <webwhammy@gmail.com>
  */
-abstract class AbstractRetriever implements \RectorPrefix20210525\JsonSchema\Uri\Retrievers\UriRetrieverInterface
+abstract class AbstractRetriever implements \RectorPrefix20210526\JsonSchema\Uri\Retrievers\UriRetrieverInterface
 {
     /**
      * Media content type

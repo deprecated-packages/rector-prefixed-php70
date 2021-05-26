@@ -6,21 +6,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210525\JsonSchema\Constraints;
+namespace RectorPrefix20210526\JsonSchema\Constraints;
 
-use RectorPrefix20210525\JsonSchema\Entity\JsonPointer;
+use RectorPrefix20210526\JsonSchema\Entity\JsonPointer;
 /**
  * The NumberConstraint Constraints, validates an number against a given schema
  *
  * @author Robert Schönthal <seroscho@googlemail.com>
  * @author Bruno Prieto Reis <bruno.p.reis@gmail.com>
  */
-class NumberConstraint extends \RectorPrefix20210525\JsonSchema\Constraints\Constraint
+class NumberConstraint extends \RectorPrefix20210526\JsonSchema\Constraints\Constraint
 {
     /**
      * {@inheritdoc}
      */
-    public function check(&$element, $schema = null, \RectorPrefix20210525\JsonSchema\Entity\JsonPointer $path = null, $i = null)
+    public function check(&$element, $schema = null, \RectorPrefix20210526\JsonSchema\Entity\JsonPointer $path = null, $i = null)
     {
         // Verify minimum
         if (isset($schema->exclusiveMinimum)) {

@@ -34,12 +34,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210525\\Composer\\CaBundle\\": "src"
+            "RectorPrefix20210526\\Composer\\CaBundle\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210525\\Composer\\CaBundle\\": "tests"
+            "RectorPrefix20210526\\Composer\\CaBundle\\": "tests"
         }
     },
     "extra": {

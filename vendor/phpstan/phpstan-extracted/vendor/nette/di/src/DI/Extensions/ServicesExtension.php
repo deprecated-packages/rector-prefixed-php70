@@ -5,21 +5,21 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions;
+namespace RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions;
 
-use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette;
-use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions;
-use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Statement;
-use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers;
+use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions;
+use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Statement;
+use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers;
 /**
  * Service definitions loader.
  */
-final class ServicesExtension extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\CompilerExtension
+final class ServicesExtension extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\CompilerExtension
 {
     use Nette\SmartObject;
-    public function getConfigSchema() : \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema
+    public function getConfigSchema() : \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema
     {
-        return \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::arrayOf(new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\DefinitionSchema($this->getContainerBuilder()));
+        return \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Schema\Expect::arrayOf(new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\DefinitionSchema($this->getContainerBuilder()));
     }
     public function loadConfiguration()
     {
@@ -46,32 +46,32 @@ final class ServicesExtension extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77
                 $this->getContainerBuilder()->removeDefinition($name);
                 return;
             } elseif (!empty($config->alteration) && !$this->getContainerBuilder()->hasDefinition($name)) {
-                throw new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\InvalidConfigurationException('missing original definition for alteration.');
+                throw new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\InvalidConfigurationException('missing original definition for alteration.');
             }
             $def = $this->retrieveDefinition($name, $config);
-            static $methods = [\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\ServiceDefinition::class => 'updateServiceDefinition', \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\AccessorDefinition::class => 'updateAccessorDefinition', \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\FactoryDefinition::class => 'updateFactoryDefinition', \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\LocatorDefinition::class => 'updateLocatorDefinition', \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\ImportedDefinition::class => 'updateImportedDefinition'];
+            static $methods = [\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\ServiceDefinition::class => 'updateServiceDefinition', \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\AccessorDefinition::class => 'updateAccessorDefinition', \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\FactoryDefinition::class => 'updateFactoryDefinition', \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\LocatorDefinition::class => 'updateLocatorDefinition', \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\ImportedDefinition::class => 'updateImportedDefinition'];
             $this->{$methods[$config->defType]}($def, $config);
             $this->updateDefinition($def, $config);
         } catch (\Exception $e) {
-            throw new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\InvalidConfigurationException(($name ? "Service '{$name}': " : '') . $e->getMessage(), 0, $e);
+            throw new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\InvalidConfigurationException(($name ? "Service '{$name}': " : '') . $e->getMessage(), 0, $e);
         }
     }
     /**
      * Updates service definition according to normalized configuration.
      * @return void
      */
-    private function updateServiceDefinition(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\ServiceDefinition $definition, \stdClass $config)
+    private function updateServiceDefinition(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\ServiceDefinition $definition, \stdClass $config)
     {
         if ($config->factory) {
-            $definition->setFactory(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::filterArguments([$config->factory])[0]);
+            $definition->setFactory(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::filterArguments([$config->factory])[0]);
             $definition->setType(null);
         }
         if ($config->type) {
             $definition->setType($config->type);
         }
         if ($config->arguments) {
-            $arguments = \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::filterArguments($config->arguments);
-            if (empty($config->reset['arguments']) && !\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Utils\Arrays::isList($arguments)) {
+            $arguments = \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::filterArguments($config->arguments);
+            if (empty($config->reset['arguments']) && !\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Utils\Arrays::isList($arguments)) {
                 $arguments += $definition->getFactory()->arguments;
             }
             $definition->setArguments($arguments);
@@ -80,21 +80,21 @@ final class ServicesExtension extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77
             if (!empty($config->reset['setup'])) {
                 $definition->setSetup([]);
             }
-            foreach (\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::filterArguments($config->setup) as $id => $setup) {
+            foreach (\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::filterArguments($config->setup) as $id => $setup) {
                 if (\is_array($setup)) {
-                    $setup = new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Statement(\key($setup), \array_values($setup));
+                    $setup = new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Statement(\key($setup), \array_values($setup));
                 }
                 $definition->addSetup($setup);
             }
         }
         if (isset($config->inject)) {
-            $definition->addTag(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\InjectExtension::TAG_INJECT, $config->inject);
+            $definition->addTag(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\InjectExtension::TAG_INJECT, $config->inject);
         }
     }
     /**
      * @return void
      */
-    private function updateAccessorDefinition(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\AccessorDefinition $definition, \stdClass $config)
+    private function updateAccessorDefinition(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\AccessorDefinition $definition, \stdClass $config)
     {
         if (isset($config->implement)) {
             $definition->setImplement($config->implement);
@@ -106,7 +106,7 @@ final class ServicesExtension extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77
     /**
      * @return void
      */
-    private function updateFactoryDefinition(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\FactoryDefinition $definition, \stdClass $config)
+    private function updateFactoryDefinition(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\FactoryDefinition $definition, \stdClass $config)
     {
         $resultDef = $definition->getResultDefinition();
         if (isset($config->implement)) {
@@ -114,14 +114,14 @@ final class ServicesExtension extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77
             $definition->setAutowired(\true);
         }
         if ($config->factory) {
-            $resultDef->setFactory(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::filterArguments([$config->factory])[0]);
+            $resultDef->setFactory(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::filterArguments([$config->factory])[0]);
         }
         if ($config->type) {
             $resultDef->setFactory($config->type);
         }
         if ($config->arguments) {
-            $arguments = \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::filterArguments($config->arguments);
-            if (empty($config->reset['arguments']) && !\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\Utils\Arrays::isList($arguments)) {
+            $arguments = \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::filterArguments($config->arguments);
+            if (empty($config->reset['arguments']) && !\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Utils\Arrays::isList($arguments)) {
                 $arguments += $resultDef->getFactory()->arguments;
             }
             $resultDef->setArguments($arguments);
@@ -130,9 +130,9 @@ final class ServicesExtension extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77
             if (!empty($config->reset['setup'])) {
                 $resultDef->setSetup([]);
             }
-            foreach (\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::filterArguments($config->setup) as $id => $setup) {
+            foreach (\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::filterArguments($config->setup) as $id => $setup) {
                 if (\is_array($setup)) {
-                    $setup = new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Statement(\key($setup), \array_values($setup));
+                    $setup = new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Statement(\key($setup), \array_values($setup));
                 }
                 $resultDef->addSetup($setup);
             }
@@ -141,13 +141,13 @@ final class ServicesExtension extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77
             $definition->setParameters($config->parameters);
         }
         if (isset($config->inject)) {
-            $definition->addTag(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\InjectExtension::TAG_INJECT, $config->inject);
+            $definition->addTag(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\InjectExtension::TAG_INJECT, $config->inject);
         }
     }
     /**
      * @return void
      */
-    private function updateLocatorDefinition(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\LocatorDefinition $definition, \stdClass $config)
+    private function updateLocatorDefinition(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\LocatorDefinition $definition, \stdClass $config)
     {
         if (isset($config->implement)) {
             $definition->setImplement($config->implement);
@@ -162,7 +162,7 @@ final class ServicesExtension extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77
     /**
      * @return void
      */
-    private function updateImportedDefinition(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\ImportedDefinition $definition, \stdClass $config)
+    private function updateImportedDefinition(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\ImportedDefinition $definition, \stdClass $config)
     {
         if ($config->type) {
             $definition->setType($config->type);
@@ -171,7 +171,7 @@ final class ServicesExtension extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77
     /**
      * @return void
      */
-    private function updateDefinition(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Definition $definition, \stdClass $config)
+    private function updateDefinition(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Definition $definition, \stdClass $config)
     {
         if (isset($config->autowired)) {
             $definition->setAutowired($config->autowired);
@@ -204,7 +204,7 @@ final class ServicesExtension extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77
     /**
      * @param string|null $name
      */
-    private function retrieveDefinition($name, \stdClass $config) : \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Definition
+    private function retrieveDefinition($name, \stdClass $config) : \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Definition
     {
         $builder = $this->getContainerBuilder();
         if (!empty($config->reset['all'])) {

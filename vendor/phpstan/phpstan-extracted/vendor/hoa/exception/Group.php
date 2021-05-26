@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210525\Hoa\Exception;
+namespace RectorPrefix20210526\Hoa\Exception;
 
 /**
  * Class \Hoa\Exception\Group.
@@ -43,7 +43,7 @@ namespace RectorPrefix20210525\Hoa\Exception;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Group extends \RectorPrefix20210525\Hoa\Exception\Exception implements \ArrayAccess, \IteratorAggregate, \Countable
+class Group extends \RectorPrefix20210526\Hoa\Exception\Exception implements \ArrayAccess, \IteratorAggregate, \Countable
 {
     /**
      * All exceptions (stored in a stack for transactions).

@@ -1,17 +1,17 @@
 <?php
 
-namespace RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http;
+namespace RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http;
 
-use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
-use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
-use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Io\IniUtil;
-use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Io\MiddlewareRunner;
-use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Io\StreamingServer;
-use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Middleware\LimitConcurrentRequestsMiddleware;
-use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Middleware\StreamingRequestMiddleware;
-use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Middleware\RequestBodyBufferMiddleware;
-use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Middleware\RequestBodyParserMiddleware;
-use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface;
+use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
+use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Io\IniUtil;
+use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Io\MiddlewareRunner;
+use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Io\StreamingServer;
+use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Middleware\LimitConcurrentRequestsMiddleware;
+use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Middleware\StreamingRequestMiddleware;
+use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Middleware\RequestBodyBufferMiddleware;
+use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Middleware\RequestBodyParserMiddleware;
+use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface;
 /**
  * The `React\Http\Server` class is responsible for handling incoming connections and then
  * processing each incoming HTTP request.
@@ -162,7 +162,7 @@ use RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface;
  * concurrency settings. See also [streaming incoming request](#streaming-incoming-request)
  * below for more details.
  */
-final class Server extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter
+final class Server extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter
 {
     /**
      * The maximum buffer size used for each request.
@@ -193,7 +193,7 @@ final class Server extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Evenemen
      * @param callable[] ...$requestHandler
      * @see self::listen()
      */
-    public function __construct(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop)
+    public function __construct(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop)
     {
         $requestHandlers = \func_get_args();
         \array_shift($requestHandlers);
@@ -203,7 +203,7 @@ final class Server extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Evenemen
         }
         $streaming = \false;
         foreach ((array) $requestHandlers as $handler) {
-            if ($handler instanceof \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Middleware\StreamingRequestMiddleware) {
+            if ($handler instanceof \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Middleware\StreamingRequestMiddleware) {
                 $streaming = \true;
                 break;
             }
@@ -213,9 +213,9 @@ final class Server extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Evenemen
             $maxSize = $this->getMaxRequestSize();
             $concurrency = $this->getConcurrentRequestsLimit(\ini_get('memory_limit'), $maxSize);
             if ($concurrency !== null) {
-                $middleware[] = new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Middleware\LimitConcurrentRequestsMiddleware($concurrency);
+                $middleware[] = new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Middleware\LimitConcurrentRequestsMiddleware($concurrency);
             }
-            $middleware[] = new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Middleware\RequestBodyBufferMiddleware($maxSize);
+            $middleware[] = new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Middleware\RequestBodyBufferMiddleware($maxSize);
             // Checking for an empty string because that is what a boolean
             // false is returned as by ini_get depending on the PHP version.
             // @link http://php.net/manual/en/ini.core.php#ini.enable-post-data-reading
@@ -223,11 +223,11 @@ final class Server extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Evenemen
             // @link https://3v4l.org/qJtsa
             $enablePostDataReading = \ini_get('enable_post_data_reading');
             if ($enablePostDataReading !== '') {
-                $middleware[] = new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Middleware\RequestBodyParserMiddleware();
+                $middleware[] = new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Middleware\RequestBodyParserMiddleware();
             }
         }
         $middleware = \array_merge($middleware, $requestHandlers);
-        $this->streamingServer = new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Io\StreamingServer($loop, new \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Io\MiddlewareRunner($middleware));
+        $this->streamingServer = new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Io\StreamingServer($loop, new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Io\MiddlewareRunner($middleware));
         $that = $this;
         $this->streamingServer->on('error', function ($error) use($that) {
             $that->emit('error', array($error));
@@ -284,7 +284,7 @@ final class Server extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Evenemen
      *
      * @param ServerInterface $socket
      */
-    public function listen(\RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface $socket)
+    public function listen(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface $socket)
     {
         $this->streamingServer->listen($socket);
     }
@@ -298,8 +298,8 @@ final class Server extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Evenemen
         if ($memory_limit == -1) {
             return null;
         }
-        $availableMemory = \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Io\IniUtil::iniSizeToBytes($memory_limit) / 2;
-        $concurrentRequests = (int) \ceil($availableMemory / \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Io\IniUtil::iniSizeToBytes($post_max_size));
+        $availableMemory = \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Io\IniUtil::iniSizeToBytes($memory_limit) / 2;
+        $concurrentRequests = (int) \ceil($availableMemory / \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Io\IniUtil::iniSizeToBytes($post_max_size));
         return $concurrentRequests;
     }
     /**
@@ -308,7 +308,7 @@ final class Server extends \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\Evenemen
      */
     private function getMaxRequestSize($post_max_size = null)
     {
-        $maxSize = \RectorPrefix20210525\_HumbugBox0b2f2d5c77b8\React\Http\Io\IniUtil::iniSizeToBytes($post_max_size === null ? \ini_get('post_max_size') : $post_max_size);
+        $maxSize = \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Io\IniUtil::iniSizeToBytes($post_max_size === null ? \ini_get('post_max_size') : $post_max_size);
         return $maxSize === 0 || $maxSize >= self::MAXIMUM_BUFFER_SIZE ? self::MAXIMUM_BUFFER_SIZE : $maxSize;
     }
 }

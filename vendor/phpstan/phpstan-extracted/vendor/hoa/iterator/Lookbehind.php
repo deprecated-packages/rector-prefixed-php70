@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210525\Hoa\Iterator;
+namespace RectorPrefix20210526\Hoa\Iterator;
 
 /**
  * Class \Hoa\Iterator\Lookbehind.
@@ -43,7 +43,7 @@ namespace RectorPrefix20210525\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Lookbehind extends \RectorPrefix20210525\Hoa\Iterator\IteratorIterator implements \RectorPrefix20210525\Hoa\Iterator\Outer
+class Lookbehind extends \RectorPrefix20210526\Hoa\Iterator\IteratorIterator implements \RectorPrefix20210526\Hoa\Iterator\Outer
 {
     /**
      * Current iterator.

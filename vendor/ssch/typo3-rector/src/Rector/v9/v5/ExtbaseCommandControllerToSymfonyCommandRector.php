@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v5;
 
-use RectorPrefix20210525\Nette\Utils\Strings;
+use RectorPrefix20210526\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -21,6 +21,7 @@ use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddArgumentToSymfonyCommandRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddCommandsToReturnRector;
+use Ssch\TYPO3Rector\Template\TemplateFinder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -59,7 +60,11 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends \Rector\Core\
      * @var \Rector\Core\Configuration\Configuration
      */
     private $configuration;
-    public function __construct(\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\PhpParser\Parser\Parser $parser, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddArgumentToSymfonyCommandRector $addArgumentToSymfonyCommandRector, \Ssch\TYPO3Rector\Helper\FilesFinder $filesFinder, \Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddCommandsToReturnRector $addCommandsToReturnRector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \PhpParser\Parser $nikicParser, \Rector\Core\Configuration\Configuration $configuration)
+    /**
+     * @var \Ssch\TYPO3Rector\Template\TemplateFinder
+     */
+    private $templateFinder;
+    public function __construct(\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\PhpParser\Parser\Parser $parser, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddArgumentToSymfonyCommandRector $addArgumentToSymfonyCommandRector, \Ssch\TYPO3Rector\Helper\FilesFinder $filesFinder, \Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddCommandsToReturnRector $addCommandsToReturnRector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \PhpParser\Parser $nikicParser, \Rector\Core\Configuration\Configuration $configuration, \Ssch\TYPO3Rector\Template\TemplateFinder $templateFinder)
     {
         $this->smartFileSystem = $smartFileSystem;
         $this->parser = $parser;
@@ -68,6 +73,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends \Rector\Core\
         $this->addCommandsToReturnRector = $addCommandsToReturnRector;
         $this->nikicParser = $nikicParser;
         $this->configuration = $configuration;
+        $this->templateFinder = $templateFinder;
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
     }
@@ -124,8 +130,8 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends \Rector\Core\
             $descriptionPhpDocNode = $commandPhpDocInfo->getByType(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode::class);
             $methodParameters = $commandMethod->params;
             $commandDescription = null !== $descriptionPhpDocNode ? (string) $descriptionPhpDocNode : '';
-            $commandTemplate = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/../../../../templates/maker/Commands/Command.tpl.php');
-            $commandName = \RectorPrefix20210525\Nette\Utils\Strings::firstUpper($commandMethodName);
+            $commandTemplate = $this->templateFinder->getCommand();
+            $commandName = \RectorPrefix20210526\Nette\Utils\Strings::firstUpper($commandMethodName);
             $commandContent = $commandTemplate->getContents();
             $filePath = \sprintf('%s/Classes/Command/%s.php', $extensionDirectory, $commandName);
             // Do not overwrite existing file
@@ -157,7 +163,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends \Rector\Core\
             $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
             $this->createDeepDirectoryFromFilePath($filePath);
             $this->removedAndAddedFilesCollector->addAddedFile(new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($filePath, $changedSetConfigContent));
-            $newCommandName = \sprintf('%s:%s', \RectorPrefix20210525\Nette\Utils\Strings::lower($vendorName), \RectorPrefix20210525\Nette\Utils\Strings::lower($commandName));
+            $newCommandName = \sprintf('%s:%s', \RectorPrefix20210526\Nette\Utils\Strings::lower($vendorName), \RectorPrefix20210526\Nette\Utils\Strings::lower($commandName));
             $newCommandsWithFullQualifiedNamespace[$newCommandName] = \sprintf('%s\\%s', $commandNamespace, $commandName);
         }
         $this->addNewCommandsToCommandsFile($commandsFilePath, $newCommandsWithFullQualifiedNamespace);
@@ -223,7 +229,7 @@ CODE_SAMPLE
             if (null === $methodName) {
                 return null;
             }
-            return \RectorPrefix20210525\Nette\Utils\Strings::endsWith($methodName, 'Command');
+            return \RectorPrefix20210526\Nette\Utils\Strings::endsWith($methodName, 'Command');
         });
     }
     /**
@@ -237,7 +243,7 @@ CODE_SAMPLE
             $nodes = $this->parser->parseFileInfo($commandsSmartFileInfo);
         } else {
             $this->createDeepDirectoryFromFilePath($commandsFilePath);
-            $defaultsCommandsTemplate = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/../../../../templates/maker/Commands/Commands.tpl.php');
+            $defaultsCommandsTemplate = $this->templateFinder->getCommandsConfiguration();
             $nodes = $this->parser->parseFileInfo($defaultsCommandsTemplate);
         }
         $this->decorateNamesToFullyQualified($nodes);
