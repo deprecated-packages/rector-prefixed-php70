@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Ssch\TYPO3Rector\Helper;
 
-use RectorPrefix20210526\Nette\Utils\Strings;
-use RectorPrefix20210526\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
+use RectorPrefix20210527\Nette\Utils\Strings;
+use RectorPrefix20210527\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
 use Symplify\SmartFileSystem\SmartFileInfo;
 final class FilesFinder
 {
@@ -41,7 +41,7 @@ final class FilesFinder
     private function findFileRelativeFromGivenFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $filename)
     {
         // special case for tests
-        if (\RectorPrefix20210526\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (\RectorPrefix20210527\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return $fileInfo;
         }
         $currentDirectory = \dirname($fileInfo->getRealPath());
@@ -76,6 +76,6 @@ final class FilesFinder
     }
     private function endsWith(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $needle) : bool
     {
-        return \RectorPrefix20210526\Nette\Utils\Strings::endsWith($fileInfo->getFilename(), $needle);
+        return \RectorPrefix20210527\Nette\Utils\Strings::endsWith($fileInfo->getFilename(), $needle);
     }
 }

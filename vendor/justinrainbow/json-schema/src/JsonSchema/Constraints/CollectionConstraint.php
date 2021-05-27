@@ -6,21 +6,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210526\JsonSchema\Constraints;
+namespace RectorPrefix20210527\JsonSchema\Constraints;
 
-use RectorPrefix20210526\JsonSchema\Entity\JsonPointer;
+use RectorPrefix20210527\JsonSchema\Entity\JsonPointer;
 /**
  * The CollectionConstraint Constraints, validates an array against a given schema
  *
  * @author Robert Schönthal <seroscho@googlemail.com>
  * @author Bruno Prieto Reis <bruno.p.reis@gmail.com>
  */
-class CollectionConstraint extends \RectorPrefix20210526\JsonSchema\Constraints\Constraint
+class CollectionConstraint extends \RectorPrefix20210527\JsonSchema\Constraints\Constraint
 {
     /**
      * {@inheritdoc}
      */
-    public function check(&$value, $schema = null, \RectorPrefix20210526\JsonSchema\Entity\JsonPointer $path = null, $i = null)
+    public function check(&$value, $schema = null, \RectorPrefix20210527\JsonSchema\Entity\JsonPointer $path = null, $i = null)
     {
         // Verify minItems
         if (isset($schema->minItems) && \count($value) < $schema->minItems) {
@@ -55,7 +55,7 @@ class CollectionConstraint extends \RectorPrefix20210526\JsonSchema\Constraints\
      * @param JsonPointer|null $path
      * @param string           $i
      */
-    protected function validateItems(&$value, $schema = null, \RectorPrefix20210526\JsonSchema\Entity\JsonPointer $path = null, $i = null)
+    protected function validateItems(&$value, $schema = null, \RectorPrefix20210527\JsonSchema\Entity\JsonPointer $path = null, $i = null)
     {
         if (\is_object($schema->items)) {
             // just one type definition for the whole array

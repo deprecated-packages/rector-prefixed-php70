@@ -33,11 +33,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210526\Hoa\Compiler\Llk\Sampler;
+namespace RectorPrefix20210527\Hoa\Compiler\Llk\Sampler;
 
-use RectorPrefix20210526\Hoa\Compiler;
-use RectorPrefix20210526\Hoa\Consistency;
-use RectorPrefix20210526\Hoa\Visitor;
+use RectorPrefix20210527\Hoa\Compiler;
+use RectorPrefix20210527\Hoa\Consistency;
+use RectorPrefix20210527\Hoa\Visitor;
 /**
  * Class \Hoa\Compiler\Llk\Sampler.
  *
@@ -96,7 +96,7 @@ abstract class Sampler
      * @param   \Hoa\Compiler\Llk\Parser  $compiler        Compiler/parser.
      * @param   \Hoa\Visitor\Visit        $tokenSampler    Token sampler.
      */
-    public function __construct(\RectorPrefix20210526\Hoa\Compiler\Llk\Parser $compiler, \RectorPrefix20210526\Hoa\Visitor\Visit $tokenSampler)
+    public function __construct(\RectorPrefix20210527\Hoa\Compiler\Llk\Parser $compiler, \RectorPrefix20210527\Hoa\Visitor\Visit $tokenSampler)
     {
         $this->_compiler = $compiler;
         $this->_tokens = $compiler->getTokens();
@@ -122,7 +122,7 @@ abstract class Sampler
     protected function getSkipTokenAST()
     {
         if (!isset($this->_skipTokenAST[$this->_currentNamespace])) {
-            $token = new \RectorPrefix20210526\Hoa\Compiler\Llk\Rule\Token(-1, 'skip', null, -1);
+            $token = new \RectorPrefix20210527\Hoa\Compiler\Llk\Rule\Token(-1, 'skip', null, -1);
             $token->setRepresentation($this->_tokens[$this->_currentNamespace]['skip']);
             $this->_skipTokenAST[$this->_currentNamespace] = $token->getAST();
         }
@@ -135,7 +135,7 @@ abstract class Sampler
      * @param   \Hoa\Compiler\Llk\Rule\Token  $token    Token.
      * @return  string
      */
-    protected function completeToken(\RectorPrefix20210526\Hoa\Compiler\Llk\Rule\Token $token)
+    protected function completeToken(\RectorPrefix20210527\Hoa\Compiler\Llk\Rule\Token $token)
     {
         if (null !== $token->getRepresentation()) {
             return $this->_currentNamespace;
@@ -178,7 +178,7 @@ abstract class Sampler
      * @param   \Hoa\Compiler\Llk\Rule\Token  $token    Token.
      * @return  string
      */
-    protected function generateToken(\RectorPrefix20210526\Hoa\Compiler\Llk\Rule\Token $token)
+    protected function generateToken(\RectorPrefix20210527\Hoa\Compiler\Llk\Rule\Token $token)
     {
         $toNamespace = $this->completeToken($token);
         $this->setCurrentNamespace($toNamespace);
@@ -192,4 +192,4 @@ abstract class Sampler
 /**
  * Flex entity.
  */
-\RectorPrefix20210526\Hoa\Consistency::flexEntity('RectorPrefix20210526\\Hoa\\Compiler\\Llk\\Sampler\\Sampler');
+\RectorPrefix20210527\Hoa\Consistency::flexEntity('RectorPrefix20210527\\Hoa\\Compiler\\Llk\\Sampler\\Sampler');

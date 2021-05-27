@@ -1,17 +1,17 @@
 <?php
 
-namespace RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\Stream;
+namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\Stream;
 
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
 use InvalidArgumentException;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
 /**
  * @internal
  * @see unwrapWritable() instead
  */
-class UnwrapWritableStream extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface
+class UnwrapWritableStream extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface
 {
     private $promise;
     private $stream;
@@ -23,7 +23,7 @@ class UnwrapWritableStream extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\
      *
      * @param PromiseInterface $promise Promise<WritableStreamInterface, Exception>
      */
-    public function __construct(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface $promise)
+    public function __construct(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface $promise)
     {
         $out = $this;
         $store =& $this->stream;
@@ -31,11 +31,11 @@ class UnwrapWritableStream extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\
         $ending =& $this->ending;
         $closed =& $this->closed;
         $this->promise = $promise->then(function ($stream) {
-            if (!$stream instanceof \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface) {
+            if (!$stream instanceof \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface) {
                 throw new \InvalidArgumentException('Not a writable stream');
             }
             return $stream;
-        })->then(function (\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $stream) use($out, &$store, &$buffer, &$ending, &$closed) {
+        })->then(function (\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $stream) use($out, &$store, &$buffer, &$ending, &$closed) {
             // stream is already closed, make sure to close output stream
             if (!$stream->isWritable()) {
                 $out->close();
@@ -126,7 +126,7 @@ class UnwrapWritableStream extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\
         $this->ending = \true;
         $this->closed = \true;
         // try to cancel promise once the stream closes
-        if ($this->promise instanceof \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface) {
+        if ($this->promise instanceof \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\CancellablePromiseInterface) {
             $this->promise->cancel();
         }
         $this->promise = $this->stream = null;

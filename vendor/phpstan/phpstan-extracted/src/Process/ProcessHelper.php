@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace PHPStan\Process;
 
 use PHPStan\Command\AnalyseCommand;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface;
 class ProcessHelper
 {
     /**
@@ -15,7 +15,7 @@ class ProcessHelper
      * @param InputInterface $input
      * @return string
      */
-    public static function getWorkerCommand(string $mainScript, string $commandName, $projectConfigFile, array $additionalItems, \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface $input) : string
+    public static function getWorkerCommand(string $mainScript, string $commandName, $projectConfigFile, array $additionalItems, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Input\InputInterface $input) : string
     {
         $processCommandArray = [\escapeshellarg(\PHP_BINARY)];
         if ($input->getOption('memory-limit') === null) {

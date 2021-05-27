@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210526\Hoa\Math\Exception;
+namespace RectorPrefix20210527\Hoa\Math\Exception;
 
 /**
  * Class \Hoa\Math\Exception\UnknownVariable.
@@ -43,6 +43,6 @@ namespace RectorPrefix20210526\Hoa\Math\Exception;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class UnknownVariable extends \RectorPrefix20210526\Hoa\Math\Exception\Exception
+class UnknownVariable extends \RectorPrefix20210527\Hoa\Math\Exception\Exception
 {
 }

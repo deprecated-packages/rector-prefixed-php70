@@ -1,9 +1,9 @@
 <?php
 
-namespace RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Socket;
+namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket;
 
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
 use BadMethodCallException;
 use UnexpectedValueException;
 /**
@@ -50,7 +50,7 @@ use UnexpectedValueException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-final class SecureServer extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface
+final class SecureServer extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface
 {
     private $tcp;
     private $encryption;
@@ -113,7 +113,7 @@ final class SecureServer extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Ev
      * @see TcpServer
      * @link https://www.php.net/manual/en/context.ssl.php for TLS context options
      */
-    public function __construct(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface $tcp, \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, array $context)
+    public function __construct(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface $tcp, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, array $context)
     {
         if (!\function_exists('stream_socket_enable_crypto')) {
             throw new \BadMethodCallException('Encryption not supported on your platform (HHVM < 3.8?)');
@@ -122,7 +122,7 @@ final class SecureServer extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Ev
         // default to empty passphrase to suppress blocking passphrase prompt
         $context += array('passphrase' => '');
         $this->tcp = $tcp;
-        $this->encryption = new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Socket\StreamEncryption($loop);
+        $this->encryption = new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket\StreamEncryption($loop);
         $this->context = $context;
         $that = $this;
         $this->tcp->on('connection', function ($connection) use($that) {
@@ -153,9 +153,9 @@ final class SecureServer extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Ev
         return $this->tcp->close();
     }
     /** @internal */
-    public function handleConnection(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $connection)
+    public function handleConnection(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $connection)
     {
-        if (!$connection instanceof \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Socket\Connection) {
+        if (!$connection instanceof \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket\Connection) {
             $this->emit('error', array(new \UnexpectedValueException('Base server does not use internal Connection class exposing stream resource')));
             $connection->close();
             return;

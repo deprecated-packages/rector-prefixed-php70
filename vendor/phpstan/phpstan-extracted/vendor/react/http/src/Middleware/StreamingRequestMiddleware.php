@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Middleware;
+namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Http\Middleware;
 
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface;
 /**
  * Process incoming requests with a streaming request body (without buffering).
  *
@@ -61,7 +61,7 @@ use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestIn
  */
 final class StreamingRequestMiddleware
 {
-    public function __invoke(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface $request, $next)
+    public function __invoke(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface $request, $next)
     {
         return $next($request);
     }

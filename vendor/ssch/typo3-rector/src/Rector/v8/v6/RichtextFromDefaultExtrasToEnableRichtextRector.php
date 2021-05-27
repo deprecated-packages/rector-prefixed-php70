@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v8\v6;
 
-use RectorPrefix20210526\Nette\Utils\Strings;
+use RectorPrefix20210527\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -129,7 +129,7 @@ CODE_SAMPLE
         if (!\is_string($defaultExtras)) {
             return \false;
         }
-        return \RectorPrefix20210526\Nette\Utils\Strings::startsWith($defaultExtras, 'richtext');
+        return \RectorPrefix20210527\Nette\Utils\Strings::startsWith($defaultExtras, 'richtext');
     }
     /**
      * @return void

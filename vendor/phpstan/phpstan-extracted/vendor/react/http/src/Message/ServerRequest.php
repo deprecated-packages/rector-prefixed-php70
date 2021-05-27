@@ -1,13 +1,13 @@
 <?php
 
-namespace RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Message;
+namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Http\Message;
 
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\UriInterface;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Io\HttpBodyStream;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Request;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\UriInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Http\Io\HttpBodyStream;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Request;
 /**
  * Respresents an incoming server request message.
  *
@@ -28,7 +28,7 @@ use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Request;
  *
  * @see ServerRequestInterface
  */
-final class ServerRequest extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Request implements \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface
+final class ServerRequest extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Request implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface
 {
     private $attributes = array();
     private $serverParams;
@@ -48,10 +48,10 @@ final class ServerRequest extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\R
     public function __construct($method, $url, array $headers = array(), $body = '', $version = '1.1', $serverParams = array())
     {
         $stream = null;
-        if ($body instanceof \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface && !$body instanceof \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface) {
+        if ($body instanceof \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface && !$body instanceof \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface) {
             $stream = $body;
             $body = null;
-        } elseif (!\is_string($body) && !$body instanceof \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface) {
+        } elseif (!\is_string($body) && !$body instanceof \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface) {
             throw new \InvalidArgumentException('Invalid server request body given');
         }
         $this->serverParams = $serverParams;
@@ -61,7 +61,7 @@ final class ServerRequest extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\R
             if (\strtolower($this->getHeaderLine('Transfer-Encoding')) === 'chunked') {
                 $size = null;
             }
-            $this->stream = new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Io\HttpBodyStream($stream, $size);
+            $this->stream = new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Http\Io\HttpBodyStream($stream, $size);
         }
         $query = $this->getUri()->getQuery();
         if ($query !== '') {

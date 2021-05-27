@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210526\Seld\JsonLint;
+namespace RectorPrefix20210527\Seld\JsonLint;
 
 /**
  * Lexer class
@@ -36,7 +36,7 @@ class Lexer
     public function lex()
     {
         $r = $this->next();
-        if (!$r instanceof \RectorPrefix20210526\Seld\JsonLint\Undefined) {
+        if (!$r instanceof \RectorPrefix20210527\Seld\JsonLint\Undefined) {
             return $r;
         }
         return $this->lex();
@@ -124,7 +124,7 @@ class Lexer
                 if ($token) {
                     return $token;
                 }
-                return new \RectorPrefix20210526\Seld\JsonLint\Undefined();
+                return new \RectorPrefix20210527\Seld\JsonLint\Undefined();
             }
         }
         if ($this->offset === \strlen($this->input)) {

@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210526\Hoa\Stream;
+namespace RectorPrefix20210527\Hoa\Stream;
 
 /**
  * Class \Hoa\Stream\Context.
@@ -77,7 +77,7 @@ class Context
     public static function getInstance($id)
     {
         if (empty($id)) {
-            throw new \RectorPrefix20210526\Hoa\Stream\Exception('Context ID must not be null.', 0);
+            throw new \RectorPrefix20210527\Hoa\Stream\Exception('Context ID must not be null.', 0);
         }
         if (\false === static::contextExists($id)) {
             static::$_instances[$id] = new static($id);

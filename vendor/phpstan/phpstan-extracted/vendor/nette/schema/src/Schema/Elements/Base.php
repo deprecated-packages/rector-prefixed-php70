@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Schema\Elements;
+namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Elements;
 
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context;
 /**
  * @internal
  */
@@ -64,7 +64,7 @@ trait Base
         $this->asserts[] = [$handler, $description];
         return $this;
     }
-    public function completeDefault(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
+    public function completeDefault(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
     {
         if ($this->required) {
             $context->addError('The mandatory option %path% is missing.');
@@ -72,30 +72,30 @@ trait Base
         }
         return $this->default;
     }
-    public function doNormalize($value, \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
+    public function doNormalize($value, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
     {
         if ($this->before) {
             $value = ($this->before)($value);
         }
         return $value;
     }
-    private function doValidate($value, string $expected, \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context) : bool
+    private function doValidate($value, string $expected, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context) : bool
     {
         try {
-            \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Utils\Validators::assert($value, $expected, 'option %path%');
+            \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Validators::assert($value, $expected, 'option %path%');
             return \true;
-        } catch (\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Utils\AssertionException $e) {
+        } catch (\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\AssertionException $e) {
             $context->addError($e->getMessage(), $expected);
             return \false;
         }
     }
-    private function doFinalize($value, \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
+    private function doFinalize($value, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
     {
         if ($this->castTo) {
-            if (\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::isBuiltinType($this->castTo)) {
+            if (\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::isBuiltinType($this->castTo)) {
                 \settype($value, $this->castTo);
             } else {
-                $value = \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Utils\Arrays::toObject($value, new $this->castTo());
+                $value = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Arrays::toObject($value, new $this->castTo());
             }
         }
         foreach ($this->asserts as $i => list($handler, $description)) {

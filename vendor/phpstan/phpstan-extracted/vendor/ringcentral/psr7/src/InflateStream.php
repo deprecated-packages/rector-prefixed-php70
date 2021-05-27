@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
+namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
 
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
 /**
  * Uses PHP's zlib.inflate filter to inflate deflate or gzipped content.
  *
@@ -14,14 +14,14 @@ use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
  * @link http://tools.ietf.org/html/rfc1952
  * @link http://php.net/manual/en/filters.compression.php
  */
-class InflateStream extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\StreamDecoratorTrait implements \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
+class InflateStream extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\StreamDecoratorTrait implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
 {
-    public function __construct(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface $stream)
+    public function __construct(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface $stream)
     {
         // Skip the first 10 bytes
-        $stream = new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\LimitStream($stream, -1, 10);
-        $resource = \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\StreamWrapper::getResource($stream);
+        $stream = new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\LimitStream($stream, -1, 10);
+        $resource = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\StreamWrapper::getResource($stream);
         \stream_filter_append($resource, 'zlib.inflate', \STREAM_FILTER_READ);
-        parent::__construct(new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Stream($resource));
+        parent::__construct(new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Stream($resource));
     }
 }

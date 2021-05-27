@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210526\Hoa\Stream;
+namespace RectorPrefix20210527\Hoa\Stream;
 
-use RectorPrefix20210526\Hoa\Exception as HoaException;
+use RectorPrefix20210527\Hoa\Exception as HoaException;
 /**
  * Class \Hoa\Stream\Exception.
  *
@@ -44,6 +44,6 @@ use RectorPrefix20210526\Hoa\Exception as HoaException;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Exception extends \RectorPrefix20210526\Hoa\Exception
+class Exception extends \RectorPrefix20210527\Hoa\Exception
 {
 }

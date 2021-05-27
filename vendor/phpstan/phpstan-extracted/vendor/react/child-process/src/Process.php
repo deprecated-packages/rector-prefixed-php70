@@ -1,13 +1,13 @@
 <?php
 
-namespace RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\ChildProcess;
+namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\ChildProcess;
 
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableResourceStream;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\WritableResourceStream;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableResourceStream;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\WritableResourceStream;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
 /**
  * Process component.
  *
@@ -52,7 +52,7 @@ use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInter
  *     Accordingly, if either of these pipes is in a paused state (`pause()` method
  *     or internally due to a `pipe()` call), this detection may not trigger.
  */
-class Process extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter
+class Process extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter
 {
     /**
      * @var WritableStreamInterface|null|ReadableStreamInterface
@@ -142,7 +142,7 @@ class Process extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenement\Eve
      * @param float         $interval    Interval to periodically monitor process state (seconds)
      * @throws \RuntimeException If the process is already running or fails to start
      */
-    public function start(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, $interval = 0.1)
+    public function start(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, $interval = 0.1)
     {
         if ($this->isRunning()) {
             throw new \RuntimeException('Process is already running');
@@ -204,9 +204,9 @@ class Process extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenement\Eve
         }
         foreach ($pipes as $n => $fd) {
             if (\strpos($this->fds[$n][1], 'w') === \false) {
-                $stream = new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\WritableResourceStream($fd, $loop);
+                $stream = new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\WritableResourceStream($fd, $loop);
             } else {
-                $stream = new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableResourceStream($fd, $loop);
+                $stream = new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableResourceStream($fd, $loop);
                 $stream->on('close', $streamCloseHandler);
                 $closeCount++;
             }

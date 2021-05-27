@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\PhpDoc;
 
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings;
 use PHPStan\Analyser\NameScope;
 use PHPStan\DependencyInjection\Container;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode;
@@ -483,11 +483,11 @@ class TypeNodeResolver
             }
             $classReflection = $this->getReflectionProvider()->getClass($className);
             $constantName = $constExpr->name;
-            if (\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::endsWith($constantName, '*')) {
-                $constantNameStartsWith = \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::substring($constantName, 0, \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::length($constantName) - 1);
+            if (\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::endsWith($constantName, '*')) {
+                $constantNameStartsWith = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::substring($constantName, 0, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::length($constantName) - 1);
                 $constantTypes = [];
                 foreach ($classReflection->getNativeReflection()->getConstants() as $classConstantName => $constantValue) {
-                    if (!\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::startsWith($classConstantName, $constantNameStartsWith)) {
+                    if (!\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::startsWith($classConstantName, $constantNameStartsWith)) {
                         continue;
                     }
                     $constantTypes[] = \PHPStan\Type\ConstantTypeHelper::getTypeFromValue($constantValue);

@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210526\Hoa\Stream\Filter;
+namespace RectorPrefix20210527\Hoa\Stream\Filter;
 
-use RectorPrefix20210526\Hoa\Stream;
+use RectorPrefix20210527\Hoa\Stream;
 /**
  * Class \Hoa\Stream\Filter\LateComputed.
  *
@@ -44,7 +44,7 @@ use RectorPrefix20210526\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-abstract class LateComputed extends \RectorPrefix20210526\Hoa\Stream\Filter\Basic
+abstract class LateComputed extends \RectorPrefix20210527\Hoa\Stream\Filter\Basic
 {
     /**
      * Buffer.
@@ -76,7 +76,7 @@ abstract class LateComputed extends \RectorPrefix20210526\Hoa\Stream\Filter\Basi
     public function filter($in, $out, &$consumed, $closing)
     {
         $return = self::FEED_ME;
-        $iBucket = new \RectorPrefix20210526\Hoa\Stream\Bucket($in);
+        $iBucket = new \RectorPrefix20210527\Hoa\Stream\Bucket($in);
         while (\false === $iBucket->eob()) {
             $this->_buffer .= $iBucket->getData();
             $consumed += $iBucket->getLength();
@@ -87,8 +87,8 @@ abstract class LateComputed extends \RectorPrefix20210526\Hoa\Stream\Filter\Basi
         if (\true === $closing) {
             $stream = $this->getStream();
             $this->compute();
-            $bucket = new \RectorPrefix20210526\Hoa\Stream\Bucket($stream, \RectorPrefix20210526\Hoa\Stream\Bucket::IS_A_STREAM, $this->_buffer);
-            $oBucket = new \RectorPrefix20210526\Hoa\Stream\Bucket($out);
+            $bucket = new \RectorPrefix20210527\Hoa\Stream\Bucket($stream, \RectorPrefix20210527\Hoa\Stream\Bucket::IS_A_STREAM, $this->_buffer);
+            $oBucket = new \RectorPrefix20210527\Hoa\Stream\Bucket($out);
             $oBucket->append($bucket);
             $return = self::PASS_ON;
             $this->_buffer = null;

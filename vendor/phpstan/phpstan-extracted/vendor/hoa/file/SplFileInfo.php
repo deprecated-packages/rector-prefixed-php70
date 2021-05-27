@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210526\Hoa\File;
+namespace RectorPrefix20210527\Hoa\File;
 
-use RectorPrefix20210526\Hoa\Iterator;
+use RectorPrefix20210527\Hoa\Iterator;
 /**
  * Class \Hoa\File\SplFileInfo.
  *
@@ -44,7 +44,7 @@ use RectorPrefix20210526\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class SplFileInfo extends \RectorPrefix20210526\Hoa\Iterator\SplFileInfo
+class SplFileInfo extends \RectorPrefix20210527\Hoa\Iterator\SplFileInfo
 {
     /**
      * Current stream.
@@ -61,13 +61,13 @@ class SplFileInfo extends \RectorPrefix20210526\Hoa\Iterator\SplFileInfo
     public function open()
     {
         if (\true === $this->isFile()) {
-            return $this->_stream = new \RectorPrefix20210526\Hoa\File\ReadWrite($this->getPathname());
+            return $this->_stream = new \RectorPrefix20210527\Hoa\File\ReadWrite($this->getPathname());
         } elseif (\true === $this->isDir()) {
-            return $this->_stream = new \RectorPrefix20210526\Hoa\File\Directory($this->getPathname());
+            return $this->_stream = new \RectorPrefix20210527\Hoa\File\Directory($this->getPathname());
         } elseif (\true === $this->isLink()) {
-            return $this->_stream = new \RectorPrefix20210526\Hoa\File\Link\ReadWrite($this->getPathname());
+            return $this->_stream = new \RectorPrefix20210527\Hoa\File\Link\ReadWrite($this->getPathname());
         }
-        throw new \RectorPrefix20210526\Hoa\File\Exception('%s has an unknown type.', 0, $this->getPathname());
+        throw new \RectorPrefix20210527\Hoa\File\Exception('%s has an unknown type.', 0, $this->getPathname());
     }
     /**
      * Close the opened stream.

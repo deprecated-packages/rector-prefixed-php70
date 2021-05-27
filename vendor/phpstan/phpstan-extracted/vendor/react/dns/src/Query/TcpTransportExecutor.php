@@ -1,12 +1,12 @@
 <?php
 
-namespace RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Dns\Query;
+namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Dns\Query;
 
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Dns\Model\Message;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Dns\Protocol\BinaryDumper;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Dns\Protocol\Parser;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Dns\Model\Message;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Dns\Protocol\BinaryDumper;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Dns\Protocol\Parser;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred;
 /**
  * Send DNS queries over a TCP/IP stream transport.
  *
@@ -78,7 +78,7 @@ use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred;
  *   packages. Higher-level components should take advantage of the Socket
  *   component instead of reimplementing this socket logic from scratch.
  */
-class TcpTransportExecutor implements \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Dns\Query\ExecutorInterface
+class TcpTransportExecutor implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Dns\Query\ExecutorInterface
 {
     private $nameserver;
     private $loop;
@@ -126,7 +126,7 @@ class TcpTransportExecutor implements \RectorPrefix20210526\_HumbugBox0b2f2d5c77
      * @param string        $nameserver
      * @param LoopInterface $loop
      */
-    public function __construct($nameserver, \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop)
+    public function __construct($nameserver, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop)
     {
         if (\strpos($nameserver, '[') === \false && \substr_count($nameserver, ':') >= 2 && \strpos($nameserver, '://') === \false) {
             // several colons, but not enclosed in square brackets => enclose IPv6 address in square brackets
@@ -138,12 +138,12 @@ class TcpTransportExecutor implements \RectorPrefix20210526\_HumbugBox0b2f2d5c77
         }
         $this->nameserver = $parts['host'] . ':' . (isset($parts['port']) ? $parts['port'] : 53);
         $this->loop = $loop;
-        $this->parser = new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Dns\Protocol\Parser();
-        $this->dumper = new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Dns\Protocol\BinaryDumper();
+        $this->parser = new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Dns\Protocol\Parser();
+        $this->dumper = new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Dns\Protocol\BinaryDumper();
     }
-    public function query(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Dns\Query\Query $query)
+    public function query(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Dns\Query\Query $query)
     {
-        $request = \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Dns\Model\Message::createRequestForQuery($query);
+        $request = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Dns\Model\Message::createRequestForQuery($query);
         // keep shuffing message ID to avoid using the same message ID for two pending queries at the same time
         while (isset($this->pending[$request->id])) {
             $request->id = \mt_rand(0, 0xffff);
@@ -152,14 +152,14 @@ class TcpTransportExecutor implements \RectorPrefix20210526\_HumbugBox0b2f2d5c77
         $queryData = $this->dumper->toBinary($request);
         $length = \strlen($queryData);
         if ($length > 0xffff) {
-            return \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->name . ' failed: Query too large for TCP transport'));
+            return \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->name . ' failed: Query too large for TCP transport'));
         }
         $queryData = \pack('n', $length) . $queryData;
         if ($this->socket === null) {
             // create async TCP/IP connection (may take a while)
             $socket = @\stream_socket_client($this->nameserver, $errno, $errstr, 0, \STREAM_CLIENT_CONNECT | \STREAM_CLIENT_ASYNC_CONNECT);
             if ($socket === \false) {
-                return \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->name . ' failed: Unable to connect to DNS server (' . $errstr . ')', $errno));
+                return \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->name . ' failed: Unable to connect to DNS server (' . $errstr . ')', $errno));
             }
             // set socket to non-blocking and wait for it to become writable (connection success/rejected)
             \stream_set_blocking($socket, \false);
@@ -177,12 +177,12 @@ class TcpTransportExecutor implements \RectorPrefix20210526\_HumbugBox0b2f2d5c77
         }
         $names =& $this->names;
         $that = $this;
-        $deferred = new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred(function () use($that, &$names, $request) {
+        $deferred = new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred(function () use($that, &$names, $request) {
             // remove from list of pending names, but remember pending query
             $name = $names[$request->id];
             unset($names[$request->id]);
             $that->checkIdle();
-            throw new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Dns\Query\CancellationException('DNS query for ' . $name . ' has been cancelled');
+            throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Dns\Query\CancellationException('DNS query for ' . $name . ' has been cancelled');
         });
         $this->pending[$request->id] = $deferred;
         $this->names[$request->id] = $query->name;

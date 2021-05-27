@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Utils;
+namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils;
 
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette;
 /**
  * PHP reflection helpers.
  */
@@ -151,7 +151,7 @@ final class Reflection
         } elseif ($ref instanceof \ReflectionParameter) {
             return '$' . $ref->name . ' in ' . self::toString($ref->getDeclaringFunction()) . '()';
         } else {
-            throw new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException();
+            throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException();
         }
     }
     /**
@@ -163,7 +163,7 @@ final class Reflection
     {
         $lower = \strtolower($name);
         if (empty($name)) {
-            throw new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Class name must not be empty.');
+            throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Class name must not be empty.');
         } elseif (isset(self::BUILTIN_TYPES[$lower])) {
             return $lower;
         } elseif ($lower === 'self' || $lower === 'static') {
@@ -187,7 +187,7 @@ final class Reflection
     public static function getUseStatements(\ReflectionClass $class) : array
     {
         if ($class->isAnonymous()) {
-            throw new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\NotImplementedException('Anonymous classes are not supported.');
+            throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\NotImplementedException('Anonymous classes are not supported.');
         }
         static $cache = [];
         if (!isset($cache[$name = $class->name])) {

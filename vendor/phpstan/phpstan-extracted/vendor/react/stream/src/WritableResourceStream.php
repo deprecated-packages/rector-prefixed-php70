@@ -1,10 +1,10 @@
 <?php
 
-namespace RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream;
+namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream;
 
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
-final class WritableResourceStream extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
+final class WritableResourceStream extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface
 {
     private $stream;
     private $loop;
@@ -20,7 +20,7 @@ final class WritableResourceStream extends \RectorPrefix20210526\_HumbugBox0b2f2
     private $writable = \true;
     private $closed = \false;
     private $data = '';
-    public function __construct($stream, \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, $writeBufferSoftLimit = null, $writeChunkSize = null)
+    public function __construct($stream, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, $writeBufferSoftLimit = null, $writeChunkSize = null)
     {
         if (!\is_resource($stream) || \get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');

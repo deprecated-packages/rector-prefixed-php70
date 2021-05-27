@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Socket;
+namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket;
 
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
 use Exception;
 use OverflowException;
 /**
@@ -32,7 +32,7 @@ use OverflowException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-class LimitingServer extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface
+class LimitingServer extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface
 {
     private $connections = array();
     private $server;
@@ -89,7 +89,7 @@ class LimitingServer extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenem
      * @param int|null        $connectionLimit
      * @param bool            $pauseOnLimit
      */
-    public function __construct(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface $server, $connectionLimit, $pauseOnLimit = \false)
+    public function __construct(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket\ServerInterface $server, $connectionLimit, $pauseOnLimit = \false)
     {
         $this->server = $server;
         $this->limit = $connectionLimit;
@@ -141,7 +141,7 @@ class LimitingServer extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenem
         $this->server->close();
     }
     /** @internal */
-    public function handleConnection(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $connection)
+    public function handleConnection(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $connection)
     {
         // close connection if limit exceeded
         if ($this->limit !== null && \count($this->connections) >= $this->limit) {
@@ -164,7 +164,7 @@ class LimitingServer extends \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Evenem
         $this->emit('connection', array($connection));
     }
     /** @internal */
-    public function handleDisconnection(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $connection)
+    public function handleDisconnection(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $connection)
     {
         unset($this->connections[\array_search($connection, $this->connections)]);
         // continue accepting new connection if below limit

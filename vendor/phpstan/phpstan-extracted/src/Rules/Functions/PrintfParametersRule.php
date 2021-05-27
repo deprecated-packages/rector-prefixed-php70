@@ -76,7 +76,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
         }
         $specifiers = \sprintf($specifiers, $addSpecifier);
         $pattern = '~(?<before>%*)%(?:(?<position>\\d+)\\$)?[-+]?(?:[ 0]|(?:\'[^%]))?-?\\d*(?:\\.\\d*)?' . $specifiers . '~';
-        $matches = \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::matchAll($format, $pattern, \PREG_SET_ORDER);
+        $matches = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::matchAll($format, $pattern, \PREG_SET_ORDER);
         if (\count($matches) === 0) {
             return 0;
         }

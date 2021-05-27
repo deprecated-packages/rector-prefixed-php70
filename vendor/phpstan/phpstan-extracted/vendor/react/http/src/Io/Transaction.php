@@ -1,17 +1,17 @@
 <?php
 
-namespace RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Io;
+namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Http\Io;
 
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\UriInterface;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Request;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Uri;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Message\ResponseException;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface;
-use RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\UriInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Request;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Uri;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Http\Message\ResponseException;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\PromiseInterface;
+use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
 /**
  * @internal
  */
@@ -30,7 +30,7 @@ class Transaction
     private $streaming = \false;
     private $maximumSize = 16777216;
     // 16 MiB = 2^24 bytes
-    public function __construct(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Io\Sender $sender, \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop)
+    public function __construct(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Http\Io\Sender $sender, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop)
     {
         $this->sender = $sender;
         $this->loop = $loop;
@@ -54,9 +54,9 @@ class Transaction
         }
         return $transaction;
     }
-    public function send(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface $request)
+    public function send(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface $request)
     {
-        $deferred = new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred(function () use(&$deferred) {
+        $deferred = new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred(function () use(&$deferred) {
             if (isset($deferred->pending)) {
                 $deferred->pending->cancel();
                 unset($deferred->pending);
@@ -66,7 +66,7 @@ class Transaction
         // use timeout from options or default to PHP's default_socket_timeout (60)
         $timeout = (float) ($this->timeout !== null ? $this->timeout : \ini_get("default_socket_timeout"));
         $loop = $this->loop;
-        $this->next($request, $deferred)->then(function (\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface $response) use($deferred, $loop, &$timeout) {
+        $this->next($request, $deferred)->then(function (\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface $response) use($deferred, $loop, &$timeout) {
             if (isset($deferred->timeout)) {
                 $loop->cancelTimer($deferred->timeout);
                 unset($deferred->timeout);
@@ -85,7 +85,7 @@ class Transaction
             return $deferred->promise();
         }
         $body = $request->getBody();
-        if ($body instanceof \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface && $body->isReadable()) {
+        if ($body instanceof \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface && $body->isReadable()) {
             $that = $this;
             $body->on('close', function () use($that, $deferred, &$timeout) {
                 if ($timeout >= 0) {
@@ -103,7 +103,7 @@ class Transaction
      * @param number  $timeout
      * @return void
      */
-    public function applyTimeout(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred $deferred, $timeout)
+    public function applyTimeout(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred $deferred, $timeout)
     {
         $deferred->timeout = $this->loop->addTimer($timeout, function () use($timeout, $deferred) {
             $deferred->reject(new \RuntimeException('Request timed out after ' . $timeout . ' seconds'));
@@ -113,7 +113,7 @@ class Transaction
             }
         });
     }
-    private function next(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface $request, \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred $deferred)
+    private function next(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface $request, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred $deferred)
     {
         $this->progress('request', array($request));
         $that = $this;
@@ -125,7 +125,7 @@ class Transaction
             });
         }
         $deferred->pending = $promise;
-        return $promise->then(function (\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface $response) use($request, $that, $deferred) {
+        return $promise->then(function (\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface $response) use($request, $that, $deferred) {
             return $that->onResponse($response, $request, $deferred);
         });
     }
@@ -134,22 +134,22 @@ class Transaction
      * @param ResponseInterface $response
      * @return PromiseInterface Promise<ResponseInterface, Exception>
      */
-    public function bufferResponse(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface $response, $deferred)
+    public function bufferResponse(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface $response, $deferred)
     {
         $stream = $response->getBody();
         $size = $stream->getSize();
         if ($size !== null && $size > $this->maximumSize) {
             $stream->close();
-            return \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \OverflowException('Response body size of ' . $size . ' bytes exceeds maximum of ' . $this->maximumSize . ' bytes', \defined('SOCKET_EMSGSIZE') ? \SOCKET_EMSGSIZE : 0));
+            return \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \OverflowException('Response body size of ' . $size . ' bytes exceeds maximum of ' . $this->maximumSize . ' bytes', \defined('SOCKET_EMSGSIZE') ? \SOCKET_EMSGSIZE : 0));
         }
         // body is not streaming => already buffered
-        if (!$stream instanceof \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface) {
-            return \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\resolve($response);
+        if (!$stream instanceof \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface) {
+            return \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\resolve($response);
         }
         // buffer stream and resolve with buffered body
         $maximumSize = $this->maximumSize;
-        $promise = \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\Stream\buffer($stream, $maximumSize)->then(function ($body) use($response) {
-            return $response->withBody(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\stream_for($body));
+        $promise = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\Stream\buffer($stream, $maximumSize)->then(function ($body) use($response) {
+            return $response->withBody(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\stream_for($body));
         }, function ($e) use($stream, $maximumSize) {
             // try to close stream if buffering fails (or is cancelled)
             $stream->close();
@@ -168,7 +168,7 @@ class Transaction
      * @throws ResponseException
      * @return ResponseInterface|PromiseInterface
      */
-    public function onResponse(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface $response, \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface $request, $deferred)
+    public function onResponse(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface $response, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface $request, $deferred)
     {
         $this->progress('response', array($response, $request));
         // follow 3xx (Redirection) response status codes if Location header is present and not explicitly disabled
@@ -178,7 +178,7 @@ class Transaction
         }
         // only status codes 200-399 are considered to be valid, reject otherwise
         if ($this->obeySuccessCode && ($response->getStatusCode() < 200 || $response->getStatusCode() >= 400)) {
-            throw new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Http\Message\ResponseException($response);
+            throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Http\Message\ResponseException($response);
         }
         // resolve our initial promise
         return $response;
@@ -189,10 +189,10 @@ class Transaction
      * @return PromiseInterface
      * @throws \RuntimeException
      */
-    private function onResponseRedirect(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface $response, \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface $request, \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred $deferred)
+    private function onResponseRedirect(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface $response, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface $request, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred $deferred)
     {
         // resolve location relative to last request URI
-        $location = \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Uri::resolve($request->getUri(), $response->getHeaderLine('Location'));
+        $location = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Uri::resolve($request->getUri(), $response->getHeaderLine('Location'));
         $request = $this->makeRedirectRequest($request, $location);
         $this->progress('redirect', array($request));
         if ($deferred->numRequests >= $this->maxRedirects) {
@@ -205,7 +205,7 @@ class Transaction
      * @param UriInterface $location
      * @return RequestInterface
      */
-    private function makeRedirectRequest(\RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface $request, \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\UriInterface $location)
+    private function makeRedirectRequest(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface $request, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\UriInterface $location)
     {
         $originalHost = $request->getUri()->getHost();
         $request = $request->withoutHeader('Host')->withoutHeader('Content-Type')->withoutHeader('Content-Length');
@@ -215,7 +215,7 @@ class Transaction
         }
         // naïve approach..
         $method = $request->getMethod() === 'HEAD' ? 'HEAD' : 'GET';
-        return new \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Request($method, $location, $request->getHeaders());
+        return new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Request($method, $location, $request->getHeaders());
     }
     private function progress($name, array $args = array())
     {
@@ -223,9 +223,9 @@ class Transaction
         echo $name;
         foreach ($args as $arg) {
             echo ' ';
-            if ($arg instanceof \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface) {
+            if ($arg instanceof \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface) {
                 echo 'HTTP/' . $arg->getProtocolVersion() . ' ' . $arg->getStatusCode() . ' ' . $arg->getReasonPhrase();
-            } elseif ($arg instanceof \RectorPrefix20210526\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface) {
+            } elseif ($arg instanceof \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\RequestInterface) {
                 echo $arg->getMethod() . ' ' . $arg->getRequestTarget() . ' HTTP/' . $arg->getProtocolVersion();
             } else {
                 echo $arg;

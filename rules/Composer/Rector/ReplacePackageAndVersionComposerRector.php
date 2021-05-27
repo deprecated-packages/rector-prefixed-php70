@@ -6,10 +6,10 @@ namespace Rector\Composer\Rector;
 use Rector\Composer\Contract\Rector\ComposerRectorInterface;
 use Rector\Composer\Guard\VersionGuard;
 use Rector\Composer\ValueObject\ReplacePackageAndVersion;
-use RectorPrefix20210526\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use RectorPrefix20210527\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210526\Webmozart\Assert\Assert;
+use RectorPrefix20210527\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Tests\Composer\Rector\ReplacePackageAndVersionComposerRector\ReplacePackageAndVersionComposerRectorTest
  */
@@ -34,7 +34,7 @@ final class ReplacePackageAndVersionComposerRector implements \Rector\Composer\C
     /**
      * @return void
      */
-    public function refactor(\RectorPrefix20210526\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson)
+    public function refactor(\RectorPrefix20210527\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson)
     {
         foreach ($this->replacePackagesAndVersions as $replacePackageAndVersion) {
             $composerJson->replacePackage($replacePackageAndVersion->getOldPackageName(), $replacePackageAndVersion->getNewPackageName(), $replacePackageAndVersion->getVersion());
@@ -65,7 +65,7 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $replacePackagesAndVersions = $configuration[self::REPLACE_PACKAGES_AND_VERSIONS] ?? [];
-        \RectorPrefix20210526\Webmozart\Assert\Assert::allIsInstanceOf($replacePackagesAndVersions, \Rector\Composer\ValueObject\ReplacePackageAndVersion::class);
+        \RectorPrefix20210527\Webmozart\Assert\Assert::allIsInstanceOf($replacePackagesAndVersions, \Rector\Composer\ValueObject\ReplacePackageAndVersion::class);
         $this->versionGuard->validate($replacePackagesAndVersions);
         $this->replacePackagesAndVersions = $replacePackagesAndVersions;
     }

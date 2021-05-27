@@ -33,11 +33,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210526\Hoa\File\Temporary;
+namespace RectorPrefix20210527\Hoa\File\Temporary;
 
-use RectorPrefix20210526\Hoa\Consistency;
-use RectorPrefix20210526\Hoa\File;
-use RectorPrefix20210526\Hoa\Stream;
+use RectorPrefix20210527\Hoa\Consistency;
+use RectorPrefix20210527\Hoa\File;
+use RectorPrefix20210527\Hoa\Stream;
 /**
  * Class \Hoa\File\Temporary.
  *
@@ -46,7 +46,7 @@ use RectorPrefix20210526\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Temporary extends \RectorPrefix20210526\Hoa\File
+class Temporary extends \RectorPrefix20210527\Hoa\File
 {
     /**
      * Temporary file index.
@@ -81,10 +81,10 @@ class Temporary extends \RectorPrefix20210526\Hoa\File
      * @return  resource
      * @throws  \Hoa\File\Exception
      */
-    protected function &_open($streamName, \RectorPrefix20210526\Hoa\Stream\Context $context = null)
+    protected function &_open($streamName, \RectorPrefix20210527\Hoa\Stream\Context $context = null)
     {
         if (\false === ($out = @\tmpfile())) {
-            throw new \RectorPrefix20210526\Hoa\File\Exception('Failed to open a temporary stream.', 0);
+            throw new \RectorPrefix20210527\Hoa\File\Exception('Failed to open a temporary stream.', 0);
         }
         return $out;
     }
@@ -121,4 +121,4 @@ class Temporary extends \RectorPrefix20210526\Hoa\File
 /**
  * Flex entity.
  */
-\RectorPrefix20210526\Hoa\Consistency::flexEntity('RectorPrefix20210526\\Hoa\\File\\Temporary\\Temporary');
+\RectorPrefix20210527\Hoa\Consistency::flexEntity('RectorPrefix20210527\\Hoa\\File\\Temporary\\Temporary');
