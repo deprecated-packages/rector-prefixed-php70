@@ -248,4 +248,3 @@ require_once __DIR__ . '/vendor/symplify/symfony-php-config/src/ValueObjectInlin
 require_once __DIR__ . '/vendor/symplify/symfony-php-config/src/Exception/ValueObjectException.php';
 require_once __DIR__ . '/vendor/symfony/dependency-injection/Loader/Configurator/ContainerConfigurator.php';
 require_once __DIR__ . '/vendor/phpstan/phpstan-extracted/preload.php';
-require_once __DIR__ . '/vendor/phpstan/phpstan-extracted/preload.php';
