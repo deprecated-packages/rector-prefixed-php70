@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator;
+namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator;
 
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette;
 /**
  * Instance of PHP file.
  *
@@ -24,27 +24,27 @@ final class PhpFile
     private $namespaces = [];
     /** @var bool */
     private $strictTypes = \false;
-    public function addClass(string $name) : \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\ClassType
+    public function addClass(string $name) : \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\ClassType
     {
-        return $this->addNamespace(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::extractNamespace($name))->addClass(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::extractShortName($name));
+        return $this->addNamespace(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::extractNamespace($name))->addClass(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::extractShortName($name));
     }
-    public function addInterface(string $name) : \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\ClassType
+    public function addInterface(string $name) : \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\ClassType
     {
-        return $this->addNamespace(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::extractNamespace($name))->addInterface(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::extractShortName($name));
+        return $this->addNamespace(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::extractNamespace($name))->addInterface(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::extractShortName($name));
     }
-    public function addTrait(string $name) : \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\ClassType
+    public function addTrait(string $name) : \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\ClassType
     {
-        return $this->addNamespace(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::extractNamespace($name))->addTrait(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::extractShortName($name));
+        return $this->addNamespace(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::extractNamespace($name))->addTrait(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Helpers::extractShortName($name));
     }
     /** @param  string|PhpNamespace  $namespace */
-    public function addNamespace($namespace) : \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\PhpNamespace
+    public function addNamespace($namespace) : \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\PhpNamespace
     {
-        if ($namespace instanceof \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\PhpNamespace) {
+        if ($namespace instanceof \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\PhpNamespace) {
             $res = $this->namespaces[$namespace->getName()] = $namespace;
         } elseif (\is_string($namespace)) {
-            $res = $this->namespaces[$namespace] = $this->namespaces[$namespace] ?? new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\PhpNamespace($namespace);
+            $res = $this->namespaces[$namespace] = $this->namespaces[$namespace] ?? new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\PhpNamespace($namespace);
         } else {
-            throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Argument must be string|PhpNamespace.');
+            throw new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Argument must be string|PhpNamespace.');
         }
         foreach ($this->namespaces as $namespace) {
             $namespace->setBracketedSyntax(\count($this->namespaces) > 1 && isset($this->namespaces['']));
@@ -83,7 +83,7 @@ final class PhpFile
     public function __toString() : string
     {
         try {
-            return (new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Printer())->printFile($this);
+            return (new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Printer())->printFile($this);
         } catch (\Throwable $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Configuration;
 
-use RectorPrefix20210527\Symplify\Skipper\ValueObject\Option as SkipperOption;
+use RectorPrefix20210528\Symplify\Skipper\ValueObject\Option as SkipperOption;
 final class Option
 {
     /**
@@ -86,7 +86,7 @@ final class Option
     /**
      * @var string
      */
-    const SKIP = \RectorPrefix20210527\Symplify\Skipper\ValueObject\Option::SKIP;
+    const SKIP = \RectorPrefix20210528\Symplify\Skipper\ValueObject\Option::SKIP;
     /**
      * @var string
      */

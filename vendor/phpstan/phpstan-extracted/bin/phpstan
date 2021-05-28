@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8;
+namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8;
 
 use PHPStan\Command\AnalyseCommand;
 use PHPStan\Command\ClearResultCacheCommand;
 use PHPStan\Command\FixerWorkerCommand;
 use PHPStan\Command\DumpDependenciesCommand;
 use PHPStan\Command\WorkerCommand;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Helper\ProgressBar;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Helper\ProgressBar;
 (function () {
     \error_reporting(\E_ALL);
     \ini_set('display_errors', 'stderr');
@@ -67,12 +67,12 @@ use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Helper
     $devOrPharLoader->register(\true);
     $version = 'Version unknown';
     try {
-        $version = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
+        $version = \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
     } catch (\OutOfBoundsException $e) {
     }
-    $application = new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Application('PHPStan - PHP Static Analysis Tool', $version);
+    $application = new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Application('PHPStan - PHP Static Analysis Tool', $version);
     $application->setDefaultCommand('analyse');
-    \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Helper\ProgressBar::setFormatDefinition('file_download', ' [%bar%] %percent:3s%% %fileSize%');
+    \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Helper\ProgressBar::setFormatDefinition('file_download', ' [%bar%] %percent:3s%% %fileSize%');
     $reversedComposerAutoloaderProjectPaths = \array_reverse($composerAutoloaderProjectPaths);
     $application->add(new \PHPStan\Command\AnalyseCommand($reversedComposerAutoloaderProjectPaths));
     $application->add(new \PHPStan\Command\DumpDependenciesCommand($reversedComposerAutoloaderProjectPaths));

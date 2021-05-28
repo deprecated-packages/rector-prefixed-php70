@@ -5,15 +5,15 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions;
+namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions;
 
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\ServiceCreationException;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\ServiceCreationException;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection;
 /**
  * Definition of standard service.
  */
-final class FactoryDefinition extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Definition
+final class FactoryDefinition extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Definition
 {
     const METHOD_CREATE = 'create';
     /** @var array */
@@ -22,18 +22,18 @@ final class FactoryDefinition extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77
     private $resultDefinition;
     public function __construct()
     {
-        $this->resultDefinition = new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\ServiceDefinition();
+        $this->resultDefinition = new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\ServiceDefinition();
     }
     /** @return static */
     public function setImplement(string $type)
     {
         if (!\interface_exists($type)) {
-            throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface '{$type}' not found.");
+            throw new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface '{$type}' not found.");
         }
         $rc = new \ReflectionClass($type);
         $method = $rc->getMethods()[0] ?? null;
         if (!$method || $method->isStatic() || $method->name !== self::METHOD_CREATE || \count($rc->getMethods()) > 1) {
-            throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface {$type} must have just one non-static method create().");
+            throw new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface {$type} must have just one non-static method create().");
         }
         return parent::setType($type);
     }
@@ -52,13 +52,13 @@ final class FactoryDefinition extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77
         return $this->resultDefinition->getType();
     }
     /** @return static */
-    public function setResultDefinition(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Definition $definition)
+    public function setResultDefinition(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Definition $definition)
     {
         $this->resultDefinition = $definition;
         return $this;
     }
     /** @return ServiceDefinition */
-    public function getResultDefinition() : \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Definition
+    public function getResultDefinition() : \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Definition
     {
         return $this->resultDefinition;
     }
@@ -137,25 +137,25 @@ final class FactoryDefinition extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77
     /**
      * @return void
      */
-    public function resolveType(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Resolver $resolver)
+    public function resolveType(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Resolver $resolver)
     {
         $resultDef = $this->resultDefinition;
         try {
             $resolver->resolveDefinition($resultDef);
             return;
-        } catch (\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\ServiceCreationException $e) {
+        } catch (\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\ServiceCreationException $e) {
         }
         if (!$resultDef->getType()) {
             $interface = $this->getType();
             if (!$interface) {
-                throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\ServiceCreationException('Type is missing in definition of service.');
+                throw new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\ServiceCreationException('Type is missing in definition of service.');
             }
             $method = new \ReflectionMethod($interface, self::METHOD_CREATE);
-            $returnType = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::getReturnType($method);
+            $returnType = \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::getReturnType($method);
             if (!$returnType) {
-                throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\ServiceCreationException("Method {$interface}::create() has not return type hint or annotation @return.");
+                throw new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\ServiceCreationException("Method {$interface}::create() has not return type hint or annotation @return.");
             } elseif (!\class_exists($returnType) && !\interface_exists($returnType)) {
-                throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\ServiceCreationException("Check a type hint or annotation @return of the {$interface}::create() method, class '{$returnType}' cannot be found.");
+                throw new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\ServiceCreationException("Check a type hint or annotation @return of the {$interface}::create() method, class '{$returnType}' cannot be found.");
             }
             $resultDef->setType($returnType);
         }
@@ -164,18 +164,18 @@ final class FactoryDefinition extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77
     /**
      * @return void
      */
-    public function complete(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Resolver $resolver)
+    public function complete(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Resolver $resolver)
     {
         $resultDef = $this->resultDefinition;
-        if ($resultDef instanceof \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\ServiceDefinition) {
+        if ($resultDef instanceof \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\ServiceDefinition) {
             if (!$this->parameters) {
                 $this->completeParameters($resolver);
             }
-            if ($resultDef->getEntity() instanceof \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Reference && !$resultDef->getFactory()->arguments) {
+            if ($resultDef->getEntity() instanceof \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Reference && !$resultDef->getFactory()->arguments) {
                 $resultDef->setFactory([
                     // render as $container->createMethod()
-                    new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Reference(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\ContainerBuilder::THIS_CONTAINER),
-                    \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Container::getMethodName($resultDef->getEntity()->getValue()),
+                    new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Reference(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\ContainerBuilder::THIS_CONTAINER),
+                    \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Container::getMethodName($resultDef->getEntity()->getValue()),
                 ]);
             }
         }
@@ -184,7 +184,7 @@ final class FactoryDefinition extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77
     /**
      * @return void
      */
-    private function completeParameters(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Resolver $resolver)
+    private function completeParameters(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Resolver $resolver)
     {
         $interface = $this->getType();
         $method = new \ReflectionMethod($interface, self::METHOD_CREATE);
@@ -195,22 +195,22 @@ final class FactoryDefinition extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77
             }
         }
         foreach ($method->getParameters() as $param) {
-            $hint = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getParameterType($param);
+            $hint = \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getParameterType($param);
             if (isset($ctorParams[$param->name])) {
                 $arg = $ctorParams[$param->name];
-                $argHint = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getParameterType($arg);
+                $argHint = \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getParameterType($arg);
                 if ($hint !== $argHint && !\is_a($hint, (string) $argHint, \true)) {
-                    throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\ServiceCreationException("Type hint for \${$param->name} in {$interface}::create() doesn't match type hint in {$class} constructor.");
+                    throw new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\ServiceCreationException("Type hint for \${$param->name} in {$interface}::create() doesn't match type hint in {$class} constructor.");
                 }
-                $this->resultDefinition->getFactory()->arguments[$arg->getPosition()] = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\ContainerBuilder::literal('$' . $arg->name);
+                $this->resultDefinition->getFactory()->arguments[$arg->getPosition()] = \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\ContainerBuilder::literal('$' . $arg->name);
             } elseif (!$this->resultDefinition->getSetup()) {
-                $hint = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Helpers::getSuggestion(\array_keys($ctorParams), $param->name);
-                throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\ServiceCreationException("Unused parameter \${$param->name} when implementing method {$interface}::create()" . ($hint ? ", did you mean \${$hint}?" : '.'));
+                $hint = \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Helpers::getSuggestion(\array_keys($ctorParams), $param->name);
+                throw new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\ServiceCreationException("Unused parameter \${$param->name} when implementing method {$interface}::create()" . ($hint ? ", did you mean \${$hint}?" : '.'));
             }
             $nullable = $hint && $param->allowsNull() && (!$param->isDefaultValueAvailable() || $param->getDefaultValue() !== null);
             $paramDef = ($nullable ? '?' : '') . $hint . ' ' . $param->name;
             if ($param->isDefaultValueAvailable()) {
-                $this->parameters[$paramDef] = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getParameterDefaultValue($param);
+                $this->parameters[$paramDef] = \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getParameterDefaultValue($param);
             } else {
                 $this->parameters[] = $paramDef;
             }
@@ -219,9 +219,9 @@ final class FactoryDefinition extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77
     /**
      * @return void
      */
-    public function generateMethod(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Method $method, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\PhpGenerator $generator)
+    public function generateMethod(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Method $method, \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\PhpGenerator $generator)
     {
-        $class = (new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\ClassType())->addImplement($this->getType());
+        $class = (new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\ClassType())->addImplement($this->getType());
         $class->addProperty('container')->setPrivate();
         $class->addMethod('__construct')->addBody('$this->container = $container;')->addParameter('container')->setType($generator->getClassName());
         $methodCreate = $class->addMethod(self::METHOD_CREATE);
@@ -230,7 +230,7 @@ final class FactoryDefinition extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77
         $body = \str_replace('$this', '$this->container', $body);
         $body = \str_replace('$this->container->container', '$this->container', $body);
         $rm = new \ReflectionMethod($this->getType(), self::METHOD_CREATE);
-        $methodCreate->setParameters($generator->convertParameters($this->parameters))->setReturnType(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getReturnType($rm) ?: $this->getResultType())->setBody($body);
+        $methodCreate->setParameters($generator->convertParameters($this->parameters))->setReturnType(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getReturnType($rm) ?: $this->getResultType())->setBody($body);
         $method->setBody('return new class ($this) ' . $class . ';');
     }
     public function __clone()

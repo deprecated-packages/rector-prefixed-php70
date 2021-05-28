@@ -1,13 +1,13 @@
 <?php
 
-namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Http\Client;
+namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Http\Client;
 
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7 as gPsr;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Promise;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7 as gPsr;
 /**
  * @event response
  * @event drain
@@ -15,7 +15,7 @@ use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7 as gPsr;
  * @event end
  * @internal
  */
-class Request extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface
+class Request extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface
 {
     const STATE_INIT = 0;
     const STATE_WRITING_HEAD = 1;
@@ -29,7 +29,7 @@ class Request extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\Eve
     private $state = self::STATE_INIT;
     private $ended = \false;
     private $pendingWrites = '';
-    public function __construct(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface $connector, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Http\Client\RequestData $requestData)
+    public function __construct(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface $connector, \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Http\Client\RequestData $requestData)
     {
         $this->connector = $connector;
         $this->requestData = $requestData;
@@ -47,7 +47,7 @@ class Request extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\Eve
         $pendingWrites =& $this->pendingWrites;
         $that = $this;
         $promise = $this->connect();
-        $promise->then(function (\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $stream) use($requestData, &$streamRef, &$stateRef, &$pendingWrites, $that) {
+        $promise->then(function (\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $stream) use($requestData, &$streamRef, &$stateRef, &$pendingWrites, $that) {
             $streamRef = $stream;
             $stream->on('drain', array($that, 'handleDrain'));
             $stream->on('data', array($that, 'handleData'));
@@ -56,7 +56,7 @@ class Request extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\Eve
             $stream->on('close', array($that, 'handleClose'));
             $headers = (string) $requestData;
             $more = $stream->write($headers . $pendingWrites);
-            $stateRef = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Http\Client\Request::STATE_HEAD_WRITTEN;
+            $stateRef = \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Http\Client\Request::STATE_HEAD_WRITTEN;
             // clear pending writes if non-empty
             if ($pendingWrites !== '') {
                 $pendingWrites = '';
@@ -111,7 +111,7 @@ class Request extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\Eve
         // buffer until double CRLF (or double LF for compatibility with legacy servers)
         if (\false !== \strpos($this->buffer, "\r\n\r\n") || \false !== \strpos($this->buffer, "\n\n")) {
             try {
-                $response = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\parse_response($this->buffer);
+                $response = \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\parse_response($this->buffer);
                 $bodyChunk = (string) $response->getBody();
             } catch (\InvalidArgumentException $exception) {
                 $this->emit('error', array($exception));
@@ -171,7 +171,7 @@ class Request extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\Eve
     {
         $scheme = $this->requestData->getScheme();
         if ($scheme !== 'https' && $scheme !== 'http') {
-            return \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \InvalidArgumentException('Invalid request URL given'));
+            return \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \InvalidArgumentException('Invalid request URL given'));
         }
         $host = $this->requestData->getHost();
         $port = $this->requestData->getPort();

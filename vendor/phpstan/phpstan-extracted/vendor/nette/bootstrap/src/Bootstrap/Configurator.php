@@ -5,12 +5,12 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette;
+namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette;
 
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Composer\Autoload\ClassLoader;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Tracy;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Composer\Autoload\ClassLoader;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Tracy;
 /**
  * Initial system DI container generator.
  */
@@ -21,7 +21,7 @@ class Configurator
     /** @var callable[]  function (Configurator $sender, DI\Compiler $compiler); Occurs after the compiler is created */
     public $onCompile;
     /** @var array */
-    public $defaultExtensions = ['application' => [\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Bridges\ApplicationDI\ApplicationExtension::class, ['%debugMode%', ['%appDir%'], '%tempDir%/cache/nette.application']], 'cache' => [\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Bridges\CacheDI\CacheExtension::class, ['%tempDir%']], 'constants' => \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\ConstantsExtension::class, 'database' => [\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Bridges\DatabaseDI\DatabaseExtension::class, ['%debugMode%']], 'decorator' => \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\DecoratorExtension::class, 'di' => [\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\DIExtension::class, ['%debugMode%']], 'extensions' => \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\ExtensionsExtension::class, 'forms' => \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Bridges\FormsDI\FormsExtension::class, 'http' => [\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Bridges\HttpDI\HttpExtension::class, ['%consoleMode%']], 'inject' => \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\InjectExtension::class, 'latte' => [\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Bridges\ApplicationDI\LatteExtension::class, ['%tempDir%/cache/latte', '%debugMode%']], 'mail' => \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Bridges\MailDI\MailExtension::class, 'php' => \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\PhpExtension::class, 'routing' => [\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Bridges\ApplicationDI\RoutingExtension::class, ['%debugMode%']], 'search' => [\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\SearchExtension::class, ['%tempDir%/cache/nette.search']], 'security' => [\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Bridges\SecurityDI\SecurityExtension::class, ['%debugMode%']], 'session' => [\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Bridges\HttpDI\SessionExtension::class, ['%debugMode%', '%consoleMode%']], 'tracy' => [\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Tracy\Bridges\Nette\TracyExtension::class, ['%debugMode%', '%consoleMode%']]];
+    public $defaultExtensions = ['application' => [\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Bridges\ApplicationDI\ApplicationExtension::class, ['%debugMode%', ['%appDir%'], '%tempDir%/cache/nette.application']], 'cache' => [\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Bridges\CacheDI\CacheExtension::class, ['%tempDir%']], 'constants' => \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\ConstantsExtension::class, 'database' => [\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Bridges\DatabaseDI\DatabaseExtension::class, ['%debugMode%']], 'decorator' => \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\DecoratorExtension::class, 'di' => [\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\DIExtension::class, ['%debugMode%']], 'extensions' => \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\ExtensionsExtension::class, 'forms' => \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Bridges\FormsDI\FormsExtension::class, 'http' => [\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Bridges\HttpDI\HttpExtension::class, ['%consoleMode%']], 'inject' => \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\InjectExtension::class, 'latte' => [\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Bridges\ApplicationDI\LatteExtension::class, ['%tempDir%/cache/latte', '%debugMode%']], 'mail' => \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Bridges\MailDI\MailExtension::class, 'php' => \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\PhpExtension::class, 'routing' => [\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Bridges\ApplicationDI\RoutingExtension::class, ['%debugMode%']], 'search' => [\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\SearchExtension::class, ['%tempDir%/cache/nette.search']], 'security' => [\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Bridges\SecurityDI\SecurityExtension::class, ['%debugMode%']], 'session' => [\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Bridges\HttpDI\SessionExtension::class, ['%debugMode%', '%consoleMode%']], 'tracy' => [\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Tracy\Bridges\Nette\TracyExtension::class, ['%debugMode%', '%consoleMode%']]];
     /** @var string[] of classes which shouldn't be autowired */
     public $autowireExcludedClasses = [\ArrayAccess::class, \Countable::class, \IteratorAggregate::class, \stdClass::class, \Traversable::class];
     /** @var array */
@@ -46,7 +46,7 @@ class Configurator
         if (\is_string($value) || \is_array($value)) {
             $value = static::detectDebugMode($value);
         } elseif (!\is_bool($value)) {
-            throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException(\sprintf('Value must be either a string, array, or boolean, %s given.', \gettype($value)));
+            throw new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException(\sprintf('Value must be either a string, array, or boolean, %s given.', \gettype($value)));
         }
         $this->parameters['debugMode'] = $value;
         $this->parameters['productionMode'] = !$this->parameters['debugMode'];
@@ -83,7 +83,7 @@ class Configurator
      */
     public function addParameters(array $params)
     {
-        $this->parameters = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Helpers::merge($params, $this->parameters);
+        $this->parameters = \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Helpers::merge($params, $this->parameters);
         return $this;
     }
     /**
@@ -109,7 +109,7 @@ class Configurator
         $trace = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
         $last = \end($trace);
         $debugMode = static::detectDebugMode();
-        $loaderRc = \class_exists(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Composer\Autoload\ClassLoader::class) ? new \ReflectionClass(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Composer\Autoload\ClassLoader::class) : null;
+        $loaderRc = \class_exists(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Composer\Autoload\ClassLoader::class) ? new \ReflectionClass(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Composer\Autoload\ClassLoader::class) : null;
         return ['appDir' => isset($trace[1]['file']) ? \dirname($trace[1]['file']) : null, 'wwwDir' => isset($last['file']) ? \dirname($last['file']) : null, 'vendorDir' => $loaderRc ? \dirname($loaderRc->getFileName(), 2) : null, 'debugMode' => $debugMode, 'productionMode' => !$debugMode, 'consoleMode' => \PHP_SAPI === 'cli'];
     }
     /**
@@ -117,9 +117,9 @@ class Configurator
      */
     public function enableTracy(string $logDirectory = null, string $email = null)
     {
-        \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Tracy\Debugger::$strictMode = \true;
-        \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Tracy\Debugger::enable(!$this->parameters['debugMode'], $logDirectory, $email);
-        \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Tracy\Bridges\Nette\Bridge::initialize();
+        \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Tracy\Debugger::$strictMode = \true;
+        \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Tracy\Debugger::enable(!$this->parameters['debugMode'], $logDirectory, $email);
+        \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Tracy\Bridges\Nette\Bridge::initialize();
     }
     /**
      * Alias for enableTracy()
@@ -132,12 +132,12 @@ class Configurator
     /**
      * @throws Nette\NotSupportedException if RobotLoader is not available
      */
-    public function createRobotLoader() : \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Loaders\RobotLoader
+    public function createRobotLoader() : \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Loaders\RobotLoader
     {
-        if (!\class_exists(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Loaders\RobotLoader::class)) {
-            throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\NotSupportedException('RobotLoader not found, do you have `nette/robot-loader` package installed?');
+        if (!\class_exists(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Loaders\RobotLoader::class)) {
+            throw new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\NotSupportedException('RobotLoader not found, do you have `nette/robot-loader` package installed?');
         }
-        $loader = new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Loaders\RobotLoader();
+        $loader = new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Loaders\RobotLoader();
         $loader->setTempDirectory($this->getCacheDirectory() . '/nette.robotLoader');
         $loader->setAutoRefresh($this->parameters['debugMode']);
         if (isset($this->defaultExtensions['application'])) {
@@ -159,7 +159,7 @@ class Configurator
     /**
      * Returns system DI container.
      */
-    public function createContainer() : \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Container
+    public function createContainer() : \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Container
     {
         $class = $this->loadContainer();
         $container = new $class($this->dynamicParameters);
@@ -174,14 +174,14 @@ class Configurator
      */
     public function loadContainer() : string
     {
-        $loader = new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\ContainerLoader($this->getCacheDirectory() . '/nette.configurator', $this->parameters['debugMode']);
+        $loader = new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\ContainerLoader($this->getCacheDirectory() . '/nette.configurator', $this->parameters['debugMode']);
         $class = $loader->load([$this, 'generateContainer'], [
             $this->parameters,
             \array_keys($this->dynamicParameters),
             $this->configs,
             \PHP_VERSION_ID - \PHP_RELEASE_VERSION,
             // minor PHP version
-            \class_exists(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Composer\Autoload\ClassLoader::class) ? \filemtime((new \ReflectionClass(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Composer\Autoload\ClassLoader::class))->getFilename()) : null,
+            \class_exists(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Composer\Autoload\ClassLoader::class) ? \filemtime((new \ReflectionClass(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Composer\Autoload\ClassLoader::class))->getFilename()) : null,
         ]);
         return $class;
     }
@@ -189,7 +189,7 @@ class Configurator
      * @internal
      * @return void
      */
-    public function generateContainer(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Compiler $compiler)
+    public function generateContainer(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Compiler $compiler)
     {
         $loader = $this->createLoader();
         $loader->setParameters($this->parameters);
@@ -207,23 +207,23 @@ class Configurator
         foreach ($this->defaultExtensions as $name => $extension) {
             list($class, $args) = \is_string($extension) ? [$extension, []] : $extension;
             if (\class_exists($class)) {
-                $args = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::expand($args, $this->parameters, \true);
+                $args = \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::expand($args, $this->parameters, \true);
                 $compiler->addExtension($name, (new \ReflectionClass($class))->newInstanceArgs($args));
             }
         }
         $this->onCompile($this, $compiler);
     }
-    protected function createLoader() : \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Loader
+    protected function createLoader() : \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Loader
     {
-        return new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Loader();
+        return new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Loader();
     }
     protected function getCacheDirectory() : string
     {
         if (empty($this->parameters['tempDir'])) {
-            throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException('Set path to temporary directory using setTempDirectory().');
+            throw new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException('Set path to temporary directory using setTempDirectory().');
         }
-        $dir = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::expand('%tempDir%/cache', $this->parameters, \true);
-        \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\FileSystem::createDir($dir);
+        $dir = \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::expand('%tempDir%/cache', $this->parameters, \true);
+        \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\FileSystem::createDir($dir);
         return $dir;
     }
     /********************* tools ****************d*g**/

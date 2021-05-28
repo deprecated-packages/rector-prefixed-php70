@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210527\Hoa\Event;
+namespace RectorPrefix20210528\Hoa\Event;
 
 /**
  * Class \Hoa\Event\Bucket.
@@ -74,9 +74,9 @@ class Bucket
      * @param   \Hoa\Event\Source  $source     Source.
      * @return  void
      */
-    public function send($eventId, \RectorPrefix20210527\Hoa\Event\Source $source)
+    public function send($eventId, \RectorPrefix20210528\Hoa\Event\Source $source)
     {
-        return \RectorPrefix20210527\Hoa\Event\Event::notify($eventId, $source, $this);
+        return \RectorPrefix20210528\Hoa\Event\Event::notify($eventId, $source, $this);
     }
     /**
      * Set source.
@@ -84,7 +84,7 @@ class Bucket
      * @param   \Hoa\Event\Source  $source    Source.
      * @return  \Hoa\Event\Source
      */
-    public function setSource(\RectorPrefix20210527\Hoa\Event\Source $source)
+    public function setSource(\RectorPrefix20210528\Hoa\Event\Source $source)
     {
         $old = $this->_source;
         $this->_source = $source;

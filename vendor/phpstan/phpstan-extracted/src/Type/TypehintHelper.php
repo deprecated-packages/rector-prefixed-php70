@@ -81,16 +81,16 @@ class TypehintHelper
             throw new \PHPStan\ShouldNotHappenException(\sprintf('Unexpected type: %s', \get_class($reflectionType)));
         }
         $reflectionTypeString = $reflectionType->getName();
-        if (\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\object')) {
+        if (\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\object')) {
             $reflectionTypeString = 'object';
         }
-        if (\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\mixed')) {
+        if (\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\mixed')) {
             $reflectionTypeString = 'mixed';
         }
-        if (\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\false')) {
+        if (\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\false')) {
             $reflectionTypeString = 'false';
         }
-        if (\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\null')) {
+        if (\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\null')) {
             $reflectionTypeString = 'null';
         }
         $type = self::getTypeObjectFromTypehint($reflectionTypeString, $selfClass);

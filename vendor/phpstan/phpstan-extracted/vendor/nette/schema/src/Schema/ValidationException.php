@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema;
+namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Schema;
 
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette;
 /**
  * Validation error.
  */
-class ValidationException extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException
+class ValidationException extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException
 {
     /** @var array */
     private $messages;

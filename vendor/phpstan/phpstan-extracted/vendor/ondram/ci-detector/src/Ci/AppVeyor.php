@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Ci;
+namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Ci;
 
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\CiDetector;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Env;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\TrinaryLogic;
-class AppVeyor extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Ci\AbstractCi
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\CiDetector;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Env;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\TrinaryLogic;
+class AppVeyor extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Ci\AbstractCi
 {
-    public static function isDetected(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Env $env) : bool
+    public static function isDetected(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Env $env) : bool
     {
         return $env->get('APPVEYOR') === 'True';
     }
     public function getCiName() : string
     {
-        return \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\CiDetector::CI_APPVEYOR;
+        return \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\CiDetector::CI_APPVEYOR;
     }
-    public function isPullRequest() : \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\TrinaryLogic
+    public function isPullRequest() : \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\TrinaryLogic
     {
-        return \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('APPVEYOR_PULL_REQUEST_NUMBER') !== '');
+        return \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('APPVEYOR_PULL_REQUEST_NUMBER') !== '');
     }
     public function getBuildNumber() : string
     {

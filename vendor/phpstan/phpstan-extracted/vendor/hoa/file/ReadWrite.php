@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210527\Hoa\File;
+namespace RectorPrefix20210528\Hoa\File;
 
-use RectorPrefix20210527\Hoa\Stream;
+use RectorPrefix20210528\Hoa\Stream;
 /**
  * Class \Hoa\File\ReadWrite.
  *
@@ -44,7 +44,7 @@ use RectorPrefix20210527\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class ReadWrite extends \RectorPrefix20210527\Hoa\File\File implements \RectorPrefix20210527\Hoa\Stream\IStream\In, \RectorPrefix20210527\Hoa\Stream\IStream\Out
+class ReadWrite extends \RectorPrefix20210528\Hoa\File\File implements \RectorPrefix20210528\Hoa\Stream\IStream\In, \RectorPrefix20210528\Hoa\Stream\IStream\Out
 {
     /**
      * Open a file.
@@ -69,15 +69,15 @@ class ReadWrite extends \RectorPrefix20210527\Hoa\File\File implements \RectorPr
      * @throws  \Hoa\File\Exception\FileDoesNotExist
      * @throws  \Hoa\File\Exception
      */
-    protected function &_open($streamName, \RectorPrefix20210527\Hoa\Stream\Context $context = null)
+    protected function &_open($streamName, \RectorPrefix20210528\Hoa\Stream\Context $context = null)
     {
         static $createModes = [parent::MODE_READ_WRITE, parent::MODE_TRUNCATE_READ_WRITE, parent::MODE_APPEND_READ_WRITE, parent::MODE_CREATE_READ_WRITE];
         if (!\in_array($this->getMode(), $createModes)) {
-            throw new \RectorPrefix20210527\Hoa\File\Exception('Open mode are not supported; given %d. Only %s are supported.', 0, [$this->getMode(), \implode(', ', $createModes)]);
+            throw new \RectorPrefix20210528\Hoa\File\Exception('Open mode are not supported; given %d. Only %s are supported.', 0, [$this->getMode(), \implode(', ', $createModes)]);
         }
         \preg_match('#^(\\w+)://#', $streamName, $match);
         if ((isset($match[1]) && $match[1] == 'file' || !isset($match[1])) && !\file_exists($streamName) && parent::MODE_READ_WRITE == $this->getMode()) {
-            throw new \RectorPrefix20210527\Hoa\File\Exception\FileDoesNotExist('File %s does not exist.', 1, $streamName);
+            throw new \RectorPrefix20210528\Hoa\File\Exception\FileDoesNotExist('File %s does not exist.', 1, $streamName);
         }
         $out = parent::_open($streamName, $context);
         return $out;
@@ -101,7 +101,7 @@ class ReadWrite extends \RectorPrefix20210527\Hoa\File\File implements \RectorPr
     public function read($length)
     {
         if (0 > $length) {
-            throw new \RectorPrefix20210527\Hoa\File\Exception('Length must be greater than 0, given %d.', 2, $length);
+            throw new \RectorPrefix20210528\Hoa\File\Exception('Length must be greater than 0, given %d.', 2, $length);
         }
         return \fread($this->getStream(), $length);
     }
@@ -204,7 +204,7 @@ class ReadWrite extends \RectorPrefix20210527\Hoa\File\File implements \RectorPr
     public function write($string, $length)
     {
         if (0 > $length) {
-            throw new \RectorPrefix20210527\Hoa\File\Exception('Length must be greater than 0, given %d.', 3, $length);
+            throw new \RectorPrefix20210528\Hoa\File\Exception('Length must be greater than 0, given %d.', 3, $length);
         }
         return \fwrite($this->getStream(), $string, $length);
     }

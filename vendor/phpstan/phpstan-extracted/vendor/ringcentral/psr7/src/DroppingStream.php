@@ -1,20 +1,20 @@
 <?php
 
-namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
+namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
 
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
 /**
  * Stream decorator that begins dropping data once the size of the underlying
  * stream becomes too full.
  */
-class DroppingStream extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\StreamDecoratorTrait implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
+class DroppingStream extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\StreamDecoratorTrait implements \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
 {
     private $maxLength;
     /**
      * @param StreamInterface $stream    Underlying stream to decorate.
      * @param int             $maxLength Maximum size before dropping data.
      */
-    public function __construct(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface $stream, $maxLength)
+    public function __construct(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface $stream, $maxLength)
     {
         parent::__construct($stream);
         $this->maxLength = $maxLength;

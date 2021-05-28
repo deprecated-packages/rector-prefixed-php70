@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
+namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
 
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
 /**
  * Compose stream implementations based on a hash of functions.
  *
@@ -23,7 +23,7 @@ use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
  * @property callable _fn_getContents
  * @property callable _fn_getMetadata
  */
-class FnStream implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
+class FnStream implements \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
 {
     /** @var array */
     private $methods;
@@ -66,7 +66,7 @@ class FnStream implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\
      *
      * @return FnStream
      */
-    public static function decorate(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface $stream, array $methods)
+    public static function decorate(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface $stream, array $methods)
     {
         // If any of the required methods were not provided, then simply
         // proxy to the decorated stream.

@@ -1,16 +1,16 @@
 <?php
 
-namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket;
+namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Socket;
 
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Promise;
 use InvalidArgumentException;
 use RuntimeException;
-final class TcpConnector implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface
+final class TcpConnector implements \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface
 {
     private $loop;
     private $context;
-    public function __construct(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, array $context = array())
+    public function __construct(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, array $context = array())
     {
         $this->loop = $loop;
         $this->context = $context;
@@ -22,11 +22,11 @@ final class TcpConnector implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8
         }
         $parts = \parse_url($uri);
         if (!$parts || !isset($parts['scheme'], $parts['host'], $parts['port']) || $parts['scheme'] !== 'tcp') {
-            return \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
+            return \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
         }
         $ip = \trim($parts['host'], '[]');
         if (\false === \filter_var($ip, \FILTER_VALIDATE_IP)) {
-            return \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $ip . '" does not contain a valid host IP'));
+            return \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $ip . '" does not contain a valid host IP'));
         }
         // use context given in constructor
         $context = array('socket' => $this->context);
@@ -56,11 +56,11 @@ final class TcpConnector implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8
         $remote = 'tcp://' . $parts['host'] . ':' . $parts['port'];
         $stream = @\stream_socket_client($remote, $errno, $errstr, 0, \STREAM_CLIENT_CONNECT | \STREAM_CLIENT_ASYNC_CONNECT, \stream_context_create($context));
         if (\false === $stream) {
-            return \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \RuntimeException(\sprintf("Connection to %s failed: %s", $uri, $errstr), $errno));
+            return \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \RuntimeException(\sprintf("Connection to %s failed: %s", $uri, $errstr), $errno));
         }
         // wait for connection
         $loop = $this->loop;
-        return new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Promise\Promise(function ($resolve, $reject) use($loop, $stream, $uri) {
+        return new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Promise\Promise(function ($resolve, $reject) use($loop, $stream, $uri) {
             $loop->addWriteStream($stream, function ($stream) use($loop, $resolve, $reject, $uri) {
                 $loop->removeWriteStream($stream);
                 // The following hack looks like the only way to
@@ -69,7 +69,7 @@ final class TcpConnector implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8
                     \fclose($stream);
                     $reject(new \RuntimeException('Connection to ' . $uri . ' failed: Connection refused'));
                 } else {
-                    $resolve(new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Socket\Connection($stream, $loop));
+                    $resolve(new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Socket\Connection($stream, $loop));
                 }
             });
         }, function () use($loop, $stream, $uri) {

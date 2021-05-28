@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Question;
+namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Question;
 
 /**
  * Represents a yes/no question.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ConfirmationQuestion extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Question\Question
+class ConfirmationQuestion extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Question\Question
 {
     private $trueAnswerRegex;
     /**

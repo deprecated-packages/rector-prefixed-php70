@@ -5,14 +5,14 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions;
+namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions;
 
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection;
 /**
  * Multi accessor/factory definition.
  */
-final class LocatorDefinition extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Definition
+final class LocatorDefinition extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Definition
 {
     /** @var Reference[] */
     private $references = [];
@@ -22,15 +22,15 @@ final class LocatorDefinition extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77
     public function setImplement(string $type)
     {
         if (!\interface_exists($type)) {
-            throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException(\sprintf("Service '%s': Interface '%s' not found.", $this->getName(), $type));
+            throw new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException(\sprintf("Service '%s': Interface '%s' not found.", $this->getName(), $type));
         }
         $methods = (new \ReflectionClass($type))->getMethods();
         if (!$methods) {
-            throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException(\sprintf("Service '%s': Interface %s must have at least one method.", $this->getName(), $type));
+            throw new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException(\sprintf("Service '%s': Interface %s must have at least one method.", $this->getName(), $type));
         }
         foreach ($methods as $method) {
             if ($method->isStatic() || !(\preg_match('#^(get|create)$#', $method->name) && $method->getNumberOfParameters() === 1 || \preg_match('#^(get|create)[A-Z]#', $method->name) && $method->getNumberOfParameters() === 0)) {
-                throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException(\sprintf("Service '%s': Method %s::%s() does not meet the requirements: is create(\$name), get(\$name), create*() or get*() and is non-static.", $this->getName(), $type, $method->name));
+                throw new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException(\sprintf("Service '%s': Method %s::%s() does not meet the requirements: is create(\$name), get(\$name), create*() or get*() and is non-static.", $this->getName(), $type, $method->name));
             }
         }
         return parent::setType($type);
@@ -47,7 +47,7 @@ final class LocatorDefinition extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77
     {
         $this->references = [];
         foreach ($references as $name => $ref) {
-            $this->references[$name] = \substr($ref, 0, 1) === '@' ? new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Reference(\substr($ref, 1)) : \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Reference::fromType($ref);
+            $this->references[$name] = \substr($ref, 0, 1) === '@' ? new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Reference(\substr($ref, 1)) : \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Reference::fromType($ref);
         }
         return $this;
     }
@@ -73,13 +73,13 @@ final class LocatorDefinition extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77
     /**
      * @return void
      */
-    public function resolveType(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Resolver $resolver)
+    public function resolveType(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Resolver $resolver)
     {
     }
     /**
      * @return void
      */
-    public function complete(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Resolver $resolver)
+    public function complete(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Resolver $resolver)
     {
         if ($this->tagged !== null) {
             $this->references = [];
@@ -87,7 +87,7 @@ final class LocatorDefinition extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77
                 if (isset($this->references[$tag])) {
                     \trigger_error("Service '{$this->getName()}': duplicated tag '{$this->tagged}' with value '{$tag}'.", \E_USER_NOTICE);
                 }
-                $this->references[$tag] = new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Reference($name);
+                $this->references[$tag] = new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Reference($name);
             }
         }
         foreach ($this->references as $name => $ref) {
@@ -97,16 +97,16 @@ final class LocatorDefinition extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77
     /**
      * @return void
      */
-    public function generateMethod(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Method $method, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\PhpGenerator $generator)
+    public function generateMethod(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Method $method, \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\PhpGenerator $generator)
     {
-        $class = (new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\ClassType())->addImplement($this->getType());
+        $class = (new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\ClassType())->addImplement($this->getType());
         $class->addProperty('container')->setPrivate();
         $class->addMethod('__construct')->addBody('$this->container = $container;')->addParameter('container')->setType($generator->getClassName());
         foreach ((new \ReflectionClass($this->getType()))->getMethods() as $rm) {
             \preg_match('#^(get|create)(.*)#', $rm->name, $m);
             $name = \lcfirst($m[2]);
             $nullable = $rm->getReturnType()->allowsNull();
-            $methodInner = $class->addMethod($rm->name)->setReturnType(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getReturnType($rm))->setReturnNullable($nullable);
+            $methodInner = $class->addMethod($rm->name)->setReturnType(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getReturnType($rm))->setReturnNullable($nullable);
             if (!$name) {
                 $class->addProperty('mapping', \array_map(function ($item) {
                     return $item->getValue();
@@ -120,7 +120,7 @@ return $this->container->' . $m[1] . 'Service($this->mapping[$name]);')->addPara
                 if ($m[1] === 'get') {
                     $methodInner->setBody('return $this->container->getService(?);', [$ref]);
                 } else {
-                    $methodInner->setBody('return $this->container->?();', [\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\DI\Container::getMethodName($ref)]);
+                    $methodInner->setBody('return $this->container->?();', [\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Container::getMethodName($ref)]);
                 }
             } else {
                 $methodInner->setBody($nullable ? 'return null;' : 'throw new Nette\\DI\\MissingServiceException("Service is not defined.");');

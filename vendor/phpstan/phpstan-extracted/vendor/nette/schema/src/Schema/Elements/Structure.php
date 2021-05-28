@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Elements;
+namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Schema\Elements;
 
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema;
-final class Structure implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema;
+final class Structure implements \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema
 {
     use Base;
     use Nette\SmartObject;
@@ -26,7 +26,7 @@ final class Structure implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Ne
      */
     public function __construct(array $items)
     {
-        (function (\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema ...$items) {
+        (function (\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema ...$items) {
         })(...\array_values($items));
         $this->items = $items;
         $this->castTo = 'object';
@@ -36,7 +36,7 @@ final class Structure implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Ne
      */
     public function default($value)
     {
-        throw new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException('Structure cannot have default value.');
+        throw new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException('Structure cannot have default value.');
     }
     /**
      * @return $this
@@ -62,11 +62,11 @@ final class Structure implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Ne
      */
     public function otherItems($type = 'mixed')
     {
-        $this->otherItems = $type instanceof \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema ? $type : new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Elements\Type($type);
+        $this->otherItems = $type instanceof \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Schema\Schema ? $type : new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Schema\Elements\Type($type);
         return $this;
     }
     /********************* processing ****************d*g**/
-    public function normalize($value, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
+    public function normalize($value, \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
     {
         $value = $this->doNormalize($value, $context);
         if (\is_object($value)) {
@@ -86,8 +86,8 @@ final class Structure implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Ne
     }
     public function merge($value, $base)
     {
-        if (\is_array($value) && isset($value[\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::PREVENT_MERGING])) {
-            unset($value[\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::PREVENT_MERGING]);
+        if (\is_array($value) && isset($value[\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::PREVENT_MERGING])) {
+            unset($value[\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::PREVENT_MERGING]);
             $base = null;
         }
         if (\is_array($value) && \is_array($base)) {
@@ -98,16 +98,16 @@ final class Structure implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Ne
                     $index++;
                 } elseif (\array_key_exists($key, $base)) {
                     $itemSchema = $this->items[$key] ?? $this->otherItems;
-                    $base[$key] = $itemSchema ? $itemSchema->merge($val, $base[$key]) : \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::merge($val, $base[$key]);
+                    $base[$key] = $itemSchema ? $itemSchema->merge($val, $base[$key]) : \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::merge($val, $base[$key]);
                 } else {
                     $base[$key] = $val;
                 }
             }
             return $base;
         }
-        return \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::merge($value, $base);
+        return \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Schema\Helpers::merge($value, $base);
     }
-    public function complete($value, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
+    public function complete($value, \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
     {
         if ($value === null) {
             $value = [];
@@ -123,7 +123,7 @@ final class Structure implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Ne
             if ($this->otherItems) {
                 $items += \array_fill_keys($extraKeys, $this->otherItems);
             } else {
-                $hint = \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Utils\Helpers::getSuggestion(\array_map('strval', \array_keys($items)), (string) $extraKeys[0]);
+                $hint = \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Helpers::getSuggestion(\array_map('strval', \array_keys($items)), (string) $extraKeys[0]);
                 $s = \implode("', '", \array_map(function ($key) use($context) {
                     return \implode(' › ', \array_merge($context->path, [$key]));
                 }, $hint ? [$extraKeys[0]] : $extraKeys));
@@ -148,7 +148,7 @@ final class Structure implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Ne
         }
         return $this->doFinalize($value, $context);
     }
-    public function completeDefault(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
+    public function completeDefault(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Schema\Context $context)
     {
         return $this->complete([], $context);
     }

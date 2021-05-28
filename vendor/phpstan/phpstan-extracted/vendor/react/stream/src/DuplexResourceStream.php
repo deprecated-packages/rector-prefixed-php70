@@ -1,11 +1,11 @@
 <?php
 
-namespace RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream;
+namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream;
 
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
-use RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
-final class DuplexResourceStream extends \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\DuplexStreamInterface
+final class DuplexResourceStream extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\DuplexStreamInterface
 {
     private $stream;
     private $loop;
@@ -31,7 +31,7 @@ final class DuplexResourceStream extends \RectorPrefix20210527\_HumbugBox0b2f2d5
     private $writable = \true;
     private $closing = \false;
     private $listening = \false;
-    public function __construct($stream, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, $readChunkSize = null, \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $buffer = null)
+    public function __construct($stream, \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, $readChunkSize = null, \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $buffer = null)
     {
         if (!\is_resource($stream) || \get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');
@@ -58,7 +58,7 @@ final class DuplexResourceStream extends \RectorPrefix20210527\_HumbugBox0b2f2d5
             \stream_set_read_buffer($stream, 0);
         }
         if ($buffer === null) {
-            $buffer = new \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\WritableResourceStream($stream, $loop);
+            $buffer = new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\WritableResourceStream($stream, $loop);
         }
         $this->stream = $stream;
         $this->loop = $loop;
@@ -130,9 +130,9 @@ final class DuplexResourceStream extends \RectorPrefix20210527\_HumbugBox0b2f2d5
         $this->pause();
         $this->buffer->end($data);
     }
-    public function pipe(\RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \RectorPrefix20210527\_HumbugBox0b2f2d5c77b8\React\Stream\Util::pipe($this, $dest, $options);
+        return \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\Util::pipe($this, $dest, $options);
     }
     /** @internal */
     public function handleData($stream)

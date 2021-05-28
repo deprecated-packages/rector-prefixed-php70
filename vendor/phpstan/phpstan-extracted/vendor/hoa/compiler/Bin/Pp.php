@@ -33,12 +33,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210527\Hoa\Compiler\Bin;
+namespace RectorPrefix20210528\Hoa\Compiler\Bin;
 
-use RectorPrefix20210527\Hoa\Compiler;
-use RectorPrefix20210527\Hoa\Consistency;
-use RectorPrefix20210527\Hoa\Console;
-use RectorPrefix20210527\Hoa\File;
+use RectorPrefix20210528\Hoa\Compiler;
+use RectorPrefix20210528\Hoa\Consistency;
+use RectorPrefix20210528\Hoa\Console;
+use RectorPrefix20210528\Hoa\File;
 /**
  * Class Hoa\Compiler\Bin\Pp.
  *
@@ -47,14 +47,14 @@ use RectorPrefix20210527\Hoa\File;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Pp extends \RectorPrefix20210527\Hoa\Console\Dispatcher\Kit
+class Pp extends \RectorPrefix20210528\Hoa\Console\Dispatcher\Kit
 {
     /**
      * Options description.
      *
      * @var array
      */
-    protected $options = [['visitor', \RectorPrefix20210527\Hoa\Console\GetOption::REQUIRED_ARGUMENT, 'v'], ['visitor-class', \RectorPrefix20210527\Hoa\Console\GetOption::REQUIRED_ARGUMENT, 'c'], ['token-sequence', \RectorPrefix20210527\Hoa\Console\GetOption::NO_ARGUMENT, 's'], ['trace', \RectorPrefix20210527\Hoa\Console\GetOption::NO_ARGUMENT, 't'], ['help', \RectorPrefix20210527\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \RectorPrefix20210527\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
+    protected $options = [['visitor', \RectorPrefix20210528\Hoa\Console\GetOption::REQUIRED_ARGUMENT, 'v'], ['visitor-class', \RectorPrefix20210528\Hoa\Console\GetOption::REQUIRED_ARGUMENT, 'c'], ['token-sequence', \RectorPrefix20210528\Hoa\Console\GetOption::NO_ARGUMENT, 's'], ['trace', \RectorPrefix20210528\Hoa\Console\GetOption::NO_ARGUMENT, 't'], ['help', \RectorPrefix20210528\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \RectorPrefix20210528\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
     /**
      * The entry method.
      *
@@ -70,7 +70,7 @@ class Pp extends \RectorPrefix20210527\Hoa\Console\Dispatcher\Kit
                 case 'v':
                     switch (\strtolower($v)) {
                         case 'dump':
-                            $visitor = 'RectorPrefix20210527\\Hoa\\Compiler\\Visitor\\Dump';
+                            $visitor = 'RectorPrefix20210528\\Hoa\\Compiler\\Visitor\\Dump';
                             break;
                         default:
                             return $this->usage();
@@ -98,12 +98,12 @@ class Pp extends \RectorPrefix20210527\Hoa\Console\Dispatcher\Kit
         if (empty($grammar) || empty($language) && '0' !== $language) {
             return $this->usage();
         }
-        $compiler = \RectorPrefix20210527\Hoa\Compiler\Llk::load(new \RectorPrefix20210527\Hoa\File\Read($grammar));
-        $stream = new \RectorPrefix20210527\Hoa\File\Read($language);
+        $compiler = \RectorPrefix20210528\Hoa\Compiler\Llk::load(new \RectorPrefix20210528\Hoa\File\Read($grammar));
+        $stream = new \RectorPrefix20210528\Hoa\File\Read($language);
         $data = $stream->readAll();
         try {
             $ast = $compiler->parse($data);
-        } catch (\RectorPrefix20210527\Hoa\Compiler\Exception $e) {
+        } catch (\RectorPrefix20210528\Hoa\Compiler\Exception $e) {
             if (\true === $tokenSequence) {
                 $this->printTokenSequence($compiler, $data);
                 echo "\n\n";
@@ -120,7 +120,7 @@ class Pp extends \RectorPrefix20210527\Hoa\Console\Dispatcher\Kit
             echo "\n\n";
         }
         if (null !== $visitor) {
-            $visitor = \RectorPrefix20210527\Hoa\Consistency\Autoloader::dnew($visitor);
+            $visitor = \RectorPrefix20210528\Hoa\Consistency\Autoloader::dnew($visitor);
             echo $visitor->visit($ast);
         }
         return;
@@ -131,11 +131,11 @@ class Pp extends \RectorPrefix20210527\Hoa\Console\Dispatcher\Kit
      * @param   \Hoa\Compiler\Llk\Parser  $compiler    Compiler.
      * @return  void
      */
-    protected function printTrace(\RectorPrefix20210527\Hoa\Compiler\Llk\Parser $compiler)
+    protected function printTrace(\RectorPrefix20210528\Hoa\Compiler\Llk\Parser $compiler)
     {
         $i = 0;
         foreach ($compiler->getTrace() as $element) {
-            if ($element instanceof \RectorPrefix20210527\Hoa\Compiler\Llk\Rule\Entry) {
+            if ($element instanceof \RectorPrefix20210528\Hoa\Compiler\Llk\Rule\Entry) {
                 $ruleName = $element->getRule();
                 $rule = $compiler->getRule($ruleName);
                 echo \str_repeat('>  ', ++$i), 'enter ', $ruleName;
@@ -143,7 +143,7 @@ class Pp extends \RectorPrefix20210527\Hoa\Console\Dispatcher\Kit
                     echo ' (', $id, ')';
                 }
                 echo "\n";
-            } elseif ($element instanceof \RectorPrefix20210527\Hoa\Compiler\Llk\Rule\Token) {
+            } elseif ($element instanceof \RectorPrefix20210528\Hoa\Compiler\Llk\Rule\Token) {
                 echo \str_repeat('   ', $i + 1), 'token ', $element->getTokenName(), ', consumed ', $element->getValue(), "\n";
             } else {
                 echo \str_repeat('<  ', $i--), 'ekzit ', $element->getRule(), "\n";
@@ -158,9 +158,9 @@ class Pp extends \RectorPrefix20210527\Hoa\Console\Dispatcher\Kit
      * @param   string                    $data        Data to lex.
      * @return  void
      */
-    protected function printTokenSequence(\RectorPrefix20210527\Hoa\Compiler\Llk\Parser $compiler, $data)
+    protected function printTokenSequence(\RectorPrefix20210528\Hoa\Compiler\Llk\Parser $compiler, $data)
     {
-        $lexer = new \RectorPrefix20210527\Hoa\Compiler\Llk\Lexer();
+        $lexer = new \RectorPrefix20210528\Hoa\Compiler\Llk\Lexer();
         $sequence = $lexer->lexMe($data, $compiler->getTokens());
         $format = '%' . (\strlen((string) \count($sequence)) + 1) . 's  ' . '%-13s %-20s  %s  %6s' . "\n";
         $header = \sprintf($format, '#', 'namespace', 'token name', 'token value                   ', 'offset');
