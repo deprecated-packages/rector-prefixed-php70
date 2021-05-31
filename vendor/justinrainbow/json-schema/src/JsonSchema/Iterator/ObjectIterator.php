@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210528\JsonSchema\Iterator;
+namespace RectorPrefix20210531\JsonSchema\Iterator;
 
 /**
  * @package JsonSchema\Iterator

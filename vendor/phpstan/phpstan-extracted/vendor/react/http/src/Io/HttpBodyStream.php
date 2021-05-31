@@ -1,12 +1,12 @@
 <?php
 
-namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Http\Io;
+namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Http\Io;
 
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\Util;
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\Util;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Bridge between StreamInterface from PSR-7 and ReadableStreamInterface from ReactPHP
  *
@@ -23,7 +23,7 @@ use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInter
  * @see ReadableStreamInterface
  * @internal
  */
-class HttpBodyStream extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface, \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface
+class HttpBodyStream extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface, \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface
 {
     public $input;
     private $closed = \false;
@@ -32,7 +32,7 @@ class HttpBodyStream extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Evenem
      * @param ReadableStreamInterface $input Stream data from $stream as a body of a PSR-7 object4
      * @param int|null $size size of the data body
      */
-    public function __construct(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface $input, $size)
+    public function __construct(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface $input, $size)
     {
         $this->input = $input;
         $this->size = $size;
@@ -53,9 +53,9 @@ class HttpBodyStream extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Evenem
     {
         $this->input->resume();
     }
-    public function pipe(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\Util::pipe($this, $dest, $options);
+        \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210528\Symfony\Component\String;
+namespace RectorPrefix20210531\Symfony\Component\String;
 
 /**
  * A string whose value is computed lazily by a callback.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class LazyString implements \Stringable, \JsonSerializable
+class LazyString implements \JsonSerializable
 {
     private $value;
     /**

@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210528\Seld\JsonLint;
+namespace RectorPrefix20210531\Seld\JsonLint;
 
-class DuplicateKeyException extends \RectorPrefix20210528\Seld\JsonLint\ParsingException
+class DuplicateKeyException extends \RectorPrefix20210531\Seld\JsonLint\ParsingException
 {
     /**
      * @param string $message

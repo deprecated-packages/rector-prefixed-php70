@@ -1,11 +1,11 @@
 <?php
 
-namespace RectorPrefix20210528;
+namespace RectorPrefix20210531;
 
 require __DIR__ . '/../vendor/autoload.php';
 $data = \json_decode(\file_get_contents('data.json'));
 // Validate
-$validator = new \RectorPrefix20210528\JsonSchema\Validator();
+$validator = new \RectorPrefix20210531\JsonSchema\Validator();
 $validator->check($data, (object) array('$ref' => 'file://' . \realpath('schema.json')));
 if ($validator->isValid()) {
     echo "The supplied JSON validates against the schema.\n";

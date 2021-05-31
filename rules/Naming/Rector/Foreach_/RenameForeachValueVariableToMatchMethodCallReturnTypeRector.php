@@ -117,6 +117,6 @@ CODE_SAMPLE
      */
     private function renameVariable(\Rector\Naming\ValueObject\VariableAndCallForeach $variableAndCallForeach, string $expectedName)
     {
-        $this->variableRenamer->renameVariableInFunctionLike($variableAndCallForeach->getFunctionLike(), null, $variableAndCallForeach->getVariableName(), $expectedName);
+        $this->variableRenamer->renameVariableInFunctionLike($variableAndCallForeach->getFunctionLike(), $variableAndCallForeach->getVariableName(), $expectedName, null);
     }
 }

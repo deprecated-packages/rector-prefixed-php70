@@ -1,9 +1,9 @@
 <?php
 
-namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Http\Message;
+namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Http\Message;
 
 use RuntimeException;
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface;
 /**
  * The `React\Http\Message\ResponseException` is an `Exception` sub-class that will be used to reject
  * a request promise if the remote server returns a non-success status code
@@ -16,7 +16,7 @@ use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterfa
 final class ResponseException extends \RuntimeException
 {
     private $response;
-    public function __construct(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface $response, $message = null, $code = null, $previous = null)
+    public function __construct(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ResponseInterface $response, $message = null, $code = null, $previous = null)
     {
         if ($message === null) {
             $message = 'HTTP status code ' . $response->getStatusCode() . ' (' . $response->getReasonPhrase() . ')';

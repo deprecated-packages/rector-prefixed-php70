@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v5;
 
-use RectorPrefix20210528\Nette\Utils\Strings;
+use RectorPrefix20210531\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -131,7 +131,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends \Rector\Core\
             $methodParameters = $commandMethod->params;
             $commandDescription = null !== $descriptionPhpDocNode ? (string) $descriptionPhpDocNode : '';
             $commandTemplate = $this->templateFinder->getCommand();
-            $commandName = \RectorPrefix20210528\Nette\Utils\Strings::firstUpper($commandMethodName);
+            $commandName = \RectorPrefix20210531\Nette\Utils\Strings::firstUpper($commandMethodName);
             $commandContent = $commandTemplate->getContents();
             $filePath = \sprintf('%s/Classes/Command/%s.php', $extensionDirectory, $commandName);
             // Do not overwrite existing file
@@ -163,7 +163,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends \Rector\Core\
             $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
             $this->createDeepDirectoryFromFilePath($filePath);
             $this->removedAndAddedFilesCollector->addAddedFile(new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($filePath, $changedSetConfigContent));
-            $newCommandName = \sprintf('%s:%s', \RectorPrefix20210528\Nette\Utils\Strings::lower($vendorName), \RectorPrefix20210528\Nette\Utils\Strings::lower($commandName));
+            $newCommandName = \sprintf('%s:%s', \RectorPrefix20210531\Nette\Utils\Strings::lower($vendorName), \RectorPrefix20210531\Nette\Utils\Strings::lower($commandName));
             $newCommandsWithFullQualifiedNamespace[$newCommandName] = \sprintf('%s\\%s', $commandNamespace, $commandName);
         }
         $this->addNewCommandsToCommandsFile($commandsFilePath, $newCommandsWithFullQualifiedNamespace);
@@ -229,7 +229,7 @@ CODE_SAMPLE
             if (null === $methodName) {
                 return null;
             }
-            return \RectorPrefix20210528\Nette\Utils\Strings::endsWith($methodName, 'Command');
+            return \RectorPrefix20210531\Nette\Utils\Strings::endsWith($methodName, 'Command');
         });
     }
     /**

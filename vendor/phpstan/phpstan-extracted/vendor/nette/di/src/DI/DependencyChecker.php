@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI;
+namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI;
 
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette;
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection;
 use ReflectionClass;
 use ReflectionMethod;
 /**
@@ -49,9 +49,9 @@ class DependencyChecker
                 }
             } elseif ($dep instanceof \ReflectionFunctionAbstract) {
                 $phpFiles[] = $dep->getFileName();
-                $functions[] = \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::toString($dep);
+                $functions[] = \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::toString($dep);
             } else {
-                throw new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException('Unexpected dependency ' . \gettype($dep));
+                throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException('Unexpected dependency ' . \gettype($dep));
             }
         }
         $classes = \array_keys($classes);
@@ -84,7 +84,7 @@ class DependencyChecker
         $hash = [];
         foreach ($classes as $name) {
             $class = new \ReflectionClass($name);
-            $hash[] = [$name, \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getUseStatements($class), $class->isAbstract(), \get_parent_class($name), \class_implements($name), \class_uses($name)];
+            $hash[] = [$name, \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getUseStatements($class), $class->isAbstract(), \get_parent_class($name), \class_implements($name), \class_uses($name)];
             foreach ($class->getProperties(\ReflectionProperty::IS_PUBLIC) as $prop) {
                 if ($prop->getDeclaringClass() == $class) {
                     // intentionally ==
@@ -106,7 +106,7 @@ class DependencyChecker
                 if (isset($flip[$class->name])) {
                     continue;
                 }
-                $uses = \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getUseStatements($class);
+                $uses = \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getUseStatements($class);
             } else {
                 $method = new \ReflectionFunction($name);
                 $uses = null;
@@ -119,7 +119,7 @@ class DependencyChecker
     {
         $res = [];
         foreach ($method->getParameters() as $param) {
-            $res[] = [$param->name, \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getParameterType($param), $param->allowsNull(), $param->isVariadic(), $param->isDefaultValueAvailable() ? [\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getParameterDefaultValue($param)] : null];
+            $res[] = [$param->name, \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getParameterType($param), $param->allowsNull(), $param->isVariadic(), $param->isDefaultValueAvailable() ? [\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Reflection::getParameterDefaultValue($param)] : null];
         }
         return $res;
     }

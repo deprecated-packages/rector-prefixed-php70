@@ -3,24 +3,23 @@
 declare (strict_types=1);
 namespace Rector\Core\DependencyInjection\CompilerPass;
 
-use RectorPrefix20210528\Nette\Utils\Strings;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
-use RectorPrefix20210528\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use RectorPrefix20210528\Symfony\Component\DependencyInjection\ContainerBuilder;
-final class VerifyRectorServiceExistsCompilerPass implements \RectorPrefix20210528\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+use RectorPrefix20210531\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use RectorPrefix20210531\Symfony\Component\DependencyInjection\ContainerBuilder;
+final class VerifyRectorServiceExistsCompilerPass implements \RectorPrefix20210531\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @return void
      */
-    public function process(\RectorPrefix20210528\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function process(\RectorPrefix20210531\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         foreach ($containerBuilder->getDefinitions() as $definition) {
             $class = $definition->getClass();
             if ($class === null) {
                 continue;
             }
-            if (!\RectorPrefix20210528\Nette\Utils\Strings::endsWith($class, 'Rector')) {
+            if (\substr_compare($class, 'Rector', -\strlen('Rector')) !== 0) {
                 continue;
             }
             if (!\is_a($class, \Rector\Core\Contract\Rector\RectorInterface::class, \true)) {

@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator;
+namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator;
 
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette;
 /**
  * @internal
  */
@@ -18,17 +18,17 @@ final class Helpers
     /** @deprecated  use Nette\PhpGenerator\Dumper::dump() */
     public static function dump($var) : string
     {
-        return (new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Dumper())->dump($var);
+        return (new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Dumper())->dump($var);
     }
     /** @deprecated  use Nette\PhpGenerator\Dumper::format() */
     public static function format(string $statement, ...$args) : string
     {
-        return (new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Dumper())->format($statement, ...$args);
+        return (new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Dumper())->format($statement, ...$args);
     }
     /** @deprecated  use Nette\PhpGenerator\Dumper::format() */
     public static function formatArgs(string $statement, array $args) : string
     {
-        return (new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Dumper())->format($statement, ...$args);
+        return (new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Dumper())->format($statement, ...$args);
     }
     public static function formatDocComment(string $content) : string
     {
@@ -72,6 +72,6 @@ final class Helpers
     /** @internal */
     public static function createObject(string $class, array $props)
     {
-        return \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Dumper::createObject($class, $props);
+        return \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\PhpGenerator\Dumper::createObject($class, $props);
     }
 }

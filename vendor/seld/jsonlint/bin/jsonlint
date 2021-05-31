@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php 
-namespace RectorPrefix20210528;
+namespace RectorPrefix20210531;
 
 /*
  * This file is part of the JSON Lint package.
@@ -16,12 +16,12 @@ function includeIfExists($file)
         return include $file;
     }
 }
-if (!\RectorPrefix20210528\includeIfExists(__DIR__ . '/../vendor/autoload.php') && !\RectorPrefix20210528\includeIfExists(__DIR__ . '/../../../autoload.php')) {
+if (!\RectorPrefix20210531\includeIfExists(__DIR__ . '/../vendor/autoload.php') && !\RectorPrefix20210531\includeIfExists(__DIR__ . '/../../../autoload.php')) {
     $msg = 'You must set up the project dependencies, run the following commands:' . \PHP_EOL . 'curl -sS https://getcomposer.org/installer | php' . \PHP_EOL . 'php composer.phar install' . \PHP_EOL;
     \fwrite(\STDERR, $msg);
     exit(1);
 }
-use RectorPrefix20210528\Seld\JsonLint\JsonParser;
+use RectorPrefix20210531\Seld\JsonLint\JsonParser;
 $files = array();
 $quiet = \false;
 if (isset($_SERVER['argc']) && $_SERVER['argc'] > 1) {
@@ -31,7 +31,7 @@ if (isset($_SERVER['argc']) && $_SERVER['argc'] > 1) {
             $quiet = \true;
         } else {
             if ($arg == '-h' || $arg == '--help') {
-                \RectorPrefix20210528\showUsage($_SERVER['argv'][0]);
+                \RectorPrefix20210531\showUsage($_SERVER['argv'][0]);
             } else {
                 $files[] = $arg;
             }
@@ -42,7 +42,7 @@ if (!empty($files)) {
     // file linting
     $exitCode = 0;
     foreach ($files as $file) {
-        $result = \RectorPrefix20210528\lintFile($file, $quiet);
+        $result = \RectorPrefix20210531\lintFile($file, $quiet);
         if ($result === \false) {
             $exitCode = 1;
         }
@@ -51,7 +51,7 @@ if (!empty($files)) {
 } else {
     //stdin linting
     if ($contents = \file_get_contents('php://stdin')) {
-        \RectorPrefix20210528\lint($contents);
+        \RectorPrefix20210531\lint($contents);
     } else {
         \fwrite(\STDERR, 'No file name or json input given' . \PHP_EOL);
         exit(1);
@@ -60,7 +60,7 @@ if (!empty($files)) {
 // stdin lint function
 function lint($content, $quiet = \false)
 {
-    $parser = new \RectorPrefix20210528\Seld\JsonLint\JsonParser();
+    $parser = new \RectorPrefix20210531\Seld\JsonLint\JsonParser();
     if ($err = $parser->lint($content)) {
         \fwrite(\STDERR, $err->getMessage() . ' (stdin)' . \PHP_EOL);
         exit(1);
@@ -84,7 +84,7 @@ function lintFile($file, $quiet = \false)
         }
     }
     $content = \file_get_contents($file);
-    $parser = new \RectorPrefix20210528\Seld\JsonLint\JsonParser();
+    $parser = new \RectorPrefix20210531\Seld\JsonLint\JsonParser();
     if ($err = $parser->lint($content)) {
         \fwrite(\STDERR, $file . ': ' . $err->getMessage() . \PHP_EOL);
         return \false;

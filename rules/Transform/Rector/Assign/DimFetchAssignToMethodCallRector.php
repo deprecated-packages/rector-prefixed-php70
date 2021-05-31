@@ -14,7 +14,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Transform\ValueObject\DimFetchAssignToMethodCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210528\Webmozart\Assert\Assert;
+use RectorPrefix20210531\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Tests\Transform\Rector\Assign\DimFetchAssignToMethodCallRector\DimFetchAssignToMethodCallRectorTest
  */
@@ -93,7 +93,7 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $dimFetchAssignToMethodCalls = $configuration[self::DIM_FETCH_ASSIGN_TO_METHOD_CALL] ?? [];
-        \RectorPrefix20210528\Webmozart\Assert\Assert::allIsInstanceOf($dimFetchAssignToMethodCalls, \Rector\Transform\ValueObject\DimFetchAssignToMethodCall::class);
+        \RectorPrefix20210531\Webmozart\Assert\Assert::allIsInstanceOf($dimFetchAssignToMethodCalls, \Rector\Transform\ValueObject\DimFetchAssignToMethodCall::class);
         $this->dimFetchAssignToMethodCalls = $dimFetchAssignToMethodCalls;
     }
     /**

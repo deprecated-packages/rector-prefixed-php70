@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\FileFormatter\Formatter;
 
-use RectorPrefix20210528\Nette\Utils\Strings;
+use RectorPrefix20210531\Nette\Utils\Strings;
 use Rector\Core\ValueObject\Application\File;
 use Rector\FileFormatter\Contract\Formatter\FileFormatterInterface;
 use Rector\FileFormatter\ValueObject\EditorConfigConfiguration;
@@ -72,7 +72,7 @@ final class XmlFileFormatter implements \Rector\FileFormatter\Contract\Formatter
         $output = '';
         $this->depth = 0;
         $parts = $this->getXmlParts($xml);
-        if (\strpos($parts[0], '<?xml') === 0) {
+        if (\strncmp($parts[0], '<?xml', \strlen('<?xml')) === 0) {
             $output = \array_shift($parts) . \PHP_EOL;
         }
         foreach ($parts as $part) {
@@ -85,7 +85,7 @@ final class XmlFileFormatter implements \Rector\FileFormatter\Contract\Formatter
      */
     private function getXmlParts(string $xml) : array
     {
-        $withNewLines = \RectorPrefix20210528\Nette\Utils\Strings::replace(\trim($xml), self::XML_PARTS_REGEX, "\$1\n\$2\$3");
+        $withNewLines = \RectorPrefix20210531\Nette\Utils\Strings::replace(\trim($xml), self::XML_PARTS_REGEX, "\$1\n\$2\$3");
         return \explode("\n", $withNewLines);
     }
     private function getOutputForPart(string $part) : string
@@ -131,18 +131,18 @@ final class XmlFileFormatter implements \Rector\FileFormatter\Contract\Formatter
     }
     private function isOpeningTag(string $part) : bool
     {
-        return (bool) \RectorPrefix20210528\Nette\Utils\Strings::match($part, self::IS_OPENING_TAG_REGEX);
+        return (bool) \RectorPrefix20210531\Nette\Utils\Strings::match($part, self::IS_OPENING_TAG_REGEX);
     }
     private function isClosingTag(string $part) : bool
     {
-        return (bool) \RectorPrefix20210528\Nette\Utils\Strings::match($part, self::IS_CLOSING_TAG_REGEX);
+        return (bool) \RectorPrefix20210531\Nette\Utils\Strings::match($part, self::IS_CLOSING_TAG_REGEX);
     }
     private function isOpeningCdataTag(string $part) : bool
     {
-        return \RectorPrefix20210528\Nette\Utils\Strings::contains($part, '<![CDATA[');
+        return \strpos($part, '<![CDATA[') !== \false;
     }
     private function isClosingCdataTag(string $part) : bool
     {
-        return \RectorPrefix20210528\Nette\Utils\Strings::contains($part, ']]>');
+        return \strpos($part, ']]>') !== \false;
     }
 }

@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\PHPOffice\Rector\StaticCall;
 
-use RectorPrefix20210528\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
@@ -82,7 +81,7 @@ CODE_SAMPLE
             if (isset($node->args[$position])) {
                 continue;
             }
-            if (\is_string($defaultValue) && \RectorPrefix20210528\Nette\Utils\Strings::contains($defaultValue, '::')) {
+            if (\is_string($defaultValue) && \strpos($defaultValue, '::') !== \false) {
                 list($className, $constant) = \explode('::', $defaultValue);
                 $classConstant = $this->nodeFactory->createClassConstFetch($className, $constant);
                 $arg = new \PhpParser\Node\Arg($classConstant);

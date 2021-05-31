@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Php;
 
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Json;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Json;
 use PHPStan\File\FileReader;
 class PhpVersionFactoryFactory
 {
@@ -32,14 +32,14 @@ class PhpVersionFactoryFactory
             if (\is_file($composerJsonPath)) {
                 try {
                     $composerJsonContents = \PHPStan\File\FileReader::read($composerJsonPath);
-                    $composer = \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Json::decode($composerJsonContents, \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\Json::FORCE_ARRAY);
+                    $composer = \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Json::decode($composerJsonContents, \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Json::FORCE_ARRAY);
                     $platformVersion = $composer['config']['platform']['php'] ?? null;
                     if (\is_string($platformVersion)) {
                         $composerPhpVersion = $platformVersion;
                     }
                 } catch (\PHPStan\File\CouldNotReadFileException $e) {
                     // pass
-                } catch (\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Utils\JsonException $e) {
+                } catch (\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\JsonException $e) {
                     // pass
                 }
             }

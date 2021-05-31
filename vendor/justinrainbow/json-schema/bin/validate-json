@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php 
-namespace RectorPrefix20210528;
+namespace RectorPrefix20210531;
 
 /**
  * JSON schema validator
@@ -63,7 +63,7 @@ if (\count($arArgs) == 1) {
     $pathSchema = null;
 } else {
     $pathData = $arArgs[0];
-    $pathSchema = \RectorPrefix20210528\getUrlFromPath($arArgs[1]);
+    $pathSchema = \RectorPrefix20210531\getUrlFromPath($arArgs[1]);
 }
 /**
  * Show the json parse error that happened last
@@ -79,7 +79,7 @@ function showJsonError()
             $json_errors[$value] = $name;
         }
     }
-    \RectorPrefix20210528\output('JSON parse error: ' . $json_errors[\json_last_error()] . "\n");
+    \RectorPrefix20210531\output('JSON parse error: ' . $json_errors[\json_last_error()] . "\n");
 }
 function getUrlFromPath($path)
 {
@@ -126,18 +126,18 @@ function output($str)
         echo $str;
     }
 }
-$urlData = \RectorPrefix20210528\getUrlFromPath($pathData);
+$urlData = \RectorPrefix20210531\getUrlFromPath($pathData);
 $context = \stream_context_create(array('http' => array('header' => array('Accept: */*', 'Connection: Close'), 'max_redirects' => 5)));
 $dataString = \file_get_contents($pathData, \false, $context);
 if ($dataString == '') {
-    \RectorPrefix20210528\output("Data file is not readable or empty.\n");
+    \RectorPrefix20210531\output("Data file is not readable or empty.\n");
     exit(3);
 }
 $data = \json_decode($dataString);
 unset($dataString);
 if ($data === null) {
-    \RectorPrefix20210528\output("Error loading JSON data file\n");
-    \RectorPrefix20210528\showJsonError();
+    \RectorPrefix20210531\output("Error loading JSON data file\n");
+    \RectorPrefix20210531\showJsonError();
     exit(5);
 }
 if ($pathSchema === null) {
@@ -149,7 +149,7 @@ if ($pathSchema === null) {
             $hName = \strtolower($hName);
             if ($hName == 'link') {
                 //Link: <http://example.org/schema#>; rel="describedBy"
-                $hParts = \RectorPrefix20210528\parseHeaderValue($hValue);
+                $hParts = \RectorPrefix20210531\parseHeaderValue($hValue);
                 if (isset($hParts['rel']) && $hParts['rel'] == 'describedBy') {
                     $pathSchema = \trim($hParts['_value'], ' <>');
                 }
@@ -157,7 +157,7 @@ if ($pathSchema === null) {
                 if ($hName == 'content-type') {
                     //Content-Type: application/my-media-type+json;
                     //              profile=http://example.org/schema#
-                    $hParts = \RectorPrefix20210528\parseHeaderValue($hValue);
+                    $hParts = \RectorPrefix20210531\parseHeaderValue($hValue);
                     if (isset($hParts['profile'])) {
                         $pathSchema = $hParts['profile'];
                     }
@@ -170,17 +170,17 @@ if ($pathSchema === null) {
     }
     //autodetect schema
     if ($pathSchema === null) {
-        \RectorPrefix20210528\output("JSON data must be an object and have a \$schema property.\n");
-        \RectorPrefix20210528\output("You can pass the schema file on the command line as well.\n");
-        \RectorPrefix20210528\output("Schema autodetection failed.\n");
+        \RectorPrefix20210531\output("JSON data must be an object and have a \$schema property.\n");
+        \RectorPrefix20210531\output("You can pass the schema file on the command line as well.\n");
+        \RectorPrefix20210531\output("Schema autodetection failed.\n");
         exit(6);
     }
 }
 if ($pathSchema[0] == '/') {
     $pathSchema = 'file://' . $pathSchema;
 }
-$resolver = new \RectorPrefix20210528\JsonSchema\Uri\UriResolver();
-$retriever = new \RectorPrefix20210528\JsonSchema\Uri\UriRetriever();
+$resolver = new \RectorPrefix20210531\JsonSchema\Uri\UriResolver();
+$retriever = new \RectorPrefix20210531\JsonSchema\Uri\UriRetriever();
 try {
     $urlSchema = $resolver->resolve($pathSchema, $urlData);
     if (isset($arOptions['--dump-schema-url'])) {
@@ -188,12 +188,12 @@ try {
         exit;
     }
 } catch (\Exception $e) {
-    \RectorPrefix20210528\output("Error loading JSON schema file\n");
-    \RectorPrefix20210528\output($urlSchema . "\n");
-    \RectorPrefix20210528\output($e->getMessage() . "\n");
+    \RectorPrefix20210531\output("Error loading JSON schema file\n");
+    \RectorPrefix20210531\output($urlSchema . "\n");
+    \RectorPrefix20210531\output($e->getMessage() . "\n");
     exit(2);
 }
-$refResolver = new \RectorPrefix20210528\JsonSchema\SchemaStorage($retriever, $resolver);
+$refResolver = new \RectorPrefix20210531\JsonSchema\SchemaStorage($retriever, $resolver);
 $schema = $refResolver->resolveRef($urlSchema);
 if (isset($arOptions['--dump-schema'])) {
     $options = \defined('JSON_PRETTY_PRINT') ? \JSON_PRETTY_PRINT : 0;
@@ -201,22 +201,22 @@ if (isset($arOptions['--dump-schema'])) {
     exit;
 }
 try {
-    $validator = new \RectorPrefix20210528\JsonSchema\Validator();
+    $validator = new \RectorPrefix20210531\JsonSchema\Validator();
     $validator->check($data, $schema);
     if ($validator->isValid()) {
         if (isset($arOptions['--verbose'])) {
-            \RectorPrefix20210528\output("OK. The supplied JSON validates against the schema.\n");
+            \RectorPrefix20210531\output("OK. The supplied JSON validates against the schema.\n");
         }
     } else {
-        \RectorPrefix20210528\output("JSON does not validate. Violations:\n");
+        \RectorPrefix20210531\output("JSON does not validate. Violations:\n");
         foreach ($validator->getErrors() as $error) {
-            \RectorPrefix20210528\output(\sprintf("[%s] %s\n", $error['property'], $error['message']));
+            \RectorPrefix20210531\output(\sprintf("[%s] %s\n", $error['property'], $error['message']));
         }
         exit(23);
     }
 } catch (\Exception $e) {
-    \RectorPrefix20210528\output("JSON does not validate. Error:\n");
-    \RectorPrefix20210528\output($e->getMessage() . "\n");
-    \RectorPrefix20210528\output("Error code: " . $e->getCode() . "\n");
+    \RectorPrefix20210531\output("JSON does not validate. Error:\n");
+    \RectorPrefix20210531\output($e->getMessage() . "\n");
+    \RectorPrefix20210531\output("Error code: " . $e->getCode() . "\n");
     exit(24);
 }

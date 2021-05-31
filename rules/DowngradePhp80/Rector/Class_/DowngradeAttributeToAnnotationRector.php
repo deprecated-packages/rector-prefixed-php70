@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\DowngradePhp80\Rector\Class_;
 
-use RectorPrefix20210528\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\Stmt\Class_;
@@ -17,7 +16,7 @@ use Rector\DowngradePhp80\ValueObject\DowngradeAttributeToAnnotation;
 use Rector\PhpAttribute\Printer\DoctrineAnnotationFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210528\Webmozart\Assert\Assert;
+use RectorPrefix20210531\Webmozart\Assert\Assert;
 /**
  * @changelog https://php.watch/articles/php-attributes#syntax
  *
@@ -90,7 +89,7 @@ CODE_SAMPLE
                     continue;
                 }
                 unset($attrGroup->attrs[$key]);
-                if (!\RectorPrefix20210528\Nette\Utils\Strings::contains($attributeToAnnotation->getTag(), '\\')) {
+                if (\strpos($attributeToAnnotation->getTag(), '\\') === \false) {
                     $phpDocInfo->addPhpDocTagNode(new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode('@' . $attributeToAnnotation->getTag(), new \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode('')));
                 } else {
                     $doctrineAnnotation = $this->doctrineAnnotationFactory->createFromAttribute($attribute, $attributeToAnnotation->getTag());
@@ -109,7 +108,7 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $attributesToAnnotations = $configuration[self::ATTRIBUTE_TO_ANNOTATION] ?? [];
-        \RectorPrefix20210528\Webmozart\Assert\Assert::allIsInstanceOf($attributesToAnnotations, \Rector\DowngradePhp80\ValueObject\DowngradeAttributeToAnnotation::class);
+        \RectorPrefix20210531\Webmozart\Assert\Assert::allIsInstanceOf($attributesToAnnotations, \Rector\DowngradePhp80\ValueObject\DowngradeAttributeToAnnotation::class);
         $this->attributesToAnnotations = $attributesToAnnotations;
     }
     /**

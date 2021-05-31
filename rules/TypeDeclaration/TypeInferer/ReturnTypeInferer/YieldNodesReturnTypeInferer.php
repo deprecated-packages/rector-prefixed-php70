@@ -19,7 +19,7 @@ use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedGenericObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
-use RectorPrefix20210528\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210531\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class YieldNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface
 {
     /**
@@ -34,7 +34,7 @@ final class YieldNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contr
      * @var \Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
-    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \RectorPrefix20210528\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \RectorPrefix20210531\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->typeFactory = $typeFactory;
@@ -91,10 +91,10 @@ final class YieldNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contr
         return $yieldNodes;
     }
     /**
-     * @param Yield_|YieldFrom $yieldExpr
+     * @param \PhpParser\Node\Expr\Yield_|\PhpParser\Node\Expr\YieldFrom $yieldExpr
      * @return \PhpParser\Node\Expr|null
      */
-    private function resolveYieldValue(\PhpParser\Node\Expr $yieldExpr)
+    private function resolveYieldValue($yieldExpr)
     {
         if ($yieldExpr instanceof \PhpParser\Node\Expr\Yield_) {
             return $yieldExpr->value;

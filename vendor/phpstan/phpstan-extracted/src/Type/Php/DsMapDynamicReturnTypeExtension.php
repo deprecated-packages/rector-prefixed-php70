@@ -17,7 +17,7 @@ final class DsMapDynamicReturnTypeExtension implements \PHPStan\Type\DynamicMeth
 {
     public function getClass() : string
     {
-        return 'RectorPrefix20210528\\Ds\\Map';
+        return 'RectorPrefix20210531\\Ds\\Map';
     }
     public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
     {
@@ -31,7 +31,7 @@ final class DsMapDynamicReturnTypeExtension implements \PHPStan\Type\DynamicMeth
         }
         if ($returnType instanceof \PHPStan\Type\UnionType) {
             $types = \array_values(\array_filter($returnType->getTypes(), static function (\PHPStan\Type\Type $type) : bool {
-                if ($type instanceof \PHPStan\Type\Generic\TemplateType && $type->getName() === 'TDefault' && ($type->getScope()->equals(\PHPStan\Type\Generic\TemplateTypeScope::createWithMethod('RectorPrefix20210528\\Ds\\Map', 'get')) || $type->getScope()->equals(\PHPStan\Type\Generic\TemplateTypeScope::createWithMethod('RectorPrefix20210528\\Ds\\Map', 'remove')))) {
+                if ($type instanceof \PHPStan\Type\Generic\TemplateType && $type->getName() === 'TDefault' && ($type->getScope()->equals(\PHPStan\Type\Generic\TemplateTypeScope::createWithMethod('RectorPrefix20210531\\Ds\\Map', 'get')) || $type->getScope()->equals(\PHPStan\Type\Generic\TemplateTypeScope::createWithMethod('RectorPrefix20210531\\Ds\\Map', 'remove')))) {
                     return \false;
                 }
                 return \true;

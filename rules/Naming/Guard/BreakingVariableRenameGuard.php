@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Naming\Guard;
 
 use DateTimeInterface;
-use RectorPrefix20210528\Nette\Utils\Strings;
+use RectorPrefix20210531\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\Variable;
@@ -73,7 +73,8 @@ final class BreakingVariableRenameGuard
     public function shouldSkipVariable(string $currentName, string $expectedName, \PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Expr\Variable $variable) : bool
     {
         // is the suffix? → also accepted
-        if (\RectorPrefix20210528\Nette\Utils\Strings::endsWith($currentName, \ucfirst($expectedName))) {
+        $expectedNameCamelCase = \ucfirst($expectedName);
+        if (\substr_compare($currentName, $expectedNameCamelCase, -\strlen($expectedNameCamelCase)) === 0) {
             return \true;
         }
         if ($this->conflictingNameResolver->checkNameIsInFunctionLike($expectedName, $functionLike)) {
@@ -99,7 +100,8 @@ final class BreakingVariableRenameGuard
     public function shouldSkipParam(string $currentName, string $expectedName, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : bool
     {
         // is the suffix? → also accepted
-        if (\RectorPrefix20210528\Nette\Utils\Strings::endsWith($currentName, \ucfirst($expectedName))) {
+        $expectedNameCamelCase = \ucfirst($expectedName);
+        if (\substr_compare($currentName, $expectedNameCamelCase, -\strlen($expectedNameCamelCase)) === 0) {
             return \true;
         }
         $conflictingNames = $this->conflictingNameResolver->resolveConflictingVariableNamesForParam($classMethod);
@@ -218,6 +220,6 @@ final class BreakingVariableRenameGuard
         }
         /** @var string $currentName */
         $currentName = $this->nodeNameResolver->getName($param);
-        return (bool) \RectorPrefix20210528\Nette\Utils\Strings::match($currentName, self::AT_NAMING_REGEX . '');
+        return (bool) \RectorPrefix20210531\Nette\Utils\Strings::match($currentName, self::AT_NAMING_REGEX . '');
     }
 }

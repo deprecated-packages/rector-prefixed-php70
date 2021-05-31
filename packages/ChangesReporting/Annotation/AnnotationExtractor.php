@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\ChangesReporting\Annotation;
 
-use RectorPrefix20210528\Nette\Utils\Strings;
+use RectorPrefix20210531\Nette\Utils\Strings;
 use Rector\Core\Contract\Rector\RectorInterface;
 use ReflectionClass;
 /**
@@ -22,9 +22,10 @@ final class AnnotationExtractor
         if (!\is_string($docComment)) {
             return null;
         }
-        // @see https://regex101.com/r/oYGaWU/1
-        $pattern = '#' . \preg_quote($annotation, '#') . '\\s+(?<content>.*?)$#m';
-        $matches = \RectorPrefix20210528\Nette\Utils\Strings::match($docComment, $pattern);
+        // @see https://3v4l.org/ouYfB
+        // uses 'r?\n' instead of '$' because windows compat
+        $pattern = '#' . \preg_quote($annotation, '#') . '\\s+(?<content>.*?)\\r?\\n#m';
+        $matches = \RectorPrefix20210531\Nette\Utils\Strings::match($docComment, $pattern);
         return $matches['content'] ?? null;
     }
 }

@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210528\Hoa\Event;
+namespace RectorPrefix20210531\Hoa\Event;
 
 /**
  * Trait \Hoa\Event\Listens.
@@ -62,7 +62,7 @@ trait Listens
     {
         $listener = $this->getListener();
         if (null === $listener) {
-            throw new \RectorPrefix20210528\Hoa\Event\Exception('Cannot attach a callable to the listener %s because ' . 'it has not been initialized yet.', 0, \get_class($this));
+            throw new \RectorPrefix20210531\Hoa\Event\Exception('Cannot attach a callable to the listener %s because ' . 'it has not been initialized yet.', 0, \get_class($this));
         }
         $listener->attach($listenerId, $callable);
         return $this;
@@ -73,7 +73,7 @@ trait Listens
      * @param  \Hoa\Event\Listener  $listener    Listener.
      * @return \Hoa\Event\Listener
      */
-    protected function setListener(\RectorPrefix20210528\Hoa\Event\Listener $listener)
+    protected function setListener(\RectorPrefix20210531\Hoa\Event\Listener $listener)
     {
         $old = $this->_listener;
         $this->_listener = $listener;

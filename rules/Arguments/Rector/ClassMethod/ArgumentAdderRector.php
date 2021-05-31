@@ -24,7 +24,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210528\Webmozart\Assert\Assert;
+use RectorPrefix20210531\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Tests\Arguments\Rector\ClassMethod\ArgumentAdderRector\ArgumentAdderRectorTest
  */
@@ -106,7 +106,7 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $addedArguments = $configuration[self::ADDED_ARGUMENTS] ?? [];
-        \RectorPrefix20210528\Webmozart\Assert\Assert::allIsInstanceOf($addedArguments, \Rector\Arguments\ValueObject\ArgumentAdder::class);
+        \RectorPrefix20210531\Webmozart\Assert\Assert::allIsInstanceOf($addedArguments, \Rector\Arguments\ValueObject\ArgumentAdder::class);
         $this->addedArguments = $addedArguments;
     }
     /**
@@ -130,10 +130,10 @@ CODE_SAMPLE
         return $this->isObjectType($classLike, $objectType);
     }
     /**
-     * @param ClassMethod|MethodCall|StaticCall $node
+     * @param \PhpParser\Node\Stmt\ClassMethod|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall $node
      * @return void
      */
-    private function processPositionWithDefaultValues(\PhpParser\Node $node, \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder)
+    private function processPositionWithDefaultValues($node, \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder)
     {
         if ($this->shouldSkipParameter($node, $argumentAdder)) {
             return;

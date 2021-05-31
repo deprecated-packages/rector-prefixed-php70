@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210528\Hoa\Math\Combinatorics\Combination;
+namespace RectorPrefix20210531\Hoa\Math\Combinatorics\Combination;
 
-use RectorPrefix20210528\Hoa\Iterator;
+use RectorPrefix20210531\Hoa\Iterator;
 /**
  * Class \Hoa\Math\Combinatorics\Combination\Gamma.
  *
@@ -48,7 +48,7 @@ use RectorPrefix20210528\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Gamma implements \RectorPrefix20210528\Hoa\Iterator
+class Gamma implements \RectorPrefix20210531\Hoa\Iterator
 {
     /**
      * n.

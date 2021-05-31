@@ -1,27 +1,27 @@
 <?php
 
-namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Socket;
+namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Socket;
 
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Promise;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Promise;
 use BadMethodCallException;
 use InvalidArgumentException;
 use UnexpectedValueException;
-final class SecureConnector implements \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface
+final class SecureConnector implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface
 {
     private $connector;
     private $streamEncryption;
     private $context;
-    public function __construct(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface $connector, \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, array $context = array())
+    public function __construct(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectorInterface $connector, \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop, array $context = array())
     {
         $this->connector = $connector;
-        $this->streamEncryption = new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Socket\StreamEncryption($loop, \false);
+        $this->streamEncryption = new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Socket\StreamEncryption($loop, \false);
         $this->context = $context;
     }
     public function connect($uri)
     {
         if (!\function_exists('stream_socket_enable_crypto')) {
-            return \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \BadMethodCallException('Encryption not supported on your platform (HHVM < 3.8?)'));
+            return \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \BadMethodCallException('Encryption not supported on your platform (HHVM < 3.8?)'));
             // @codeCoverageIgnore
         }
         if (\strpos($uri, '://') === \false) {
@@ -29,16 +29,16 @@ final class SecureConnector implements \RectorPrefix20210528\_HumbugBox0b2f2d5c7
         }
         $parts = \parse_url($uri);
         if (!$parts || !isset($parts['scheme']) || $parts['scheme'] !== 'tls') {
-            return \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
+            return \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
         }
         $uri = \str_replace('tls://', '', $uri);
         $context = $this->context;
         $encryption = $this->streamEncryption;
         $connected = \false;
-        $promise = $this->connector->connect($uri)->then(function (\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $connection) use($context, $encryption, $uri, &$promise, &$connected) {
+        $promise = $this->connector->connect($uri)->then(function (\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface $connection) use($context, $encryption, $uri, &$promise, &$connected) {
             // (unencrypted) TCP/IP connection succeeded
             $connected = \true;
-            if (!$connection instanceof \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Socket\Connection) {
+            if (!$connection instanceof \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Socket\Connection) {
                 $connection->close();
                 throw new \UnexpectedValueException('Base connector does not use internal Connection class exposing stream resource');
             }
@@ -53,7 +53,7 @@ final class SecureConnector implements \RectorPrefix20210528\_HumbugBox0b2f2d5c7
                 throw new \RuntimeException('Connection to ' . $uri . ' failed during TLS handshake: ' . $error->getMessage(), $error->getCode());
             });
         });
-        return new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Promise\Promise(function ($resolve, $reject) use($promise) {
+        return new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Promise\Promise(function ($resolve, $reject) use($promise) {
             $promise->then($resolve, $reject);
         }, function ($_, $reject) use(&$promise, $uri, &$connected) {
             if ($connected) {

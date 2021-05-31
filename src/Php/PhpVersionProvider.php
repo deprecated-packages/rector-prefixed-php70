@@ -6,7 +6,7 @@ namespace Rector\Core\Php;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Php\PhpVersionResolver\ProjectComposerJsonPhpVersionResolver;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use RectorPrefix20210528\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210531\Symplify\PackageBuilder\Parameter\ParameterProvider;
 /**
  * @see \Rector\Core\Tests\Php\PhpVersionProviderTest
  */
@@ -20,16 +20,15 @@ final class PhpVersionProvider
      * @var \Rector\Core\Php\PhpVersionResolver\ProjectComposerJsonPhpVersionResolver
      */
     private $projectComposerJsonPhpVersionResolver;
-    public function __construct(\RectorPrefix20210528\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Php\PhpVersionResolver\ProjectComposerJsonPhpVersionResolver $projectComposerJsonPhpVersionResolver)
+    public function __construct(\RectorPrefix20210531\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Php\PhpVersionResolver\ProjectComposerJsonPhpVersionResolver $projectComposerJsonPhpVersionResolver)
     {
         $this->parameterProvider = $parameterProvider;
         $this->projectComposerJsonPhpVersionResolver = $projectComposerJsonPhpVersionResolver;
     }
     public function provide() : int
     {
-        /** @var int|null $phpVersionFeatures */
-        $phpVersionFeatures = $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES);
-        if ($phpVersionFeatures !== null) {
+        $phpVersionFeatures = $this->parameterProvider->provideIntParameter(\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES);
+        if ($phpVersionFeatures > 0) {
             return $phpVersionFeatures;
         }
         // for tests

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\Include_;
 
-use RectorPrefix20210528\Nette\Utils\Strings;
+use RectorPrefix20210531\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\Include_;
@@ -64,16 +64,16 @@ CODE_SAMPLE
         /** @var string $includeValue */
         $includeValue = $this->valueResolver->getValue($node->expr);
         // skip phar
-        if (\RectorPrefix20210528\Nette\Utils\Strings::startsWith($includeValue, 'phar://')) {
+        if (\strncmp($includeValue, 'phar://', \strlen('phar://')) === 0) {
             return null;
         }
         // skip absolute paths
-        if (\RectorPrefix20210528\Nette\Utils\Strings::startsWith($includeValue, '/')) {
+        if (\strncmp($includeValue, '/', \strlen('/')) === 0) {
             return null;
         }
         // add preslash to string
-        if (\RectorPrefix20210528\Nette\Utils\Strings::startsWith($includeValue, './')) {
-            $node->expr->value = \RectorPrefix20210528\Nette\Utils\Strings::substring($includeValue, 1);
+        if (\strncmp($includeValue, './', \strlen('./')) === 0) {
+            $node->expr->value = \RectorPrefix20210531\Nette\Utils\Strings::substring($includeValue, 1);
         } else {
             $node->expr->value = '/' . $includeValue;
         }

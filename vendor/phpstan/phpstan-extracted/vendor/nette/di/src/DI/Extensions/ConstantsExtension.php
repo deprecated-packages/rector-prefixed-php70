@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions;
+namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions;
 
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette;
 /**
  * Constant definitions.
  */
-final class ConstantsExtension extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\CompilerExtension
+final class ConstantsExtension extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\CompilerExtension
 {
     public function loadConfiguration()
     {

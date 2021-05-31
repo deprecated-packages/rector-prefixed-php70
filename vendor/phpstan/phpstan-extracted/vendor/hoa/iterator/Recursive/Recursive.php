@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210528\Hoa\Iterator\Recursive;
+namespace RectorPrefix20210531\Hoa\Iterator\Recursive;
 
-use RectorPrefix20210528\Hoa\Consistency;
+use RectorPrefix20210531\Hoa\Consistency;
 /**
  * Class \Hoa\Iterator\Recursive.
  *
@@ -50,4 +50,4 @@ interface Recursive extends \RecursiveIterator
 /**
  * Flex entity.
  */
-\RectorPrefix20210528\Hoa\Consistency::flexEntity('RectorPrefix20210528\\Hoa\\Iterator\\Recursive\\Recursive');
+\RectorPrefix20210531\Hoa\Consistency::flexEntity('RectorPrefix20210531\\Hoa\\Iterator\\Recursive\\Recursive');

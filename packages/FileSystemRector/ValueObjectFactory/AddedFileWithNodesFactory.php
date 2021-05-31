@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\FileSystemRector\ValueObjectFactory;
 
-use RectorPrefix20210528\Nette\Utils\Strings;
+use RectorPrefix20210531\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
@@ -63,7 +63,7 @@ final class AddedFileWithNodesFactory
         }
         // is already in the right group
         $currentNamespaceName = $currentNamespace->name->toString();
-        if (\RectorPrefix20210528\Nette\Utils\Strings::endsWith($currentNamespaceName, '\\' . $desiredGroupName)) {
+        if (\substr_compare($currentNamespaceName, '\\' . $desiredGroupName, -\strlen('\\' . $desiredGroupName)) === 0) {
             return null;
         }
         $oldClassName = $currentNamespaceName . '\\' . $this->fileInfoDeletionAnalyzer->clearNameFromTestingPrefix($oldFileInfo->getBasenameWithoutSuffix());
@@ -74,7 +74,7 @@ final class AddedFileWithNodesFactory
         if ($oldClassName === $newClassName) {
             return null;
         }
-        if (\RectorPrefix20210528\Nette\Utils\Strings::match($oldClassName, '#\\b' . $desiredGroupName . '\\b#')) {
+        if (\RectorPrefix20210531\Nette\Utils\Strings::match($oldClassName, '#\\b' . $desiredGroupName . '\\b#')) {
             return null;
         }
         // 1. rename namespace

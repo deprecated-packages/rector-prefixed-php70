@@ -1,13 +1,13 @@
 <?php
 
-namespace RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Socket;
+namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Socket;
 
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\DuplexResourceStream;
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\Util;
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\WritableResourceStream;
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\DuplexResourceStream;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\Util;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\WritableResourceStream;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
 /**
  * The actual connection implementation for ConnectionInterface
  *
@@ -16,7 +16,7 @@ use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInter
  * @see ConnectionInterface
  * @internal
  */
-class Connection extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface
+class Connection extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Socket\ConnectionInterface
 {
     /**
      * Internal flag whether this is a Unix domain socket (UDS) connection
@@ -36,7 +36,7 @@ class Connection extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Evenement\
     /** @internal */
     public $stream;
     private $input;
-    public function __construct($resource, \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop)
+    public function __construct($resource, \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop)
     {
         // PHP < 7.3.3 (and PHP < 7.2.15) suffers from a bug where feof() might
         // block with 100% CPU usage on fragmented TLS records.
@@ -57,9 +57,9 @@ class Connection extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Evenement\
         // This applies to all streams because TLS may be enabled later on.
         // See https://github.com/reactphp/socket/issues/105
         $limitWriteChunks = \PHP_VERSION_ID < 70018 || \PHP_VERSION_ID >= 70100 && \PHP_VERSION_ID < 70104;
-        $this->input = new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\DuplexResourceStream($resource, $loop, $clearCompleteBuffer ? -1 : null, new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\WritableResourceStream($resource, $loop, null, $limitWriteChunks ? 8192 : null));
+        $this->input = new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\DuplexResourceStream($resource, $loop, $clearCompleteBuffer ? -1 : null, new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\WritableResourceStream($resource, $loop, null, $limitWriteChunks ? 8192 : null));
         $this->stream = $resource;
-        \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\Util::forwardEvents($this->input, $this, array('data', 'end', 'error', 'close', 'pipe', 'drain'));
+        \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\Util::forwardEvents($this->input, $this, array('data', 'end', 'error', 'close', 'pipe', 'drain'));
         $this->input->on('close', array($this, 'close'));
     }
     public function isReadable()
@@ -78,7 +78,7 @@ class Connection extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Evenement\
     {
         $this->input->resume();
     }
-    public function pipe(\RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
         return $this->input->pipe($dest, $options);
     }

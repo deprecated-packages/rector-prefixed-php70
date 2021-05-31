@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210528;
+namespace RectorPrefix20210531;
 
 if (\PHP_VERSION_ID < 80000) {
     if (\class_exists('ReflectionUnionType', \false)) {

@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace PHPStan\DependencyInjection;
 
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Loader;
-use RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\ContainerLoader;
-class Configurator extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Configurator
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Loader;
+use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\ContainerLoader;
+class Configurator extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Configurator
 {
     /** @var LoaderFactory */
     private $loaderFactory;
@@ -14,7 +14,7 @@ class Configurator extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Co
         $this->loaderFactory = $loaderFactory;
         parent::__construct();
     }
-    protected function createLoader() : \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Loader
+    protected function createLoader() : \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Loader
     {
         return $this->loaderFactory->createLoader();
     }
@@ -31,7 +31,7 @@ class Configurator extends \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\Co
     }
     public function loadContainer() : string
     {
-        $loader = new \RectorPrefix20210528\_HumbugBox0b2f2d5c77b8\Nette\DI\ContainerLoader($this->getContainerCacheDirectory(), $this->parameters['debugMode']);
+        $loader = new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\ContainerLoader($this->getContainerCacheDirectory(), $this->parameters['debugMode']);
         return $loader->load([$this, 'generateContainer'], [$this->parameters, \array_keys($this->dynamicParameters), $this->configs, \PHP_VERSION_ID - \PHP_RELEASE_VERSION, \PHPStan\DependencyInjection\NeonAdapter::CACHE_KEY]);
     }
 }

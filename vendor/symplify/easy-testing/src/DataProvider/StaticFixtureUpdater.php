@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210528\Symplify\EasyTesting\DataProvider;
+namespace RectorPrefix20210531\Symplify\EasyTesting\DataProvider;
 
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;

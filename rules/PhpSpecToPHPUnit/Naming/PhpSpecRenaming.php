@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\PhpSpecToPHPUnit\Naming;
 
-use RectorPrefix20210528\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
@@ -16,7 +15,7 @@ use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\Util\StaticRectorStrings;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210528\Symplify\PackageBuilder\Strings\StringFormatConverter;
+use RectorPrefix20210531\Symplify\PackageBuilder\Strings\StringFormatConverter;
 final class PhpSpecRenaming
 {
     /**
@@ -35,7 +34,7 @@ final class PhpSpecRenaming
      * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210528\Symplify\PackageBuilder\Strings\StringFormatConverter $stringFormatConverter, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210531\Symplify\PackageBuilder\Strings\StringFormatConverter $stringFormatConverter, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->stringFormatConverter = $stringFormatConverter;
@@ -54,7 +53,7 @@ final class PhpSpecRenaming
         // from PhpSpec to PHPUnit method naming convention
         $classMethodName = $this->stringFormatConverter->underscoreAndHyphenToCamelCase($classMethodName);
         // add "test", so PHPUnit runs the method
-        if (!\RectorPrefix20210528\Nette\Utils\Strings::startsWith($classMethodName, 'test')) {
+        if (\strncmp($classMethodName, 'test', \strlen('test')) !== 0) {
             $classMethodName = 'test' . \ucfirst($classMethodName);
         }
         $classMethod->name = new \PhpParser\Node\Identifier($classMethodName);
