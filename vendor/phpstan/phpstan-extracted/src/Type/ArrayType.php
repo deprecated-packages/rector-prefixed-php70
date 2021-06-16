@@ -18,6 +18,7 @@ use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
+/** @api */
 class ArrayType implements \PHPStan\Type\Type
 {
     use MaybeCallableTypeTrait;
@@ -28,6 +29,7 @@ class ArrayType implements \PHPStan\Type\Type
     private $keyType;
     /** @var \PHPStan\Type\Type */
     private $itemType;
+    /** @api */
     public function __construct(\PHPStan\Type\Type $keyType, \PHPStan\Type\Type $itemType)
     {
         if ($keyType->describe(\PHPStan\Type\VerbosityLevel::value()) === '(int|string)') {

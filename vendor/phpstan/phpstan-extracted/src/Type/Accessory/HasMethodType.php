@@ -24,6 +24,7 @@ class HasMethodType implements \PHPStan\Type\Accessory\AccessoryType, \PHPStan\T
     use UndecidedComparisonCompoundTypeTrait;
     /** @var string */
     private $methodName;
+    /** @api */
     public function __construct(string $methodName)
     {
         $this->methodName = $methodName;

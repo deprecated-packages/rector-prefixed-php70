@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace PHPStan\Type;
 
 use PHPStan\Reflection\ClassReflection;
+/** @api */
 interface TypeWithClassName extends \PHPStan\Type\Type
 {
     public function getClassName() : string;

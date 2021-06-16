@@ -17,11 +17,13 @@ use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\Generic\TemplateType;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Generic\TemplateTypeVariance;
+/** @api */
 class UnionType implements \PHPStan\Type\CompoundType
 {
     /** @var \PHPStan\Type\Type[] */
     private $types;
     /**
+     * @api
      * @param Type[] $types
      */
     public function __construct(array $types)
@@ -553,7 +555,7 @@ class UnionType implements \PHPStan\Type\CompoundType
      * @param callable(Type $type): TrinaryLogic $getResult
      * @return TrinaryLogic
      */
-    private function unionResults(callable $getResult) : \PHPStan\TrinaryLogic
+    protected function unionResults(callable $getResult) : \PHPStan\TrinaryLogic
     {
         return \PHPStan\TrinaryLogic::extremeIdentity(...\array_map($getResult, $this->types));
     }

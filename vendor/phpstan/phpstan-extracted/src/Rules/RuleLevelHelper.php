@@ -41,10 +41,12 @@ class RuleLevelHelper
         $this->checkUnionTypes = $checkUnionTypes;
         $this->checkExplicitMixed = $checkExplicitMixed;
     }
+    /** @api */
     public function isThis(\PhpParser\Node\Expr $expression) : bool
     {
         return $expression instanceof \PhpParser\Node\Expr\Variable && $expression->name === 'this';
     }
+    /** @api */
     public function accepts(\PHPStan\Type\Type $acceptingType, \PHPStan\Type\Type $acceptedType, bool $strictTypes) : bool
     {
         if ($this->checkExplicitMixed && $acceptedType instanceof \PHPStan\Type\MixedType && $acceptedType->isExplicitMixed()) {
@@ -68,6 +70,7 @@ class RuleLevelHelper
         return $this->checkUnionTypes ? $accepts->yes() : !$accepts->no();
     }
     /**
+     * @api
      * @param Scope $scope
      * @param Expr $var
      * @param string $unknownClassErrorPattern

@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Reflection;
 
+/** @api */
 class PassedByReference
 {
     const NO = 1;

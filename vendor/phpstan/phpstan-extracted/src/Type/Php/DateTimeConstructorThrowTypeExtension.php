@@ -9,7 +9,9 @@ use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\DynamicStaticMethodThrowTypeExtension;
+use PHPStan\Type\NeverType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
 class DateTimeConstructorThrowTypeExtension implements \PHPStan\Type\DynamicStaticMethodThrowTypeExtension
 {
@@ -25,11 +27,8 @@ class DateTimeConstructorThrowTypeExtension implements \PHPStan\Type\DynamicStat
         if (\count($methodCall->args) === 0) {
             return null;
         }
-        $arg = $methodCall->args[0]->value;
-        $constantStrings = \PHPStan\Type\TypeUtils::getConstantStrings($scope->getType($arg));
-        if (\count($constantStrings) === 0) {
-            return $methodReflection->getThrowType();
-        }
+        $valueType = $scope->getType($methodCall->args[0]->value);
+        $constantStrings = \PHPStan\Type\TypeUtils::getConstantStrings($valueType);
         foreach ($constantStrings as $constantString) {
             try {
                 new \DateTime($constantString->getValue());
@@ -37,6 +36,10 @@ class DateTimeConstructorThrowTypeExtension implements \PHPStan\Type\DynamicStat
                 // phpcs:ignore
                 return $methodReflection->getThrowType();
             }
+            $valueType = \PHPStan\Type\TypeCombinator::remove($valueType, $constantString);
+        }
+        if (!$valueType instanceof \PHPStan\Type\NeverType) {
+            return $methodReflection->getThrowType();
         }
         return null;
     }

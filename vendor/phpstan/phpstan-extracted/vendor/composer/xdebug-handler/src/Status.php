@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Composer\XdebugHandler;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Composer\XdebugHandler;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Log\LoggerInterface;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Log\LogLevel;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Log\LoggerInterface;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Log\LogLevel;
 /**
  * @author John Stevenson <john-stevenson@blueyonder.co.uk>
  * @internal
@@ -30,6 +30,7 @@ class Status
     private $envAllowXdebug;
     private $loaded;
     private $logger;
+    private $modeOff;
     private $time;
     /**
      * Constructor
@@ -40,7 +41,7 @@ class Status
     public function __construct($envAllowXdebug, $debug)
     {
         $start = \getenv(self::ENV_RESTART);
-        \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART);
+        \RectorPrefix20210616\_HumbugBox15516bb2b566\Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART);
         $this->time = $start ? \round((\microtime(\true) - $start) * 1000) : 0;
         $this->envAllowXdebug = $envAllowXdebug;
         $this->debug = $debug && \defined('STDERR');
@@ -48,7 +49,7 @@ class Status
     /**
      * @param LoggerInterface $logger
      */
-    public function setLogger(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Log\LoggerInterface $logger)
+    public function setLogger(\RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Log\LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
@@ -73,7 +74,7 @@ class Status
     private function output($text, $level = null)
     {
         if ($this->logger) {
-            $this->logger->log($level ?: \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Log\LogLevel::DEBUG, $text);
+            $this->logger->log($level ?: \RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Log\LogLevel::DEBUG, $text);
         }
         if ($this->debug) {
             \fwrite(\STDERR, \sprintf('xdebug-handler[%d] %s', \getmypid(), $text . \PHP_EOL));
@@ -81,12 +82,16 @@ class Status
     }
     private function reportCheck($loaded)
     {
-        $this->loaded = $loaded;
+        list($version, $mode) = \explode('|', $loaded);
+        if ($version) {
+            $this->loaded = '(' . $version . ')' . ($mode ? ' mode=' . $mode : '');
+        }
+        $this->modeOff = $mode === 'off';
         $this->output('Checking ' . $this->envAllowXdebug);
     }
     private function reportError($error)
     {
-        $this->output(\sprintf('No restart (%s)', $error), \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Log\LogLevel::WARNING);
+        $this->output(\sprintf('No restart (%s)', $error), \RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Log\LogLevel::WARNING);
     }
     private function reportInfo($info)
     {
@@ -98,7 +103,7 @@ class Status
         if ($this->loaded) {
             $text = \sprintf('No restart (%s)', $this->getEnvAllow());
             if (!\getenv($this->envAllowXdebug)) {
-                $text .= ' Allowed by application';
+                $text .= ' Allowed by ' . ($this->modeOff ? 'mode' : 'application');
             }
             $this->output($text);
         }
@@ -106,13 +111,13 @@ class Status
     private function reportRestart()
     {
         $this->output($this->getLoadedMessage());
-        \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART, (string) \microtime(\true));
+        \RectorPrefix20210616\_HumbugBox15516bb2b566\Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART, (string) \microtime(\true));
     }
     private function reportRestarted()
     {
         $loaded = $this->getLoadedMessage();
         $text = \sprintf('Restarted (%d ms). %s', $this->time, $loaded);
-        $level = $this->loaded ? \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Log\LogLevel::WARNING : null;
+        $level = $this->loaded ? \RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Log\LogLevel::WARNING : null;
         $this->output($text, $level);
     }
     private function reportRestarting($command)
@@ -138,7 +143,7 @@ class Status
      */
     private function getLoadedMessage()
     {
-        $loaded = $this->loaded ? \sprintf('loaded (%s)', $this->loaded) : 'not loaded';
+        $loaded = $this->loaded ? \sprintf('loaded %s', $this->loaded) : 'not loaded';
         return 'The Xdebug extension is ' . $loaded;
     }
 }

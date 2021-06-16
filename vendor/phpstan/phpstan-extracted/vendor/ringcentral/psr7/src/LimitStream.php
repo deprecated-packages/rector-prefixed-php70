@@ -1,12 +1,12 @@
 <?php
 
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\RingCentral\Psr7;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface;
 /**
  * Decorator used to return only a subset of a stream
  */
-class LimitStream extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\StreamDecoratorTrait implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface
+class LimitStream extends \RectorPrefix20210616\_HumbugBox15516bb2b566\RingCentral\Psr7\StreamDecoratorTrait implements \RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface
 {
     /** @var int Offset to start reading from */
     private $offset;
@@ -19,7 +19,7 @@ class LimitStream extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\RingCentr
      * @param int|null        $offset Position to seek to before reading (only
      *                                works on seekable streams).
      */
-    public function __construct(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface $stream, $limit = -1, $offset = 0)
+    public function __construct(\RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface $stream, $limit = -1, $offset = 0)
     {
         parent::__construct($stream);
         $this->setLimit($limit);

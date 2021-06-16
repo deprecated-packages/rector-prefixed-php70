@@ -7,13 +7,17 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
+/** @api */
 class TemplateTypeMap
 {
     /** @var TemplateTypeMap|null */
     private static $empty = null;
     /** @var array<string,\PHPStan\Type\Type> */
     private $types;
-    /** @param array<string,\PHPStan\Type\Type> $types */
+    /**
+     * @api
+     * @param array<string,\PHPStan\Type\Type> $types
+     */
     public function __construct(array $types)
     {
         $this->types = $types;

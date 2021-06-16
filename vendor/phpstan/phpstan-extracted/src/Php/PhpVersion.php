@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Php;
 
+/** @api */
 class PhpVersion
 {
     /** @var int */

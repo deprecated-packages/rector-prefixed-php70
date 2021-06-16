@@ -75,7 +75,8 @@ use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Php\SimpleXMLElementClassPropertyReflectionExtension;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeAliasResolver;
-abstract class TestCase extends \RectorPrefix20210531\PHPUnit\Framework\TestCase
+/** @api */
+abstract class TestCase extends \RectorPrefix20210616\PHPUnit\Framework\TestCase
 {
     /** @var bool */
     public static $useStaticReflectionProvider = \false;
@@ -87,6 +88,7 @@ abstract class TestCase extends \RectorPrefix20210531\PHPUnit\Framework\TestCase
     private static $reflectors;
     /** @var PhpStormStubsSourceStubber|null */
     private static $phpStormStubsSourceStubber;
+    /** @api */
     public static function getContainer() : \PHPStan\DependencyInjection\Container
     {
         $additionalConfigFiles = static::getAdditionalConfigFiles();
@@ -125,6 +127,7 @@ abstract class TestCase extends \RectorPrefix20210531\PHPUnit\Framework\TestCase
         return $parser;
     }
     /**
+     * @api
      * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[] $dynamicMethodReturnTypeExtensions
      * @param \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] $dynamicStaticMethodReturnTypeExtensions
      * @return \PHPStan\Broker\Broker
@@ -141,6 +144,7 @@ abstract class TestCase extends \RectorPrefix20210531\PHPUnit\Framework\TestCase
         $this->getClassReflectionExtensionRegistryProvider()->setBroker($broker);
         return $broker;
     }
+    /** @api */
     public function createReflectionProvider() : \PHPStan\Reflection\ReflectionProvider
     {
         $staticReflectionProvider = $this->createStaticReflectionProvider();
@@ -290,8 +294,11 @@ abstract class TestCase extends \RectorPrefix20210531\PHPUnit\Framework\TestCase
         $astLocator = new \PHPStan\BetterReflection\SourceLocator\Ast\Locator($phpParser, static function () use(&$functionReflector) : FunctionReflector {
             return $functionReflector;
         });
+        $astPhp8Locator = new \PHPStan\BetterReflection\SourceLocator\Ast\Locator(self::getContainer()->getService('php8PhpParser'), static function () use(&$functionReflector) : FunctionReflector {
+            return $functionReflector;
+        });
         $reflectionSourceStubber = new \PHPStan\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber();
-        $locators[] = new \PHPStan\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, self::getPhpStormStubsSourceStubber());
+        $locators[] = new \PHPStan\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astPhp8Locator, self::getPhpStormStubsSourceStubber());
         $locators[] = new \PHPStan\Reflection\BetterReflection\SourceLocator\AutoloadSourceLocator(self::getContainer()->getByType(\PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher::class));
         $locators[] = new \PHPStan\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $reflectionSourceStubber);
         $locators[] = new \PHPStan\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator($astLocator, $reflectionSourceStubber);

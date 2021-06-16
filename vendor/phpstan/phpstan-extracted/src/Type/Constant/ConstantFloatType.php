@@ -11,6 +11,7 @@ use PHPStan\Type\Traits\ConstantNumericComparisonTypeTrait;
 use PHPStan\Type\Traits\ConstantScalarTypeTrait;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
+/** @api */
 class ConstantFloatType extends \PHPStan\Type\FloatType implements \PHPStan\Type\ConstantScalarType
 {
     use ConstantScalarTypeTrait;
@@ -18,8 +19,10 @@ class ConstantFloatType extends \PHPStan\Type\FloatType implements \PHPStan\Type
     use ConstantNumericComparisonTypeTrait;
     /** @var float */
     private $value;
+    /** @api */
     public function __construct(float $value)
     {
+        parent::__construct();
         $this->value = $value;
     }
     public function getValue() : float

@@ -24,6 +24,14 @@ class ParamAttributesRule implements \PHPStan\Rules\Rule
     }
     public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
-        return $this->attributesCheck->check($scope, $node->attrGroups, \Attribute::TARGET_PARAMETER, 'parameter');
+        $targetName = 'parameter';
+        if ($node->flags !== 0) {
+            $targetName = 'parameter or property';
+            $propertyTargetErrors = $this->attributesCheck->check($scope, $node->attrGroups, \Attribute::TARGET_PROPERTY, $targetName);
+            if (\count($propertyTargetErrors) === 0) {
+                return $propertyTargetErrors;
+            }
+        }
+        return $this->attributesCheck->check($scope, $node->attrGroups, \Attribute::TARGET_PARAMETER, $targetName);
     }
 }

@@ -199,6 +199,7 @@ class NodeScopeResolver
         $this->preciseExceptionTracking = $preciseExceptionTracking;
     }
     /**
+     * @api
      * @param string[] $files
      * @return void
      */
@@ -207,6 +208,7 @@ class NodeScopeResolver
         $this->analysedFiles = \array_fill_keys($files, \true);
     }
     /**
+     * @api
      * @param \PhpParser\Node[] $nodes
      * @param \PHPStan\Analyser\MutatingScope $scope
      * @param callable(\PhpParser\Node $node, Scope $scope): void $nodeCallback
@@ -2050,6 +2052,11 @@ class NodeScopeResolver
                 $matchScope = $matchScope->filterByFalseyValue($filteringExpr);
             }
             $nodeCallback(new \PHPStan\Node\MatchExpressionNode($expr->cond, $armNodes, $expr, $matchScope), $scope);
+        } elseif ($expr instanceof \PhpParser\Node\Expr\Throw_) {
+            $hasYield = \false;
+            $result = $this->processExprNode($expr->expr, $scope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep());
+            $throwPoints = $result->getThrowPoints();
+            $throwPoints[] = \PHPStan\Analyser\ThrowPoint::createExplicit($scope, $scope->getType($expr->expr), $expr, \false);
         } else {
             $hasYield = \false;
             $throwPoints = [];

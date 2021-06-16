@@ -136,10 +136,7 @@ CODE_SAMPLE
         if ($this->nodeTypeResolver->isObjectTypes($classLike, $this->excludedObjectTypes)) {
             return \true;
         }
-        if (!$classLike->isAbstract()) {
-            return \false;
-        }
-        return $this->isOpenSourceProjectType();
+        return $classLike->isAbstract();
     }
     private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {

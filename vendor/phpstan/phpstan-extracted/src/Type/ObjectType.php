@@ -24,6 +24,7 @@ use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
+/** @api */
 class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\SubtractableType
 {
     use NonGenericTypeTrait;
@@ -49,10 +50,9 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
     private static $ancestors = [];
     /** @var array<string, self> */
     private $currentAncestors = [];
-    /**
+    /** @api
      * @param \PHPStan\Type\Type|null $subtractedType
-     * @param \PHPStan\Reflection\ClassReflection|null $classReflection
-     */
+     * @param \PHPStan\Reflection\ClassReflection|null $classReflection */
     public function __construct(string $className, $subtractedType = null, $classReflection = null)
     {
         if ($subtractedType instanceof \PHPStan\Type\NeverType) {
@@ -61,6 +61,16 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
         $this->className = $className;
         $this->subtractedType = $subtractedType;
         $this->classReflection = $classReflection;
+    }
+    /**
+     * @return void
+     */
+    public static function resetCaches()
+    {
+        self::$superTypes = [];
+        self::$methods = [];
+        self::$properties = [];
+        self::$ancestors = [];
     }
     /**
      * @return $this

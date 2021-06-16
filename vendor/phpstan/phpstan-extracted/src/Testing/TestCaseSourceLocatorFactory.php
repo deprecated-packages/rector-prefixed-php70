@@ -27,16 +27,19 @@ class TestCaseSourceLocatorFactory
     private $autoloadSourceLocator;
     /** @var \PhpParser\Parser */
     private $phpParser;
+    /** @var \PhpParser\Parser */
+    private $php8Parser;
     /** @var PhpStormStubsSourceStubber */
     private $phpstormStubsSourceStubber;
     /** @var ReflectionSourceStubber */
     private $reflectionSourceStubber;
-    public function __construct(\PHPStan\DependencyInjection\Container $container, \PHPStan\Reflection\BetterReflection\SourceLocator\ComposerJsonAndInstalledJsonSourceLocatorMaker $composerJsonAndInstalledJsonSourceLocatorMaker, \PHPStan\Reflection\BetterReflection\SourceLocator\AutoloadSourceLocator $autoloadSourceLocator, \PhpParser\Parser $phpParser, \PHPStan\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber $phpstormStubsSourceStubber, \PHPStan\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber $reflectionSourceStubber)
+    public function __construct(\PHPStan\DependencyInjection\Container $container, \PHPStan\Reflection\BetterReflection\SourceLocator\ComposerJsonAndInstalledJsonSourceLocatorMaker $composerJsonAndInstalledJsonSourceLocatorMaker, \PHPStan\Reflection\BetterReflection\SourceLocator\AutoloadSourceLocator $autoloadSourceLocator, \PhpParser\Parser $phpParser, \PhpParser\Parser $php8Parser, \PHPStan\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber $phpstormStubsSourceStubber, \PHPStan\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber $reflectionSourceStubber)
     {
         $this->container = $container;
         $this->composerJsonAndInstalledJsonSourceLocatorMaker = $composerJsonAndInstalledJsonSourceLocatorMaker;
         $this->autoloadSourceLocator = $autoloadSourceLocator;
         $this->phpParser = $phpParser;
+        $this->php8Parser = $php8Parser;
         $this->phpstormStubsSourceStubber = $phpstormStubsSourceStubber;
         $this->reflectionSourceStubber = $reflectionSourceStubber;
     }
@@ -58,7 +61,10 @@ class TestCaseSourceLocatorFactory
         $astLocator = new \PHPStan\BetterReflection\SourceLocator\Ast\Locator($this->phpParser, function () : FunctionReflector {
             return $this->container->getService('testCaseFunctionReflector');
         });
-        $locators[] = new \PHPStan\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $this->phpstormStubsSourceStubber);
+        $astPhp8Locator = new \PHPStan\BetterReflection\SourceLocator\Ast\Locator($this->php8Parser, function () : FunctionReflector {
+            return $this->container->getService('betterReflectionFunctionReflector');
+        });
+        $locators[] = new \PHPStan\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astPhp8Locator, $this->phpstormStubsSourceStubber);
         $locators[] = $this->autoloadSourceLocator;
         $locators[] = new \PHPStan\Reflection\BetterReflection\SourceLocator\PhpVersionBlacklistSourceLocator(new \PHPStan\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $this->reflectionSourceStubber), $this->phpstormStubsSourceStubber);
         $locators[] = new \PHPStan\Reflection\BetterReflection\SourceLocator\PhpVersionBlacklistSourceLocator(new \PHPStan\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator($astLocator, $this->reflectionSourceStubber), $this->phpstormStubsSourceStubber);

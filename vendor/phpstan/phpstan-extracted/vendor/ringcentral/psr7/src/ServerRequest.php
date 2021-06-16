@@ -1,13 +1,13 @@
 <?php
 
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\RingCentral\Psr7;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Request;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\ServerRequestInterface;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\RingCentral\Psr7\Request;
 /**
  * PSR-7 server-side request implementation.
  */
-class ServerRequest extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7\Request implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\ServerRequestInterface
+class ServerRequest extends \RectorPrefix20210616\_HumbugBox15516bb2b566\RingCentral\Psr7\Request implements \RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\ServerRequestInterface
 {
     private $attributes = array();
     private $serverParams = array();

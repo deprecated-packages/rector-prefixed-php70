@@ -9,12 +9,16 @@ use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\Generic\TemplateTypeHelper;
 class AnnotationsPropertiesClassReflectionExtension implements \PHPStan\Reflection\PropertiesClassReflectionExtension
 {
-    /** @var \PHPStan\Reflection\PropertyReflection[][] */
+    /** @var PropertyReflection[][] */
     private $properties = [];
     public function hasProperty(\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : bool
     {
-        if (!isset($this->properties[$classReflection->getCacheKey()])) {
-            $this->properties[$classReflection->getCacheKey()] = $this->createProperties($classReflection, $classReflection);
+        if (!isset($this->properties[$classReflection->getCacheKey()][$propertyName])) {
+            $property = $this->findClassReflectionWithProperty($classReflection, $classReflection, $propertyName);
+            if ($property === null) {
+                return \false;
+            }
+            $this->properties[$classReflection->getCacheKey()][$propertyName] = $property;
         }
         return isset($this->properties[$classReflection->getCacheKey()][$propertyName]);
     }
@@ -23,33 +27,42 @@ class AnnotationsPropertiesClassReflectionExtension implements \PHPStan\Reflecti
         return $this->properties[$classReflection->getCacheKey()][$propertyName];
     }
     /**
-     * @param \PHPStan\Reflection\ClassReflection $classReflection
-     * @param \PHPStan\Reflection\ClassReflection $declaringClass
-     * @return \PHPStan\Reflection\PropertyReflection[]
+     * @return \PHPStan\Reflection\PropertyReflection|null
      */
-    private function createProperties(\PHPStan\Reflection\ClassReflection $classReflection, \PHPStan\Reflection\ClassReflection $declaringClass) : array
+    private function findClassReflectionWithProperty(\PHPStan\Reflection\ClassReflection $classReflection, \PHPStan\Reflection\ClassReflection $declaringClass, string $propertyName)
     {
-        $properties = [];
+        $propertyTags = $classReflection->getPropertyTags();
+        if (isset($propertyTags[$propertyName])) {
+            return new \PHPStan\Reflection\Annotations\AnnotationPropertyReflection($declaringClass, \PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($propertyTags[$propertyName]->getType(), $classReflection->getActiveTemplateTypeMap()), $propertyTags[$propertyName]->isReadable(), $propertyTags[$propertyName]->isWritable());
+        }
         foreach ($classReflection->getTraits() as $traitClass) {
-            $properties += $this->createProperties($traitClass, $classReflection);
+            $methodWithDeclaringClass = $this->findClassReflectionWithProperty($traitClass, $classReflection, $propertyName);
+            if ($methodWithDeclaringClass === null) {
+                continue;
+            }
+            return $methodWithDeclaringClass;
         }
         foreach ($classReflection->getParents() as $parentClass) {
-            $properties += $this->createProperties($parentClass, $parentClass);
-            foreach ($parentClass->getTraits() as $traitClass) {
-                $properties += $this->createProperties($traitClass, $parentClass);
+            $methodWithDeclaringClass = $this->findClassReflectionWithProperty($parentClass, $parentClass, $propertyName);
+            if ($methodWithDeclaringClass === null) {
+                foreach ($parentClass->getTraits() as $traitClass) {
+                    $parentTraitMethodWithDeclaringClass = $this->findClassReflectionWithProperty($traitClass, $parentClass, $propertyName);
+                    if ($parentTraitMethodWithDeclaringClass === null) {
+                        continue;
+                    }
+                    return $parentTraitMethodWithDeclaringClass;
+                }
+                continue;
             }
+            return $methodWithDeclaringClass;
         }
         foreach ($classReflection->getInterfaces() as $interfaceClass) {
-            $properties += $this->createProperties($interfaceClass, $interfaceClass);
+            $methodWithDeclaringClass = $this->findClassReflectionWithProperty($interfaceClass, $interfaceClass, $propertyName);
+            if ($methodWithDeclaringClass === null) {
+                continue;
+            }
+            return $methodWithDeclaringClass;
         }
-        $fileName = $classReflection->getFileName();
-        if ($fileName === \false) {
-            return $properties;
-        }
-        $propertyTags = $classReflection->getPropertyTags();
-        foreach ($propertyTags as $propertyName => $propertyTag) {
-            $properties[$propertyName] = new \PHPStan\Reflection\Annotations\AnnotationPropertyReflection($declaringClass, \PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($propertyTag->getType(), $classReflection->getActiveTemplateTypeMap()), $propertyTag->isReadable(), $propertyTag->isWritable());
-        }
-        return $properties;
+        return null;
     }
 }

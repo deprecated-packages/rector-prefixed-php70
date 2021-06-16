@@ -6,6 +6,7 @@ namespace PHPStan\Node\Method;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Analyser\Scope;
+/** @api */
 class MethodCall
 {
     /** @var \PhpParser\Node\Expr\MethodCall|StaticCall|Array_ */

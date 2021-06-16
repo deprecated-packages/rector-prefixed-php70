@@ -26,6 +26,7 @@ use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\VerbosityLevel;
+/** @api */
 abstract class TypeInferenceTestCase extends \PHPStan\Testing\TestCase
 {
     /** @var bool */
@@ -66,6 +67,7 @@ abstract class TypeInferenceTestCase extends \PHPStan\Testing\TestCase
         $resolver->processNodes($this->getParser()->parseFile($file), $scope, $callback);
     }
     /**
+     * @api
      * @param string $assertType
      * @param string $file
      * @param mixed ...$args
@@ -87,6 +89,7 @@ abstract class TypeInferenceTestCase extends \PHPStan\Testing\TestCase
         }
     }
     /**
+     * @api
      * @param string $file
      * @return array<string, mixed[]>
      */

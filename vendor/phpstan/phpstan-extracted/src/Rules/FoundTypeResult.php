@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace PHPStan\Rules;
 
 use PHPStan\Type\Type;
+/** @api */
 class FoundTypeResult
 {
     /** @var \PHPStan\Type\Type */

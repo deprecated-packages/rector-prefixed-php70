@@ -13,6 +13,7 @@ use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
+/** @api */
 class FloatType implements \PHPStan\Type\Type
 {
     use NonCallableTypeTrait;
@@ -21,6 +22,10 @@ class FloatType implements \PHPStan\Type\Type
     use UndecidedBooleanTypeTrait;
     use UndecidedComparisonTypeTrait;
     use NonGenericTypeTrait;
+    /** @api */
+    public function __construct()
+    {
+    }
     /**
      * @return string[]
      */

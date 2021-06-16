@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Reflection\BetterReflection\SourceLocator;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings;
 use PHPStan\BetterReflection\Identifier\Identifier;
 use PHPStan\BetterReflection\Identifier\IdentifierType;
 use PHPStan\BetterReflection\Reflection\Reflection;
@@ -31,7 +31,7 @@ class ClassWhitelistSourceLocator implements \PHPStan\BetterReflection\SourceLoc
     {
         if ($identifier->isClass()) {
             foreach ($this->patterns as $pattern) {
-                if (\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::match($identifier->getName(), $pattern) !== null) {
+                if (\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings::match($identifier->getName(), $pattern) !== null) {
                     return $this->sourceLocator->locateIdentifier($reflector, $identifier);
                 }
             }

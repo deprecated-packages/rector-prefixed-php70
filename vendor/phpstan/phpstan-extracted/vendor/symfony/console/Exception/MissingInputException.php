@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Exception;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Symfony\Component\Console\Exception;
 
 /**
  * Represents failure to read input from stdin.
  *
  * @author Gabriel Ostrolucký <gabriel.ostrolucky@gmail.com>
  */
-class MissingInputException extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Exception\RuntimeException implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Exception\ExceptionInterface
+class MissingInputException extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Symfony\Component\Console\Exception\RuntimeException implements \RectorPrefix20210616\_HumbugBox15516bb2b566\Symfony\Component\Console\Exception\ExceptionInterface
 {
 }

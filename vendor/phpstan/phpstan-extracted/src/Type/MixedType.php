@@ -23,6 +23,7 @@ use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonCompoundTypeTrait;
+/** @api */
 class MixedType implements \PHPStan\Type\CompoundType, \PHPStan\Type\SubtractableType
 {
     use MaybeIterableTypeTrait;
@@ -33,9 +34,8 @@ class MixedType implements \PHPStan\Type\CompoundType, \PHPStan\Type\Subtractabl
     private $isExplicitMixed;
     /** @var \PHPStan\Type\Type|null */
     private $subtractedType;
-    /**
-     * @param \PHPStan\Type\Type|null $subtractedType
-     */
+    /** @api
+     * @param \PHPStan\Type\Type|null $subtractedType */
     public function __construct(bool $isExplicitMixed = \false, $subtractedType = null)
     {
         if ($subtractedType instanceof \PHPStan\Type\NeverType) {

@@ -5,14 +5,17 @@ namespace Rector\PostRector\Rector;
 
 use PhpParser\Node;
 use PhpParser\Node\Name;
+use PhpParser\Node\Stmt\Use_;
 use PHPStan\Reflection\ReflectionProvider;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper;
 use Rector\CodingStyle\Node\NameImporter;
 use Rector\Core\Configuration\Option;
-use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\Core\PhpParser\Node\BetterNodeFinder;
+use Rector\Core\Provider\CurrentFileProvider;
+use Rector\Core\ValueObject\Application\File;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter;
-use RectorPrefix20210531\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210616\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
@@ -38,37 +41,44 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
      */
     private $phpDocInfoFactory;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
-     */
-    private $nodeNameResolver;
-    /**
      * @var \PHPStan\Reflection\ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\RectorPrefix20210531\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\CodingStyle\Node\NameImporter $nameImporter, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter $docBlockNameImporter, \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @var \Rector\Core\Provider\CurrentFileProvider
+     */
+    private $currentFileProvider;
+    /**
+     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     */
+    private $betterNodeFinder;
+    public function __construct(\RectorPrefix20210616\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\CodingStyle\Node\NameImporter $nameImporter, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter $docBlockNameImporter, \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->parameterProvider = $parameterProvider;
         $this->nameImporter = $nameImporter;
         $this->docBlockNameImporter = $docBlockNameImporter;
         $this->classNameImportSkipper = $classNameImportSkipper;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
-        $this->nodeNameResolver = $nodeNameResolver;
         $this->reflectionProvider = $reflectionProvider;
+        $this->currentFileProvider = $currentFileProvider;
+        $this->betterNodeFinder = $betterNodeFinder;
     }
     /**
      * @return \PhpParser\Node|null
      */
     public function enterNode(\PhpParser\Node $node)
     {
-        $autoImportNames = $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES);
-        if (!$autoImportNames) {
+        if (!$this->parameterProvider->provideBoolParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES)) {
             return null;
         }
         if ($node instanceof \PhpParser\Node\Name) {
-            return $this->processNodeName($node);
+            $file = $this->currentFileProvider->getFile();
+            if (!$file instanceof \Rector\Core\ValueObject\Application\File) {
+                return null;
+            }
+            return $this->processNodeName($node, $file);
         }
-        $importDocBlocks = (bool) $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::IMPORT_DOC_BLOCKS);
-        if (!$importDocBlocks) {
+        if (!$this->parameterProvider->provideBoolParameter(\Rector\Core\Configuration\Option::IMPORT_DOC_BLOCKS)) {
             return null;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
@@ -105,23 +115,23 @@ CODE_SAMPLE
     /**
      * @return \PhpParser\Node|null
      */
-    private function processNodeName(\PhpParser\Node\Name $name)
+    private function processNodeName(\PhpParser\Node\Name $name, \Rector\Core\ValueObject\Application\File $file)
     {
         if ($name->isSpecialClassName()) {
             return $name;
         }
-        $importName = $this->nodeNameResolver->getName($name);
-        if (!\is_callable($importName)) {
-            return $this->nameImporter->importName($name);
-        }
+        $currentUses = $this->betterNodeFinder->findInstanceOf($file->getOldStmts(), \PhpParser\Node\Stmt\Use_::class);
         if (\substr_count($name->toCodeString(), '\\') <= 1) {
-            return $this->nameImporter->importName($name);
+            return $this->nameImporter->importName($name, $currentUses);
         }
-        if (!$this->classNameImportSkipper->isFoundInUse($name)) {
-            return $this->nameImporter->importName($name);
+        if (!$this->classNameImportSkipper->isFoundInUse($name, $currentUses)) {
+            return $this->nameImporter->importName($name, $currentUses);
+        }
+        if ($this->classNameImportSkipper->isAlreadyImported($name, $currentUses)) {
+            return $this->nameImporter->importName($name, $currentUses);
         }
         if ($this->reflectionProvider->hasFunction(new \PhpParser\Node\Name($name->getLast()), null)) {
-            return $this->nameImporter->importName($name);
+            return $this->nameImporter->importName($name, $currentUses);
         }
         return null;
     }

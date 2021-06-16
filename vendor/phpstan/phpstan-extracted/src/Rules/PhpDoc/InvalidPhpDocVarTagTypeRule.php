@@ -12,9 +12,7 @@ use PHPStan\Rules\Generics\GenericObjectTypeCheck;
 use PHPStan\Rules\MissingTypehintCheck;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
-use PHPStan\Type\NeverType;
 use PHPStan\Type\VerbosityLevel;
 use function sprintf;
 /**
@@ -32,17 +30,20 @@ class InvalidPhpDocVarTagTypeRule implements \PHPStan\Rules\Rule
     private $genericObjectTypeCheck;
     /** @var MissingTypehintCheck */
     private $missingTypehintCheck;
+    /** @var UnresolvableTypeHelper */
+    private $unresolvableTypeHelper;
     /** @var bool */
     private $checkClassCaseSensitivity;
     /** @var bool */
     private $checkMissingVarTagTypehint;
-    public function __construct(\PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, \PHPStan\Rules\Generics\GenericObjectTypeCheck $genericObjectTypeCheck, \PHPStan\Rules\MissingTypehintCheck $missingTypehintCheck, bool $checkClassCaseSensitivity, bool $checkMissingVarTagTypehint)
+    public function __construct(\PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, \PHPStan\Rules\Generics\GenericObjectTypeCheck $genericObjectTypeCheck, \PHPStan\Rules\MissingTypehintCheck $missingTypehintCheck, \PHPStan\Rules\PhpDoc\UnresolvableTypeHelper $unresolvableTypeHelper, bool $checkClassCaseSensitivity, bool $checkMissingVarTagTypehint)
     {
         $this->fileTypeMapper = $fileTypeMapper;
         $this->reflectionProvider = $reflectionProvider;
         $this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
         $this->genericObjectTypeCheck = $genericObjectTypeCheck;
         $this->missingTypehintCheck = $missingTypehintCheck;
+        $this->unresolvableTypeHelper = $unresolvableTypeHelper;
         $this->checkClassCaseSensitivity = $checkClassCaseSensitivity;
         $this->checkMissingVarTagTypehint = $checkMissingVarTagTypehint;
     }
@@ -68,7 +69,7 @@ class InvalidPhpDocVarTagTypeRule implements \PHPStan\Rules\Rule
             if (\is_string($name)) {
                 $identifier .= \sprintf(' for variable $%s', $name);
             }
-            if ($varTagType instanceof \PHPStan\Type\ErrorType || $varTagType instanceof \PHPStan\Type\NeverType && !$varTagType->isExplicit()) {
+            if ($this->unresolvableTypeHelper->containsUnresolvableType($varTagType)) {
                 $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s contains unresolvable type.', $identifier))->line($docComment->getStartLine())->build();
                 continue;
             }

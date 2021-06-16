@@ -77,7 +77,7 @@ class TooWideMethodReturnTypehintRule implements \PHPStan\Rules\Rule
             if (!$type->isSuperTypeOf($returnType)->no()) {
                 continue;
             }
-            $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Method %s::%s() never returns %s so it can be removed from the return typehint.', $method->getDeclaringClass()->getDisplayName(), $method->getName(), $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
+            $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Method %s::%s() never returns %s so it can be removed from the return typehint.', $method->getDeclaringClass()->getDisplayName(), $method->getName(), $type->describe(\PHPStan\Type\VerbosityLevel::getRecommendedLevelByType($type))))->build();
         }
         return $messages;
     }

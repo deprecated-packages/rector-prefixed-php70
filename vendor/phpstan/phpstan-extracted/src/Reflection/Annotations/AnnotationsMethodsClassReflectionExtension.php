@@ -13,8 +13,12 @@ class AnnotationsMethodsClassReflectionExtension implements \PHPStan\Reflection\
     private $methods = [];
     public function hasMethod(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : bool
     {
-        if (!isset($this->methods[$classReflection->getCacheKey()])) {
-            $this->methods[$classReflection->getCacheKey()] = $this->createMethods($classReflection, $classReflection);
+        if (!isset($this->methods[$classReflection->getCacheKey()][$methodName])) {
+            $method = $this->findClassReflectionWithMethod($classReflection, $classReflection, $methodName);
+            if ($method === null) {
+                return \false;
+            }
+            $this->methods[$classReflection->getCacheKey()][$methodName] = $method;
         }
         return isset($this->methods[$classReflection->getCacheKey()][$methodName]);
     }
@@ -23,38 +27,47 @@ class AnnotationsMethodsClassReflectionExtension implements \PHPStan\Reflection\
         return $this->methods[$classReflection->getCacheKey()][$methodName];
     }
     /**
-     * @param ClassReflection $classReflection
-     * @param ClassReflection $declaringClass
-     * @return MethodReflection[]
+     * @return \PHPStan\Reflection\MethodReflection|null
      */
-    private function createMethods(\PHPStan\Reflection\ClassReflection $classReflection, \PHPStan\Reflection\ClassReflection $declaringClass) : array
+    private function findClassReflectionWithMethod(\PHPStan\Reflection\ClassReflection $classReflection, \PHPStan\Reflection\ClassReflection $declaringClass, string $methodName)
     {
-        $methods = [];
-        foreach ($classReflection->getTraits() as $traitClass) {
-            $methods += $this->createMethods($traitClass, $classReflection);
-        }
-        foreach ($classReflection->getParents() as $parentClass) {
-            $methods += $this->createMethods($parentClass, $parentClass);
-            foreach ($parentClass->getTraits() as $traitClass) {
-                $methods += $this->createMethods($traitClass, $parentClass);
-            }
-        }
-        foreach ($classReflection->getInterfaces() as $interfaceClass) {
-            $methods += $this->createMethods($interfaceClass, $interfaceClass);
-        }
-        $fileName = $classReflection->getFileName();
-        if ($fileName === \false) {
-            return $methods;
-        }
         $methodTags = $classReflection->getMethodTags();
-        foreach ($methodTags as $methodName => $methodTag) {
+        if (isset($methodTags[$methodName])) {
             $parameters = [];
-            foreach ($methodTag->getParameters() as $parameterName => $parameterTag) {
+            foreach ($methodTags[$methodName]->getParameters() as $parameterName => $parameterTag) {
                 $parameters[] = new \PHPStan\Reflection\Annotations\AnnotationsMethodParameterReflection($parameterName, $parameterTag->getType(), $parameterTag->passedByReference(), $parameterTag->isOptional(), $parameterTag->isVariadic(), $parameterTag->getDefaultValue());
             }
-            $methods[$methodName] = new \PHPStan\Reflection\Annotations\AnnotationMethodReflection($methodName, $declaringClass, \PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($methodTag->getReturnType(), $classReflection->getActiveTemplateTypeMap()), $parameters, $methodTag->isStatic(), $this->detectMethodVariadic($parameters));
+            return new \PHPStan\Reflection\Annotations\AnnotationMethodReflection($methodName, $declaringClass, \PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($methodTags[$methodName]->getReturnType(), $classReflection->getActiveTemplateTypeMap()), $parameters, $methodTags[$methodName]->isStatic(), $this->detectMethodVariadic($parameters));
         }
-        return $methods;
+        foreach ($classReflection->getTraits() as $traitClass) {
+            $methodWithDeclaringClass = $this->findClassReflectionWithMethod($traitClass, $classReflection, $methodName);
+            if ($methodWithDeclaringClass === null) {
+                continue;
+            }
+            return $methodWithDeclaringClass;
+        }
+        foreach ($classReflection->getParents() as $parentClass) {
+            $methodWithDeclaringClass = $this->findClassReflectionWithMethod($parentClass, $parentClass, $methodName);
+            if ($methodWithDeclaringClass === null) {
+                foreach ($parentClass->getTraits() as $traitClass) {
+                    $parentTraitMethodWithDeclaringClass = $this->findClassReflectionWithMethod($traitClass, $parentClass, $methodName);
+                    if ($parentTraitMethodWithDeclaringClass === null) {
+                        continue;
+                    }
+                    return $parentTraitMethodWithDeclaringClass;
+                }
+                continue;
+            }
+            return $methodWithDeclaringClass;
+        }
+        foreach ($classReflection->getInterfaces() as $interfaceClass) {
+            $methodWithDeclaringClass = $this->findClassReflectionWithMethod($interfaceClass, $interfaceClass, $methodName);
+            if ($methodWithDeclaringClass === null) {
+                continue;
+            }
+            return $methodWithDeclaringClass;
+        }
+        return null;
     }
     /**
      * @param AnnotationsMethodParameterReflection[] $parameters

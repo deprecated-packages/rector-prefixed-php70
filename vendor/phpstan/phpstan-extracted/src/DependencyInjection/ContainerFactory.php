@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\DependencyInjection;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\PhpExtension;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Extensions\PhpExtension;
 use Phar;
 use PHPStan\BetterReflection\BetterReflection;
 use PHPStan\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
@@ -11,8 +11,9 @@ use PHPStan\Broker\Broker;
 use PHPStan\Command\CommandHelper;
 use PHPStan\File\FileHelper;
 use PHPStan\Php\PhpVersion;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Symfony\Component\Finder\Finder;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Symfony\Component\Finder\Finder;
 use function sys_get_temp_dir;
+/** @api */
 class ContainerFactory
 {
     /** @var string */
@@ -23,6 +24,7 @@ class ContainerFactory
     private $rootDirectory;
     /** @var string */
     private $configDirectory;
+    /** @api */
     public function __construct(string $currentWorkingDirectory)
     {
         $this->currentWorkingDirectory = $currentWorkingDirectory;
@@ -54,7 +56,7 @@ class ContainerFactory
     public function create(string $tempDirectory, array $additionalConfigFiles, array $analysedPaths, array $composerAutoloaderProjectPaths = [], array $analysedPathsFromConfig = [], string $usedLevel = \PHPStan\Command\CommandHelper::DEFAULT_LEVEL, $generateBaselineFile = null, $cliAutoloadFile = null, $singleReflectionFile = null, $singleReflectionInsteadOfFile = null) : \PHPStan\DependencyInjection\Container
     {
         $configurator = new \PHPStan\DependencyInjection\Configurator(new \PHPStan\DependencyInjection\LoaderFactory($this->fileHelper, $this->rootDirectory, $this->currentWorkingDirectory, $generateBaselineFile));
-        $configurator->defaultExtensions = ['php' => \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\PhpExtension::class, 'extensions' => \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\ExtensionsExtension::class];
+        $configurator->defaultExtensions = ['php' => \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Extensions\PhpExtension::class, 'extensions' => \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Extensions\ExtensionsExtension::class];
         $configurator->setDebugMode(\true);
         $configurator->setTempDirectory($tempDirectory);
         $configurator->addParameters(['rootDir' => $this->rootDirectory, 'currentWorkingDirectory' => $this->currentWorkingDirectory, 'cliArgumentsVariablesRegistered' => \ini_get('register_argc_argv') === '1', 'tmpDir' => $tempDirectory, 'additionalConfigFiles' => $additionalConfigFiles, 'analysedPaths' => $analysedPaths, 'composerAutoloaderProjectPaths' => $composerAutoloaderProjectPaths, 'analysedPathsFromConfig' => $analysedPathsFromConfig, 'generateBaselineFile' => $generateBaselineFile, 'usedLevel' => $usedLevel, 'cliAutoloadFile' => $cliAutoloadFile, 'fixerTmpDir' => \sys_get_temp_dir() . '/phpstan-fixer']);
@@ -92,7 +94,7 @@ class ContainerFactory
         $configurator = new \PHPStan\DependencyInjection\Configurator(new \PHPStan\DependencyInjection\LoaderFactory($this->fileHelper, $this->rootDirectory, $this->currentWorkingDirectory, null));
         $configurator->setDebugMode(\true);
         $configurator->setTempDirectory($tempDirectory);
-        $finder = new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Symfony\Component\Finder\Finder();
+        $finder = new \RectorPrefix20210616\_HumbugBox15516bb2b566\Symfony\Component\Finder\Finder();
         $finder->name('Container_*')->in($configurator->getContainerCacheDirectory());
         $twoDaysAgo = \time() - 24 * 60 * 60 * 2;
         foreach ($finder as $containerFile) {

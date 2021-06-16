@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210531\Hoa\File;
+namespace RectorPrefix20210616\Hoa\File;
 
-use RectorPrefix20210531\Hoa\Stream;
+use RectorPrefix20210616\Hoa\Stream;
 /**
  * Class \Hoa\File\Generic.
  *
@@ -44,7 +44,7 @@ use RectorPrefix20210531\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-abstract class Generic extends \RectorPrefix20210531\Hoa\Stream implements \RectorPrefix20210531\Hoa\Stream\IStream\Pathable, \RectorPrefix20210531\Hoa\Stream\IStream\Statable, \RectorPrefix20210531\Hoa\Stream\IStream\Touchable
+abstract class Generic extends \RectorPrefix20210616\Hoa\Stream implements \RectorPrefix20210616\Hoa\Stream\IStream\Pathable, \RectorPrefix20210616\Hoa\Stream\IStream\Statable, \RectorPrefix20210616\Hoa\Stream\IStream\Touchable
 {
     /**
      * Mode.
@@ -257,10 +257,10 @@ abstract class Generic extends \RectorPrefix20210531\Hoa\Stream implements \Rect
      *                            constants.
      * @return  bool
      */
-    public function copy($to, $force = \RectorPrefix20210531\Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE)
+    public function copy($to, $force = \RectorPrefix20210616\Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE)
     {
         $from = $this->getStreamName();
-        if ($force === \RectorPrefix20210531\Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE && \true === \file_exists($to)) {
+        if ($force === \RectorPrefix20210616\Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE && \true === \file_exists($to)) {
             return \true;
         }
         if (null === $this->getStreamContext()) {
@@ -281,14 +281,14 @@ abstract class Generic extends \RectorPrefix20210531\Hoa\Stream implements \Rect
      *                            constants.
      * @return  bool
      */
-    public function move($name, $force = \RectorPrefix20210531\Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE, $mkdir = \RectorPrefix20210531\Hoa\Stream\IStream\Touchable::DO_NOT_MAKE_DIRECTORY)
+    public function move($name, $force = \RectorPrefix20210616\Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE, $mkdir = \RectorPrefix20210616\Hoa\Stream\IStream\Touchable::DO_NOT_MAKE_DIRECTORY)
     {
         $from = $this->getStreamName();
-        if ($force === \RectorPrefix20210531\Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE && \true === \file_exists($name)) {
+        if ($force === \RectorPrefix20210616\Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE && \true === \file_exists($name)) {
             return \false;
         }
-        if (\RectorPrefix20210531\Hoa\Stream\IStream\Touchable::MAKE_DIRECTORY === $mkdir) {
-            \RectorPrefix20210531\Hoa\File\Directory::create(\dirname($name), \RectorPrefix20210531\Hoa\File\Directory::MODE_CREATE_RECURSIVE);
+        if (\RectorPrefix20210616\Hoa\Stream\IStream\Touchable::MAKE_DIRECTORY === $mkdir) {
+            \RectorPrefix20210616\Hoa\File\Directory::create(\dirname($name), \RectorPrefix20210616\Hoa\File\Directory::MODE_CREATE_RECURSIVE);
         }
         if (null === $this->getStreamContext()) {
             return @\rename($from, $name);

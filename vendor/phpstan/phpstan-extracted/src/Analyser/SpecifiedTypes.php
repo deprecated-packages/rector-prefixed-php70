@@ -15,6 +15,7 @@ class SpecifiedTypes
     /** @var array<string, ConditionalExpressionHolder[]> */
     private $newConditionalExpressionHolders;
     /**
+     * @api
      * @param mixed[] $sureTypes
      * @param mixed[] $sureNotTypes
      * @param bool $overwrite
@@ -28,6 +29,7 @@ class SpecifiedTypes
         $this->newConditionalExpressionHolders = $newConditionalExpressionHolders;
     }
     /**
+     * @api
      * @return mixed[]
      */
     public function getSureTypes() : array
@@ -35,6 +37,7 @@ class SpecifiedTypes
         return $this->sureTypes;
     }
     /**
+     * @api
      * @return mixed[]
      */
     public function getSureNotTypes() : array
@@ -52,9 +55,8 @@ class SpecifiedTypes
     {
         return $this->newConditionalExpressionHolders;
     }
-    /**
-     * @return $this
-     */
+    /** @api
+     * @return $this */
     public function intersectWith(\PHPStan\Analyser\SpecifiedTypes $other)
     {
         $sureTypeUnion = [];
@@ -73,9 +75,8 @@ class SpecifiedTypes
         }
         return new self($sureTypeUnion, $sureNotTypeUnion);
     }
-    /**
-     * @return $this
-     */
+    /** @api
+     * @return $this */
     public function unionWith(\PHPStan\Analyser\SpecifiedTypes $other)
     {
         $sureTypeUnion = $this->sureTypes + $other->sureTypes;

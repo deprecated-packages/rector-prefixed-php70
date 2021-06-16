@@ -18,12 +18,15 @@ use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
+/** @api */
 class GenericClassStringType extends \PHPStan\Type\ClassStringType
 {
     /** @var Type */
     private $type;
+    /** @api */
     public function __construct(\PHPStan\Type\Type $type)
     {
+        parent::__construct();
         $this->type = $type;
     }
     public function getReferencedClasses() : array

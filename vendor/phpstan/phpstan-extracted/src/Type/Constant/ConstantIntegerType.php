@@ -12,6 +12,7 @@ use PHPStan\Type\Traits\ConstantNumericComparisonTypeTrait;
 use PHPStan\Type\Traits\ConstantScalarTypeTrait;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
+/** @api */
 class ConstantIntegerType extends \PHPStan\Type\IntegerType implements \PHPStan\Type\ConstantScalarType
 {
     use ConstantScalarTypeTrait;
@@ -19,8 +20,10 @@ class ConstantIntegerType extends \PHPStan\Type\IntegerType implements \PHPStan\
     use ConstantNumericComparisonTypeTrait;
     /** @var int */
     private $value;
+    /** @api */
     public function __construct(int $value)
     {
+        parent::__construct();
         $this->value = $value;
     }
     public function getValue() : int

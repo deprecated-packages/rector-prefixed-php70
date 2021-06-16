@@ -39,27 +39,25 @@ class TemplateTypeScope
         $this->className = $className;
         $this->functionName = $functionName;
     }
-    /**
-     * @return string|null
-     */
+    /** @api
+     * @return string|null */
     public function getClassName()
     {
         return $this->className;
     }
-    /**
-     * @return string|null
-     */
+    /** @api
+     * @return string|null */
     public function getFunctionName()
     {
         return $this->functionName;
     }
-    /**
-     * @param $this $other
-     */
+    /** @api
+     * @param $this $other */
     public function equals($other) : bool
     {
         return $this->className === $other->className && $this->functionName === $other->functionName;
     }
+    /** @api */
     public function describe() : string
     {
         if ($this->className === null) {

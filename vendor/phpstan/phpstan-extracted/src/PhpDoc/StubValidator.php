@@ -41,10 +41,12 @@ use PHPStan\Rules\PhpDoc\IncompatiblePhpDocTypeRule;
 use PHPStan\Rules\PhpDoc\IncompatiblePropertyPhpDocTypeRule;
 use PHPStan\Rules\PhpDoc\InvalidPhpDocTagValueRule;
 use PHPStan\Rules\PhpDoc\InvalidThrowsPhpDocValueRule;
+use PHPStan\Rules\PhpDoc\UnresolvableTypeHelper;
 use PHPStan\Rules\Properties\ExistingClassesInPropertiesRule;
 use PHPStan\Rules\Properties\MissingPropertyTypehintRule;
 use PHPStan\Rules\Registry;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\ObjectType;
 class StubValidator
 {
     /** @var \PHPStan\DependencyInjection\DerivativeContainerFactory */
@@ -88,6 +90,7 @@ class StubValidator
             }
         }
         \PHPStan\Broker\Broker::registerInstance($originalBroker);
+        \PHPStan\Type\ObjectType::resetCaches();
         return $errors;
     }
     private function getRuleRegistry(\PHPStan\DependencyInjection\Container $container) : \PHPStan\Rules\Registry
@@ -101,6 +104,7 @@ class StubValidator
         $classCaseSensitivityCheck = $container->getByType(\PHPStan\Rules\ClassCaseSensitivityCheck::class);
         $functionDefinitionCheck = $container->getByType(\PHPStan\Rules\FunctionDefinitionCheck::class);
         $missingTypehintCheck = $container->getByType(\PHPStan\Rules\MissingTypehintCheck::class);
+        $unresolvableTypeHelper = $container->getByType(\PHPStan\Rules\PhpDoc\UnresolvableTypeHelper::class);
         return new \PHPStan\Rules\Registry([
             // level 0
             new \PHPStan\Rules\Classes\ExistingClassesInClassImplementsRule($classCaseSensitivityCheck, $reflectionProvider),
@@ -120,8 +124,8 @@ class StubValidator
             new \PHPStan\Rules\Generics\MethodTemplateTypeRule($fileTypeMapper, $templateTypeCheck),
             new \PHPStan\Rules\Generics\MethodSignatureVarianceRule($varianceCheck),
             new \PHPStan\Rules\Generics\TraitTemplateTypeRule($fileTypeMapper, $templateTypeCheck),
-            new \PHPStan\Rules\PhpDoc\IncompatiblePhpDocTypeRule($fileTypeMapper, $genericObjectTypeCheck),
-            new \PHPStan\Rules\PhpDoc\IncompatiblePropertyPhpDocTypeRule($genericObjectTypeCheck),
+            new \PHPStan\Rules\PhpDoc\IncompatiblePhpDocTypeRule($fileTypeMapper, $genericObjectTypeCheck, $unresolvableTypeHelper),
+            new \PHPStan\Rules\PhpDoc\IncompatiblePropertyPhpDocTypeRule($genericObjectTypeCheck, $unresolvableTypeHelper),
             new \PHPStan\Rules\PhpDoc\InvalidPhpDocTagValueRule($container->getByType(\PHPStan\PhpDocParser\Lexer\Lexer::class), $container->getByType(\PHPStan\PhpDocParser\Parser\PhpDocParser::class)),
             new \PHPStan\Rules\PhpDoc\InvalidThrowsPhpDocValueRule($fileTypeMapper),
             // level 6

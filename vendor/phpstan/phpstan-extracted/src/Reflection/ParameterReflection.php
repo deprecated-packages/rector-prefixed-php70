@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace PHPStan\Reflection;
 
 use PHPStan\Type\Type;
+/** @api */
 interface ParameterReflection
 {
     public function getName() : string;

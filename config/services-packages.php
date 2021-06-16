@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210531;
+namespace RectorPrefix20210616;
 
-use RectorPrefix20210531\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210531\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+use RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
     $services->load('Rector\\', __DIR__ . '/../packages')->exclude([
@@ -12,6 +12,7 @@ return static function (\RectorPrefix20210531\Symfony\Component\DependencyInject
         __DIR__ . '/../packages/BetterPhpDocParser/PhpDocInfo/PhpDocInfo.php',
         __DIR__ . '/../packages/Testing/PHPUnit',
         __DIR__ . '/../packages/BetterPhpDocParser/PhpDoc',
+        __DIR__ . '/../packages/Caching/Cache.php',
         __DIR__ . '/../packages/NodeTypeResolver/NodeVisitor/FileNodeVisitor.php',
         // used in PHPStan
         __DIR__ . '/../packages/NodeTypeResolver/Reflection/BetterReflection/RectorBetterReflectionSourceLocatorFactory.php',

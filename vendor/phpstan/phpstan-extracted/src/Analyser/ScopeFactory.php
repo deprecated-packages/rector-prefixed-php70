@@ -10,6 +10,7 @@ use PHPStan\Type\Type;
 interface ScopeFactory
 {
     /**
+     * @api
      * @param \PHPStan\Analyser\ScopeContext $context
      * @param bool $declareStrictTypes
      * @param array<string, Type> $constantTypes

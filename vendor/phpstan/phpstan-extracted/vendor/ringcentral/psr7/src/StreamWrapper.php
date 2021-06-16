@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\RingCentral\Psr7;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\RingCentral\Psr7;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface;
 /**
  * Converts Guzzle streams into PHP stream resources.
  */
@@ -22,7 +22,7 @@ class StreamWrapper
      * @return resource
      * @throws \InvalidArgumentException if stream is not readable or writable
      */
-    public static function getResource(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface $stream)
+    public static function getResource(\RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface $stream)
     {
         self::register();
         if ($stream->isReadable()) {

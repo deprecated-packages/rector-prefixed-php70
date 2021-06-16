@@ -13,10 +13,11 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
+use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\DeadCode\PhpDoc\TagRemover\VarTagRemover;
 use Rector\Naming\VariableRenamer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\Php80\NodeResolver\PromotedPropertyResolver;
+use Rector\Php80\NodeAnalyzer\PromotedPropertyCandidateResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -27,7 +28,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ClassPropertyAssignToConstructorPromotionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Php80\NodeResolver\PromotedPropertyResolver
+     * @var \Rector\Php80\NodeAnalyzer\PromotedPropertyCandidateResolver
      */
     private $promotedPropertyResolver;
     /**
@@ -38,7 +39,7 @@ final class ClassPropertyAssignToConstructorPromotionRector extends \Rector\Core
      * @var \Rector\DeadCode\PhpDoc\TagRemover\VarTagRemover
      */
     private $varTagRemover;
-    public function __construct(\Rector\Php80\NodeResolver\PromotedPropertyResolver $promotedPropertyResolver, \Rector\Naming\VariableRenamer $variableRenamer, \Rector\DeadCode\PhpDoc\TagRemover\VarTagRemover $varTagRemover)
+    public function __construct(\Rector\Php80\NodeAnalyzer\PromotedPropertyCandidateResolver $promotedPropertyResolver, \Rector\Naming\VariableRenamer $variableRenamer, \Rector\DeadCode\PhpDoc\TagRemover\VarTagRemover $varTagRemover)
     {
         $this->promotedPropertyResolver = $promotedPropertyResolver;
         $this->variableRenamer = $variableRenamer;
@@ -80,6 +81,9 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node)
     {
+        if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::PROPERTY_PROMOTION)) {
+            return null;
+        }
         $promotionCandidates = $this->promotedPropertyResolver->resolveFromClass($node);
         if ($promotionCandidates === []) {
             return null;

@@ -129,7 +129,7 @@ CODE_SAMPLE
             return \false;
         }
         // just one if
-        if (\count($node->elseifs) !== 0) {
+        if ($node->elseifs !== []) {
             return \false;
         }
         // there is some else

@@ -20,6 +20,7 @@ class HasPropertyType implements \PHPStan\Type\Accessory\AccessoryType, \PHPStan
     use UndecidedComparisonCompoundTypeTrait;
     /** @var string */
     private $propertyName;
+    /** @api */
     public function __construct(string $propertyName)
     {
         $this->propertyName = $propertyName;

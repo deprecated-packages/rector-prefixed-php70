@@ -1,0 +1,90 @@
+<?php
+
+declare (strict_types=1);
+namespace PHPStan\Rules\Exceptions;
+
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ReflectionProvider;
+class DefaultExceptionTypeResolver implements \PHPStan\Rules\Exceptions\ExceptionTypeResolver
+{
+    /** @var ReflectionProvider */
+    private $reflectionProvider;
+    /** @var string[] */
+    private $uncheckedExceptionRegexes;
+    /** @var string[] */
+    private $uncheckedExceptionClasses;
+    /** @var string[] */
+    private $checkedExceptionRegexes;
+    /** @var string[] */
+    private $checkedExceptionClasses;
+    /**
+     * @param ReflectionProvider $reflectionProvider
+     * @param string[] $uncheckedExceptionRegexes
+     * @param string[] $uncheckedExceptionClasses
+     * @param string[] $checkedExceptionRegexes
+     * @param string[] $checkedExceptionClasses
+     */
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, array $uncheckedExceptionRegexes, array $uncheckedExceptionClasses, array $checkedExceptionRegexes, array $checkedExceptionClasses)
+    {
+        $this->reflectionProvider = $reflectionProvider;
+        $this->uncheckedExceptionRegexes = $uncheckedExceptionRegexes;
+        $this->uncheckedExceptionClasses = $uncheckedExceptionClasses;
+        $this->checkedExceptionRegexes = $checkedExceptionRegexes;
+        $this->checkedExceptionClasses = $checkedExceptionClasses;
+    }
+    public function isCheckedException(string $className, \PHPStan\Analyser\Scope $scope) : bool
+    {
+        foreach ($this->uncheckedExceptionRegexes as $regex) {
+            if (\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings::match($className, $regex) !== null) {
+                return \false;
+            }
+        }
+        foreach ($this->uncheckedExceptionClasses as $uncheckedExceptionClass) {
+            if ($className === $uncheckedExceptionClass) {
+                return \false;
+            }
+        }
+        if (!$this->reflectionProvider->hasClass($className)) {
+            return $this->isCheckedExceptionInternal($className);
+        }
+        $classReflection = $this->reflectionProvider->getClass($className);
+        foreach ($this->uncheckedExceptionClasses as $uncheckedExceptionClass) {
+            if ($classReflection->getName() === $uncheckedExceptionClass) {
+                return \false;
+            }
+            if (!$classReflection->isSubclassOf($uncheckedExceptionClass)) {
+                continue;
+            }
+            return \false;
+        }
+        return $this->isCheckedExceptionInternal($className);
+    }
+    private function isCheckedExceptionInternal(string $className) : bool
+    {
+        foreach ($this->checkedExceptionRegexes as $regex) {
+            if (\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings::match($className, $regex) !== null) {
+                return \true;
+            }
+        }
+        foreach ($this->checkedExceptionClasses as $checkedExceptionClass) {
+            if ($className === $checkedExceptionClass) {
+                return \true;
+            }
+        }
+        if (!$this->reflectionProvider->hasClass($className)) {
+            return \count($this->checkedExceptionRegexes) === 0 && \count($this->checkedExceptionClasses) === 0;
+        }
+        $classReflection = $this->reflectionProvider->getClass($className);
+        foreach ($this->checkedExceptionClasses as $checkedExceptionClass) {
+            if ($classReflection->getName() === $checkedExceptionClass) {
+                return \true;
+            }
+            if (!$classReflection->isSubclassOf($checkedExceptionClass)) {
+                continue;
+            }
+            return \true;
+        }
+        return \count($this->checkedExceptionRegexes) === 0 && \count($this->checkedExceptionClasses) === 0;
+    }
+}

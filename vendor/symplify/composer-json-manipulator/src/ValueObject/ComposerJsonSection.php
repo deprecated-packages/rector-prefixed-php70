@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210531\Symplify\ComposerJsonManipulator\ValueObject;
+namespace RectorPrefix20210616\Symplify\ComposerJsonManipulator\ValueObject;
 
 /**
  * @api
@@ -90,13 +90,13 @@ final class ComposerJsonSection
     const AUTHORS = 'authors';
     /**
      * @var string
+     */
+    const PROVIDES = 'provides';
+    /**
+     * @var string
      * @see https://getcomposer.org/doc/articles/scripts.md#custom-descriptions-
      */
     const SCRIPTS_DESCRIPTIONS = 'scripts-descriptions';
-    /**
-     * @var string
-     */
-    const PROVIDES = 'provides';
     /**
      * @var string
      */

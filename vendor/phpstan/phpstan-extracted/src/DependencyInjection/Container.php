@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\DependencyInjection;
 
+/** @api */
 interface Container
 {
     public function hasService(string $serviceName) : bool;

@@ -29,38 +29,33 @@ class VerbosityLevel
         self::$registry[$value] = self::$registry[$value] ?? new self($value);
         return self::$registry[$value];
     }
-    /**
-     * @return $this
-     */
+    /** @api
+     * @return $this */
     public static function typeOnly()
     {
         return self::create(self::TYPE_ONLY);
     }
-    /**
-     * @return $this
-     */
+    /** @api
+     * @return $this */
     public static function value()
     {
         return self::create(self::VALUE);
     }
-    /**
-     * @return $this
-     */
+    /** @api
+     * @return $this */
     public static function precise()
     {
         return self::create(self::PRECISE);
     }
-    /**
-     * @return $this
-     */
+    /** @api
+     * @return $this */
     public static function cache()
     {
         return self::create(self::CACHE);
     }
-    /**
+    /** @api
      * @return $this
-     * @param \PHPStan\Type\Type|null $acceptedType
-     */
+     * @param \PHPStan\Type\Type|null $acceptedType */
     public static function getRecommendedLevelByType(\PHPStan\Type\Type $acceptingType, $acceptedType = null)
     {
         $moreVerboseCallback = static function (\PHPStan\Type\Type $type, callable $traverse) use(&$moreVerbose) : Type {
@@ -77,6 +72,10 @@ class VerbosityLevel
                 return $type;
             }
             if ($type instanceof \PHPStan\Type\Accessory\NonEmptyArrayType) {
+                $moreVerbose = \true;
+                return $type;
+            }
+            if ($type instanceof \PHPStan\Type\IntegerRangeType) {
                 $moreVerbose = \true;
                 return $type;
             }

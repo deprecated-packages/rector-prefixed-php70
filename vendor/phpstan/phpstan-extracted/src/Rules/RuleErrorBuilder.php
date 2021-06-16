@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Rules;
 
+/** @api */
 class RuleErrorBuilder
 {
     const TYPE_MESSAGE = 1;

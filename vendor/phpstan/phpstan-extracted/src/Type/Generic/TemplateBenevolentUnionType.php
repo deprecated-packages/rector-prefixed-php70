@@ -5,6 +5,7 @@ namespace PHPStan\Type\Generic;
 
 use PHPStan\Type\BenevolentUnionType;
 use PHPStan\Type\Type;
+/** @api */
 final class TemplateBenevolentUnionType extends \PHPStan\Type\BenevolentUnionType implements \PHPStan\Type\Generic\TemplateType
 {
     /** @use TemplateTypeTrait<BenevolentUnionType> */

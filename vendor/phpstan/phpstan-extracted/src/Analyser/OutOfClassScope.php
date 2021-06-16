@@ -10,6 +10,10 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 class OutOfClassScope implements \PHPStan\Reflection\ClassMemberAccessAnswerer
 {
+    /** @api */
+    public function __construct()
+    {
+    }
     public function isInClass() : bool
     {
         return \false;

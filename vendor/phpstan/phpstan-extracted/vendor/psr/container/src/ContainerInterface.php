@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Container;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Container;
 
 /**
  * Describes the interface of a container that exposes methods to read its entries.

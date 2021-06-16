@@ -6,6 +6,7 @@ namespace PHPStan\Type\Generic;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
+/** @api */
 final class TemplateMixedType extends \PHPStan\Type\MixedType implements \PHPStan\Type\Generic\TemplateType
 {
     /** @use TemplateTypeTrait<MixedType> */

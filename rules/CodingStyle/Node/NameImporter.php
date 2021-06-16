@@ -8,6 +8,7 @@ use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Namespace_;
+use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
 use PHPStan\Reflection\ReflectionProvider;
 use Rector\CodingStyle\ClassNameImport\AliasUsesResolver;
@@ -18,7 +19,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\Collector\UseNodesToAddCollector;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use RectorPrefix20210531\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210616\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class NameImporter
 {
     /**
@@ -53,7 +54,7 @@ final class NameImporter
      * @var \PHPStan\Reflection\ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\CodingStyle\ClassNameImport\AliasUsesResolver $aliasUsesResolver, \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210531\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\Rector\CodingStyle\ClassNameImport\AliasUsesResolver $aliasUsesResolver, \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210616\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->aliasUsesResolver = $aliasUsesResolver;
         $this->classNameImportSkipper = $classNameImportSkipper;
@@ -64,14 +65,15 @@ final class NameImporter
         $this->reflectionProvider = $reflectionProvider;
     }
     /**
+     * @param Use_[] $uses
      * @return \PhpParser\Node\Name|null
      */
-    public function importName(\PhpParser\Node\Name $name)
+    public function importName(\PhpParser\Node\Name $name, array $uses)
     {
         if ($this->shouldSkipName($name)) {
             return null;
         }
-        if ($this->classNameImportSkipper->isShortNameInUseStatement($name)) {
+        if ($this->classNameImportSkipper->isShortNameInUseStatement($name, $uses)) {
             return null;
         }
         $staticType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($name);
@@ -100,8 +102,7 @@ final class NameImporter
             return \true;
         }
         // Importing root namespace classes (like \DateTime) is optional
-        $importShortClasses = $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::IMPORT_SHORT_CLASSES);
-        if (!$importShortClasses) {
+        if (!$this->parameterProvider->provideBoolParameter(\Rector\Core\Configuration\Option::IMPORT_SHORT_CLASSES)) {
             $name = $this->nodeNameResolver->getName($name);
             if ($name !== null && \substr_count($name, '\\') === 0) {
                 return \true;

@@ -22,6 +22,7 @@ use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
+/** @api */
 class ClosureType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Reflection\ParametersAcceptor
 {
     use NonGenericTypeTrait;
@@ -35,6 +36,7 @@ class ClosureType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Reflectio
     /** @var bool */
     private $variadic;
     /**
+     * @api
      * @param array<int, \PHPStan\Reflection\ParameterReflection> $parameters
      * @param Type $returnType
      * @param bool $variadic

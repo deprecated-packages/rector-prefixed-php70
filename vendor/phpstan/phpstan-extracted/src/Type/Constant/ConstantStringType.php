@@ -25,6 +25,7 @@ use PHPStan\Type\Traits\ConstantScalarTypeTrait;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\VerbosityLevel;
+/** @api */
 class ConstantStringType extends \PHPStan\Type\StringType implements \PHPStan\Type\ConstantScalarType
 {
     const DESCRIBE_LIMIT = 20;
@@ -34,8 +35,10 @@ class ConstantStringType extends \PHPStan\Type\StringType implements \PHPStan\Ty
     private $value;
     /** @var bool */
     private $isClassString;
+    /** @api */
     public function __construct(string $value, bool $isClassString = \false)
     {
+        parent::__construct();
         $this->value = $value;
         $this->isClassString = $isClassString;
     }
@@ -56,8 +59,8 @@ class ConstantStringType extends \PHPStan\Type\StringType implements \PHPStan\Ty
                 return \var_export($this->value, \true);
             }
             try {
-                $truncatedValue = \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::truncate($this->value, self::DESCRIBE_LIMIT);
-            } catch (\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\RegexpException $e) {
+                $truncatedValue = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings::truncate($this->value, self::DESCRIBE_LIMIT);
+            } catch (\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\RegexpException $e) {
                 $truncatedValue = \substr($this->value, 0, self::DESCRIBE_LIMIT) . "…";
             }
             return \var_export($truncatedValue, \true);
@@ -117,7 +120,7 @@ class ConstantStringType extends \PHPStan\Type\StringType implements \PHPStan\Ty
             return \PHPStan\TrinaryLogic::createYes();
         }
         // 'MyClass::myStaticFunction'
-        $matches = \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#');
+        $matches = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#');
         if ($matches !== null) {
             if (!$broker->hasClass($matches[1])) {
                 return \PHPStan\TrinaryLogic::createMaybe();
@@ -146,7 +149,7 @@ class ConstantStringType extends \PHPStan\Type\StringType implements \PHPStan\Ty
             return $broker->getFunction($functionName, null)->getVariants();
         }
         // 'MyClass::myStaticFunction'
-        $matches = \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#');
+        $matches = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#');
         if ($matches !== null) {
             if (!$broker->hasClass($matches[1])) {
                 return [new \PHPStan\Reflection\TrivialParametersAcceptor()];

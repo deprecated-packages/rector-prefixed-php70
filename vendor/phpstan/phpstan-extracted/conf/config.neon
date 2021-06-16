@@ -16,6 +16,8 @@ parameters:
 	exceptions:
 		uncheckedExceptionRegexes: []
 		uncheckedExceptionClasses: []
+		checkedExceptionRegexes: []
+		checkedExceptionClasses: []
 		check:
 			missingCheckedExceptionInThrows: false
 			tooWideThrowType: false
@@ -39,9 +41,13 @@ parameters:
 		objectFromNewClass: false
 		skipCheckGenericClasses:
 			- RecursiveIterator
+			- RecursiveArrayIterator
 
 		rememberFunctionValues: false
 		preciseExceptionTracking: false
+		apiRules: false
+		deepInspectTypes: false
+		neverInGenericReturnType: false
 
 	fileExtensions:
 		- php
@@ -161,6 +167,8 @@ parameters:
 		- PHP_FD_SETSIZE
 		- OPENSSL_VERSION_NUMBER
 
+	editorUrl: null
+
 extensions:
 	rules: PHPStan\DependencyInjection\RulesExtension
 	conditionalTags: PHPStan\DependencyInjection\ConditionalTagsExtension
@@ -170,13 +178,13 @@ parametersSchema:
 	bootstrap: schema(string(), nullable())
 	bootstrapFiles: listOf(string())
 	excludes_analyse: listOf(string())
-	excludePaths: schema(anyOf(listOf(string()), structure({analyse: listOf(string())}), structure({analyseAndScan: listOf(string())}), structure({analyse: listOf(string()), analyseAndScan: listOf(string())})), nullable())
+	excludePaths: schema(anyOf(structure({analyse: listOf(string())}), structure({analyseAndScan: listOf(string())}), structure({analyse: listOf(string()), analyseAndScan: listOf(string())})), nullable())
 	autoload_directories: listOf(string())
 	autoload_files: listOf(string())
 	level: schema(anyOf(int(), string()), nullable())
 	paths: listOf(string())
-	exceptions: structure({uncheckedExceptionRegexes: listOf(string()), uncheckedExceptionClasses: listOf(string()), check: structure({missingCheckedExceptionInThrows: bool(), tooWideThrowType: bool()})})
-	featureToggles: structure({bleedingEdge: bool(), disableRuntimeReflectionProvider: bool(), closureUsesThis: bool(), randomIntParameters: bool(), nullCoalesce: bool(), fileWhitespace: bool(), unusedClassElements: bool(), readComposerPhpVersion: bool(), dateTimeInstantiation: bool(), detectDuplicateStubFiles: bool(), checkLogicalAndConstantCondition: bool(), checkLogicalOrConstantCondition: bool(), checkMissingTemplateTypeInParameter: bool(), wrongVarUsage: bool(), arrayDestructuring: bool(), objectFromNewClass: bool(), skipCheckGenericClasses: listOf(string()), rememberFunctionValues: bool(), preciseExceptionTracking: bool()})
+	exceptions: structure({uncheckedExceptionRegexes: listOf(string()), uncheckedExceptionClasses: listOf(string()), checkedExceptionRegexes: listOf(string()), checkedExceptionClasses: listOf(string()), check: structure({missingCheckedExceptionInThrows: bool(), tooWideThrowType: bool()})})
+	featureToggles: structure({bleedingEdge: bool(), disableRuntimeReflectionProvider: bool(), closureUsesThis: bool(), randomIntParameters: bool(), nullCoalesce: bool(), fileWhitespace: bool(), unusedClassElements: bool(), readComposerPhpVersion: bool(), dateTimeInstantiation: bool(), detectDuplicateStubFiles: bool(), checkLogicalAndConstantCondition: bool(), checkLogicalOrConstantCondition: bool(), checkMissingTemplateTypeInParameter: bool(), wrongVarUsage: bool(), arrayDestructuring: bool(), objectFromNewClass: bool(), skipCheckGenericClasses: listOf(string()), rememberFunctionValues: bool(), preciseExceptionTracking: bool(), apiRules: bool(), deepInspectTypes: bool(), neverInGenericReturnType: bool()})
 	fileExtensions: listOf(string())
 	checkAlwaysTrueCheckTypeFunctionCall: bool()
 	checkAlwaysTrueInstanceof: bool()
@@ -244,6 +252,7 @@ parametersSchema:
 	scanFiles: listOf(string())
 	scanDirectories: listOf(string())
 	fixerTmpDir: string()
+	editorUrl: schema(string(), nullable())
 	debugMode: bool()
 	productionMode: bool()
 	tempDir: string()
@@ -336,6 +345,8 @@ services:
 
 	17:
 		class: PHPStan\PhpDoc\TypeNodeResolver
+		arguments:
+			deepInspectTypes: %featureToggles.deepInspectTypes%
 
 	18:
 		class: PHPStan\PhpDoc\TypeNodeResolverExtensionRegistryProvider
@@ -669,124 +680,141 @@ services:
 		factory: @PHPStan\Reflection\SignatureMap\SignatureMapProviderFactory::create()
 
 	80:
-		class: PHPStan\Rules\AttributesCheck
+		class: PHPStan\Rules\Api\ApiRuleHelper
 
 	81:
+		class: PHPStan\Rules\AttributesCheck
+
+	82:
 		class: PHPStan\Rules\Arrays\NonexistentOffsetInArrayDimFetchCheck
 		arguments:
 			reportMaybes: %reportMaybes%
 
-	82:
+	83:
 		class: PHPStan\Rules\ClassCaseSensitivityCheck
 		arguments:
 			checkInternalClassCaseSensitivity: %checkInternalClassCaseSensitivity%
 
-	83:
+	84:
 		class: PHPStan\Rules\Comparison\ConstantConditionRuleHelper
 		arguments:
 			treatPhpDocTypesAsCertain: %treatPhpDocTypesAsCertain%
 
-	84:
+	85:
 		class: PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper
 		arguments:
 			universalObjectCratesClasses: %universalObjectCratesClasses%
 			treatPhpDocTypesAsCertain: %treatPhpDocTypesAsCertain%
 
-	85:
-		class: PHPStan\Rules\Exceptions\ExceptionTypeResolver
+	86:
+		class: PHPStan\Rules\Exceptions\DefaultExceptionTypeResolver
 		arguments:
 			uncheckedExceptionRegexes: %exceptions.uncheckedExceptionRegexes%
 			uncheckedExceptionClasses: %exceptions.uncheckedExceptionClasses%
+			checkedExceptionRegexes: %exceptions.checkedExceptionRegexes%
+			checkedExceptionClasses: %exceptions.checkedExceptionClasses%
 
-	86:
-		class: PHPStan\Rules\Exceptions\MissingCheckedExceptionInFunctionThrowsRule
+		autowired:
+			- PHPStan\Rules\Exceptions\DefaultExceptionTypeResolver
 
 	87:
-		class: PHPStan\Rules\Exceptions\MissingCheckedExceptionInMethodThrowsRule
+		class: PHPStan\Rules\Exceptions\MissingCheckedExceptionInFunctionThrowsRule
 
 	88:
-		class: PHPStan\Rules\Exceptions\MissingCheckedExceptionInThrowsCheck
+		class: PHPStan\Rules\Exceptions\MissingCheckedExceptionInMethodThrowsRule
 
 	89:
-		class: PHPStan\Rules\Exceptions\TooWideFunctionThrowTypeRule
+		class: PHPStan\Rules\Exceptions\MissingCheckedExceptionInThrowsCheck
+		arguments:
+			exceptionTypeResolver: @exceptionTypeResolver
 
 	90:
-		class: PHPStan\Rules\Exceptions\TooWideMethodThrowTypeRule
+		class: PHPStan\Rules\Exceptions\TooWideFunctionThrowTypeRule
 
 	91:
-		class: PHPStan\Rules\Exceptions\TooWideThrowTypeCheck
+		class: PHPStan\Rules\Exceptions\TooWideMethodThrowTypeRule
 
 	92:
+		class: PHPStan\Rules\Exceptions\TooWideThrowTypeCheck
+
+	93:
 		class: PHPStan\Rules\FunctionCallParametersCheck
 		arguments:
 			checkArgumentTypes: %checkFunctionArgumentTypes%
 			checkArgumentsPassedByReference: %checkArgumentsPassedByReference%
 			checkExtraArguments: %checkExtraArguments%
 			checkMissingTypehints: %checkMissingTypehints%
+			checkNeverInGenericReturnType: %featureToggles.neverInGenericReturnType%
 
-	93:
+	94:
 		class: PHPStan\Rules\FunctionDefinitionCheck
 		arguments:
 			checkClassCaseSensitivity: %checkClassCaseSensitivity%
 			checkThisOnly: %checkThisOnly%
 			checkMissingTemplateTypeInParameter: %featureToggles.checkMissingTemplateTypeInParameter%
 
-	94:
+	95:
 		class: PHPStan\Rules\FunctionReturnTypeCheck
 
-	95:
+	96:
 		class: PHPStan\Rules\Generics\GenericAncestorsCheck
 		arguments:
 			checkGenericClassInNonGenericObjectType: %checkGenericClassInNonGenericObjectType%
 			skipCheckGenericClasses: %featureToggles.skipCheckGenericClasses%
 
-	96:
+	97:
 		class: PHPStan\Rules\Generics\GenericObjectTypeCheck
 
-	97:
+	98:
 		class: PHPStan\Rules\Generics\TemplateTypeCheck
 		arguments:
 			checkClassCaseSensitivity: %checkClassCaseSensitivity%
 
-	98:
+	99:
 		class: PHPStan\Rules\Generics\VarianceCheck
 
-	99:
+	100:
 		class: PHPStan\Rules\IssetCheck
 
-	100:
+	101:
 		class: PHPStan\Rules\Methods\MethodSignatureRule
 		arguments:
 			reportMaybes: %reportMaybesInMethodSignatures%
 			reportStatic: %reportStaticMethodSignatures%
 
-	101:
+	102:
 		class: PHPStan\Rules\MissingTypehintCheck
 		arguments:
 			checkMissingIterableValueType: %checkMissingIterableValueType%
 			checkGenericClassInNonGenericObjectType: %checkGenericClassInNonGenericObjectType%
 			checkMissingCallableSignature: %checkMissingCallableSignature%
 			skipCheckGenericClasses: %featureToggles.skipCheckGenericClasses%
-
-	102:
-		class: PHPStan\Rules\NullsafeCheck
+			deepInspectTypes: %featureToggles.deepInspectTypes%
 
 	103:
-		class: PHPStan\Rules\Constants\LazyAlwaysUsedClassConstantsExtensionProvider
+		class: PHPStan\Rules\NullsafeCheck
 
 	104:
-		class: PHPStan\Rules\Properties\LazyReadWritePropertiesExtensionProvider
+		class: PHPStan\Rules\Constants\LazyAlwaysUsedClassConstantsExtensionProvider
 
 	105:
-		class: PHPStan\Rules\Properties\PropertyDescriptor
+		class: PHPStan\Rules\PhpDoc\UnresolvableTypeHelper
+		arguments:
+			deepInspectTypes: %featureToggles.deepInspectTypes%
 
 	106:
-		class: PHPStan\Rules\Properties\PropertyReflectionFinder
+		class: PHPStan\Rules\Properties\LazyReadWritePropertiesExtensionProvider
 
 	107:
-		class: PHPStan\Rules\RegistryFactory
+		class: PHPStan\Rules\Properties\PropertyDescriptor
 
 	108:
+		class: PHPStan\Rules\Properties\PropertyReflectionFinder
+
+	109:
+		class: PHPStan\Rules\RegistryFactory
+
+	110:
 		class: PHPStan\Rules\RuleLevelHelper
 		arguments:
 			checkNullables: %checkNullables%
@@ -794,153 +822,153 @@ services:
 			checkUnionTypes: %checkUnionTypes%
 			checkExplicitMixed: %checkExplicitMixed%
 
-	109:
+	111:
 		class: PHPStan\Rules\UnusedFunctionParametersCheck
 
-	110:
+	112:
 		class: PHPStan\Type\FileTypeMapper
 
-	111:
+	113:
 		class: PHPStan\Type\TypeAliasResolver
 		arguments:
 			globalTypeAliases: %typeAliases%
 
-	112:
+	114:
 		class: PHPStan\Type\Php\ArgumentBasedFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	113:
+	115:
 		class: PHPStan\Type\Php\ArrayCombineFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	114:
+	116:
 		class: PHPStan\Type\Php\ArrayCurrentDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	115:
+	117:
 		class: PHPStan\Type\Php\ArrayFillFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	116:
+	118:
 		class: PHPStan\Type\Php\ArrayFillKeysFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	117:
+	119:
 		class: PHPStan\Type\Php\ArrayFilterFunctionReturnTypeReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	118:
+	120:
 		class: PHPStan\Type\Php\ArrayKeyDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	119:
+	121:
 		class: PHPStan\Type\Php\ArrayKeyExistsFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	120:
+	122:
 		class: PHPStan\Type\Php\ArrayKeyFirstDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	121:
+	123:
 		class: PHPStan\Type\Php\ArrayKeyLastDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	122:
+	124:
 		class: PHPStan\Type\Php\ArrayKeysFunctionDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	123:
+	125:
 		class: PHPStan\Type\Php\ArrayMapFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	124:
+	126:
 		class: PHPStan\Type\Php\ArrayMergeFunctionDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	125:
+	127:
 		class: PHPStan\Type\Php\ArrayPopFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	126:
+	128:
 		class: PHPStan\Type\Php\ArrayRandFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	127:
+	129:
 		class: PHPStan\Type\Php\ArrayReduceFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	128:
+	130:
 		class: PHPStan\Type\Php\ArrayReverseFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	129:
+	131:
 		class: PHPStan\Type\Php\ArrayShiftFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	130:
+	132:
 		class: PHPStan\Type\Php\ArraySliceFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	131:
+	133:
 		class: PHPStan\Type\Php\ArraySearchFunctionDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	132:
+	134:
 		class: PHPStan\Type\Php\ArrayValuesFunctionDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	133:
+	135:
 		class: PHPStan\Type\Php\ArraySumFunctionDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	134:
+	136:
 		class: PHPStan\Type\Php\Base64DecodeDynamicFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	135:
+	137:
 		class: PHPStan\Type\Php\BcMathStringOrNullReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	136:
+	138:
 		class: PHPStan\Type\Php\ClosureBindDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicStaticMethodReturnTypeExtension
 
-	137:
+	139:
 		class: PHPStan\Type\Php\ClosureBindToDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 
-	138:
+	140:
 		class: PHPStan\Type\Php\ClosureFromCallableDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicStaticMethodReturnTypeExtension
 
-	139:
+	141:
 		class: PHPStan\Type\Php\CompactFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
@@ -948,303 +976,348 @@ services:
 		arguments:
 			checkMaybeUndefinedVariables: %checkMaybeUndefinedVariables%
 
-	140:
+	142:
 		class: PHPStan\Type\Php\CountFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	141:
+	143:
 		class: PHPStan\Type\Php\CountFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	142:
+	144:
 		class: PHPStan\Type\Php\CurlInitReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	143:
+	145:
 		class: PHPStan\Type\Php\DateFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	144:
+	146:
+		class: PHPStan\Type\Php\DateIntervalConstructorThrowTypeExtension
+		tags:
+			- phpstan.dynamicStaticMethodThrowTypeExtension
+
+	147:
 		class: PHPStan\Type\Php\DateTimeDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	145:
+	148:
 		class: PHPStan\Type\Php\DateTimeConstructorThrowTypeExtension
 		tags:
 			- phpstan.dynamicStaticMethodThrowTypeExtension
 
-	146:
+	149:
 		class: PHPStan\Type\Php\DsMapDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 
-	147:
+	150:
 		class: PHPStan\Type\Php\DioStatDynamicFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	148:
+	151:
 		class: PHPStan\Type\Php\ExplodeFunctionDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	149:
+	152:
 		class: PHPStan\Type\Php\FilterVarDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	150:
+	153:
 		class: PHPStan\Type\Php\GetCalledClassDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	151:
+	154:
 		class: PHPStan\Type\Php\GetClassDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	152:
-		class: PHPStan\Type\Php\GetParentClassDynamicFunctionReturnTypeExtension
-		tags:
-			- phpstan.broker.dynamicFunctionReturnTypeExtension
-
-	153:
-		class: PHPStan\Type\Php\GettimeofdayDynamicFunctionReturnTypeExtension
-		tags:
-			- phpstan.broker.dynamicFunctionReturnTypeExtension
-
-	154:
-		class: PHPStan\Type\Php\HashHmacFunctionsReturnTypeExtension
-		tags:
-			- phpstan.broker.dynamicFunctionReturnTypeExtension
-
 	155:
-		class: PHPStan\Type\Php\HashFunctionsReturnTypeExtension
+		class: PHPStan\Type\Php\GetoptFunctionDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	156:
+		class: PHPStan\Type\Php\GetParentClassDynamicFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	157:
+		class: PHPStan\Type\Php\GettimeofdayDynamicFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	158:
+		class: PHPStan\Type\Php\HashHmacFunctionsReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	159:
+		class: PHPStan\Type\Php\HashFunctionsReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	160:
+		class: PHPStan\Type\Php\IntdivThrowTypeExtension
+		tags:
+			- phpstan.dynamicFunctionThrowTypeExtension
+
+	161:
 		class: PHPStan\Type\Php\JsonThrowTypeExtension
 		tags:
 			- phpstan.dynamicFunctionThrowTypeExtension
 
-	157:
+	162:
+		class: PHPStan\Type\Php\ReflectionClassConstructorThrowTypeExtension
+		tags:
+			- phpstan.dynamicStaticMethodThrowTypeExtension
+
+	163:
+		class: PHPStan\Type\Php\ReflectionFunctionConstructorThrowTypeExtension
+		tags:
+			- phpstan.dynamicStaticMethodThrowTypeExtension
+
+	164:
+		class: PHPStan\Type\Php\ReflectionMethodConstructorThrowTypeExtension
+		tags:
+			- phpstan.dynamicStaticMethodThrowTypeExtension
+
+	165:
+		class: PHPStan\Type\Php\ReflectionPropertyConstructorThrowTypeExtension
+		tags:
+			- phpstan.dynamicStaticMethodThrowTypeExtension
+
+	166:
 		class: PHPStan\Type\Php\SimpleXMLElementClassPropertyReflectionExtension
 		tags:
 			- phpstan.broker.propertiesClassReflectionExtension
 
-	158:
+	167:
+		class: PHPStan\Type\Php\SimpleXMLElementConstructorThrowTypeExtension
+		tags:
+			- phpstan.dynamicStaticMethodThrowTypeExtension
+
+	168:
 		class: PHPStan\Type\Php\StatDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 
-	159:
+	169:
 		class: PHPStan\Type\Php\MethodExistsTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	160:
+	170:
 		class: PHPStan\Type\Php\PropertyExistsTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	161:
+	171:
 		class: PHPStan\Type\Php\MinMaxFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	162:
-		class: PHPStan\Type\Php\PathinfoFunctionDynamicReturnTypeExtension
-		tags:
-			- phpstan.broker.dynamicFunctionReturnTypeExtension
-
-	163:
-		class: PHPStan\Type\Php\PregSplitDynamicReturnTypeExtension
-		tags:
-			- phpstan.broker.dynamicFunctionReturnTypeExtension
-
-	164:
-		class: PHPStan\Type\Php\ReflectionClassIsSubclassOfTypeSpecifyingExtension
-		tags:
-			- phpstan.typeSpecifier.methodTypeSpecifyingExtension
-
-	165:
-		class: PHPStan\Type\Php\ReplaceFunctionsDynamicReturnTypeExtension
-		tags:
-			- phpstan.broker.dynamicFunctionReturnTypeExtension
-
-	166:
-		class: PHPStan\Type\Php\ArrayPointerFunctionsDynamicReturnTypeExtension
-		tags:
-			- phpstan.broker.dynamicFunctionReturnTypeExtension
-
-	167:
-		class: PHPStan\Type\Php\VarExportFunctionDynamicReturnTypeExtension
-		tags:
-			- phpstan.broker.dynamicFunctionReturnTypeExtension
-
-	168:
-		class: PHPStan\Type\Php\MbFunctionsReturnTypeExtension
-		tags:
-			- phpstan.broker.dynamicFunctionReturnTypeExtension
-
-	169:
-		class: PHPStan\Type\Php\MbConvertEncodingFunctionReturnTypeExtension
-		tags:
-			- phpstan.broker.dynamicFunctionReturnTypeExtension
-
-	170:
-		class: PHPStan\Type\Php\MicrotimeFunctionReturnTypeExtension
-		tags:
-			- phpstan.broker.dynamicFunctionReturnTypeExtension
-
-	171:
-		class: PHPStan\Type\Php\HrtimeFunctionReturnTypeExtension
-		tags:
-			- phpstan.broker.dynamicFunctionReturnTypeExtension
-
 	172:
-		class: PHPStan\Type\Php\ParseUrlFunctionDynamicReturnTypeExtension
+		class: PHPStan\Type\Php\NumberFormatFunctionDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	173:
-		class: PHPStan\Type\Php\VersionCompareFunctionDynamicReturnTypeExtension
+		class: PHPStan\Type\Php\PathinfoFunctionDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	174:
-		class: PHPStan\Type\Php\PowFunctionReturnTypeExtension
+		class: PHPStan\Type\Php\PregSplitDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	175:
-		class: PHPStan\Type\Php\StrtotimeFunctionReturnTypeExtension
+		class: PHPStan\Type\Php\ReflectionClassIsSubclassOfTypeSpecifyingExtension
 		tags:
-			- phpstan.broker.dynamicFunctionReturnTypeExtension
+			- phpstan.typeSpecifier.methodTypeSpecifyingExtension
 
 	176:
-		class: PHPStan\Type\Php\RandomIntFunctionReturnTypeExtension
+		class: PHPStan\Type\Php\ReplaceFunctionsDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	177:
-		class: PHPStan\Type\Php\RangeFunctionReturnTypeExtension
+		class: PHPStan\Type\Php\ArrayPointerFunctionsDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	178:
+		class: PHPStan\Type\Php\VarExportFunctionDynamicReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	179:
+		class: PHPStan\Type\Php\MbFunctionsReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	180:
+		class: PHPStan\Type\Php\MbConvertEncodingFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	181:
+		class: PHPStan\Type\Php\MicrotimeFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	182:
+		class: PHPStan\Type\Php\HrtimeFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	183:
+		class: PHPStan\Type\Php\ParseUrlFunctionDynamicReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	184:
+		class: PHPStan\Type\Php\VersionCompareFunctionDynamicReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	185:
+		class: PHPStan\Type\Php\PowFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	186:
+		class: PHPStan\Type\Php\StrtotimeFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	187:
+		class: PHPStan\Type\Php\RandomIntFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	188:
+		class: PHPStan\Type\Php\RangeFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	189:
 		class: PHPStan\Type\Php\AssertFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	179:
+	190:
 		class: PHPStan\Type\Php\ClassExistsFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	180:
+	191:
 		class: PHPStan\Type\Php\DefineConstantTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	181:
+	192:
 		class: PHPStan\Type\Php\DefinedConstantTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	182:
+	193:
 		class: PHPStan\Type\Php\InArrayFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	183:
+	194:
 		class: PHPStan\Type\Php\IsIntFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	184:
+	195:
 		class: PHPStan\Type\Php\IsFloatFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	185:
+	196:
 		class: PHPStan\Type\Php\IsNullFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	186:
+	197:
 		class: PHPStan\Type\Php\IsArrayFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	187:
+	198:
 		class: PHPStan\Type\Php\IsBoolFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	188:
+	199:
 		class: PHPStan\Type\Php\IsCallableFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	189:
+	200:
 		class: PHPStan\Type\Php\IsCountableFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	190:
+	201:
 		class: PHPStan\Type\Php\IsResourceFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	191:
+	202:
 		class: PHPStan\Type\Php\IsIterableFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	192:
+	203:
 		class: PHPStan\Type\Php\IsStringFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	193:
+	204:
 		class: PHPStan\Type\Php\IsSubclassOfFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	194:
+	205:
 		class: PHPStan\Type\Php\IsObjectFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	195:
+	206:
 		class: PHPStan\Type\Php\IsNumericFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	196:
+	207:
 		class: PHPStan\Type\Php\IsScalarFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	197:
+	208:
 		class: PHPStan\Type\Php\IsAFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
-	198:
+	209:
 		class: PHPStan\Type\Php\JsonThrowOnErrorDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	199:
+	210:
 		class: PHPStan\Type\Php\TypeSpecifyingFunctionsDynamicReturnTypeExtension
 		arguments:
 			treatPhpDocTypesAsCertain: %treatPhpDocTypesAsCertain%
@@ -1252,36 +1325,40 @@ services:
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	200:
+	211:
 		class: PHPStan\Type\Php\SimpleXMLElementAsXMLMethodReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 
-	201:
+	212:
 		class: PHPStan\Type\Php\SimpleXMLElementXpathMethodReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 
-	202:
+	213:
 		class: PHPStan\Type\Php\StrSplitFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	203:
+	214:
 		class: PHPStan\Type\Php\SprintfFunctionDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	204:
+	215:
 		class: PHPStan\Type\Php\StrWordCountFunctionDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
-	205:
+	216:
 		class: PHPStan\Type\Php\XMLReaderOpenReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 			- phpstan.broker.dynamicStaticMethodReturnTypeExtension
+
+	exceptionTypeResolver:
+		class: PHPStan\Rules\Exceptions\ExceptionTypeResolver
+		factory: @PHPStan\Rules\Exceptions\DefaultExceptionTypeResolver
 
 	typeSpecifier:
 		class: PHPStan\Analyser\TypeSpecifier
@@ -1446,7 +1523,7 @@ services:
 	innerRuntimeReflectionProvider:
 		class: PHPStan\Reflection\Runtime\RuntimeReflectionProvider
 
-	206:
+	217:
 		class: PHPStan\Reflection\BetterReflection\BetterReflectionSourceLocatorFactory
 		arguments:
 			parser: @phpParserDecorator
@@ -1461,10 +1538,10 @@ services:
 			singleReflectionFile: %singleReflectionFile%
 			staticReflectionClassNamePatterns: %staticReflectionClassNamePatterns%
 
-	207:
+	218:
 		implement: PHPStan\Reflection\BetterReflection\BetterReflectionProviderFactory
 
-	208:
+	219:
 		class: PHPStan\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber
 		arguments:
 			phpParser: @php8PhpParser
@@ -1473,7 +1550,7 @@ services:
 		autowired:
 			- PHPStan\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber
 
-	209:
+	220:
 		class: PHPStan\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber
 		autowired:
 			- PHPStan\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber
@@ -1517,6 +1594,7 @@ services:
 		class: PHPStan\Command\ErrorFormatter\TableErrorFormatter
 		arguments:
 			showTipsOfTheDay: %tipsOfTheDay%
+			editorUrl: %editorUrl%
 
 	errorFormatter.checkstyle:
 		class: PHPStan\Command\ErrorFormatter\CheckstyleErrorFormatter

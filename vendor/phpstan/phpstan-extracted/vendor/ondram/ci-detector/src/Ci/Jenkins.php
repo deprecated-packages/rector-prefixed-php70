@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Ci;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\Ci;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\CiDetector;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Env;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\TrinaryLogic;
-class Jenkins extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Ci\AbstractCi
+use RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\CiDetector;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\Env;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\TrinaryLogic;
+class Jenkins extends \RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\Ci\AbstractCi
 {
-    public static function isDetected(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\Env $env) : bool
+    public static function isDetected(\RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\Env $env) : bool
     {
         return $env->get('JENKINS_URL') !== \false;
     }
     public function getCiName() : string
     {
-        return \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\CiDetector::CI_JENKINS;
+        return \RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\CiDetector::CI_JENKINS;
     }
-    public function isPullRequest() : \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\TrinaryLogic
+    public function isPullRequest() : \RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\TrinaryLogic
     {
-        return \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\OndraM\CiDetector\TrinaryLogic::createMaybe();
+        return \RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\TrinaryLogic::createMaybe();
     }
     public function getBuildNumber() : string
     {

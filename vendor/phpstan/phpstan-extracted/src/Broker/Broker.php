@@ -12,6 +12,7 @@ use PHPStan\Reflection\GlobalConstantReflection;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\OperatorTypeSpecifyingExtension;
 use PHPStan\Type\Type;
+/** @api */
 class Broker implements \PHPStan\Reflection\ReflectionProvider
 {
     /** @var ReflectionProvider */

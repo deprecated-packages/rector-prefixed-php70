@@ -5,14 +5,15 @@ namespace Rector\Core\DependencyInjection\CompilerPass;
 
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
-use RectorPrefix20210531\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use RectorPrefix20210531\Symfony\Component\DependencyInjection\ContainerBuilder;
-final class VerifyRectorServiceExistsCompilerPass implements \RectorPrefix20210531\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+use Rector\Core\Rector\AbstractRector;
+use RectorPrefix20210616\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use RectorPrefix20210616\Symfony\Component\DependencyInjection\ContainerBuilder;
+final class VerifyRectorServiceExistsCompilerPass implements \RectorPrefix20210616\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @return void
      */
-    public function process(\RectorPrefix20210531\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function process(\RectorPrefix20210616\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         foreach ($containerBuilder->getDefinitions() as $definition) {
             $class = $definition->getClass();
@@ -22,8 +23,11 @@ final class VerifyRectorServiceExistsCompilerPass implements \RectorPrefix202105
             if (\substr_compare($class, 'Rector', -\strlen('Rector')) !== 0) {
                 continue;
             }
+            if (!\class_exists($class)) {
+                throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Rector rule "%s" not found, please verify that the class exists and is autoloadable.', $class));
+            }
             if (!\is_a($class, \Rector\Core\Contract\Rector\RectorInterface::class, \true)) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Rector rule "%s" not found, please verify that the rule exists', $class));
+                throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Rector rule "%s" should extend "%s" or implement "%s".', $class, \Rector\Core\Rector\AbstractRector::class, \Rector\Core\Contract\Rector\RectorInterface::class));
             }
         }
     }

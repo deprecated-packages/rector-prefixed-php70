@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\PhpDoc\Tag;
 
+/** @api */
 class DeprecatedTag
 {
     /** @var string|null */

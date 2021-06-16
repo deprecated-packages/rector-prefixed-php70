@@ -9,7 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210531\Composer\Autoload;
+namespace RectorPrefix20210616\Composer\Autoload;
 
 /**
  * ClassLoader implements a PSR-0, PSR-4 and classmap class loader.
@@ -282,7 +282,7 @@ class ClassLoader
      * Loads the given class or interface.
      *
      * @param  string    $class The name of the class
-     * @return bool|null True if loaded, null otherwise
+     * @return true|null True if loaded, null otherwise
      */
     public function loadClass($class)
     {
@@ -290,6 +290,7 @@ class ClassLoader
             includeFile($file);
             return \true;
         }
+        return null;
     }
     /**
      * Finds the path to the file where the class is defined.

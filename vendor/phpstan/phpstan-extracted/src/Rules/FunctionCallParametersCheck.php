@@ -8,6 +8,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Php\PhpVersion;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ResolvedFunctionVariant;
+use PHPStan\Rules\PhpDoc\UnresolvableTypeHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Generic\TemplateType;
 use PHPStan\Type\NeverType;
@@ -25,6 +26,8 @@ class FunctionCallParametersCheck
     private $nullsafeCheck;
     /** @var PhpVersion */
     private $phpVersion;
+    /** @var UnresolvableTypeHelper */
+    private $unresolvableTypeHelper;
     /** @var bool */
     private $checkArgumentTypes;
     /** @var bool */
@@ -33,21 +36,25 @@ class FunctionCallParametersCheck
     private $checkExtraArguments;
     /** @var bool */
     private $checkMissingTypehints;
-    public function __construct(\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, \PHPStan\Rules\NullsafeCheck $nullsafeCheck, \PHPStan\Php\PhpVersion $phpVersion, bool $checkArgumentTypes, bool $checkArgumentsPassedByReference, bool $checkExtraArguments, bool $checkMissingTypehints)
+    /** @var bool */
+    private $checkNeverInGenericReturnType;
+    public function __construct(\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, \PHPStan\Rules\NullsafeCheck $nullsafeCheck, \PHPStan\Php\PhpVersion $phpVersion, \PHPStan\Rules\PhpDoc\UnresolvableTypeHelper $unresolvableTypeHelper, bool $checkArgumentTypes, bool $checkArgumentsPassedByReference, bool $checkExtraArguments, bool $checkMissingTypehints, bool $checkNeverInGenericReturnType)
     {
         $this->ruleLevelHelper = $ruleLevelHelper;
         $this->nullsafeCheck = $nullsafeCheck;
         $this->phpVersion = $phpVersion;
+        $this->unresolvableTypeHelper = $unresolvableTypeHelper;
         $this->checkArgumentTypes = $checkArgumentTypes;
         $this->checkArgumentsPassedByReference = $checkArgumentsPassedByReference;
         $this->checkExtraArguments = $checkExtraArguments;
         $this->checkMissingTypehints = $checkMissingTypehints;
+        $this->checkNeverInGenericReturnType = $checkNeverInGenericReturnType;
     }
     /**
      * @param \PHPStan\Reflection\ParametersAcceptor $parametersAcceptor
      * @param \PHPStan\Analyser\Scope $scope
      * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|\PhpParser\Node\Expr\New_ $funcCall
-     * @param array{string, string, string, string, string, string, string, string, string, string, string, string} $messages
+     * @param array{string, string, string, string, string, string, string, string, string, string, string, string, string} $messages
      * @return RuleError[]
      */
     public function check(\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor, \PHPStan\Analyser\Scope $scope, bool $isBuiltin, $funcCall, array $messages) : array
@@ -221,6 +228,9 @@ class FunctionCallParametersCheck
                     }
                     $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messages[9], $name))->line($funcCall->getLine())->tip('See: https://phpstan.org/blog/solving-phpstan-error-unable-to-resolve-template-type')->build();
                 }
+            }
+            if ($this->checkNeverInGenericReturnType && !$this->unresolvableTypeHelper->containsUnresolvableType($originalParametersAcceptor->getReturnType()) && $this->unresolvableTypeHelper->containsUnresolvableType($parametersAcceptor->getReturnType())) {
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message($messages[12])->line($funcCall->getLine())->build();
             }
         }
         return $errors;

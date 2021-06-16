@@ -216,9 +216,8 @@ class ReflectionClass extends \ReflectionClass
     }
     /**
      * {@inheritDoc}
-     * @param int|null $filter
      */
-    public function getConstants($filter = null)
+    public function getConstants(int $filter = null)
     {
         return $this->betterReflectionClass->getConstants($filter);
     }
@@ -238,9 +237,8 @@ class ReflectionClass extends \ReflectionClass
     }
     /**
      * {@inheritdoc}
-     * @param int|null $filter
      */
-    public function getReflectionConstants($filter = null)
+    public function getReflectionConstants(int $filter = null)
     {
         return \array_values(\array_map(static function (\PHPStan\BetterReflection\Reflection\ReflectionClassConstant $betterConstant) : ReflectionClassConstant {
             return new \PHPStan\BetterReflection\Reflection\Adapter\ReflectionClassConstant($betterConstant);

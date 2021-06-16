@@ -6,7 +6,6 @@ namespace Rector\DeadCode\Rector\If_;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\Instanceof_;
-use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\If_;
 use PHPStan\Analyser\Scope;
 use Rector\Core\NodeManipulator\IfManipulator;
@@ -62,7 +61,7 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
-     * @return null|Stmt[]|If_
+     * @return null|If_
      */
     public function refactor(\PhpParser\Node $node)
     {
@@ -83,7 +82,7 @@ CODE_SAMPLE
         return $node;
     }
     /**
-     * @return mixed[]|null
+     * @return \PhpParser\Node\Stmt\If_|null
      */
     private function processMayDeadInstanceOf(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Expr\Instanceof_ $instanceof)
     {
@@ -94,9 +93,9 @@ CODE_SAMPLE
             return null;
         }
         if ($if->cond === $instanceof) {
-            return $if->stmts;
+            $this->addNodesBeforeNode($if->stmts, $if);
         }
         $this->removeNode($if);
-        return null;
+        return $if;
     }
 }

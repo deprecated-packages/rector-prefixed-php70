@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Symfony\Contracts\Service;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Symfony\Contracts\Service;
 
 /**
  * Provides a way to reset an object to its initial state.

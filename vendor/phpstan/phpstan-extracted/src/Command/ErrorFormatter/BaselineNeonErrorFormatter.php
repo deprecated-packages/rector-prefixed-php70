@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace PHPStan\Command\ErrorFormatter;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Neon\Neon;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Helpers;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Neon;
 use PHPStan\Command\AnalysisResult;
 use PHPStan\Command\Output;
 use PHPStan\File\RelativePathHelper;
@@ -22,7 +22,7 @@ class BaselineNeonErrorFormatter implements \PHPStan\Command\ErrorFormatter\Erro
     public function formatErrors(\PHPStan\Command\AnalysisResult $analysisResult, \PHPStan\Command\Output $output) : int
     {
         if (!$analysisResult->hasErrors()) {
-            $output->writeRaw(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => []]], \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Neon\Neon::BLOCK));
+            $output->writeRaw(\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => []]], \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Neon::BLOCK));
             return 0;
         }
         $fileErrors = [];
@@ -45,10 +45,10 @@ class BaselineNeonErrorFormatter implements \PHPStan\Command\ErrorFormatter\Erro
             }
             \ksort($fileErrorsCounts, \SORT_STRING);
             foreach ($fileErrorsCounts as $message => $count) {
-                $errorsToOutput[] = ['message' => \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::escape('#^' . \preg_quote($message, '#') . '$#'), 'count' => $count, 'path' => \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::escape($this->relativePathHelper->getRelativePath($file))];
+                $errorsToOutput[] = ['message' => \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Helpers::escape('#^' . \preg_quote($message, '#') . '$#'), 'count' => $count, 'path' => \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Helpers::escape($this->relativePathHelper->getRelativePath($file))];
             }
         }
-        $output->writeRaw(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => $errorsToOutput]], \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Neon\Neon::BLOCK));
+        $output->writeRaw(\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => $errorsToOutput]], \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Neon::BLOCK));
         return 1;
     }
 }

@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette;
 /**
  * The dependency injection container default implementation.
  */
@@ -50,15 +50,15 @@ class Container
     {
         $name = $this->aliases[$name] ?? $name;
         if (isset($this->instances[$name])) {
-            throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException("Service '{$name}' already exists.");
+            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidStateException("Service '{$name}' already exists.");
         } elseif (!\is_object($service)) {
-            throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException(\sprintf("Service '%s' must be a object, %s given.", $name, \gettype($service)));
+            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidArgumentException(\sprintf("Service '%s' must be a object, %s given.", $name, \gettype($service)));
         }
         $type = $service instanceof \Closure ? ($tmp = (new \ReflectionFunction($service))->getReturnType()) ? $tmp->getName() : '' : \get_class($service);
         if (!isset($this->methods[self::getMethodName($name)])) {
             $this->types[$name] = $type;
         } elseif (($expectedType = $this->getServiceType($name)) && !\is_a($type, $expectedType, \true)) {
-            throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException("Service '{$name}' must be instance of {$expectedType}, " . ($type ? "{$type} given." : 'add typehint to closure.'));
+            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidArgumentException("Service '{$name}' must be instance of {$expectedType}, " . ($type ? "{$type} given." : 'add typehint to closure.'));
         }
         if ($service instanceof \Closure) {
             $this->methods[self::getMethodName($name)] = $service;
@@ -116,7 +116,7 @@ class Container
             $type = (new \ReflectionMethod($this, $method))->getReturnType();
             return $type ? $type->getName() : '';
         } else {
-            throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\MissingServiceException("Service '{$name}' not found.");
+            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\MissingServiceException("Service '{$name}' not found.");
         }
     }
     /**
@@ -133,7 +133,7 @@ class Container
     public function isCreated(string $name) : bool
     {
         if (!$this->hasService($name)) {
-            throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\MissingServiceException("Service '{$name}' not found.");
+            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\MissingServiceException("Service '{$name}' not found.");
         }
         $name = $this->aliases[$name] ?? $name;
         return isset($this->instances[$name]);
@@ -149,9 +149,9 @@ class Container
         $method = self::getMethodName($name);
         $cb = $this->methods[$method] ?? null;
         if (isset($this->creating[$name])) {
-            throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\InvalidStateException(\sprintf('Circular reference detected for services: %s.', \implode(', ', \array_keys($this->creating))));
+            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidStateException(\sprintf('Circular reference detected for services: %s.', \implode(', ', \array_keys($this->creating))));
         } elseif ($cb === null) {
-            throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\MissingServiceException("Service '{$name}' not found.");
+            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\MissingServiceException("Service '{$name}' not found.");
         }
         try {
             $this->creating[$name] = \true;
@@ -160,7 +160,7 @@ class Container
             unset($this->creating[$name]);
         }
         if (!\is_object($service)) {
-            throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\UnexpectedValueException("Unable to create service '{$name}', value returned by " . ($cb instanceof \Closure ? 'closure' : "method {$method}()") . ' is not object.');
+            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\UnexpectedValueException("Unable to create service '{$name}', value returned by " . ($cb instanceof \Closure ? 'closure' : "method {$method}()") . ' is not object.');
         }
         return $service;
     }
@@ -172,24 +172,24 @@ class Container
      */
     public function getByType(string $type, bool $throw = \true)
     {
-        $type = \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::normalizeClass($type);
+        $type = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Helpers::normalizeClass($type);
         if (!empty($this->wiring[$type][0])) {
             if (\count($names = $this->wiring[$type][0]) === 1) {
                 return $this->getService($names[0]);
             }
             \natsort($names);
-            throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\MissingServiceException("Multiple services of type {$type} found: " . \implode(', ', $names) . '.');
+            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\MissingServiceException("Multiple services of type {$type} found: " . \implode(', ', $names) . '.');
         } elseif ($throw) {
             if (!\class_exists($type) && !\interface_exists($type)) {
-                throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\MissingServiceException("Service of type '{$type}' not found. Check class name because it cannot be found.");
+                throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\MissingServiceException("Service of type '{$type}' not found. Check class name because it cannot be found.");
             }
             foreach ($this->methods as $method => $foo) {
                 $methodType = (new \ReflectionMethod(\get_class($this), $method))->getReturnType()->getName();
                 if (\is_a($methodType, $type, \true)) {
-                    throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\MissingServiceException("Service of type {$type} is not autowired or is missing in di › export › types.");
+                    throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\MissingServiceException("Service of type {$type} is not autowired or is missing in di › export › types.");
                 }
             }
-            throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\MissingServiceException("Service of type {$type} not found. Did you add it to configuration file?");
+            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\MissingServiceException("Service of type {$type} not found. Did you add it to configuration file?");
         }
         return null;
     }
@@ -200,7 +200,7 @@ class Container
      */
     public function findAutowired(string $type) : array
     {
-        $type = \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::normalizeClass($type);
+        $type = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Helpers::normalizeClass($type);
         return \array_merge($this->wiring[$type][0] ?? [], $this->wiring[$type][1] ?? []);
     }
     /**
@@ -209,7 +209,7 @@ class Container
      */
     public function findByType(string $type) : array
     {
-        $type = \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Helpers::normalizeClass($type);
+        $type = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Helpers::normalizeClass($type);
         return empty($this->wiring[$type]) ? [] : \array_merge(...\array_values($this->wiring[$type]));
     }
     /**
@@ -230,11 +230,11 @@ class Container
     {
         $rc = new \ReflectionClass($class);
         if (!$rc->isInstantiable()) {
-            throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\ServiceCreationException("Class {$class} is not instantiable.");
+            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\ServiceCreationException("Class {$class} is not instantiable.");
         } elseif ($constructor = $rc->getConstructor()) {
             return $rc->newInstanceArgs($this->autowireArguments($constructor, $args));
         } elseif ($args) {
-            throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\ServiceCreationException("Unable to pass arguments, class {$class} has no constructor.");
+            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\ServiceCreationException("Unable to pass arguments, class {$class} has no constructor.");
         }
         return new $class();
     }
@@ -245,7 +245,7 @@ class Container
      */
     public function callInjects($service)
     {
-        \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Extensions\InjectExtension::callInjects($this, $service);
+        \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Extensions\InjectExtension::callInjects($this, $service);
     }
     /**
      * Calls method using autowiring.
@@ -253,18 +253,18 @@ class Container
      */
     public function callMethod(callable $function, array $args = [])
     {
-        return $function(...$this->autowireArguments(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Callback::toReflection($function), $args));
+        return $function(...$this->autowireArguments(\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Callback::toReflection($function), $args));
     }
     private function autowireArguments(\ReflectionFunctionAbstract $function, array $args = []) : array
     {
-        return \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Resolver::autowireArguments($function, $args, function (string $type, bool $single) {
+        return \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Resolver::autowireArguments($function, $args, function (string $type, bool $single) {
             return $single ? $this->getByType($type) : \array_map([$this, 'getService'], $this->findAutowired($type));
         });
     }
     public static function getMethodName(string $name) : string
     {
         if ($name === '') {
-            throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\InvalidArgumentException('Service name must be a non-empty string.');
+            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidArgumentException('Service name must be a non-empty string.');
         }
         return 'createService' . \str_replace('.', '__', \ucfirst($name));
     }

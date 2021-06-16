@@ -54,7 +54,10 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
             $phpDocType = $this->phpDocType;
             if ($phpDocType !== null && $this->defaultValue !== null) {
                 if ($this->defaultValue instanceof \PHPStan\Type\NullType) {
-                    $phpDocType = \PHPStan\Type\TypeCombinator::addNull($phpDocType);
+                    $inferred = $phpDocType->inferTemplateTypes($this->defaultValue);
+                    if ($inferred->isEmpty()) {
+                        $phpDocType = \PHPStan\Type\TypeCombinator::addNull($phpDocType);
+                    }
                 }
             }
             $this->type = \PHPStan\Type\TypehintHelper::decideType($this->realType, $phpDocType);

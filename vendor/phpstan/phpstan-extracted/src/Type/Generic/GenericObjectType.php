@@ -19,6 +19,7 @@ use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
+/** @api */
 class GenericObjectType extends \PHPStan\Type\ObjectType
 {
     /** @var array<int, Type> */
@@ -26,6 +27,7 @@ class GenericObjectType extends \PHPStan\Type\ObjectType
     /** @var ClassReflection|null */
     private $classReflection;
     /**
+     * @api
      * @param array<int, Type> $types
      * @param \PHPStan\Type\Type|null $subtractedType
      * @param \PHPStan\Reflection\ClassReflection|null $classReflection

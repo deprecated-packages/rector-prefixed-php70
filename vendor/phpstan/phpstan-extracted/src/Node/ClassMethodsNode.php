@@ -7,6 +7,7 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeAbstract;
 use PHPStan\Node\Method\MethodCall;
+/** @api */
 class ClassMethodsNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
 {
     /** @var ClassLike */

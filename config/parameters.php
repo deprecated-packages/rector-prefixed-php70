@@ -1,12 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210531;
+namespace RectorPrefix20210616;
 
 use Rector\Core\Configuration\Option;
-use Rector\Core\ValueObject\ProjectType;
-use RectorPrefix20210531\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210531\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+use RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $parameters = $containerConfigurator->parameters();
     // paths and extensions
     $parameters->set(\Rector\Core\Configuration\Option::PATHS, []);
@@ -19,7 +18,6 @@ return static function (\RectorPrefix20210531\Symfony\Component\DependencyInject
     $parameters->set(\Rector\Core\Configuration\Option::IMPORT_SHORT_CLASSES, \true);
     $parameters->set(\Rector\Core\Configuration\Option::IMPORT_DOC_BLOCKS, \true);
     $parameters->set(\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES, null);
-    $parameters->set(\Rector\Core\Configuration\Option::PROJECT_TYPE, \Rector\Core\ValueObject\ProjectType::PROPRIETARY);
     $parameters->set(\Rector\Core\Configuration\Option::NESTED_CHAIN_METHOD_CALL_LIMIT, 30);
     $parameters->set(\Rector\Core\Configuration\Option::SKIP, []);
     $parameters->set(\Rector\Core\Configuration\Option::PHPSTAN_FOR_RECTOR_PATH, null);

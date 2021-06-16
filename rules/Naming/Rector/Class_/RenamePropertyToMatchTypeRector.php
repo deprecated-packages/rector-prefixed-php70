@@ -4,19 +4,25 @@ declare (strict_types=1);
 namespace Rector\Naming\Rector\Class_;
 
 use PhpParser\Node;
+use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Interface_;
 use PhpParser\Node\Stmt\Property;
+use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver;
 use Rector\Naming\ExpectedNameResolver\MatchPropertyTypeExpectedNameResolver;
+use Rector\Naming\ParamRenamer\ParamRenamer;
 use Rector\Naming\PropertyRenamer\MatchTypePropertyRenamer;
 use Rector\Naming\PropertyRenamer\PropertyFetchRenamer;
+use Rector\Naming\ValueObject\ParamRename;
 use Rector\Naming\ValueObject\PropertyRename;
+use Rector\Naming\ValueObjectFactory\ParamRenameFactory;
 use Rector\Naming\ValueObjectFactory\PropertyRenameFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -49,13 +55,23 @@ final class RenamePropertyToMatchTypeRector extends \Rector\Core\Rector\Abstract
      * @var \Rector\Naming\PropertyRenamer\PropertyFetchRenamer
      */
     private $propertyFetchRenamer;
-    public function __construct(\Rector\Naming\PropertyRenamer\MatchTypePropertyRenamer $matchTypePropertyRenamer, \Rector\Naming\ValueObjectFactory\PropertyRenameFactory $propertyRenameFactory, \Rector\Naming\ExpectedNameResolver\MatchPropertyTypeExpectedNameResolver $matchPropertyTypeExpectedNameResolver, \Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver $matchParamTypeExpectedNameResolver, \Rector\Naming\PropertyRenamer\PropertyFetchRenamer $propertyFetchRenamer)
+    /**
+     * @var \Rector\Naming\ValueObjectFactory\ParamRenameFactory
+     */
+    private $paramRenameFactory;
+    /**
+     * @var \Rector\Naming\ParamRenamer\ParamRenamer
+     */
+    private $paramRenamer;
+    public function __construct(\Rector\Naming\PropertyRenamer\MatchTypePropertyRenamer $matchTypePropertyRenamer, \Rector\Naming\ValueObjectFactory\PropertyRenameFactory $propertyRenameFactory, \Rector\Naming\ExpectedNameResolver\MatchPropertyTypeExpectedNameResolver $matchPropertyTypeExpectedNameResolver, \Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver $matchParamTypeExpectedNameResolver, \Rector\Naming\PropertyRenamer\PropertyFetchRenamer $propertyFetchRenamer, \Rector\Naming\ValueObjectFactory\ParamRenameFactory $paramRenameFactory, \Rector\Naming\ParamRenamer\ParamRenamer $paramRenamer)
     {
         $this->matchTypePropertyRenamer = $matchTypePropertyRenamer;
         $this->propertyRenameFactory = $propertyRenameFactory;
         $this->matchPropertyTypeExpectedNameResolver = $matchPropertyTypeExpectedNameResolver;
         $this->matchParamTypeExpectedNameResolver = $matchParamTypeExpectedNameResolver;
         $this->propertyFetchRenamer = $propertyFetchRenamer;
+        $this->paramRenameFactory = $paramRenameFactory;
+        $this->paramRenamer = $paramRenamer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -142,7 +158,8 @@ CODE_SAMPLE
         if (!$constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return;
         }
-        foreach ($constructClassMethod->params as $param) {
+        $desiredPropertyNames = [];
+        foreach ($constructClassMethod->params as $key => $param) {
             if ($param->flags === 0) {
                 continue;
             }
@@ -151,9 +168,47 @@ CODE_SAMPLE
             if ($desiredPropertyName === null) {
                 continue;
             }
-            $currentName = $this->getName($param);
-            $this->propertyFetchRenamer->renamePropertyFetchesInClass($classLike, $currentName, $desiredPropertyName);
-            $param->var->name = $desiredPropertyName;
+            if (\in_array($desiredPropertyName, $desiredPropertyNames, \true)) {
+                return;
+            }
+            $desiredPropertyNames[$key] = $desiredPropertyName;
         }
+        $this->renameParamVarName($classLike, $constructClassMethod, $desiredPropertyNames);
+    }
+    /**
+     * @param string[] $desiredPropertyNames
+     * @return void
+     */
+    private function renameParamVarName(\PhpParser\Node\Stmt\ClassLike $classLike, \PhpParser\Node\Stmt\ClassMethod $constructClassMethod, array $desiredPropertyNames)
+    {
+        $keys = \array_keys($desiredPropertyNames);
+        $params = $constructClassMethod->params;
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($constructClassMethod);
+        foreach ($params as $key => $param) {
+            if (\in_array($key, $keys, \true)) {
+                $currentName = $this->getName($param);
+                $desiredPropertyName = $desiredPropertyNames[$key];
+                $this->propertyFetchRenamer->renamePropertyFetchesInClass($classLike, $currentName, $desiredPropertyName);
+                /** @var string $paramVarName */
+                $paramVarName = $param->var->name;
+                $this->renameParamDoc($phpDocInfo, $param, $paramVarName, $desiredPropertyName);
+                $param->var->name = $desiredPropertyName;
+            }
+        }
+    }
+    /**
+     * @return void
+     */
+    private function renameParamDoc(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Param $param, string $paramVarName, string $desiredPropertyName)
+    {
+        $paramTagValueNode = $phpDocInfo->getParamTagValueNodeByName($paramVarName);
+        if (!$paramTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode) {
+            return;
+        }
+        $paramRename = $this->paramRenameFactory->createFromResolvedExpectedName($param, $desiredPropertyName);
+        if (!$paramRename instanceof \Rector\Naming\ValueObject\ParamRename) {
+            return;
+        }
+        $this->paramRenamer->rename($paramRename);
     }
 }

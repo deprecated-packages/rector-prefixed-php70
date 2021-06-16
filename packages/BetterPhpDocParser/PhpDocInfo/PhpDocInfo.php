@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocInfo;
 
-use RectorPrefix20210531\Nette\Utils\Strings;
+use RectorPrefix20210616\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\InvalidTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode;
@@ -16,6 +16,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
+use PHPStan\PhpDocParser\Ast\Type\GenericTypeNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
@@ -24,11 +25,12 @@ use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDoc\SpacelessPhpDocTagNode;
 use Rector\BetterPhpDocParser\PhpDocNodeVisitor\ChangedPhpDocNodeVisitor;
 use Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator;
+use Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareUnionTypeNode;
 use Rector\ChangesReporting\Collector\RectorChangeCollector;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\NotImplementedYetException;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use RectorPrefix20210531\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
+use RectorPrefix20210616\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 /**
  * @template TNode as \PHPStan\PhpDocParser\Ast\Node
  * @see \Rector\Tests\BetterPhpDocParser\PhpDocInfo\PhpDocInfo\PhpDocInfoTest
@@ -313,7 +315,9 @@ final class PhpDocInfo
             if (!\is_a($phpDocChildNode->value, $type, \true)) {
                 continue;
             }
-            unset($this->phpDocNode->children[$key]);
+            /** @var PhpDocTagNode $children */
+            $children = $this->phpDocNode->children[$key];
+            $this->cleanChildrenValueType($children, $key);
             $this->markAsChanged();
         }
     }
@@ -434,7 +438,7 @@ final class PhpDocInfo
             return \true;
         }
         // has a single node with missing start_end
-        $phpDocNodeTraverser = new \RectorPrefix20210531\Symplify\SimplePhpDocParser\PhpDocNodeTraverser();
+        $phpDocNodeTraverser = new \RectorPrefix20210616\Symplify\SimplePhpDocParser\PhpDocNodeTraverser();
         $changedPhpDocNodeVisitor = new \Rector\BetterPhpDocParser\PhpDocNodeVisitor\ChangedPhpDocNodeVisitor();
         $phpDocNodeTraverser->addPhpDocNodeVisitor($changedPhpDocNodeVisitor);
         $phpDocNodeTraverser->traverse($this->phpDocNode);
@@ -461,6 +465,29 @@ final class PhpDocInfo
     public function getNode() : \PhpParser\Node
     {
         return $this->node;
+    }
+    /**
+     * @return void
+     */
+    private function cleanChildrenValueType(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode $phpDocTagNode, int $key)
+    {
+        /** @var PhpDocTagValueNode $value */
+        $value = $phpDocTagNode->value;
+        $type = $value->type;
+        $newChildrenTypes = [];
+        if ($type instanceof \Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareUnionTypeNode) {
+            $brackedTypes = $type->types;
+            foreach ($brackedTypes as $brackedType) {
+                if ($brackedType instanceof \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode) {
+                    $newChildrenTypes[] = $brackedType;
+                }
+            }
+        }
+        if ($newChildrenTypes === []) {
+            unset($this->phpDocNode->children[$key]);
+        } else {
+            $this->phpDocNode->children[$key]->value->type = new \Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareUnionTypeNode($newChildrenTypes);
+        }
     }
     /**
      * @param \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode|null $phpDocTagValueNode

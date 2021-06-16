@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Php70\Rector\FunctionLike;
 
-use RectorPrefix20210531\Nette\Utils\Strings;
+use RectorPrefix20210616\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\NullableType;
@@ -27,7 +27,7 @@ final class ExceptionHandlerTypehintRector extends \Rector\Core\Rector\AbstractR
     const HANDLE_INSENSITIVE_REGEX = '#handle#i';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes property `@var` annotations from annotation to type.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change typehint from `Exception` to `Throwable`.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 function handler(Exception $exception) { ... }
 set_exception_handler('handler');
 CODE_SAMPLE
@@ -67,7 +67,7 @@ CODE_SAMPLE
             return null;
         }
         // is probably handling exceptions
-        if (!\RectorPrefix20210531\Nette\Utils\Strings::match((string) $node->name, self::HANDLE_INSENSITIVE_REGEX)) {
+        if (!\RectorPrefix20210616\Nette\Utils\Strings::match((string) $node->name, self::HANDLE_INSENSITIVE_REGEX)) {
             return null;
         }
         if (!$paramNode->type instanceof \PhpParser\Node\NullableType) {

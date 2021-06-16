@@ -6,6 +6,7 @@ namespace PHPStan\Node;
 use PhpParser\Node\Stmt\Catch_;
 use PhpParser\NodeAbstract;
 use PHPStan\Type\Type;
+/** @api */
 class CatchWithUnthrownExceptionNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
 {
     /** @var Catch_ */

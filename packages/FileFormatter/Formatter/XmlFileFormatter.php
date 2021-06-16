@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\FileFormatter\Formatter;
 
-use RectorPrefix20210531\Nette\Utils\Strings;
+use RectorPrefix20210616\Nette\Utils\Strings;
 use Rector\Core\ValueObject\Application\File;
 use Rector\FileFormatter\Contract\Formatter\FileFormatterInterface;
 use Rector\FileFormatter\ValueObject\EditorConfigConfiguration;
@@ -57,7 +57,7 @@ final class XmlFileFormatter implements \Rector\FileFormatter\Contract\Formatter
     {
         $this->padChar = $editorConfigConfiguration->getIndentStyleCharacter();
         $this->indent = $editorConfigConfiguration->getIndentSize();
-        $newFileContent = $this->formatXml($file->getFileContent());
+        $newFileContent = $this->formatXml($file->getFileContent(), $editorConfigConfiguration);
         $newFileContent .= $editorConfigConfiguration->getFinalNewline();
         $file->changeFileContent($newFileContent);
     }
@@ -67,16 +67,16 @@ final class XmlFileFormatter implements \Rector\FileFormatter\Contract\Formatter
         $editorConfigConfigurationBuilder->withIndent(\Rector\FileFormatter\ValueObject\Indent::createTab());
         return $editorConfigConfigurationBuilder;
     }
-    private function formatXml(string $xml) : string
+    private function formatXml(string $xml, \Rector\FileFormatter\ValueObject\EditorConfigConfiguration $editorConfigConfiguration) : string
     {
         $output = '';
         $this->depth = 0;
         $parts = $this->getXmlParts($xml);
         if (\strncmp($parts[0], '<?xml', \strlen('<?xml')) === 0) {
-            $output = \array_shift($parts) . \PHP_EOL;
+            $output = \array_shift($parts) . $editorConfigConfiguration->getNewline();
         }
         foreach ($parts as $part) {
-            $output .= $this->getOutputForPart($part);
+            $output .= $this->getOutputForPart($part, $editorConfigConfiguration);
         }
         return \trim($output);
     }
@@ -85,18 +85,18 @@ final class XmlFileFormatter implements \Rector\FileFormatter\Contract\Formatter
      */
     private function getXmlParts(string $xml) : array
     {
-        $withNewLines = \RectorPrefix20210531\Nette\Utils\Strings::replace(\trim($xml), self::XML_PARTS_REGEX, "\$1\n\$2\$3");
+        $withNewLines = \RectorPrefix20210616\Nette\Utils\Strings::replace(\trim($xml), self::XML_PARTS_REGEX, "\$1\n\$2\$3");
         return \explode("\n", $withNewLines);
     }
-    private function getOutputForPart(string $part) : string
+    private function getOutputForPart(string $part, \Rector\FileFormatter\ValueObject\EditorConfigConfiguration $editorConfigConfiguration) : string
     {
         $output = '';
         $this->runPre($part);
         if ($this->preserveWhitespace) {
-            $output .= $part . \PHP_EOL;
+            $output .= $part . $editorConfigConfiguration->getNewline();
         } else {
             $part = \trim($part);
-            $output .= $this->getPaddedString($part) . \PHP_EOL;
+            $output .= $this->getPaddedString($part) . $editorConfigConfiguration->getNewline();
         }
         $this->runPost($part);
         return $output;
@@ -131,11 +131,11 @@ final class XmlFileFormatter implements \Rector\FileFormatter\Contract\Formatter
     }
     private function isOpeningTag(string $part) : bool
     {
-        return (bool) \RectorPrefix20210531\Nette\Utils\Strings::match($part, self::IS_OPENING_TAG_REGEX);
+        return (bool) \RectorPrefix20210616\Nette\Utils\Strings::match($part, self::IS_OPENING_TAG_REGEX);
     }
     private function isClosingTag(string $part) : bool
     {
-        return (bool) \RectorPrefix20210531\Nette\Utils\Strings::match($part, self::IS_CLOSING_TAG_REGEX);
+        return (bool) \RectorPrefix20210616\Nette\Utils\Strings::match($part, self::IS_CLOSING_TAG_REGEX);
     }
     private function isOpeningCdataTag(string $part) : bool
     {

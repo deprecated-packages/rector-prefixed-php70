@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace PHPStan\DependencyInjection;
 
 use PHPStan\File\FileHelper;
-class NeonLoader extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Loader
+class NeonLoader extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Config\Loader
 {
     /** @var FileHelper */
     private $fileHelper;

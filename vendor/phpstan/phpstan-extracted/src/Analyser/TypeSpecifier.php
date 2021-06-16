@@ -89,13 +89,11 @@ class TypeSpecifier
         $this->methodTypeSpecifyingExtensions = $methodTypeSpecifyingExtensions;
         $this->staticMethodTypeSpecifyingExtensions = $staticMethodTypeSpecifyingExtensions;
     }
+    /** @api */
     public function specifyTypesInCondition(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr, \PHPStan\Analyser\TypeSpecifierContext $context) : \PHPStan\Analyser\SpecifiedTypes
     {
         if ($expr instanceof \PhpParser\Node\Expr\Instanceof_) {
             $exprNode = $expr->expr;
-            if ($exprNode instanceof \PhpParser\Node\Expr\Assign) {
-                $exprNode = $exprNode->var;
-            }
             if ($expr->class instanceof \PhpParser\Node\Name) {
                 $className = (string) $expr->class;
                 $lowercasedClassName = \strtolower($className);
@@ -149,9 +147,6 @@ class TypeSpecifier
             if ($expressions !== null) {
                 /** @var Expr $exprNode */
                 $exprNode = $expressions[0];
-                if ($exprNode instanceof \PhpParser\Node\Expr\Assign) {
-                    $exprNode = $exprNode->var;
-                }
                 /** @var \PHPStan\Type\ConstantScalarType $constantType */
                 $constantType = $expressions[1];
                 if ($constantType->getValue() === \false) {
@@ -524,13 +519,15 @@ class TypeSpecifier
         }
         return null;
     }
-    /**
-     * @param \PHPStan\Analyser\Scope|null $scope
-     */
+    /** @api
+     * @param \PHPStan\Analyser\Scope|null $scope */
     public function create(\PhpParser\Node\Expr $expr, \PHPStan\Type\Type $type, \PHPStan\Analyser\TypeSpecifierContext $context, bool $overwrite = \false, $scope = null) : \PHPStan\Analyser\SpecifiedTypes
     {
         if ($expr instanceof \PhpParser\Node\Expr\New_ || $expr instanceof \PhpParser\Node\Expr\Instanceof_) {
             return new \PHPStan\Analyser\SpecifiedTypes();
+        }
+        while ($expr instanceof \PhpParser\Node\Expr\Assign) {
+            $expr = $expr->var;
         }
         if ($scope !== null) {
             if ($context->true()) {

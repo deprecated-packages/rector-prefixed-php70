@@ -22,9 +22,8 @@ class ScopeContext
         $this->classReflection = $classReflection;
         $this->traitReflection = $traitReflection;
     }
-    /**
-     * @return $this
-     */
+    /** @api
+     * @return $this */
     public static function create(string $file)
     {
         return new self($file, null, null);

@@ -6,6 +6,7 @@ namespace PHPStan\Type;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
+/** @api */
 class IntegerRangeType extends \PHPStan\Type\IntegerType implements \PHPStan\Type\CompoundType
 {
     /** @var int|null */
@@ -16,8 +17,10 @@ class IntegerRangeType extends \PHPStan\Type\IntegerType implements \PHPStan\Typ
      * @param int|null $min
      * @param int|null $max
      */
-    private function __construct($min, $max)
+    public function __construct($min, $max)
     {
+        // this constructor can be made private when PHP 7.2 is the minimum
+        parent::__construct();
         \assert($min === null || $max === null || $min <= $max);
         \assert($min !== null || $max !== null);
         $this->min = $min;

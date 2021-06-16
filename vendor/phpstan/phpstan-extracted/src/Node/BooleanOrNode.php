@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\BinaryOp\BooleanOr;
 use PhpParser\Node\Expr\BinaryOp\LogicalOr;
 use PhpParser\NodeAbstract;
 use PHPStan\Analyser\Scope;
+/** @api */
 class BooleanOrNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
 {
     /** @var BooleanOr|LogicalOr */

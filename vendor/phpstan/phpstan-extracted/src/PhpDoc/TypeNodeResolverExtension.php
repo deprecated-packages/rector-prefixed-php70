@@ -6,6 +6,7 @@ namespace PHPStan\PhpDoc;
 use PHPStan\Analyser\NameScope;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\Type;
+/** @api */
 interface TypeNodeResolverExtension
 {
     const EXTENSION_TAG = 'phpstan.phpDoc.typeNodeResolverExtension';

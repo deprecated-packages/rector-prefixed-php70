@@ -12,6 +12,7 @@ use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
+/** @api */
 class ResourceType implements \PHPStan\Type\Type
 {
     use JustNullableTypeTrait;
@@ -21,6 +22,10 @@ class ResourceType implements \PHPStan\Type\Type
     use TruthyBooleanTypeTrait;
     use NonGenericTypeTrait;
     use UndecidedComparisonTypeTrait;
+    /** @api */
+    public function __construct()
+    {
+    }
     public function describe(\PHPStan\Type\VerbosityLevel $level) : string
     {
         return 'resource';

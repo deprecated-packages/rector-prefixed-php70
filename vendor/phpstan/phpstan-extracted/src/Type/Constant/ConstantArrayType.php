@@ -30,6 +30,9 @@ use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 use function array_unique;
+/**
+ * @api
+ */
 class ConstantArrayType extends \PHPStan\Type\ArrayType implements \PHPStan\Type\ConstantType
 {
     const DESCRIBE_LIMIT = 8;
@@ -44,6 +47,7 @@ class ConstantArrayType extends \PHPStan\Type\ArrayType implements \PHPStan\Type
     /** @var self[]|null */
     private $allArrays = null;
     /**
+     * @api
      * @param array<int, ConstantIntegerType|ConstantStringType> $keyTypes
      * @param array<int, Type> $valueTypes
      * @param int $nextAutoIndex

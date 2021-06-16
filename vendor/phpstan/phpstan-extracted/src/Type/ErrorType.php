@@ -3,8 +3,10 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
+/** @api */
 class ErrorType extends \PHPStan\Type\MixedType
 {
+    /** @api */
     public function __construct()
     {
         parent::__construct();

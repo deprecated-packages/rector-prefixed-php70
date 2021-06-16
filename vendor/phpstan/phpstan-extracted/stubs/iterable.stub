@@ -102,7 +102,7 @@ interface SeekableIterator extends Iterator
 }
 
 /**
- * @template TKey
+ * @template TKey of array-key
  * @template TValue
  * @implements SeekableIterator<TKey, TValue>
  * @implements ArrayAccess<TKey, TValue>
@@ -191,4 +191,34 @@ class IteratorIterator implements OuterIterator {
      * @param TIterator $iterator
      */
     public function __construct(Traversable $iterator) {}
+}
+
+/**
+ * @template TKey of array-key
+ * @template TValue
+ *
+ * @template-implements RecursiveIterator<TKey, TValue>
+ * @template-extends ArrayIterator<TKey, TValue>
+ */
+class RecursiveArrayIterator extends ArrayIterator implements RecursiveIterator {
+
+    /**
+     * @return RecursiveArrayIterator<TKey, TValue>
+     */
+    public function getChildren() {}
+
+    /**
+     * @return bool
+     */
+    public function hasChildren() {}
+
+    /**
+     * @return TValue
+     */
+    public function current() {}
+
+    /**
+     * @return TKey
+     */
+    public function key() {}
 }

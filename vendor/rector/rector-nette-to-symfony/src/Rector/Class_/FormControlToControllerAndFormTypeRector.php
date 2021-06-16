@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\Class_;
 
+use RectorPrefix20210616\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
@@ -94,16 +95,16 @@ CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace RectorPrefix20210531;
+namespace RectorPrefix20210616;
 
-use RectorPrefix20210531\Symfony\Component\Form\AbstractType;
-use RectorPrefix20210531\Symfony\Component\Form\Extension\Core\Type\TextType;
-use RectorPrefix20210531\Symfony\Component\Form\FormBuilderInterface;
-class SomeFormType extends \RectorPrefix20210531\Symfony\Component\Form\AbstractType
+use RectorPrefix20210616\Symfony\Component\Form\AbstractType;
+use RectorPrefix20210616\Symfony\Component\Form\Extension\Core\Type\TextType;
+use RectorPrefix20210616\Symfony\Component\Form\FormBuilderInterface;
+class SomeFormType extends \RectorPrefix20210616\Symfony\Component\Form\AbstractType
 {
-    public function buildForm(\RectorPrefix20210531\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
+    public function buildForm(\RectorPrefix20210616\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
     {
-        $formBuilder->add('name', \RectorPrefix20210531\Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Your name']);
+        $formBuilder->add('name', \RectorPrefix20210616\Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Your name']);
     }
 }
 \class_alias('SomeFormType', 'SomeFormType', \false);
@@ -138,7 +139,11 @@ CODE_SAMPLE
             if (!$symfonyControllerNamespace instanceof \PhpParser\Node\Stmt\Namespace_) {
                 continue;
             }
-            $addedFileWithNodes = new \Rector\FileSystemRector\ValueObject\AddedFileWithNodes('src/Controller/SomeFormController.php', [$symfonyControllerNamespace]);
+            $shortClassName = $this->resolveControllerClassName($node);
+            $smartFileInfo = $this->file->getSmartFileInfo();
+            $directory = $smartFileInfo->getPath();
+            $controllerFilePath = $directory . '/' . $shortClassName . '.php';
+            $addedFileWithNodes = new \Rector\FileSystemRector\ValueObject\AddedFileWithNodes($controllerFilePath, [$symfonyControllerNamespace]);
             $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithNodes);
             return $formTypeClass;
         }
@@ -167,5 +172,15 @@ CODE_SAMPLE
         $formTypeClass->extends = new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\Form\\AbstractType');
         $formTypeClass->stmts[] = $buildFormClassMethod;
         return $formTypeClass;
+    }
+    private function resolveControllerClassName(\PhpParser\Node\Stmt\Class_ $class) : string
+    {
+        $shortClassName = $this->nodeNameResolver->getShortName($class);
+        if (\substr_compare($shortClassName, 'Form', -\strlen('Form')) === 0) {
+            $shortClassName = \RectorPrefix20210616\Nette\Utils\Strings::before($shortClassName, 'Form');
+        } else {
+            $shortClassName = \RectorPrefix20210616\Nette\Utils\Strings::before($shortClassName, 'Control');
+        }
+        return $shortClassName . 'Controller';
     }
 }

@@ -5,6 +5,8 @@ namespace Rector\Php80\NodeAnalyzer;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Break_;
+use PhpParser\Node\Stmt\Case_;
+use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\Switch_;
 final class SwitchAnalyzer
 {
@@ -12,16 +14,14 @@ final class SwitchAnalyzer
     {
         $totalCases = \count($switch->cases);
         if ($totalCases === 1) {
-            return \false;
+            return $this->containsCaseReturn($switch->cases[0]);
         }
         foreach ($switch->cases as $key => $case) {
             if ($key === $totalCases - 1) {
                 return \true;
             }
-            foreach ($case->stmts as $caseStmt) {
-                if ($caseStmt instanceof \PhpParser\Node\Stmt\Break_) {
-                    continue 2;
-                }
+            if ($this->hasBreakOrReturnOrEmpty($case)) {
+                continue;
             }
             return \false;
         }
@@ -38,5 +38,38 @@ final class SwitchAnalyzer
             }
         }
         return \true;
+    }
+    public function hasDefault(\PhpParser\Node\Stmt\Switch_ $switch) : bool
+    {
+        foreach ($switch->cases as $case) {
+            if ($case->cond === null) {
+                return \true;
+            }
+        }
+        return \false;
+    }
+    private function hasBreakOrReturnOrEmpty(\PhpParser\Node\Stmt\Case_ $case) : bool
+    {
+        if ($case->stmts === []) {
+            return \true;
+        }
+        foreach ($case->stmts as $caseStmt) {
+            if ($caseStmt instanceof \PhpParser\Node\Stmt\Break_) {
+                return \true;
+            }
+            if ($caseStmt instanceof \PhpParser\Node\Stmt\Return_) {
+                return \true;
+            }
+        }
+        return \false;
+    }
+    private function containsCaseReturn(\PhpParser\Node\Stmt\Case_ $case) : bool
+    {
+        foreach ($case->stmts as $stmt) {
+            if ($stmt instanceof \PhpParser\Node\Stmt\Return_) {
+                return \true;
+            }
+        }
+        return \false;
     }
 }

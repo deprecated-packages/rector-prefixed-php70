@@ -70,7 +70,7 @@ final class NodeRemovingPostRector extends \Rector\PostRector\Rector\AbstractPos
         return $this->removePartOfBinaryOp($node);
     }
     /**
-     * @return int|Node
+     * @return int|\PhpParser\Node
      */
     public function leaveNode(\PhpParser\Node $node)
     {

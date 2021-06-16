@@ -5,6 +5,7 @@ namespace PHPStan\Node;
 
 use PhpParser\NodeAbstract;
 use PHPStan\Analyser\StatementExitPoint;
+/** @api */
 class FinallyExitPointsNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
 {
     /** @var StatementExitPoint[] */

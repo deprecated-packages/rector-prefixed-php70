@@ -1,15 +1,15 @@
 <?php
 
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Clue\React\NDJson;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Clue\React\NDJson;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\Util;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Evenement\EventEmitter;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\Util;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface;
 /**
  * The Decoder / Parser reads from a plain stream and emits data objects for each JSON element
  */
-class Decoder extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface
+class Decoder extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Evenement\EventEmitter implements \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface
 {
     private $input;
     private $assoc;
@@ -27,7 +27,7 @@ class Decoder extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Evenement\Eve
      * @param int $maxlength
      * @throws \BadMethodCallException
      */
-    public function __construct(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\ReadableStreamInterface $input, $assoc = \false, $depth = 512, $options = 0, $maxlength = 65536)
+    public function __construct(\RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface $input, $assoc = \false, $depth = 512, $options = 0, $maxlength = 65536)
     {
         // @codeCoverageIgnoreStart
         if ($options !== 0 && \PHP_VERSION < 5.4) {
@@ -74,9 +74,9 @@ class Decoder extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Evenement\Eve
     {
         $this->input->resume();
     }
-    public function pipe(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\Util::pipe($this, $dest, $options);
+        \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     /** @internal */

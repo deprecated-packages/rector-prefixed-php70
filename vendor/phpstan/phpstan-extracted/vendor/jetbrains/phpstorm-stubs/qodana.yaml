@@ -11,12 +11,16 @@ exclude:
   - name: PhpMissingParentConstructorInspection
   - name: PhpMissingReturnTypeInspection
   - name: PhpMissingParamTypeInspection
-  - name: PhpTraditionalSyntaxArrayLiteralInspection
+  - name: PhpDefineCanBeReplacedWithConstInspection
+  - name: PhpReturnDocTypeMismatchInspection
+  - name: PhpDocRedundantThrowsInspection
+  - name: PhpMissingStrictTypesDeclarationInspection
     paths:
       - aerospike
       - amqp
       - apache
       - apcu
+      - ast
       - bcmath
       - blackfire
       - bz2
@@ -25,6 +29,7 @@ exclude:
       - com_dotnet
       - Core
       - couchbase
+      - couchbase_v3
       - crypto
       - ctype
       - cubrid
@@ -72,6 +77,7 @@ exclude:
       - leveldb
       - libevent
       - libsodium
+      - libvirt-php
       - libxml
       - lua
       - LuaSandbox
@@ -109,6 +115,7 @@ exclude:
       - PDO
       - pdo_ibm
       - pdo_mysql
+      - pdo_pgsql
       - pdo_sqlite
       - pgsql
       - Phar
@@ -152,6 +159,7 @@ exclude:
       - sybase
       - sync
       - sysvmsg
+      - sysvsem
       - sysvshm
       - tidy
       - tokenizer
@@ -187,3 +195,5 @@ exclude:
       - zmp
       - zmq
       - zookeeper
+      - zstd
+      - xdiff

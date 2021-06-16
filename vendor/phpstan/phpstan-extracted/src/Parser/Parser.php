@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Parser;
 
+/** @api */
 interface Parser
 {
     /**

@@ -10,11 +10,10 @@ use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\ClassNameNodePair;
 use PHPStan\Rules\Generics\GenericObjectTypeCheck;
 use PHPStan\Rules\MissingTypehintCheck;
+use PHPStan\Rules\PhpDoc\UnresolvableTypeHelper;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
-use PHPStan\Type\NeverType;
 use PHPStan\Type\VerbosityLevel;
 /**
  * @implements Rule<Node\Stmt\Class_>
@@ -31,15 +30,18 @@ class MixinRule implements \PHPStan\Rules\Rule
     private $genericObjectTypeCheck;
     /** @var MissingTypehintCheck */
     private $missingTypehintCheck;
+    /** @var UnresolvableTypeHelper */
+    private $unresolvableTypeHelper;
     /** @var bool */
     private $checkClassCaseSensitivity;
-    public function __construct(\PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, \PHPStan\Rules\Generics\GenericObjectTypeCheck $genericObjectTypeCheck, \PHPStan\Rules\MissingTypehintCheck $missingTypehintCheck, bool $checkClassCaseSensitivity)
+    public function __construct(\PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, \PHPStan\Rules\Generics\GenericObjectTypeCheck $genericObjectTypeCheck, \PHPStan\Rules\MissingTypehintCheck $missingTypehintCheck, \PHPStan\Rules\PhpDoc\UnresolvableTypeHelper $unresolvableTypeHelper, bool $checkClassCaseSensitivity)
     {
         $this->fileTypeMapper = $fileTypeMapper;
         $this->reflectionProvider = $reflectionProvider;
         $this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
         $this->genericObjectTypeCheck = $genericObjectTypeCheck;
         $this->missingTypehintCheck = $missingTypehintCheck;
+        $this->unresolvableTypeHelper = $unresolvableTypeHelper;
         $this->checkClassCaseSensitivity = $checkClassCaseSensitivity;
     }
     public function getNodeType() : string
@@ -66,7 +68,7 @@ class MixinRule implements \PHPStan\Rules\Rule
                 $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @mixin contains non-object type %s.', $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
                 continue;
             }
-            if ($type instanceof \PHPStan\Type\ErrorType || $type instanceof \PHPStan\Type\NeverType && !$type->isExplicit()) {
+            if ($this->unresolvableTypeHelper->containsUnresolvableType($type)) {
                 $errors[] = \PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @mixin contains unresolvable type.')->build();
                 continue;
             }

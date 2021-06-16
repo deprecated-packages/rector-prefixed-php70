@@ -3,12 +3,10 @@
 declare (strict_types=1);
 namespace Rector\Core\FileSystem;
 
-use RectorPrefix20210531\Nette\Caching\Cache;
-use RectorPrefix20210531\Nette\Utils\Strings;
-use Rector\Core\Configuration\Configuration;
-use RectorPrefix20210531\Symfony\Component\Finder\Finder;
-use RectorPrefix20210531\Symfony\Component\Finder\SplFileInfo;
-use RectorPrefix20210531\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
+use RectorPrefix20210616\Nette\Utils\Strings;
+use RectorPrefix20210616\Symfony\Component\Finder\Finder;
+use RectorPrefix20210616\Symfony\Component\Finder\SplFileInfo;
+use RectorPrefix20210616\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
 use Symplify\SmartFileSystem\FileSystemFilter;
 use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -43,22 +41,12 @@ final class FilesFinder
      * @var \Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver
      */
     private $skippedPathsResolver;
-    /**
-     * @var \Rector\Core\Configuration\Configuration
-     */
-    private $configuration;
-    /**
-     * @var \Nette\Caching\Cache
-     */
-    private $cache;
-    public function __construct(\Rector\Core\FileSystem\FilesystemTweaker $filesystemTweaker, \Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter, \RectorPrefix20210531\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver, \Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210531\Nette\Caching\Cache $cache)
+    public function __construct(\Rector\Core\FileSystem\FilesystemTweaker $filesystemTweaker, \Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter, \RectorPrefix20210616\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
     {
         $this->filesystemTweaker = $filesystemTweaker;
         $this->finderSanitizer = $finderSanitizer;
         $this->fileSystemFilter = $fileSystemFilter;
         $this->skippedPathsResolver = $skippedPathsResolver;
-        $this->configuration = $configuration;
-        $this->cache = $cache;
     }
     /**
      * @param string[] $source
@@ -66,28 +54,6 @@ final class FilesFinder
      * @return SmartFileInfo[]
      */
     public function findInDirectoriesAndFiles(array $source, array $suffixes) : array
-    {
-        $cacheKey = \md5(\serialize($source) . \serialize($suffixes));
-        if (!$this->configuration->isCacheEnabled() || $this->configuration->shouldClearCache()) {
-            $this->cache->clean([\RectorPrefix20210531\Nette\Caching\Cache::ALL => \true]);
-            return $this->collectFileInfos($source, $suffixes);
-        }
-        $loadCache = $this->cache->load($cacheKey);
-        if ($loadCache) {
-            $stringFiles = \unserialize($loadCache);
-            return $this->getSmartFileInfosFromStringFiles($stringFiles);
-        }
-        $smartFileInfos = $this->collectFileInfos($source, $suffixes);
-        $stringFiles = \serialize($this->convertFileInfosToStringFiles($smartFileInfos));
-        $this->cache->save($cacheKey, $stringFiles);
-        return $smartFileInfos;
-    }
-    /**
-     * @param string[] $source
-     * @param string[] $suffixes
-     * @return SmartFileInfo[]
-     */
-    private function collectFileInfos(array $source, array $suffixes) : array
     {
         $filesAndDirectories = $this->filesystemTweaker->resolveWithFnmatch($source);
         $files = $this->fileSystemFilter->filterFiles($filesAndDirectories);
@@ -97,30 +63,6 @@ final class FilesFinder
             $smartFileInfos[] = new \Symplify\SmartFileSystem\SmartFileInfo($file);
         }
         return \array_merge($smartFileInfos, $this->findInDirectories($directories, $suffixes));
-    }
-    /**
-     * @param SmartFileInfo[] $smartFileInfos
-     * @return string[]
-     */
-    private function convertFileInfosToStringFiles(array $smartFileInfos) : array
-    {
-        $files = [];
-        foreach ($smartFileInfos as $smartFileInfo) {
-            $files[] = $smartFileInfo->getPathname();
-        }
-        return $files;
-    }
-    /**
-     * @param string[] $files
-     * @return SmartFileInfo[]
-     */
-    private function getSmartFileInfosFromStringFiles(array $files) : array
-    {
-        $smartFileInfos = [];
-        foreach ($files as $file) {
-            $smartFileInfos[] = new \Symplify\SmartFileSystem\SmartFileInfo($file);
-        }
-        return $smartFileInfos;
     }
     /**
      * @param string[] $directories
@@ -133,7 +75,7 @@ final class FilesFinder
             return [];
         }
         $suffixesPattern = $this->normalizeSuffixesToPattern($suffixes);
-        $finder = \RectorPrefix20210531\Symfony\Component\Finder\Finder::create()->followLinks()->files()->size('> 0')->in($directories)->name($suffixesPattern)->sortByName();
+        $finder = \RectorPrefix20210616\Symfony\Component\Finder\Finder::create()->followLinks()->files()->size('> 0')->in($directories)->name($suffixesPattern)->sortByName();
         $this->addFilterWithExcludedPaths($finder);
         return $this->finderSanitizer->sanitize($finder);
     }
@@ -148,13 +90,13 @@ final class FilesFinder
     /**
      * @return void
      */
-    private function addFilterWithExcludedPaths(\RectorPrefix20210531\Symfony\Component\Finder\Finder $finder)
+    private function addFilterWithExcludedPaths(\RectorPrefix20210616\Symfony\Component\Finder\Finder $finder)
     {
         $excludePaths = $this->skippedPathsResolver->resolve();
         if ($excludePaths === []) {
             return;
         }
-        $finder->filter(function (\RectorPrefix20210531\Symfony\Component\Finder\SplFileInfo $splFileInfo) use($excludePaths) : bool {
+        $finder->filter(function (\RectorPrefix20210616\Symfony\Component\Finder\SplFileInfo $splFileInfo) use($excludePaths) : bool {
             /** @var string|false $realPath */
             $realPath = $splFileInfo->getRealPath();
             if (!$realPath) {
@@ -167,7 +109,7 @@ final class FilesFinder
             foreach ($excludePaths as $excludePath) {
                 // make the path work accross different OSes
                 $excludePath = \str_replace('\\', '/', $excludePath);
-                if (\RectorPrefix20210531\Nette\Utils\Strings::match($realPath, '#' . \preg_quote($excludePath, '#') . '#')) {
+                if (\RectorPrefix20210616\Nette\Utils\Strings::match($realPath, '#' . \preg_quote($excludePath, '#') . '#')) {
                     return \false;
                 }
                 $excludePath = $this->normalizeForFnmatch($excludePath);
@@ -185,11 +127,11 @@ final class FilesFinder
     private function normalizeForFnmatch(string $path) : string
     {
         // ends with *
-        if (\RectorPrefix20210531\Nette\Utils\Strings::match($path, self::ENDS_WITH_ASTERISK_REGEX)) {
+        if (\RectorPrefix20210616\Nette\Utils\Strings::match($path, self::ENDS_WITH_ASTERISK_REGEX)) {
             return '*' . $path;
         }
         // starts with *
-        if (\RectorPrefix20210531\Nette\Utils\Strings::match($path, self::STARTS_WITH_ASTERISK_REGEX)) {
+        if (\RectorPrefix20210616\Nette\Utils\Strings::match($path, self::STARTS_WITH_ASTERISK_REGEX)) {
             return $path . '*';
         }
         return $path;

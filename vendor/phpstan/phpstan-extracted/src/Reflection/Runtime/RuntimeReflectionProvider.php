@@ -124,12 +124,12 @@ class RuntimeReflectionProvider implements \PHPStan\Reflection\ReflectionProvide
     }
     public function hasClass(string $className) : bool
     {
+        if (!\PHPStan\Reflection\ClassNameHelper::isValidClassName($className)) {
+            return $this->hasClassCache[$className] = \false;
+        }
         $className = \trim($className, '\\');
         if (isset($this->hasClassCache[$className])) {
             return $this->hasClassCache[$className];
-        }
-        if (!\PHPStan\Reflection\ClassNameHelper::isValidClassName($className)) {
-            return $this->hasClassCache[$className] = \false;
         }
         \spl_autoload_register($autoloader = function (string $autoloadedClassName) use($className) {
             $autoloadedClassName = \trim($autoloadedClassName, '\\');

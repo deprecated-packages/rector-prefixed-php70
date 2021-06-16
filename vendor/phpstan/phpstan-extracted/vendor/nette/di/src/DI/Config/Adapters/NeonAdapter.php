@@ -5,17 +5,17 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Adapters;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Config\Adapters;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Helpers;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Reference;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Statement;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Neon;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Config\Helpers;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Reference;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Statement;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon;
 /**
  * Reading and generating NEON files.
  */
-final class NeonAdapter implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Adapter
+final class NeonAdapter implements \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Config\Adapter
 {
     use Nette\SmartObject;
     const PREVENT_MERGING_SUFFIX = '!';
@@ -24,7 +24,7 @@ final class NeonAdapter implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\
      */
     public function load(string $file) : array
     {
-        return $this->process((array) \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Neon\Neon::decode(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\FileSystem::read($file)));
+        return $this->process((array) \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Neon::decode(\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\FileSystem::read($file)));
     }
     /** @throws Nette\InvalidStateException */
     public function process(array $arr) : array
@@ -33,18 +33,18 @@ final class NeonAdapter implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\
         foreach ($arr as $key => $val) {
             if (\is_string($key) && \substr($key, -1) === self::PREVENT_MERGING_SUFFIX) {
                 if (!\is_array($val) && $val !== null) {
-                    throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\InvalidConfigurationException("Replacing operator is available only for arrays, item '{$key}' is not array.");
+                    throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\InvalidConfigurationException("Replacing operator is available only for arrays, item '{$key}' is not array.");
                 }
                 $key = \substr($key, 0, -1);
-                $val[\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\Helpers::PREVENT_MERGING] = \true;
+                $val[\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Config\Helpers::PREVENT_MERGING] = \true;
             }
             if (\is_array($val)) {
                 $val = $this->process($val);
-            } elseif ($val instanceof \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Neon\Entity) {
-                if ($val->value === \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Neon\Neon::CHAIN) {
+            } elseif ($val instanceof \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Entity) {
+                if ($val->value === \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Neon::CHAIN) {
                     $tmp = null;
                     foreach ($this->process($val->attributes) as $st) {
-                        $tmp = new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Statement($tmp === null ? $st->getEntity() : [$tmp, \ltrim(\implode('::', (array) $st->getEntity()), ':')], $st->arguments);
+                        $tmp = new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Statement($tmp === null ? $st->getEntity() : [$tmp, \ltrim(\implode('::', (array) $st->getEntity()), ':')], $st->arguments);
                     }
                     $val = $tmp;
                 } else {
@@ -52,7 +52,7 @@ final class NeonAdapter implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\
                     if (\is_string($tmp[0]) && \strpos($tmp[0], '?') !== \false) {
                         \trigger_error('Operator ? is deprecated in config files.', \E_USER_DEPRECATED);
                     }
-                    $val = new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Statement($tmp[0], $this->process($val->attributes));
+                    $val = new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Statement($tmp[0], $this->process($val->attributes));
                 }
             }
             $res[$key] = $val;
@@ -65,33 +65,33 @@ final class NeonAdapter implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\
     public function dump(array $data) : string
     {
         \array_walk_recursive($data, function (&$val) {
-            if ($val instanceof \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Statement) {
+            if ($val instanceof \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Statement) {
                 $val = self::statementToEntity($val);
             }
         });
-        return "# generated by Nette\n\n" . \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Neon\Neon::encode($data, \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Neon\Neon::BLOCK);
+        return "# generated by Nette\n\n" . \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Neon::encode($data, \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Neon::BLOCK);
     }
-    private static function statementToEntity(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Statement $val) : \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Neon\Entity
+    private static function statementToEntity(\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Statement $val) : \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Entity
     {
         \array_walk_recursive($val->arguments, function (&$val) {
-            if ($val instanceof \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Statement) {
+            if ($val instanceof \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Statement) {
                 $val = self::statementToEntity($val);
-            } elseif ($val instanceof \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Reference) {
+            } elseif ($val instanceof \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Reference) {
                 $val = '@' . $val->getValue();
             }
         });
         $entity = $val->getEntity();
-        if ($entity instanceof \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Reference) {
+        if ($entity instanceof \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Reference) {
             $entity = '@' . $entity->getValue();
         } elseif (\is_array($entity)) {
-            if ($entity[0] instanceof \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Statement) {
-                return new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Neon\Entity(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Neon\Neon::CHAIN, [self::statementToEntity($entity[0]), new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Neon\Entity('::' . $entity[1], $val->arguments)]);
-            } elseif ($entity[0] instanceof \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Definitions\Reference) {
+            if ($entity[0] instanceof \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Statement) {
+                return new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Entity(\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Neon::CHAIN, [self::statementToEntity($entity[0]), new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Entity('::' . $entity[1], $val->arguments)]);
+            } elseif ($entity[0] instanceof \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Reference) {
                 $entity = '@' . $entity[0]->getValue() . '::' . $entity[1];
             } elseif (\is_string($entity[0])) {
                 $entity = $entity[0] . '::' . $entity[1];
             }
         }
-        return new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Neon\Entity($entity, $val->arguments);
+        return new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Entity($entity, $val->arguments);
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Dns\Query;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\React\Dns\Query;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Dns\Model\Message;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Dns\Protocol\BinaryDumper;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Dns\Protocol\Parser;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Dns\Model\Message;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Dns\Protocol\BinaryDumper;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Dns\Protocol\Parser;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\React\EventLoop\LoopInterface;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Promise\Deferred;
 /**
  * Send DNS queries over a UDP transport.
  *
@@ -84,7 +84,7 @@ use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred;
  *   packages. Higher-level components should take advantage of the Datagram
  *   component instead of reimplementing this socket logic from scratch.
  */
-final class UdpTransportExecutor implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Dns\Query\ExecutorInterface
+final class UdpTransportExecutor implements \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Dns\Query\ExecutorInterface
 {
     private $nameserver;
     private $loop;
@@ -94,7 +94,7 @@ final class UdpTransportExecutor implements \RectorPrefix20210531\_HumbugBox0b2f
      * @param string        $nameserver
      * @param LoopInterface $loop
      */
-    public function __construct($nameserver, \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\EventLoop\LoopInterface $loop)
+    public function __construct($nameserver, \RectorPrefix20210616\_HumbugBox15516bb2b566\React\EventLoop\LoopInterface $loop)
     {
         if (\strpos($nameserver, '[') === \false && \substr_count($nameserver, ':') >= 2 && \strpos($nameserver, '://') === \false) {
             // several colons, but not enclosed in square brackets => enclose IPv6 address in square brackets
@@ -106,30 +106,30 @@ final class UdpTransportExecutor implements \RectorPrefix20210531\_HumbugBox0b2f
         }
         $this->nameserver = 'udp://' . $parts['host'] . ':' . (isset($parts['port']) ? $parts['port'] : 53);
         $this->loop = $loop;
-        $this->parser = new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Dns\Protocol\Parser();
-        $this->dumper = new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Dns\Protocol\BinaryDumper();
+        $this->parser = new \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Dns\Protocol\Parser();
+        $this->dumper = new \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Dns\Protocol\BinaryDumper();
     }
-    public function query(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Dns\Query\Query $query)
+    public function query(\RectorPrefix20210616\_HumbugBox15516bb2b566\React\Dns\Query\Query $query)
     {
-        $request = \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Dns\Model\Message::createRequestForQuery($query);
+        $request = \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Dns\Model\Message::createRequestForQuery($query);
         $queryData = $this->dumper->toBinary($request);
         if (isset($queryData[512])) {
-            return \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->name . ' failed: Query too large for UDP transport', \defined('SOCKET_EMSGSIZE') ? \SOCKET_EMSGSIZE : 90));
+            return \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->name . ' failed: Query too large for UDP transport', \defined('SOCKET_EMSGSIZE') ? \SOCKET_EMSGSIZE : 90));
         }
         // UDP connections are instant, so try connection without a loop or timeout
         $socket = @\stream_socket_client($this->nameserver, $errno, $errstr, 0);
         if ($socket === \false) {
-            return \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->name . ' failed: Unable to connect to DNS server (' . $errstr . ')', $errno));
+            return \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->name . ' failed: Unable to connect to DNS server (' . $errstr . ')', $errno));
         }
         // set socket to non-blocking and immediately try to send (fill write buffer)
         \stream_set_blocking($socket, \false);
         \fwrite($socket, $queryData);
         $loop = $this->loop;
-        $deferred = new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Promise\Deferred(function () use($loop, $socket, $query) {
+        $deferred = new \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Promise\Deferred(function () use($loop, $socket, $query) {
             // cancellation should remove socket from loop and close socket
             $loop->removeReadStream($socket);
             \fclose($socket);
-            throw new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Dns\Query\CancellationException('DNS query for ' . $query->name . ' has been cancelled');
+            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Dns\Query\CancellationException('DNS query for ' . $query->name . ' has been cancelled');
         });
         $parser = $this->parser;
         $loop->addReadStream($socket, function ($socket) use($loop, $deferred, $query, $parser, $request) {

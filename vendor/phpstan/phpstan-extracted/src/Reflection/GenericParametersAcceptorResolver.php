@@ -9,9 +9,8 @@ use PHPStan\Type\Type;
 class GenericParametersAcceptorResolver
 {
     /**
-     * Resolve template types
-     *
-     * @param \PHPStan\Type\Type[] $argTypes Unpacked arguments
+     * @api
+     * @param \PHPStan\Type\Type[] $argTypes
      */
     public static function resolve(array $argTypes, \PHPStan\Reflection\ParametersAcceptor $parametersAcceptor) : \PHPStan\Reflection\ParametersAcceptor
     {

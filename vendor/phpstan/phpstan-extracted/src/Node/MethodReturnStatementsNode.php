@@ -6,6 +6,7 @@ namespace PHPStan\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeAbstract;
 use PHPStan\Analyser\StatementResult;
+/** @api */
 class MethodReturnStatementsNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\ReturnStatementsNode
 {
     /** @var ClassMethod */

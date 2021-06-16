@@ -14,6 +14,7 @@ use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonCompoundTypeTrait;
+/** @api */
 class IterableType implements \PHPStan\Type\CompoundType
 {
     use MaybeCallableTypeTrait;
@@ -25,6 +26,7 @@ class IterableType implements \PHPStan\Type\CompoundType
     private $keyType;
     /** @var \PHPStan\Type\Type */
     private $itemType;
+    /** @api */
     public function __construct(\PHPStan\Type\Type $keyType, \PHPStan\Type\Type $itemType)
     {
         $this->keyType = $keyType;

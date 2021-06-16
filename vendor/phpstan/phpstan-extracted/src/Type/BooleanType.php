@@ -14,6 +14,7 @@ use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
+/** @api */
 class BooleanType implements \PHPStan\Type\Type
 {
     use JustNullableTypeTrait;
@@ -23,6 +24,10 @@ class BooleanType implements \PHPStan\Type\Type
     use UndecidedBooleanTypeTrait;
     use UndecidedComparisonTypeTrait;
     use NonGenericTypeTrait;
+    /** @api */
+    public function __construct()
+    {
+    }
     public function describe(\PHPStan\Type\VerbosityLevel $level) : string
     {
         return 'bool';

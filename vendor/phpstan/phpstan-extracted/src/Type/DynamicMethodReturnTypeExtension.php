@@ -6,6 +6,7 @@ namespace PHPStan\Type;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
+/** @api */
 interface DynamicMethodReturnTypeExtension
 {
     public function getClass() : string;

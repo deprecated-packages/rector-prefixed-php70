@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace PHPStan\Reflection;
 
 use PHPStan\Analyser\Scope;
+/** @api */
 interface ReflectionProvider
 {
     public function hasClass(string $className) : bool;

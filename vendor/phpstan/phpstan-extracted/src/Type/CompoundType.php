@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+/** @api */
 interface CompoundType extends \PHPStan\Type\Type
 {
     public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \PHPStan\TrinaryLogic;

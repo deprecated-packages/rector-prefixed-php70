@@ -24,10 +24,9 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\MixinTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
 use PHPStan\Reflection\PassedByReference;
-use PHPStan\Type\ErrorType;
+use PHPStan\Rules\PhpDoc\UnresolvableTypeHelper;
 use PHPStan\Type\Generic\TemplateTypeVariance;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\NeverType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 class PhpDocNodeResolver
@@ -36,10 +35,13 @@ class PhpDocNodeResolver
     private $typeNodeResolver;
     /** @var ConstExprNodeResolver */
     private $constExprNodeResolver;
-    public function __construct(\PHPStan\PhpDoc\TypeNodeResolver $typeNodeResolver, \PHPStan\PhpDoc\ConstExprNodeResolver $constExprNodeResolver)
+    /** @var UnresolvableTypeHelper */
+    private $unresolvableTypeHelper;
+    public function __construct(\PHPStan\PhpDoc\TypeNodeResolver $typeNodeResolver, \PHPStan\PhpDoc\ConstExprNodeResolver $constExprNodeResolver, \PHPStan\Rules\PhpDoc\UnresolvableTypeHelper $unresolvableTypeHelper)
     {
         $this->typeNodeResolver = $typeNodeResolver;
         $this->constExprNodeResolver = $constExprNodeResolver;
+        $this->unresolvableTypeHelper = $unresolvableTypeHelper;
     }
     /**
      * @param PhpDocNode $phpDocNode
@@ -356,9 +358,6 @@ class PhpDocNodeResolver
         if (\strpos($tagName, '@psalm-') !== 0) {
             return \false;
         }
-        if ($type instanceof \PHPStan\Type\ErrorType) {
-            return \true;
-        }
-        return $type instanceof \PHPStan\Type\NeverType && !$type->isExplicit();
+        return $this->unresolvableTypeHelper->containsUnresolvableType($type);
     }
 }

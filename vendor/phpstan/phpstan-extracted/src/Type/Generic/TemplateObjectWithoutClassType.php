@@ -6,6 +6,7 @@ namespace PHPStan\Type\Generic;
 use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\Traits\UndecidedComparisonCompoundTypeTrait;
 use PHPStan\Type\Type;
+/** @api */
 class TemplateObjectWithoutClassType extends \PHPStan\Type\ObjectWithoutClassType implements \PHPStan\Type\Generic\TemplateType
 {
     use UndecidedComparisonCompoundTypeTrait;

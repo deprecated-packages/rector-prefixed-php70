@@ -71,6 +71,9 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node)
     {
+        if ($node->isMagic()) {
+            return null;
+        }
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
             // possibly trait
@@ -83,10 +86,11 @@ CODE_SAMPLE
         /** @var string $methodName */
         $methodName = $this->getName($node->name);
         foreach ($classReflection->getParents() as $parentClassReflection) {
-            if (!$parentClassReflection->hasMethod($methodName)) {
+            $nativeClassReflection = $parentClassReflection->getNativeReflection();
+            // the class reflection aboves takes also @method annotations into an account
+            if (!$nativeClassReflection->hasMethod($methodName)) {
                 continue;
             }
-            $nativeClassReflection = $parentClassReflection->getNativeReflection();
             $parentReflectionMethod = $nativeClassReflection->getMethod($methodName);
             if ($this->isClassMethodCompatibleWithParentReflectionMethod($node, $parentReflectionMethod)) {
                 return null;

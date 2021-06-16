@@ -24,6 +24,7 @@ use PHPStan\Rules\Registry;
 use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
 /**
+ * @api
  * @template TRule of \PHPStan\Rules\Rule
  */
 abstract class RuleTestCase extends \PHPStan\Testing\TestCase
@@ -82,7 +83,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
     public function analyse(array $files, array $expectedErrors)
     {
         $files = \array_map([$this->getFileHelper(), 'normalizePath'], $files);
-        $analyserResult = $this->getAnalyser()->analyse($files);
+        $analyserResult = $this->getAnalyser()->analyse($files, null, null, \true);
         if (\count($analyserResult->getInternalErrors()) > 0) {
             $this->fail(\implode("\n", $analyserResult->getInternalErrors()));
         }
@@ -123,5 +124,9 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
     protected function shouldPolluteScopeWithAlwaysIterableForeach() : bool
     {
         return \true;
+    }
+    public static function getAdditionalConfigFiles() : array
+    {
+        return [__DIR__ . '/../../conf/bleedingEdge.neon'];
     }
 }

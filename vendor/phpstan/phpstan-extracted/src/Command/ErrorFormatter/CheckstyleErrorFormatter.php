@@ -24,7 +24,7 @@ class CheckstyleErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorF
             $output->writeRaw(\sprintf('<file name="%s">', $this->escape($relativeFilePath)));
             $output->writeLineFormatted('');
             foreach ($errors as $error) {
-                $output->writeRaw(\sprintf('  <error line="%d" column="1" severity="error" message="%s" />', $this->escape((string) $error->getLine()), $this->escape((string) $error->getMessage())));
+                $output->writeRaw(\sprintf('  <error line="%d" column="1" severity="error" message="%s" />', $this->escape((string) $error->getLine()), $this->escape($error->getMessage())));
                 $output->writeLineFormatted('');
             }
             $output->writeRaw('</file>');
@@ -69,7 +69,7 @@ class CheckstyleErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorF
      * Group errors by file
      *
      * @param AnalysisResult $analysisResult
-     * @return array<string, array> Array that have as key the relative path of file
+     * @return array<string, array<\PHPStan\Analyser\Error>> Array that have as key the relative path of file
      *                              and as value an array with occurred errors.
      */
     private function groupByFile(\PHPStan\Command\AnalysisResult $analysisResult) : array

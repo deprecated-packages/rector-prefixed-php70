@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210531\Symfony\Component\HttpFoundation\Session\Storage\Handler;
+namespace RectorPrefix20210616\Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
-use RectorPrefix20210531\Symfony\Component\HttpFoundation\Session\SessionUtils;
+use RectorPrefix20210616\Symfony\Component\HttpFoundation\Session\SessionUtils;
 /**
  * This abstract session handler provides a generic implementation
  * of the PHP 7.0 SessionUpdateTimestampHandlerInterface,
@@ -28,6 +28,7 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function open($savePath, $sessionName)
     {
         $this->sessionName = $sessionName;
@@ -51,6 +52,7 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function validateId($sessionId)
     {
         $this->prefetchData = $this->read($sessionId);
@@ -68,6 +70,7 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
     /**
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function read($sessionId)
     {
         if (null !== $this->prefetchId) {
@@ -86,6 +89,7 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function write($sessionId, $data)
     {
         if (null === $this->igbinaryEmptyData) {
@@ -101,13 +105,14 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function destroy($sessionId)
     {
         if (!\headers_sent() && \filter_var(\ini_get('session.use_cookies'), \FILTER_VALIDATE_BOOLEAN)) {
             if (!$this->sessionName) {
                 throw new \LogicException(\sprintf('Session name cannot be empty, did you forget to call "parent::open()" in "%s"?.', static::class));
             }
-            $cookie = \RectorPrefix20210531\Symfony\Component\HttpFoundation\Session\SessionUtils::popSessionCookie($this->sessionName, $sessionId);
+            $cookie = \RectorPrefix20210616\Symfony\Component\HttpFoundation\Session\SessionUtils::popSessionCookie($this->sessionName, $sessionId);
             /*
              * We send an invalidation Set-Cookie header (zero lifetime)
              * when either the session was started or a cookie with

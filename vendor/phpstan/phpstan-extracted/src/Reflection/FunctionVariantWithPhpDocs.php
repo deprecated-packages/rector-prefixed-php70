@@ -5,6 +5,7 @@ namespace PHPStan\Reflection;
 
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
+/** @api */
 class FunctionVariantWithPhpDocs extends \PHPStan\Reflection\FunctionVariant implements \PHPStan\Reflection\ParametersAcceptorWithPhpDocs
 {
     /** @var Type */
@@ -12,6 +13,7 @@ class FunctionVariantWithPhpDocs extends \PHPStan\Reflection\FunctionVariant imp
     /** @var Type */
     private $nativeReturnType;
     /**
+     * @api
      * @param TemplateTypeMap $templateTypeMap
      * @param array<int, \PHPStan\Reflection\ParameterReflectionWithPhpDocs> $parameters
      * @param bool $isVariadic

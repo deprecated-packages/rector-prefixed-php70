@@ -31,7 +31,7 @@ use Rector\PHPStanStaticTypeMapper\TypeAnalyzer\BoolUnionTypeAnalyzer;
 use Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeAnalyzer;
 use Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeCommonTypeNarrower;
 use Rector\PHPStanStaticTypeMapper\ValueObject\UnionTypeAnalysis;
-use RectorPrefix20210531\Symfony\Contracts\Service\Attribute\Required;
+use RectorPrefix20210616\Symfony\Contracts\Service\Attribute\Required;
 final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
 {
     /**
@@ -228,6 +228,7 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
             }
             $phpParserUnionedTypes[] = $phpParserNode;
         }
+        $phpParserUnionedTypes = \array_unique($phpParserUnionedTypes);
         return new \PhpParser\Node\UnionType($phpParserUnionedTypes);
     }
     /**

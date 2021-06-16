@@ -7,6 +7,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\ObjectTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
+/** @api */
 class ObjectWithoutClassType implements \PHPStan\Type\SubtractableType
 {
     use ObjectTypeTrait;
@@ -14,9 +15,8 @@ class ObjectWithoutClassType implements \PHPStan\Type\SubtractableType
     use UndecidedComparisonTypeTrait;
     /** @var \PHPStan\Type\Type|null */
     private $subtractedType;
-    /**
-     * @param \PHPStan\Type\Type|null $subtractedType
-     */
+    /** @api
+     * @param \PHPStan\Type\Type|null $subtractedType */
     public function __construct($subtractedType = null)
     {
         if ($subtractedType instanceof \PHPStan\Type\NeverType) {

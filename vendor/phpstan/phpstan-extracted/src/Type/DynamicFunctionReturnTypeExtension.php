@@ -6,6 +6,7 @@ namespace PHPStan\Type;
 use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
+/** @api */
 interface DynamicFunctionReturnTypeExtension
 {
     public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection) : bool;

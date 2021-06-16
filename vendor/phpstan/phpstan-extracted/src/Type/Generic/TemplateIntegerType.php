@@ -6,6 +6,7 @@ namespace PHPStan\Type\Generic;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\Traits\UndecidedComparisonCompoundTypeTrait;
 use PHPStan\Type\Type;
+/** @api */
 final class TemplateIntegerType extends \PHPStan\Type\IntegerType implements \PHPStan\Type\Generic\TemplateType
 {
     /** @use TemplateTypeTrait<IntegerType> */
@@ -13,6 +14,7 @@ final class TemplateIntegerType extends \PHPStan\Type\IntegerType implements \PH
     use UndecidedComparisonCompoundTypeTrait;
     public function __construct(\PHPStan\Type\Generic\TemplateTypeScope $scope, \PHPStan\Type\Generic\TemplateTypeStrategy $templateTypeStrategy, \PHPStan\Type\Generic\TemplateTypeVariance $templateTypeVariance, string $name, \PHPStan\Type\IntegerType $bound)
     {
+        parent::__construct();
         $this->scope = $scope;
         $this->strategy = $templateTypeStrategy;
         $this->variance = $templateTypeVariance;

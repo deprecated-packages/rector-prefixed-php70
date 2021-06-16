@@ -83,7 +83,7 @@ final class NodeRemover
         unset($node->stmts[$key]);
     }
     /**
-     * @param int|Param $keyOrParam
+     * @param int|\PhpParser\Node\Param $keyOrParam
      * @return void
      */
     public function removeParam(\PhpParser\Node\Stmt\ClassMethod $classMethod, $keyOrParam)

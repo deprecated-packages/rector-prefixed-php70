@@ -129,6 +129,9 @@ class ImpossibleCheckTypeHelper
             if ($expr === $node) {
                 return \true;
             }
+            if ($expr instanceof \PhpParser\Node\Expr\Variable && \is_string($expr->name) && !$scope->hasVariableType($expr->name)->yes()) {
+                return \true;
+            }
             return ($node instanceof \PhpParser\Node\Expr\FuncCall || $node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall) && $scope->isSpecified($expr);
         };
         if (\count($sureTypes) === 1 && \count($sureNotTypes) === 0) {

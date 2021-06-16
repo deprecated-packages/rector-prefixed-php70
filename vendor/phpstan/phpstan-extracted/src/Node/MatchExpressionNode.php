@@ -6,6 +6,7 @@ namespace PHPStan\Node;
 use PhpParser\Node\Expr;
 use PhpParser\NodeAbstract;
 use PHPStan\Analyser\Scope;
+/** @api */
 class MatchExpressionNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
 {
     /** @var Expr */

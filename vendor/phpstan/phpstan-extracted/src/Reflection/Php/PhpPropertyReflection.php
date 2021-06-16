@@ -9,6 +9,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
+/** @api */
 class PhpPropertyReflection implements \PHPStan\Reflection\PropertyReflection
 {
     /** @var \PHPStan\Reflection\ClassReflection */

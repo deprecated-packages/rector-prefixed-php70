@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Node;
 
+/** @api */
 class MatchExpressionArm
 {
     /** @var MatchExpressionArmCondition[] */

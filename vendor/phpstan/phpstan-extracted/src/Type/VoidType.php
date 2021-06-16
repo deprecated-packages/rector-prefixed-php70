@@ -11,6 +11,7 @@ use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
+/** @api */
 class VoidType implements \PHPStan\Type\Type
 {
     use NonCallableTypeTrait;
@@ -20,6 +21,10 @@ class VoidType implements \PHPStan\Type\Type
     use FalseyBooleanTypeTrait;
     use NonGenericTypeTrait;
     use UndecidedComparisonTypeTrait;
+    /** @api */
+    public function __construct()
+    {
+    }
     /**
      * @return string[]
      */

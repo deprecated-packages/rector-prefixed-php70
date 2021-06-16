@@ -28,6 +28,7 @@ class HasOffsetType implements \PHPStan\Type\CompoundType, \PHPStan\Type\Accesso
     use UndecidedComparisonCompoundTypeTrait;
     /** @var \PHPStan\Type\Type */
     private $offsetType;
+    /** @api */
     public function __construct(\PHPStan\Type\Type $offsetType)
     {
         $this->offsetType = $offsetType;

@@ -18,6 +18,7 @@ use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Reflection\ReflectionWithFilename;
 use PHPStan\Type\ClosureType;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\Type;
 class DependencyResolver
 {
     /** @var FileHelper */
@@ -50,6 +51,7 @@ class DependencyResolver
             $nativeMethod = $scope->getFunction();
             if ($nativeMethod !== null) {
                 $parametersAcceptor = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($nativeMethod->getVariants());
+                $this->extractThrowType($nativeMethod->getThrowType(), $dependenciesReflections);
                 if ($parametersAcceptor instanceof \PHPStan\Reflection\ParametersAcceptorWithPhpDocs) {
                     $this->extractFromParametersAcceptor($parametersAcceptor, $dependenciesReflections);
                 }
@@ -57,6 +59,7 @@ class DependencyResolver
         } elseif ($node instanceof \PHPStan\Node\InFunctionNode) {
             $functionReflection = $scope->getFunction();
             if ($functionReflection !== null) {
+                $this->extractThrowType($functionReflection->getThrowType(), $dependenciesReflections);
                 $parametersAcceptor = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants());
                 if ($parametersAcceptor instanceof \PHPStan\Reflection\ParametersAcceptorWithPhpDocs) {
                     $this->extractFromParametersAcceptor($parametersAcceptor, $dependenciesReflections);
@@ -176,7 +179,7 @@ class DependencyResolver
     }
     /**
      * @param string $className
-     * @param ReflectionWithFilename[] $dependenciesReflections
+     * @param array<int, ReflectionWithFilename> $dependenciesReflections
      * @return void
      */
     private function addClassToDependencies(string $className, array &$dependenciesReflections)
@@ -223,6 +226,20 @@ class DependencyResolver
         }
         $returnTypeReferencedClasses = \array_merge($parametersAcceptor->getNativeReturnType()->getReferencedClasses(), $parametersAcceptor->getPhpDocReturnType()->getReferencedClasses());
         foreach ($returnTypeReferencedClasses as $referencedClass) {
+            $this->addClassToDependencies($referencedClass, $dependenciesReflections);
+        }
+    }
+    /**
+     * @param Type|null $throwType
+     * @param ReflectionWithFilename[] $dependenciesReflections
+     * @return void
+     */
+    private function extractThrowType($throwType, array &$dependenciesReflections)
+    {
+        if ($throwType === null) {
+            return;
+        }
+        foreach ($throwType->getReferencedClasses() as $referencedClass) {
             $this->addClassToDependencies($referencedClass, $dependenciesReflections);
         }
     }

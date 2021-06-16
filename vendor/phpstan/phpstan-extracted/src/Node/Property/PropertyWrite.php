@@ -6,6 +6,7 @@ namespace PHPStan\Node\Property;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticPropertyFetch;
 use PHPStan\Analyser\Scope;
+/** @api */
 class PropertyWrite
 {
     /** @var PropertyFetch|StaticPropertyFetch */

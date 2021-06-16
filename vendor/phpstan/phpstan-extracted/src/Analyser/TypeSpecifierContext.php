@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Analyser;
 
+/** @api */
 class TypeSpecifierContext
 {
     const CONTEXT_TRUE = 0b1;

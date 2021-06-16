@@ -18,6 +18,7 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Rules\Properties\ReadWritePropertiesExtension;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
+/** @api */
 class ClassPropertiesNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
 {
     /** @var ClassLike */

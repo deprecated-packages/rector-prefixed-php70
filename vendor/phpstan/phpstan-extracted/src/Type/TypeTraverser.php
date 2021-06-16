@@ -29,6 +29,7 @@ class TypeTraverser
      *     return new MixedType();
      * });
      *
+     * @api
      * @param callable(Type $type, callable(Type): Type $traverse): Type $cb
      */
     public static function map(\PHPStan\Type\Type $type, callable $cb) : \PHPStan\Type\Type

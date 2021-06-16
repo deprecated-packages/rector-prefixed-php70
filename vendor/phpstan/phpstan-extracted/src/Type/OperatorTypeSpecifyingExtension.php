@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
+/** @api */
 interface OperatorTypeSpecifyingExtension
 {
     public function isOperatorSupported(string $operatorSigil, \PHPStan\Type\Type $leftSide, \PHPStan\Type\Type $rightSide) : bool;

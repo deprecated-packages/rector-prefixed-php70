@@ -13,11 +13,18 @@ class TableErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorFormat
     private $relativePathHelper;
     /** @var bool */
     private $showTipsOfTheDay;
-    public function __construct(\PHPStan\File\RelativePathHelper $relativePathHelper, bool $showTipsOfTheDay)
+    /** @var string|null */
+    private $editorUrl;
+    /**
+     * @param string|null $editorUrl
+     */
+    public function __construct(\PHPStan\File\RelativePathHelper $relativePathHelper, bool $showTipsOfTheDay, $editorUrl = null)
     {
         $this->relativePathHelper = $relativePathHelper;
         $this->showTipsOfTheDay = $showTipsOfTheDay;
+        $this->editorUrl = $editorUrl;
     }
+    /** @api */
     public function formatErrors(\PHPStan\Command\AnalysisResult $analysisResult, \PHPStan\Command\Output $output) : int
     {
         $projectConfigFile = 'phpstan.neon';
@@ -52,6 +59,9 @@ class TableErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorFormat
                     $tip = $error->getTip();
                     $tip = \str_replace('%configurationFile%', $projectConfigFile, $tip);
                     $message .= "\n💡 " . $tip;
+                }
+                if (\is_string($this->editorUrl)) {
+                    $message .= "\n✏️  " . \str_replace(['%file%', '%line%'], [$error->getTraitFilePath() ?? $error->getFilePath(), (string) $error->getLine()], $this->editorUrl);
                 }
                 $rows[] = [(string) $error->getLine(), $message];
             }

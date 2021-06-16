@@ -9,10 +9,8 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Generics\GenericObjectTypeCheck;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ArrayType;
-use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Generic\TemplateTypeHelper;
-use PHPStan\Type\NeverType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 /**
@@ -24,10 +22,13 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
     private $fileTypeMapper;
     /** @var \PHPStan\Rules\Generics\GenericObjectTypeCheck */
     private $genericObjectTypeCheck;
-    public function __construct(\PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Rules\Generics\GenericObjectTypeCheck $genericObjectTypeCheck)
+    /** @var UnresolvableTypeHelper */
+    private $unresolvableTypeHelper;
+    public function __construct(\PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Rules\Generics\GenericObjectTypeCheck $genericObjectTypeCheck, \PHPStan\Rules\PhpDoc\UnresolvableTypeHelper $unresolvableTypeHelper)
     {
         $this->fileTypeMapper = $fileTypeMapper;
         $this->genericObjectTypeCheck = $genericObjectTypeCheck;
+        $this->unresolvableTypeHelper = $unresolvableTypeHelper;
     }
     public function getNodeType() : string
     {
@@ -53,7 +54,7 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
             $phpDocParamType = $phpDocParamTag->getType();
             if (!isset($nativeParameterTypes[$parameterName])) {
                 $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @param references unknown parameter: $%s', $parameterName))->identifier('phpDoc.unknownParameter')->metadata(['parameterName' => $parameterName])->build();
-            } elseif ($phpDocParamType instanceof \PHPStan\Type\ErrorType || $phpDocParamType instanceof \PHPStan\Type\NeverType && !$phpDocParamType->isExplicit()) {
+            } elseif ($this->unresolvableTypeHelper->containsUnresolvableType($phpDocParamType)) {
                 $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @param for parameter $%s contains unresolvable type.', $parameterName))->build();
             } else {
                 $nativeParamType = $nativeParameterTypes[$parameterName];
@@ -71,7 +72,7 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
         }
         if ($resolvedPhpDoc->getReturnTag() !== null) {
             $phpDocReturnType = \PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($resolvedPhpDoc->getReturnTag()->getType());
-            if ($phpDocReturnType instanceof \PHPStan\Type\ErrorType || $phpDocReturnType instanceof \PHPStan\Type\NeverType && !$phpDocReturnType->isExplicit()) {
+            if ($this->unresolvableTypeHelper->containsUnresolvableType($phpDocReturnType)) {
                 $errors[] = \PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @return contains unresolvable type.')->build();
             } else {
                 $isReturnSuperType = $nativeReturnType->isSuperTypeOf($phpDocReturnType);

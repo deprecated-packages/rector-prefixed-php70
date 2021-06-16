@@ -101,10 +101,6 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
                 }
                 $classType = $scope->resolveTypeByName($node->class);
             }
-            $classReflection = $classType->getClassReflection();
-            if ($classReflection !== null && $classReflection->isTrait()) {
-                return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to static property $%s on trait %s.', $name, $classReflection->getName()))->build()];
-            }
         } else {
             $classTypeResult = $this->ruleLevelHelper->findTypeToCheck($scope, $node->class, \sprintf('Access to static property $%s on an unknown class %%s.', $name), static function (\PHPStan\Type\Type $type) use($name) : bool {
                 return $type->canAccessProperties()->yes() && $type->hasProperty($name)->yes();

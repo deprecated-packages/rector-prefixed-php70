@@ -1,10 +1,10 @@
 <?php
 
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Jean85;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Jean85;
 
 class Version
 {
-    const SHORT_COMMIT_LENGTH = \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Jean85\PrettyVersions::SHORT_COMMIT_LENGTH;
+    const SHORT_COMMIT_LENGTH = \RectorPrefix20210616\_HumbugBox15516bb2b566\Jean85\PrettyVersions::SHORT_COMMIT_LENGTH;
     /** @var string */
     private $packageName;
     /** @var string */

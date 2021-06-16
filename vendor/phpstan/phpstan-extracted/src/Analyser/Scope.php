@@ -14,6 +14,7 @@ use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
+/** @api */
 interface Scope extends \PHPStan\Reflection\ClassMemberAccessAnswerer
 {
     public function getFile() : string;

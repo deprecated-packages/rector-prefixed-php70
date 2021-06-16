@@ -33,6 +33,16 @@ final class PhpAttributeGroupFactory
         $attribute = new \PhpParser\Node\Attribute($fullyQualified);
         return new \PhpParser\Node\AttributeGroup([$attribute]);
     }
+    /**
+     * @param mixed[] $items
+     */
+    public function createFromClassWithItems(string $attributeClass, array $items) : \PhpParser\Node\AttributeGroup
+    {
+        $fullyQualified = new \PhpParser\Node\Name\FullyQualified($attributeClass);
+        $args = $this->createArgsFromItems($items);
+        $attribute = new \PhpParser\Node\Attribute($fullyQualified, $args);
+        return new \PhpParser\Node\AttributeGroup([$attribute]);
+    }
     public function create(\Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $doctrineAnnotationTagValueNode, \Rector\Php80\ValueObject\AnnotationToAttribute $annotationToAttribute) : \PhpParser\Node\AttributeGroup
     {
         $fullyQualified = new \PhpParser\Node\Name\FullyQualified($annotationToAttribute->getAttributeClass());
@@ -46,7 +56,7 @@ final class PhpAttributeGroupFactory
      * @return Arg[]
      * @param string|null $silentKey
      */
-    private function createArgsFromItems(array $items, $silentKey = null) : array
+    public function createArgsFromItems(array $items, $silentKey = null) : array
     {
         $args = [];
         if ($silentKey !== null && isset($items[$silentKey])) {
@@ -57,7 +67,11 @@ final class PhpAttributeGroupFactory
         foreach ($items as $key => $value) {
             $value = $this->normalizeNodeValue($value);
             $value = \PhpParser\BuilderHelpers::normalizeValue($value);
-            $args[] = $this->isArrayArguments($items) ? new \PhpParser\Node\Arg($value, \false, \false, [], new \PhpParser\Node\Identifier($key)) : new \PhpParser\Node\Arg($value);
+            $name = null;
+            if (\is_string($key)) {
+                $name = new \PhpParser\Node\Identifier($key);
+            }
+            $args[] = $this->isArrayArguments($items) ? new \PhpParser\Node\Arg($value, \false, \false, [], $name) : new \PhpParser\Node\Arg($value);
         }
         return $args;
     }
@@ -75,17 +89,14 @@ final class PhpAttributeGroupFactory
     }
     /**
      * @param mixed $value
-     * @return bool|float|int|string|array<mixed>|Expr
+     * @return bool|float|int|string|mixed[]|\PhpParser\Node\Expr
      */
     private function normalizeNodeValue($value)
     {
         if ($value instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode) {
             return (int) $value->value;
         }
-        if ($value instanceof \PHPStan\Type\Constant\ConstantFloatType) {
-            return $value->getValue();
-        }
-        if ($value instanceof \PHPStan\Type\Constant\ConstantBooleanType) {
+        if ($value instanceof \PHPStan\Type\Constant\ConstantFloatType || $value instanceof \PHPStan\Type\Constant\ConstantBooleanType) {
             return $value->getValue();
         }
         if ($value instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprTrueNode) {
@@ -106,6 +117,11 @@ final class PhpAttributeGroupFactory
         }
         if ($value instanceof \PHPStan\PhpDocParser\Ast\Node) {
             return (string) $value;
+        }
+        if (\is_array($value)) {
+            return \array_map(function ($item) {
+                return $this->normalizeNodeValue($item);
+            }, $value);
         }
         return $value;
     }

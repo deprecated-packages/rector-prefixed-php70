@@ -6,6 +6,7 @@ namespace PHPStan\Type\Generic;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\Type;
+/** @api */
 interface TemplateType extends \PHPStan\Type\CompoundType
 {
     public function getName() : string;

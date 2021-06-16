@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace PHPStan\PhpDoc\Tag;
 
 use PHPStan\Type\Type;
+/** @api */
 class MethodTag
 {
     /** @var \PHPStan\Type\Type */

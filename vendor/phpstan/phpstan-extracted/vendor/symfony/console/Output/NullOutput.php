@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Symfony\Component\Console\Output;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Formatter\OutputFormatter;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Symfony\Component\Console\Formatter\OutputFormatter;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * NullOutput suppresses all output.
  *
@@ -20,12 +20,12 @@ use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Format
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Tobias Schultze <http://tobion.de>
  */
-class NullOutput implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Output\OutputInterface
+class NullOutput implements \RectorPrefix20210616\_HumbugBox15516bb2b566\Symfony\Component\Console\Output\OutputInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function setFormatter(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
+    public function setFormatter(\RectorPrefix20210616\_HumbugBox15516bb2b566\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
     {
         // do nothing
     }
@@ -35,7 +35,7 @@ class NullOutput implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Symfony
     public function getFormatter()
     {
         // to comply with the interface we must return a OutputFormatterInterface
-        return new \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Symfony\Component\Console\Formatter\OutputFormatter();
+        return new \RectorPrefix20210616\_HumbugBox15516bb2b566\Symfony\Component\Console\Formatter\OutputFormatter();
     }
     /**
      * {@inheritdoc}

@@ -5,36 +5,31 @@ namespace Rector\Core\DependencyInjection\Loader;
 
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector;
-use RectorPrefix20210531\Symfony\Component\Config\FileLocatorInterface;
-use RectorPrefix20210531\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210531\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-final class ConfigurableCallValuesCollectingPhpFileLoader extends \RectorPrefix20210531\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
+use RectorPrefix20210616\Symfony\Component\Config\FileLocatorInterface;
+use RectorPrefix20210616\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+final class ConfigurableCallValuesCollectingPhpFileLoader extends \RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
 {
     /**
      * @var \Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector
      */
     private $configureCallValuesCollector;
-    public function __construct(\RectorPrefix20210531\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \RectorPrefix20210531\Symfony\Component\Config\FileLocatorInterface $fileLocator, \Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector $configureCallValuesCollector)
+    public function __construct(\RectorPrefix20210616\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \RectorPrefix20210616\Symfony\Component\Config\FileLocatorInterface $fileLocator, \Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector $configureCallValuesCollector)
     {
         $this->configureCallValuesCollector = $configureCallValuesCollector;
         parent::__construct($containerBuilder, $fileLocator);
     }
     /**
      * @param mixed $resource
-     * @param null|string $type
-     * @return void
      */
-    public function load($resource, $type = null)
+    public function load($resource, string $type = null)
     {
         // this call collects root values
         $this->collectConfigureCallsFromJustImportedConfigurableRectorDefinitions();
         parent::load($resource, $type);
         $this->collectConfigureCallsFromJustImportedConfigurableRectorDefinitions();
     }
-    /**
-     * @return void
-     */
-    public function import($resource, $type = null, $ignoreErrors = \false, $sourceResource = null, $exclude = null)
+    public function import($resource, string $type = null, $ignoreErrors = \false, $sourceResource = null, $exclude = null)
     {
         // this call collects root values
         $this->collectConfigureCallsFromJustImportedConfigurableRectorDefinitions();

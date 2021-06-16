@@ -191,9 +191,8 @@ class ReflectionObject extends \ReflectionObject
     }
     /**
      * {@inheritDoc}
-     * @param int|null $filter
      */
-    public function getConstants($filter = null)
+    public function getConstants(int $filter = null)
     {
         return $this->betterReflectionObject->getConstants($filter);
     }

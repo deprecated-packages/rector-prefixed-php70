@@ -5,11 +5,10 @@ namespace Rector\DowngradePhp80\Rector\ClassConstFetch;
 
 use PhpParser\Node;
 use PhpParser\Node\Arg;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
-use PhpParser\Node\Param;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -56,7 +55,7 @@ CODE_SAMPLE
         if (!$this->isName($node->name, 'class')) {
             return null;
         }
-        if (!$node->class instanceof \PhpParser\Node\Expr\Variable) {
+        if (!$node->class instanceof \PhpParser\Node\Expr) {
             return null;
         }
         return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('get_class'), [new \PhpParser\Node\Arg($node->class)]);

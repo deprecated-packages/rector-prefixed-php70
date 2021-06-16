@@ -14,7 +14,9 @@ use PhpParser\Node\Stmt\Interface_;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\Switch_;
 use PhpParser\Node\Stmt\Throw_;
+use PhpParser\Node\Stmt\Trait_;
 use PhpParser\Node\Stmt\TryCatch;
+use Rector\Core\NodeAnalyzer\ExternalFullyQualifiedAnalyzer;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class SilentVoidResolver
@@ -23,23 +25,34 @@ final class SilentVoidResolver
      * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
+    /**
+     * @var \Rector\Core\NodeAnalyzer\ExternalFullyQualifiedAnalyzer
+     */
+    private $externalFullyQualifiedAnalyzer;
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\NodeAnalyzer\ExternalFullyQualifiedAnalyzer $externalFullyQualifiedAnalyzer)
     {
         $this->betterNodeFinder = $betterNodeFinder;
+        $this->externalFullyQualifiedAnalyzer = $externalFullyQualifiedAnalyzer;
     }
     /**
-     * @param ClassMethod|Closure|Function_ $functionLike
+     * @param \PhpParser\Node\Stmt\ClassMethod|\PhpParser\Node\Expr\Closure|\PhpParser\Node\Stmt\Function_ $functionLike
      */
-    public function hasExlusiveVoid(\PhpParser\Node\FunctionLike $functionLike) : bool
+    public function hasExclusiveVoid($functionLike) : bool
     {
         $classLike = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike instanceof \PhpParser\Node\Stmt\Interface_) {
+            return \false;
+        }
+        if ($classLike instanceof \PhpParser\Node\Stmt\Trait_) {
             return \false;
         }
         if ($this->hasNeverType($functionLike)) {
             return \false;
         }
         if ($this->betterNodeFinder->hasInstancesOf((array) $functionLike->stmts, [\PhpParser\Node\Expr\Yield_::class])) {
+            return \false;
+        }
+        if ($this->externalFullyQualifiedAnalyzer->hasExternalFullyQualifieds($classLike)) {
             return \false;
         }
         /** @var Return_[] $returns */

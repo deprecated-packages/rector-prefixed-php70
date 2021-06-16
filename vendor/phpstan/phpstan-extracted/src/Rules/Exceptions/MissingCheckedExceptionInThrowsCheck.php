@@ -42,7 +42,7 @@ class MissingCheckedExceptionInThrowsCheck
                 if ($throwType->isSuperTypeOf($throwPointType)->yes()) {
                     continue;
                 }
-                if ($throwPointType instanceof \PHPStan\Type\TypeWithClassName && !$this->exceptionTypeResolver->isCheckedException($throwPointType->getClassName())) {
+                if ($throwPointType instanceof \PHPStan\Type\TypeWithClassName && !$this->exceptionTypeResolver->isCheckedException($throwPointType->getClassName(), $throwPoint->getScope())) {
                     continue;
                 }
                 $classes[] = [$throwPointType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $throwPoint->getNode(), $this->getNewCatchPosition($throwPointType, $throwPoint->getNode())];

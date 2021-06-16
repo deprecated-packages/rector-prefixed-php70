@@ -16,6 +16,7 @@ use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
 use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonCompoundTypeTrait;
+/** @api */
 class CallableType implements \PHPStan\Type\CompoundType, \PHPStan\Reflection\ParametersAcceptor
 {
     use MaybeIterableTypeTrait;
@@ -32,6 +33,7 @@ class CallableType implements \PHPStan\Type\CompoundType, \PHPStan\Reflection\Pa
     /** @var bool */
     private $isCommonCallable;
     /**
+     * @api
      * @param array<int, \PHPStan\Reflection\ParameterReflection> $parameters
      * @param Type $returnType
      * @param bool $variadic

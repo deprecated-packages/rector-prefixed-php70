@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\PhpDoc;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings;
 use PHPStan\Analyser\NameScope;
 use PHPStan\DependencyInjection\Container;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode;
@@ -72,11 +72,15 @@ class TypeNodeResolver
     private $extensionRegistryProvider;
     /** @var Container */
     private $container;
-    public function __construct(\PHPStan\PhpDoc\TypeNodeResolverExtensionRegistryProvider $extensionRegistryProvider, \PHPStan\DependencyInjection\Container $container)
+    /** @var bool */
+    private $deepInspectTypes;
+    public function __construct(\PHPStan\PhpDoc\TypeNodeResolverExtensionRegistryProvider $extensionRegistryProvider, \PHPStan\DependencyInjection\Container $container, bool $deepInspectTypes = \false)
     {
         $this->extensionRegistryProvider = $extensionRegistryProvider;
         $this->container = $container;
+        $this->deepInspectTypes = $deepInspectTypes;
     }
+    /** @api */
     public function resolve(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         foreach ($this->extensionRegistryProvider->getRegistry()->getExtensions() as $extension) {
@@ -321,7 +325,11 @@ class TypeNodeResolver
                 $arrayType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(\true), $genericTypes[0]);
             } elseif (\count($genericTypes) === 2) {
                 // array<KeyType, ValueType>
-                $arrayType = new \PHPStan\Type\ArrayType($genericTypes[0], $genericTypes[1]);
+                $keyType = $genericTypes[0];
+                if ($this->deepInspectTypes) {
+                    $keyType = \PHPStan\Type\TypeCombinator::intersect($keyType, new \PHPStan\Type\UnionType([new \PHPStan\Type\IntegerType(), new \PHPStan\Type\StringType()]));
+                }
+                $arrayType = new \PHPStan\Type\ArrayType($keyType, $genericTypes[1]);
             } else {
                 return new \PHPStan\Type\ErrorType();
             }
@@ -483,11 +491,11 @@ class TypeNodeResolver
             }
             $classReflection = $this->getReflectionProvider()->getClass($className);
             $constantName = $constExpr->name;
-            if (\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::endsWith($constantName, '*')) {
-                $constantNameStartsWith = \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::substring($constantName, 0, \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::length($constantName) - 1);
+            if (\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings::endsWith($constantName, '*')) {
+                $constantNameStartsWith = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings::substring($constantName, 0, \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings::length($constantName) - 1);
                 $constantTypes = [];
                 foreach ($classReflection->getNativeReflection()->getConstants() as $classConstantName => $constantValue) {
-                    if (!\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\Utils\Strings::startsWith($classConstantName, $constantNameStartsWith)) {
+                    if (!\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings::startsWith($classConstantName, $constantNameStartsWith)) {
                         continue;
                     }
                     $constantTypes[] = \PHPStan\Type\ConstantTypeHelper::getTypeFromValue($constantValue);
@@ -514,6 +522,7 @@ class TypeNodeResolver
         return new \PHPStan\Type\ErrorType();
     }
     /**
+     * @api
      * @param TypeNode[] $typeNodes
      * @param NameScope $nameScope
      * @return Type[]

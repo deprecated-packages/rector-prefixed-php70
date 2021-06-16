@@ -11,13 +11,16 @@ use PHPStan\Type\StaticTypeFactory;
 use PHPStan\Type\Traits\ConstantScalarTypeTrait;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
+/** @api */
 class ConstantBooleanType extends \PHPStan\Type\BooleanType implements \PHPStan\Type\ConstantScalarType
 {
     use ConstantScalarTypeTrait;
     /** @var bool */
     private $value;
+    /** @api */
     public function __construct(bool $value)
     {
+        parent::__construct();
         $this->value = $value;
     }
     public function getValue() : bool

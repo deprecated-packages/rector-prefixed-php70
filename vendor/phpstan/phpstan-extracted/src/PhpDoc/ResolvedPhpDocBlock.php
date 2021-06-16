@@ -15,6 +15,7 @@ use PHPStan\PhpDoc\Tag\VarTag;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\Generic\TemplateTypeMap;
+/** @api */
 class ResolvedPhpDocBlock
 {
     /** @var PhpDocNode */

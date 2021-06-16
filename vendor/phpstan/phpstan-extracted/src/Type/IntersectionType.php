@@ -18,11 +18,13 @@ use PHPStan\Type\Accessory\AccessoryType;
 use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Generic\TemplateTypeVariance;
+/** @api */
 class IntersectionType implements \PHPStan\Type\CompoundType
 {
     /** @var \PHPStan\Type\Type[] */
     private $types;
     /**
+     * @api
      * @param Type[] $types
      */
     public function __construct(array $types)

@@ -18,6 +18,7 @@ use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
+/** @api */
 class StaticType implements \PHPStan\Type\TypeWithClassName
 {
     use NonGenericTypeTrait;
@@ -29,6 +30,7 @@ class StaticType implements \PHPStan\Type\TypeWithClassName
     /** @var string */
     private $baseClass;
     /**
+     * @api
      * @param string|ClassReflection $classReflection
      */
     public function __construct($classReflection)

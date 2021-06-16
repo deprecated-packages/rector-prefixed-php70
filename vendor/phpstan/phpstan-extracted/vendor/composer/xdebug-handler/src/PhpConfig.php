@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Composer\XdebugHandler;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Composer\XdebugHandler;
 
 /**
  * @author John Stevenson <john-stevenson@blueyonder.co.uk>
@@ -45,8 +45,8 @@ class PhpConfig
     public function usePersistent()
     {
         if ($data = $this->getDataAndReset()) {
-            \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Composer\XdebugHandler\Process::setEnv('PHPRC', $data['tmpIni']);
-            \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Composer\XdebugHandler\Process::setEnv('PHP_INI_SCAN_DIR', '');
+            $this->updateEnv('PHPRC', $data['tmpIni']);
+            $this->updateEnv('PHP_INI_SCAN_DIR', '');
         }
         return array();
     }
@@ -57,10 +57,20 @@ class PhpConfig
      */
     private function getDataAndReset()
     {
-        if ($data = \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Composer\XdebugHandler\XdebugHandler::getRestartSettings()) {
-            \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Composer\XdebugHandler\Process::setEnv('PHPRC', $data['phprc']);
-            \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Composer\XdebugHandler\Process::setEnv('PHP_INI_SCAN_DIR', $data['scanDir']);
+        if ($data = \RectorPrefix20210616\_HumbugBox15516bb2b566\Composer\XdebugHandler\XdebugHandler::getRestartSettings()) {
+            $this->updateEnv('PHPRC', $data['phprc']);
+            $this->updateEnv('PHP_INI_SCAN_DIR', $data['scanDir']);
         }
         return $data;
+    }
+    /**
+     * Updates a restart settings value in the environment
+     *
+     * @param string $name
+     * @param string|false $value
+     */
+    private function updateEnv($name, $value)
+    {
+        \RectorPrefix20210616\_HumbugBox15516bb2b566\Composer\XdebugHandler\Process::setEnv($name, \false !== $value ? $value : null);
     }
 }

@@ -23,6 +23,10 @@ class NonEmptyArrayType implements \PHPStan\Type\CompoundType, \PHPStan\Type\Acc
     use TruthyBooleanTypeTrait;
     use NonGenericTypeTrait;
     use UndecidedComparisonCompoundTypeTrait;
+    /** @api */
+    public function __construct()
+    {
+    }
     public function getReferencedClasses() : array
     {
         return [];

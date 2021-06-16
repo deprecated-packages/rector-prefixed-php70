@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace PHPStan\Node;
 
 use PhpParser\Node\Stmt;
+/** @api */
 class UnreachableStatementNode extends \PhpParser\Node\Stmt implements \PHPStan\Node\VirtualNode
 {
     /** @var Stmt */

@@ -5,6 +5,7 @@ namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Generic\TemplateTypeMap;
+/** @api */
 class BenevolentUnionType extends \PHPStan\Type\UnionType
 {
     public function describe(\PHPStan\Type\VerbosityLevel $level) : string
@@ -25,6 +26,10 @@ class BenevolentUnionType extends \PHPStan\Type\UnionType
             return new \PHPStan\Type\ErrorType();
         }
         return \PHPStan\Type\TypeCombinator::union(...$resultTypes);
+    }
+    protected function unionResults(callable $getResult) : \PHPStan\TrinaryLogic
+    {
+        return \PHPStan\TrinaryLogic::createNo()->or(...\array_map($getResult, $this->getTypes()));
     }
     public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \PHPStan\TrinaryLogic
     {

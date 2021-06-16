@@ -29,6 +29,10 @@ class AccessoryNumericStringType implements \PHPStan\Type\CompoundType, \PHPStan
     use UndecidedBooleanTypeTrait;
     use UndecidedComparisonCompoundTypeTrait;
     use NonGenericTypeTrait;
+    /** @api */
+    public function __construct()
+    {
+    }
     public function getReferencedClasses() : array
     {
         return [];

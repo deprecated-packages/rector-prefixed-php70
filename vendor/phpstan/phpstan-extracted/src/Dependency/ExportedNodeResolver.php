@@ -71,7 +71,9 @@ class ExportedNodeResolver
             }, $adaptations));
         }
         if ($node instanceof \PhpParser\Node\Stmt\Interface_ && isset($node->namespacedName)) {
-            $extendsNames = [];
+            $extendsNames = \array_map(static function (\PhpParser\Node\Name $name) : string {
+                return (string) $name;
+            }, $node->extends);
             $docComment = $node->getDocComment();
             $interfaceName = $node->namespacedName->toString();
             return new \PHPStan\Dependency\ExportedNode\ExportedInterfaceNode($interfaceName, $this->exportPhpDocNode($fileName, $interfaceName, null, $docComment !== null ? $docComment->getText() : null), $extendsNames);

@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210531\Hoa\Compiler\Llk\Rule;
+namespace RectorPrefix20210616\Hoa\Compiler\Llk\Rule;
 
-use RectorPrefix20210531\Hoa\Consistency;
+use RectorPrefix20210616\Hoa\Consistency;
 /**
  * Class \Hoa\Compiler\Llk\Rule.
  *
@@ -258,4 +258,4 @@ abstract class Rule
 /**
  * Flex entity.
  */
-\RectorPrefix20210531\Hoa\Consistency::flexEntity('RectorPrefix20210531\\Hoa\\Compiler\\Llk\\Rule\\Rule');
+\RectorPrefix20210616\Hoa\Consistency::flexEntity('RectorPrefix20210616\\Hoa\\Compiler\\Llk\\Rule\\Rule');

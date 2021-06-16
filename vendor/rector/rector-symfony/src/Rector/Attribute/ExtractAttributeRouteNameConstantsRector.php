@@ -60,7 +60,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SomeClass
 {
-    #[Route(path: "path", name: "/name")]
+    #[Route(path: "/path", name: "name")]
     public function run()
     {
     }
@@ -71,7 +71,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SomeClass
 {
-    #[Route(path: "path", name: RouteName::NAME)]
+    #[Route(path: "/path", name: RouteName::NAME)]
     public function run()
     {
     }
@@ -125,14 +125,21 @@ CODE_SAMPLE
         if ($this->isRouteNameValueObjectCreated) {
             return;
         }
-        if ($this->smartFileSystem->exists(self::ROUTE_NAME_FILE_LOCATION)) {
+        $smartFileInfo = $this->file->getSmartFileInfo();
+        $directory = $smartFileInfo->getPath();
+        $routeNameFilePath = $directory . '/' . self::ROUTE_NAME_FILE_LOCATION;
+        if ($this->smartFileSystem->exists($routeNameFilePath)) {
             // avoid override
             return;
         }
         $routeAttributes = $this->nodeRepository->findAttributes('Symfony\\Component\\Routing\\Annotation\\Route');
         $constantNameAndValues = $this->constantNameAndValueResolver->resolveFromAttributes($routeAttributes, 'ROUTE_');
-        $namespace = $this->routeNameClassFactory->create($constantNameAndValues, self::ROUTE_NAME_FILE_LOCATION);
-        $addedFileWithNodes = new \Rector\FileSystemRector\ValueObject\AddedFileWithNodes(self::ROUTE_NAME_FILE_LOCATION, [$namespace]);
+        // do not create empty file
+        if ($constantNameAndValues === []) {
+            return;
+        }
+        $namespace = $this->routeNameClassFactory->create($constantNameAndValues, $routeNameFilePath);
+        $addedFileWithNodes = new \Rector\FileSystemRector\ValueObject\AddedFileWithNodes($routeNameFilePath, [$namespace]);
         $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithNodes);
         $this->isRouteNameValueObjectCreated = \true;
     }

@@ -14,6 +14,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\FalseyBooleanTypeTrait;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonCompoundTypeTrait;
+/** @api */
 class NeverType implements \PHPStan\Type\CompoundType
 {
     use FalseyBooleanTypeTrait;
@@ -21,6 +22,7 @@ class NeverType implements \PHPStan\Type\CompoundType
     use UndecidedComparisonCompoundTypeTrait;
     /** @var bool */
     private $isExplicit;
+    /** @api */
     public function __construct(bool $isExplicit = \false)
     {
         $this->isExplicit = $isExplicit;

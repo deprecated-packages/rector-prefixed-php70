@@ -6,6 +6,7 @@ namespace PHPStan\Node;
 use PhpParser\Node;
 use PhpParser\NodeAbstract;
 use PHPStan\Analyser\StatementResult;
+/** @api */
 class ExecutionEndNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
 {
     /** @var Node */

@@ -47,6 +47,9 @@ class CallToFunctionStamentWithoutSideEffectsRule implements \PHPStan\Rules\Rule
             if ($functionResult instanceof \PHPStan\Type\NeverType && $functionResult->isExplicit()) {
                 return [];
             }
+            if (\in_array($function->getName(), ['PHPStan\\Testing\\assertType', 'PHPStan\\Testing\\assertNativeType', 'PHPStan\\Testing\\assertVariableCertainty'], \true)) {
+                return [];
+            }
             return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function %s() on a separate line has no effect.', $function->getName()))->build()];
         }
         return [];

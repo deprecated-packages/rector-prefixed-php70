@@ -5,6 +5,7 @@ namespace PHPStan\Type\Generic;
 
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
+/** @api */
 final class TemplateUnionType extends \PHPStan\Type\UnionType implements \PHPStan\Type\Generic\TemplateType
 {
     /** @use TemplateTypeTrait<UnionType> */

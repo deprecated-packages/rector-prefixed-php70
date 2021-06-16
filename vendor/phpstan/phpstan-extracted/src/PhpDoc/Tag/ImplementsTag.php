@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace PHPStan\PhpDoc\Tag;
 
 use PHPStan\Type\Type;
+/** @api */
 class ImplementsTag
 {
     /** @var \PHPStan\Type\Type */

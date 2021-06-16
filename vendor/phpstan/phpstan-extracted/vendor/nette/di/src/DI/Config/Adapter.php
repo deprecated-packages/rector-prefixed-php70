@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Config;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Config;
 
 /**
  * Adapter for reading and writing configuration files.
@@ -21,4 +21,4 @@ interface Adapter
      */
     function dump(array $data) : string;
 }
-\class_exists(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Nette\DI\Config\IAdapter::class);
+\class_exists(\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Config\IAdapter::class);

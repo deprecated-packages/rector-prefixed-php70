@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Reflection;
 
+/** @api */
 interface ClassMemberReflection
 {
     public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection;

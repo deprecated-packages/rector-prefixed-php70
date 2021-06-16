@@ -1,13 +1,13 @@
 <?php
 
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Clue\React\NDJson;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Clue\React\NDJson;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Evenement\EventEmitter;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface;
 /**
  * The Encoder / Serializer can be used to write any value, encode it as a JSON text and forward it to an output stream
  */
-class Encoder extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface
+class Encoder extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Evenement\EventEmitter implements \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface
 {
     private $output;
     private $options;
@@ -20,7 +20,7 @@ class Encoder extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Evenement\Eve
      * @throws \InvalidArgumentException
      * @throws \BadMethodCallException
      */
-    public function __construct(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $output, $options = 0, $depth = 512)
+    public function __construct(\RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface $output, $options = 0, $depth = 512)
     {
         // @codeCoverageIgnoreStart
         if (\defined('JSON_PRETTY_PRINT') && $options & \JSON_PRETTY_PRINT) {

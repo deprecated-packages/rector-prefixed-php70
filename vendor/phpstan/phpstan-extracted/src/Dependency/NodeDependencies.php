@@ -13,13 +13,13 @@ class NodeDependencies implements \IteratorAggregate
 {
     /** @var FileHelper */
     private $fileHelper;
-    /** @var ReflectionWithFilename[] */
+    /** @var array<int, ReflectionWithFilename> */
     private $reflections;
     /** @var ExportedNode|null */
     private $exportedNode;
     /**
      * @param FileHelper $fileHelper
-     * @param ReflectionWithFilename[] $reflections
+     * @param array<int, ReflectionWithFilename> $reflections
      * @param \PHPStan\Dependency\ExportedNode|null $exportedNode
      */
     public function __construct(\PHPStan\File\FileHelper $fileHelper, array $reflections, $exportedNode)

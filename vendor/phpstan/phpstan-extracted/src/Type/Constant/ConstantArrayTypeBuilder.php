@@ -8,6 +8,7 @@ use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
 use function array_filter;
+/** @api */
 class ConstantArrayTypeBuilder
 {
     /** @var array<int, Type> */

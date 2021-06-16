@@ -6,8 +6,14 @@ namespace PHPStan\Type;
 use PHPStan\Broker\Broker;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantStringType;
+/** @api */
 class ClassStringType extends \PHPStan\Type\StringType
 {
+    /** @api */
+    public function __construct()
+    {
+        parent::__construct();
+    }
     public function describe(\PHPStan\Type\VerbosityLevel $level) : string
     {
         return 'class-string';

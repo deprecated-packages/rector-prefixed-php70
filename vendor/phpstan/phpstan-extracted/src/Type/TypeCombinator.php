@@ -13,7 +13,12 @@ use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Generic\GenericObjectType;
+use PHPStan\Type\Generic\TemplateBenevolentUnionType;
 use PHPStan\Type\Generic\TemplateType;
+use PHPStan\Type\Generic\TemplateTypeFactory;
+use PHPStan\Type\Generic\TemplateTypeHelper;
+use PHPStan\Type\Generic\TemplateUnionType;
+/** @api */
 class TypeCombinator
 {
     const CONSTANT_SCALAR_UNION_THRESHOLD = 8;
@@ -474,31 +479,47 @@ class TypeCombinator
     }
     public static function intersect(\PHPStan\Type\Type ...$types) : \PHPStan\Type\Type
     {
-        \usort($types, static function (\PHPStan\Type\Type $a, \PHPStan\Type\Type $b) : int {
+        $sortTypes = static function (\PHPStan\Type\Type $a, \PHPStan\Type\Type $b) : int {
             if (!$a instanceof \PHPStan\Type\UnionType || !$b instanceof \PHPStan\Type\UnionType) {
                 return 0;
             }
-            if ($a instanceof \PHPStan\Type\BenevolentUnionType) {
-                return 1;
-            }
-            if ($b instanceof \PHPStan\Type\BenevolentUnionType) {
+            if ($a instanceof \PHPStan\Type\Generic\TemplateType) {
                 return -1;
             }
+            if ($b instanceof \PHPStan\Type\Generic\TemplateType) {
+                return 1;
+            }
+            if ($a instanceof \PHPStan\Type\BenevolentUnionType) {
+                return -1;
+            }
+            if ($b instanceof \PHPStan\Type\BenevolentUnionType) {
+                return 1;
+            }
             return 0;
-        });
+        };
+        \usort($types, $sortTypes);
         // transform A & (B | C) to (A & B) | (A & C)
         foreach ($types as $i => $type) {
-            if ($type instanceof \PHPStan\Type\UnionType) {
-                $topLevelUnionSubTypes = [];
-                foreach ($type->getTypes() as $innerUnionSubType) {
-                    $topLevelUnionSubTypes[] = self::intersect($innerUnionSubType, ...\array_slice($types, 0, $i), ...\array_slice($types, $i + 1));
-                }
-                $union = self::union(...$topLevelUnionSubTypes);
-                if ($type instanceof \PHPStan\Type\BenevolentUnionType) {
-                    return \PHPStan\Type\TypeUtils::toBenevolentUnion($union);
-                }
-                return $union;
+            if (!$type instanceof \PHPStan\Type\UnionType) {
+                continue;
             }
+            $topLevelUnionSubTypes = [];
+            $innerTypes = $type->getTypes();
+            \usort($innerTypes, $sortTypes);
+            foreach ($innerTypes as $innerUnionSubType) {
+                $topLevelUnionSubTypes[] = self::intersect($innerUnionSubType, ...\array_slice($types, 0, $i), ...\array_slice($types, $i + 1));
+            }
+            $union = self::union(...$topLevelUnionSubTypes);
+            if ($type instanceof \PHPStan\Type\BenevolentUnionType) {
+                $union = \PHPStan\Type\TypeUtils::toBenevolentUnion($union);
+            }
+            if ($type instanceof \PHPStan\Type\Generic\TemplateUnionType || $type instanceof \PHPStan\Type\Generic\TemplateBenevolentUnionType) {
+                $union = \PHPStan\Type\Generic\TemplateTypeFactory::create($type->getScope(), $type->getName(), $union, $type->getVariance());
+                if ($type->isArgument()) {
+                    return \PHPStan\Type\Generic\TemplateTypeHelper::toArgument($union);
+                }
+            }
+            return $union;
         }
         // transform A & (B & C) to A & B & C
         for ($i = 0; $i < \count($types); $i++) {

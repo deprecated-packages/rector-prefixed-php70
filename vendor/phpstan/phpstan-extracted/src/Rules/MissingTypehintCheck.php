@@ -4,10 +4,12 @@ declare (strict_types=1);
 namespace PHPStan\Rules;
 
 use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Type\Accessory\AccessoryType;
 use PHPStan\Type\CallableType;
 use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\Generic\TemplateType;
 use PHPStan\Type\Generic\TemplateTypeHelper;
+use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
@@ -28,16 +30,19 @@ class MissingTypehintCheck
     private $checkMissingCallableSignature;
     /** @var string[] */
     private $skipCheckGenericClasses;
+    /** @var bool */
+    private $deepInspectTypes;
     /**
      * @param string[] $skipCheckGenericClasses
      */
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $checkMissingIterableValueType, bool $checkGenericClassInNonGenericObjectType, bool $checkMissingCallableSignature, array $skipCheckGenericClasses = [])
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $checkMissingIterableValueType, bool $checkGenericClassInNonGenericObjectType, bool $checkMissingCallableSignature, array $skipCheckGenericClasses = [], bool $deepInspectTypes = \false)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->checkMissingIterableValueType = $checkMissingIterableValueType;
         $this->checkGenericClassInNonGenericObjectType = $checkGenericClassInNonGenericObjectType;
         $this->checkMissingCallableSignature = $checkMissingCallableSignature;
         $this->skipCheckGenericClasses = $skipCheckGenericClasses;
+        $this->deepInspectTypes = $deepInspectTypes;
     }
     /**
      * @param \PHPStan\Type\Type $type
@@ -53,6 +58,9 @@ class MissingTypehintCheck
             if ($type instanceof \PHPStan\Type\Generic\TemplateType) {
                 return $type;
             }
+            if ($type instanceof \PHPStan\Type\Accessory\AccessoryType) {
+                return $type;
+            }
             if ($type->isIterable()->yes()) {
                 $iterableValue = $type->getIterableValueType();
                 if ($iterableValue instanceof \PHPStan\Type\MixedType && !$iterableValue->isExplicitMixed()) {
@@ -63,6 +71,9 @@ class MissingTypehintCheck
                         }
                     }
                     $iterablesWithMissingValueTypehint[] = $type;
+                }
+                if ($this->deepInspectTypes && !$type instanceof \PHPStan\Type\IntersectionType) {
+                    return $traverse($type);
                 }
                 return $type;
             }
@@ -113,8 +124,7 @@ class MissingTypehintCheck
                 $objectTypes[] = [\sprintf('%s %s', $classReflection->isInterface() ? 'interface' : 'class', $classReflection->getDisplayName(\false)), \array_keys($classReflection->getTemplateTypeMap()->getTypes())];
                 return $type;
             }
-            $traverse($type);
-            return $type;
+            return $traverse($type);
         });
         return $objectTypes;
     }

@@ -11,6 +11,7 @@ use PhpParser\Node\NullableType;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\UnionType;
 use PhpParser\NodeAbstract;
+/** @api */
 class ClassPropertyNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
 {
     /** @var string */

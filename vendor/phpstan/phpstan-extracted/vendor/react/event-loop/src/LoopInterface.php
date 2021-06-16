@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\EventLoop;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\React\EventLoop;
 
 interface LoopInterface
 {
@@ -290,7 +290,7 @@ interface LoopInterface
      *
      * @return void
      */
-    public function cancelTimer(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\EventLoop\TimerInterface $timer);
+    public function cancelTimer(\RectorPrefix20210616\_HumbugBox15516bb2b566\React\EventLoop\TimerInterface $timer);
     /**
      * Schedule a callback to be invoked on a future tick of the event loop.
      *

@@ -7,7 +7,7 @@ use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\PhpParser\Printer\NodesWithFileDestinationPrinter;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210531\Webmozart\Assert\Assert;
+use RectorPrefix20210616\Webmozart\Assert\Assert;
 /**
  * @property-read RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
  */
@@ -42,15 +42,22 @@ trait MovingFilesTrait
      */
     protected function assertFilesWereAdded(array $expectedAddedFileWithContents)
     {
-        \RectorPrefix20210531\Webmozart\Assert\Assert::allIsAOf($expectedAddedFileWithContents, \Rector\FileSystemRector\ValueObject\AddedFileWithContent::class);
+        \RectorPrefix20210616\Webmozart\Assert\Assert::allIsAOf($expectedAddedFileWithContents, \Rector\FileSystemRector\ValueObject\AddedFileWithContent::class);
         \sort($expectedAddedFileWithContents);
         $addedFilePathsWithContents = $this->resolveAddedFilePathsWithContents();
         \sort($addedFilePathsWithContents);
         // there should be at least some added files
-        \RectorPrefix20210531\Webmozart\Assert\Assert::notEmpty($addedFilePathsWithContents);
+        \RectorPrefix20210616\Webmozart\Assert\Assert::notEmpty($addedFilePathsWithContents);
         foreach ($addedFilePathsWithContents as $key => $addedFilePathWithContent) {
             $expectedFilePathWithContent = $expectedAddedFileWithContents[$key];
-            $this->assertSame($expectedFilePathWithContent->getFilePath(), $addedFilePathWithContent->getFilePath());
+            /**
+             * use relative path against _temp_fixture_easy_testing
+             * to make work in all OSs, for example:
+             * In MacOS, the realpath() of sys_get_temp_dir() pointed to /private/var/* which symlinked of /var/*
+             */
+            list(, $expectedFilePathWithContentFilePath) = \explode('_temp_fixture_easy_testing', $expectedFilePathWithContent->getFilePath());
+            list(, $addedFilePathWithContentFilePath) = \explode('_temp_fixture_easy_testing', $addedFilePathWithContent->getFilePath());
+            $this->assertSame($expectedFilePathWithContentFilePath, $addedFilePathWithContentFilePath);
             $this->assertSame($expectedFilePathWithContent->getFileContent(), $addedFilePathWithContent->getFileContent());
         }
     }

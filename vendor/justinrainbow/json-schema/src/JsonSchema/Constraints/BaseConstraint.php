@@ -6,12 +6,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210531\JsonSchema\Constraints;
+namespace RectorPrefix20210616\JsonSchema\Constraints;
 
-use RectorPrefix20210531\JsonSchema\Entity\JsonPointer;
-use RectorPrefix20210531\JsonSchema\Exception\InvalidArgumentException;
-use RectorPrefix20210531\JsonSchema\Exception\ValidationException;
-use RectorPrefix20210531\JsonSchema\Validator;
+use RectorPrefix20210616\JsonSchema\Entity\JsonPointer;
+use RectorPrefix20210616\JsonSchema\Exception\InvalidArgumentException;
+use RectorPrefix20210616\JsonSchema\Exception\ValidationException;
+use RectorPrefix20210616\JsonSchema\Validator;
 /**
  * A more basic constraint definition - used for the public
  * interface to avoid exposing library internals.
@@ -25,7 +25,7 @@ class BaseConstraint
     /**
      * @var int All error types which have occurred
      */
-    protected $errorMask = \RectorPrefix20210531\JsonSchema\Validator::ERROR_NONE;
+    protected $errorMask = \RectorPrefix20210616\JsonSchema\Validator::ERROR_NONE;
     /**
      * @var Factory
      */
@@ -33,15 +33,15 @@ class BaseConstraint
     /**
      * @param Factory $factory
      */
-    public function __construct(\RectorPrefix20210531\JsonSchema\Constraints\Factory $factory = null)
+    public function __construct(\RectorPrefix20210616\JsonSchema\Constraints\Factory $factory = null)
     {
-        $this->factory = $factory ?: new \RectorPrefix20210531\JsonSchema\Constraints\Factory();
+        $this->factory = $factory ?: new \RectorPrefix20210616\JsonSchema\Constraints\Factory();
     }
-    public function addError(\RectorPrefix20210531\JsonSchema\Entity\JsonPointer $path = null, $message, $constraint = '', array $more = null)
+    public function addError(\RectorPrefix20210616\JsonSchema\Entity\JsonPointer $path = null, $message, $constraint = '', array $more = null)
     {
-        $error = array('property' => $this->convertJsonPointerIntoPropertyPath($path ?: new \RectorPrefix20210531\JsonSchema\Entity\JsonPointer('')), 'pointer' => \ltrim(\strval($path ?: new \RectorPrefix20210531\JsonSchema\Entity\JsonPointer('')), '#'), 'message' => $message, 'constraint' => $constraint, 'context' => $this->factory->getErrorContext());
-        if ($this->factory->getConfig(\RectorPrefix20210531\JsonSchema\Constraints\Constraint::CHECK_MODE_EXCEPTIONS)) {
-            throw new \RectorPrefix20210531\JsonSchema\Exception\ValidationException(\sprintf('Error validating %s: %s', $error['pointer'], $error['message']));
+        $error = array('property' => $this->convertJsonPointerIntoPropertyPath($path ?: new \RectorPrefix20210616\JsonSchema\Entity\JsonPointer('')), 'pointer' => \ltrim(\strval($path ?: new \RectorPrefix20210616\JsonSchema\Entity\JsonPointer('')), '#'), 'message' => $message, 'constraint' => $constraint, 'context' => $this->factory->getErrorContext());
+        if ($this->factory->getConfig(\RectorPrefix20210616\JsonSchema\Constraints\Constraint::CHECK_MODE_EXCEPTIONS)) {
+            throw new \RectorPrefix20210616\JsonSchema\Exception\ValidationException(\sprintf('Error validating %s: %s', $error['pointer'], $error['message']));
         }
         if (\is_array($more) && \count($more) > 0) {
             $error += $more;
@@ -61,9 +61,9 @@ class BaseConstraint
             });
         }
     }
-    public function getErrors($errorContext = \RectorPrefix20210531\JsonSchema\Validator::ERROR_ALL)
+    public function getErrors($errorContext = \RectorPrefix20210616\JsonSchema\Validator::ERROR_ALL)
     {
-        if ($errorContext === \RectorPrefix20210531\JsonSchema\Validator::ERROR_ALL) {
+        if ($errorContext === \RectorPrefix20210616\JsonSchema\Validator::ERROR_ALL) {
             return $this->errors;
         }
         return \array_filter($this->errors, function ($error) use($errorContext) {
@@ -72,9 +72,9 @@ class BaseConstraint
             }
         });
     }
-    public function numErrors($errorContext = \RectorPrefix20210531\JsonSchema\Validator::ERROR_ALL)
+    public function numErrors($errorContext = \RectorPrefix20210616\JsonSchema\Validator::ERROR_ALL)
     {
-        if ($errorContext === \RectorPrefix20210531\JsonSchema\Validator::ERROR_ALL) {
+        if ($errorContext === \RectorPrefix20210616\JsonSchema\Validator::ERROR_ALL) {
             return \count($this->errors);
         }
         return \count($this->getErrors($errorContext));
@@ -90,7 +90,7 @@ class BaseConstraint
     public function reset()
     {
         $this->errors = array();
-        $this->errorMask = \RectorPrefix20210531\JsonSchema\Validator::ERROR_NONE;
+        $this->errorMask = \RectorPrefix20210616\JsonSchema\Validator::ERROR_NONE;
     }
     /**
      * Get the error mask
@@ -116,7 +116,7 @@ class BaseConstraint
             if (\function_exists('json_last_error_msg')) {
                 $message .= ': ' . \json_last_error_msg();
             }
-            throw new \RectorPrefix20210531\JsonSchema\Exception\InvalidArgumentException($message);
+            throw new \RectorPrefix20210616\JsonSchema\Exception\InvalidArgumentException($message);
         }
         return (object) \json_decode($json);
     }

@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210531\Hoa\Visitor;
+namespace RectorPrefix20210616\Hoa\Visitor;
 
 /**
  * Interface \Hoa\Visitor\Visit.
@@ -53,5 +53,5 @@ interface Visit
      * @param   mixed                 $eldnah     Handle (not reference).
      * @return  mixed
      */
-    public function visit(\RectorPrefix20210531\Hoa\Visitor\Element $element, &$handle = null, $eldnah = null);
+    public function visit(\RectorPrefix20210616\Hoa\Visitor\Element $element, &$handle = null, $eldnah = null);
 }

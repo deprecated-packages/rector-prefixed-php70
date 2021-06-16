@@ -1,9 +1,9 @@
 <?php
 
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Http\Io;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\React\Http\Io;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface;
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\UploadedFileInterface;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\UploadedFileInterface;
 use InvalidArgumentException;
 use RuntimeException;
 /**
@@ -17,7 +17,7 @@ use RuntimeException;
  * @see UploadedFileInterface
  * @internal
  */
-final class UploadedFile implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\UploadedFileInterface
+final class UploadedFile implements \RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\UploadedFileInterface
 {
     /**
      * @var StreamInterface
@@ -46,7 +46,7 @@ final class UploadedFile implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8
      * @param string $filename
      * @param string $mediaType
      */
-    public function __construct(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Psr\Http\Message\StreamInterface $stream, $size, $error, $filename, $mediaType)
+    public function __construct(\RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface $stream, $size, $error, $filename, $mediaType)
     {
         $this->stream = $stream;
         $this->size = $size;

@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210531\JsonSchema\Constraints\TypeCheck;
+namespace RectorPrefix20210616\JsonSchema\Constraints\TypeCheck;
 
 interface TypeCheckInterface
 {

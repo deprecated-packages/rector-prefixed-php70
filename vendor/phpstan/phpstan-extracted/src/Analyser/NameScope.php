@@ -6,6 +6,7 @@ namespace PHPStan\Analyser;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Generic\TemplateTypeScope;
 use PHPStan\Type\Type;
+/** @api */
 class NameScope
 {
     /** @var string|null */
@@ -23,6 +24,7 @@ class NameScope
     /** @var bool */
     private $bypassTypeAliases;
     /**
+     * @api
      * @param string|null $namespace
      * @param array<string, string> $uses alias(string) => fullName(string)
      * @param string|null $className

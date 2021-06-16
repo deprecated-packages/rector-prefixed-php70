@@ -6,6 +6,7 @@ namespace PHPStan\Type;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
+/** @api */
 interface DynamicStaticMethodThrowTypeExtension
 {
     public function isStaticMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool;

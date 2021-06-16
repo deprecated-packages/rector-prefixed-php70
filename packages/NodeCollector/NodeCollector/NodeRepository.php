@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeCollector\NodeCollector;
 
-use RectorPrefix20210531\Nette\Utils\Arrays;
+use RectorPrefix20210616\Nette\Utils\Arrays;
 use PhpParser\Node;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\Expr;
@@ -202,7 +202,7 @@ final class NodeRepository
      */
     public function getMethodsCalls() : array
     {
-        $calls = \RectorPrefix20210531\Nette\Utils\Arrays::flatten($this->callsByTypeAndMethod);
+        $calls = \RectorPrefix20210616\Nette\Utils\Arrays::flatten($this->callsByTypeAndMethod);
         return \array_filter($calls, function (\PhpParser\Node $node) : bool {
             return $node instanceof \PhpParser\Node\Expr\MethodCall;
         });
@@ -466,7 +466,7 @@ final class NodeRepository
         if (!$classReflection->hasMethod($arrayCallable->getMethod())) {
             return;
         }
-        $this->arrayCallablesByTypeAndMethod[$arrayCallable->getClass()][$arrayCallable->getMethod()][] = $arrayCallable;
+        $this->arrayCallablesByTypeAndMethod[$arrayCallable->getClass()][\strtolower($arrayCallable->getMethod())][] = $arrayCallable;
     }
     /**
      * @return void
@@ -509,6 +509,7 @@ final class NodeRepository
      */
     private function findCallsByClassAndMethod(string $className, string $methodName) : array
     {
+        $methodName = \strtolower($methodName);
         return $this->callsByTypeAndMethod[$className][$methodName] ?? $this->arrayCallablesByTypeAndMethod[$className][$methodName] ?? [];
     }
     /**
@@ -568,6 +569,8 @@ final class NodeRepository
      */
     private function addCallByType(\PhpParser\Node $node, \PHPStan\Type\Type $classType, string $methodName)
     {
+        // PHP is case insensitive for method names
+        $methodName = \strtolower($methodName);
         if ($classType instanceof \PHPStan\Type\TypeWithClassName) {
             if ($classType instanceof \PHPStan\Type\ThisType) {
                 $classType = $classType->getStaticObjectType();

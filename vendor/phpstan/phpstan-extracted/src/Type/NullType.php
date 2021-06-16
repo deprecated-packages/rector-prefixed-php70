@@ -14,6 +14,7 @@ use PHPStan\Type\Traits\NonCallableTypeTrait;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
+/** @api */
 class NullType implements \PHPStan\Type\ConstantScalarType
 {
     use NonCallableTypeTrait;
@@ -21,6 +22,10 @@ class NullType implements \PHPStan\Type\ConstantScalarType
     use NonObjectTypeTrait;
     use FalseyBooleanTypeTrait;
     use NonGenericTypeTrait;
+    /** @api */
+    public function __construct()
+    {
+    }
     /**
      * @return string[]
      */

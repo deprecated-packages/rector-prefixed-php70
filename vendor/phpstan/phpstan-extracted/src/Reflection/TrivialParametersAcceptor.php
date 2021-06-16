@@ -6,8 +6,13 @@ namespace PHPStan\Reflection;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
+/** @api */
 class TrivialParametersAcceptor implements \PHPStan\Reflection\ParametersAcceptor
 {
+    /** @api */
+    public function __construct()
+    {
+    }
     public function getTemplateTypeMap() : \PHPStan\Type\Generic\TemplateTypeMap
     {
         return \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();

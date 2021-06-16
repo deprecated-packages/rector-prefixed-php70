@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream;
+namespace RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream;
 
-use RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter;
+use RectorPrefix20210616\_HumbugBox15516bb2b566\Evenement\EventEmitter;
 use InvalidArgumentException;
 /**
  * The `ThroughStream` implements the
@@ -72,7 +72,7 @@ use InvalidArgumentException;
  * @see DuplexStreamInterface::close()
  * @see WritableStreamInterface::pipe()
  */
-final class ThroughStream extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\Evenement\EventEmitter implements \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\DuplexStreamInterface
+final class ThroughStream extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Evenement\EventEmitter implements \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\DuplexStreamInterface
 {
     private $readable = \true;
     private $writable = \true;
@@ -99,9 +99,9 @@ final class ThroughStream extends \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\E
         }
         $this->paused = \false;
     }
-    public function pipe(\RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \RectorPrefix20210531\_HumbugBox0b2f2d5c77b8\React\Stream\Util::pipe($this, $dest, $options);
+        return \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function isReadable()
     {
