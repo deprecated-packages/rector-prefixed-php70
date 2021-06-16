@@ -12,9 +12,9 @@ use Ssch\TYPO3Rector\Rector\v9\v5\RemoveFlushCachesRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\RemoveInitMethodFromPageRepositoryRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\RemoveInternalAnnotationRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\UsePackageManagerActivePackagesRector;
-use RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
     $services->set(\Ssch\TYPO3Rector\Rector\v9\v5\UsePackageManagerActivePackagesRector::class);

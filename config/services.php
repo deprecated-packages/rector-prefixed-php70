@@ -35,7 +35,7 @@ use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocator\Intermedia
 use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider;
 use RectorPrefix20210616\Symfony\Component\Console\Application as SymfonyApplication;
 use RectorPrefix20210616\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use RectorPrefix20210616\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 use RectorPrefix20210616\Symplify\PackageBuilder\Console\Command\CommandNaming;
@@ -45,17 +45,17 @@ use RectorPrefix20210616\Symplify\PackageBuilder\Php\TypeChecker;
 use RectorPrefix20210616\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use RectorPrefix20210616\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use RectorPrefix20210616\Symplify\PackageBuilder\Strings\StringFormatConverter;
-use Symplify\SmartFileSystem\FileSystemFilter;
-use Symplify\SmartFileSystem\FileSystemGuard;
-use Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use Symplify\SmartFileSystem\Json\JsonFileSystem;
-use Symplify\SmartFileSystem\SmartFileSystem;
-return static function (\RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+use RectorPrefix20210616\Symplify\SmartFileSystem\FileSystemFilter;
+use RectorPrefix20210616\Symplify\SmartFileSystem\FileSystemGuard;
+use RectorPrefix20210616\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use RectorPrefix20210616\Symplify\SmartFileSystem\Json\JsonFileSystem;
+use RectorPrefix20210616\Symplify\SmartFileSystem\SmartFileSystem;
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
     $services->load('Rector\\Core\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector', __DIR__ . '/../src/Exception', __DIR__ . '/../src/DependencyInjection/CompilerPass', __DIR__ . '/../src/DependencyInjection/Loader', __DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject', __DIR__ . '/../src/Bootstrap', __DIR__ . '/../src/PhpParser/Node/CustomNode', __DIR__ . '/../src/functions', __DIR__ . '/../src/constants.php', __DIR__ . '/../src/PhpParser/NodeVisitor/CreatedByRuleNodeVisitor.php']);
     $services->alias(\RectorPrefix20210616\Symfony\Component\Console\Application::class, \Rector\Core\Console\ConsoleApplication::class);
-    $services->set(\Symplify\SmartFileSystem\FileSystemGuard::class);
+    $services->set(\RectorPrefix20210616\Symplify\SmartFileSystem\FileSystemGuard::class);
     $services->set(\RectorPrefix20210616\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser::class);
     $services->set(\PhpParser\ParserFactory::class);
     $services->set(\PhpParser\BuilderFactory::class);
@@ -66,15 +66,15 @@ return static function (\RectorPrefix20210616\Symfony\Component\DependencyInject
     // symplify/package-builder
     $services->set(\RectorPrefix20210616\Symplify\PackageBuilder\Reflection\PrivatesAccessor::class);
     $services->set(\RectorPrefix20210616\Symplify\PackageBuilder\Reflection\PrivatesCaller::class);
-    $services->set(\Symplify\SmartFileSystem\Finder\FinderSanitizer::class);
-    $services->set(\Symplify\SmartFileSystem\FileSystemFilter::class);
+    $services->set(\RectorPrefix20210616\Symplify\SmartFileSystem\Finder\FinderSanitizer::class);
+    $services->set(\RectorPrefix20210616\Symplify\SmartFileSystem\FileSystemFilter::class);
     $services->set(\RectorPrefix20210616\Symplify\PackageBuilder\Parameter\ParameterProvider::class)->arg('$container', \RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\service('service_container'));
     $services->set(\RectorPrefix20210616\Symplify\PackageBuilder\Console\Command\CommandNaming::class);
-    $services->set(\Symplify\SmartFileSystem\SmartFileSystem::class);
+    $services->set(\RectorPrefix20210616\Symplify\SmartFileSystem\SmartFileSystem::class);
     $services->set(\RectorPrefix20210616\Symplify\PackageBuilder\Strings\StringFormatConverter::class);
     $services->set(\RectorPrefix20210616\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class);
     $services->set(\RectorPrefix20210616\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\service(\RectorPrefix20210616\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
-    $services->set(\Symplify\SmartFileSystem\Json\JsonFileSystem::class);
+    $services->set(\RectorPrefix20210616\Symplify\SmartFileSystem\Json\JsonFileSystem::class);
     $services->set(\PhpParser\NodeVisitor\NodeConnectingVisitor::class);
     $services->set(\RectorPrefix20210616\Doctrine\Inflector\Rules\English\InflectorFactory::class);
     $services->set(\RectorPrefix20210616\Doctrine\Inflector\Inflector::class)->factory([\RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\service(\RectorPrefix20210616\Doctrine\Inflector\Rules\English\InflectorFactory::class), 'build']);

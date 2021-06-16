@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace RectorPrefix20210616;
 
-use RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use RectorPrefix20210616\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 use RectorPrefix20210616\Symplify\Skipper\ValueObject\Option;
-use Symplify\SmartFileSystem\Normalizer\PathNormalizer;
-return static function (\RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+use RectorPrefix20210616\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $parameters = $containerConfigurator->parameters();
     $parameters->set(\RectorPrefix20210616\Symplify\Skipper\ValueObject\Option::SKIP, []);
     $parameters->set(\RectorPrefix20210616\Symplify\Skipper\ValueObject\Option::ONLY, []);
@@ -15,5 +15,5 @@ return static function (\RectorPrefix20210616\Symfony\Component\DependencyInject
     $services->defaults()->public()->autowire()->autoconfigure();
     $services->load('RectorPrefix20210616\Symplify\\Skipper\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Bundle', __DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject']);
     $services->set(\RectorPrefix20210616\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker::class);
-    $services->set(\Symplify\SmartFileSystem\Normalizer\PathNormalizer::class);
+    $services->set(\RectorPrefix20210616\Symplify\SmartFileSystem\Normalizer\PathNormalizer::class);
 };

@@ -8,7 +8,7 @@ use RectorPrefix20210616\Nette\Utils\Strings;
 use Rector\Caching\ValueObject\CacheFilePaths;
 use Rector\Caching\ValueObject\CacheItem;
 use RectorPrefix20210616\Symplify\EasyCodingStandard\Caching\Exception\CachingException;
-use Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210616\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * Inspired by
  * https://github.com/phpstan/phpstan-src/commit/4df7342f3a0aaef4bcd85456dd20ca88d38dd90d#diff-6dc14f6222bf150e6840ca44a7126653052a1cedc6a149b4e5c1e1a2c80eacdc
@@ -23,7 +23,7 @@ final class FileCacheStorage
      * @var \Symplify\SmartFileSystem\SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(string $directory, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(string $directory, \RectorPrefix20210616\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->directory = $directory;
         $this->smartFileSystem = $smartFileSystem;

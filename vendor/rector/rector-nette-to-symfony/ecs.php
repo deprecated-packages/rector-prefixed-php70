@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace RectorPrefix20210616;
 
-use RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use RectorPrefix20210616\Symplify\EasyCodingStandard\ValueObject\Option;
 use RectorPrefix20210616\Symplify\EasyCodingStandard\ValueObject\Set\SetList;
-return static function (\RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $containerConfigurator->import(\RectorPrefix20210616\Symplify\EasyCodingStandard\ValueObject\Set\SetList::COMMON);
     $containerConfigurator->import(\RectorPrefix20210616\Symplify\EasyCodingStandard\ValueObject\Set\SetList::PSR_12);
     $parameters = $containerConfigurator->parameters();

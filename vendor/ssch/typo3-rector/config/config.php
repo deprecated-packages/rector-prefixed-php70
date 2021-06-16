@@ -13,8 +13,8 @@ use RectorPrefix20210616\Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptProcessor;
 use RectorPrefix20210616\Symfony\Component\Console\Output\BufferedOutput;
 use RectorPrefix20210616\Symfony\Component\Console\Output\OutputInterface;
-use RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $containerConfigurator->import(__DIR__ . '/../utils/**/config/config.php', null, \true);
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire();

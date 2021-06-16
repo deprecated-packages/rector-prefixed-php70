@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\SmartFileSystem;
+namespace RectorPrefix20210616\Symplify\SmartFileSystem;
 
 use RectorPrefix20210616\Nette\Utils\Strings;
 use RectorPrefix20210616\Symfony\Component\Filesystem\Exception\IOException;

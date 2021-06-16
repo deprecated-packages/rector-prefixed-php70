@@ -7,8 +7,8 @@ use RectorPrefix20210616\Nette\Utils\Strings;
 use RectorPrefix20210616\Symfony\Component\Finder\Finder;
 use RectorPrefix20210616\Symfony\Component\Finder\SplFileInfo;
 use RectorPrefix20210616\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
-use Symplify\SmartFileSystem\FileSystemFilter;
-use Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use RectorPrefix20210616\Symplify\SmartFileSystem\FileSystemFilter;
+use RectorPrefix20210616\Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Core\Tests\FileSystem\FilesFinder\FilesFinderTest
@@ -41,7 +41,7 @@ final class FilesFinder
      * @var \Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver
      */
     private $skippedPathsResolver;
-    public function __construct(\Rector\Core\FileSystem\FilesystemTweaker $filesystemTweaker, \Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter, \RectorPrefix20210616\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
+    public function __construct(\Rector\Core\FileSystem\FilesystemTweaker $filesystemTweaker, \RectorPrefix20210616\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \RectorPrefix20210616\Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter, \RectorPrefix20210616\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
     {
         $this->filesystemTweaker = $filesystemTweaker;
         $this->finderSanitizer = $finderSanitizer;

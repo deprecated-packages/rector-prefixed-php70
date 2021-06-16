@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace RectorPrefix20210616;
 
 use Rector\Core\Configuration\Option;
-use RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210616\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $parameters = $containerConfigurator->parameters();
     // paths and extensions
     $parameters->set(\Rector\Core\Configuration\Option::PATHS, []);
