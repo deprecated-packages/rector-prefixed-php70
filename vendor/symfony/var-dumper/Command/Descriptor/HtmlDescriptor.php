@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210616\Symfony\Component\VarDumper\Command\Descriptor;
+namespace RectorPrefix20210620\Symfony\Component\VarDumper\Command\Descriptor;
 
-use RectorPrefix20210616\Symfony\Component\Console\Output\OutputInterface;
-use RectorPrefix20210616\Symfony\Component\VarDumper\Cloner\Data;
-use RectorPrefix20210616\Symfony\Component\VarDumper\Dumper\HtmlDumper;
+use RectorPrefix20210620\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix20210620\Symfony\Component\VarDumper\Cloner\Data;
+use RectorPrefix20210620\Symfony\Component\VarDumper\Dumper\HtmlDumper;
 /**
  * Describe collected data clones for html output.
  *
@@ -20,18 +20,18 @@ use RectorPrefix20210616\Symfony\Component\VarDumper\Dumper\HtmlDumper;
  *
  * @final
  */
-class HtmlDescriptor implements \RectorPrefix20210616\Symfony\Component\VarDumper\Command\Descriptor\DumpDescriptorInterface
+class HtmlDescriptor implements \RectorPrefix20210620\Symfony\Component\VarDumper\Command\Descriptor\DumpDescriptorInterface
 {
     private $dumper;
     private $initialized = \false;
-    public function __construct(\RectorPrefix20210616\Symfony\Component\VarDumper\Dumper\HtmlDumper $dumper)
+    public function __construct(\RectorPrefix20210620\Symfony\Component\VarDumper\Dumper\HtmlDumper $dumper)
     {
         $this->dumper = $dumper;
     }
     /**
      * @return void
      */
-    public function describe(\RectorPrefix20210616\Symfony\Component\Console\Output\OutputInterface $output, \RectorPrefix20210616\Symfony\Component\VarDumper\Cloner\Data $data, array $context, int $clientId)
+    public function describe(\RectorPrefix20210620\Symfony\Component\Console\Output\OutputInterface $output, \RectorPrefix20210620\Symfony\Component\VarDumper\Cloner\Data $data, array $context, int $clientId)
     {
         if (!$this->initialized) {
             $styles = \file_get_contents(__DIR__ . '/../../Resources/css/htmlDescriptor.css');
@@ -85,7 +85,7 @@ HTML
     }
     private function extractDate(array $context, string $format = 'r') : string
     {
-        return \date($format, $context['timestamp']);
+        return \date($format, (int) $context['timestamp']);
     }
     private function renderTags(array $tags) : string
     {

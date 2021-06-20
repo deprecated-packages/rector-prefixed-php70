@@ -33,12 +33,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210616\Hoa\Math\Bin;
+namespace RectorPrefix20210620\Hoa\Math\Bin;
 
-use RectorPrefix20210616\Hoa\Compiler;
-use RectorPrefix20210616\Hoa\Console;
-use RectorPrefix20210616\Hoa\File;
-use RectorPrefix20210616\Hoa\Math;
+use RectorPrefix20210620\Hoa\Compiler;
+use RectorPrefix20210620\Hoa\Console;
+use RectorPrefix20210620\Hoa\File;
+use RectorPrefix20210620\Hoa\Math;
 /**
  * Class \Hoa\Math\Bin\Calc.
  *
@@ -47,14 +47,14 @@ use RectorPrefix20210616\Hoa\Math;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Calc extends \RectorPrefix20210616\Hoa\Console\Dispatcher\Kit
+class Calc extends \RectorPrefix20210620\Hoa\Console\Dispatcher\Kit
 {
     /**
      * Options description.
      *
      * @var array
      */
-    protected $options = [['help', \RectorPrefix20210616\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \RectorPrefix20210616\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
+    protected $options = [['help', \RectorPrefix20210620\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \RectorPrefix20210620\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
     /**
      * The entry method.
      *
@@ -73,16 +73,16 @@ class Calc extends \RectorPrefix20210616\Hoa\Console\Dispatcher\Kit
             }
         }
         $this->parser->listInputs($expression);
-        $compiler = \RectorPrefix20210616\Hoa\Compiler\Llk::load(new \RectorPrefix20210616\Hoa\File\Read('hoa://Library/Math/Arithmetic.pp'));
-        $visitor = new \RectorPrefix20210616\Hoa\Math\Visitor\Arithmetic();
-        $dump = new \RectorPrefix20210616\Hoa\Compiler\Visitor\Dump();
+        $compiler = \RectorPrefix20210620\Hoa\Compiler\Llk::load(new \RectorPrefix20210620\Hoa\File\Read('hoa://Library/Math/Arithmetic.pp'));
+        $visitor = new \RectorPrefix20210620\Hoa\Math\Visitor\Arithmetic();
+        $dump = new \RectorPrefix20210620\Hoa\Compiler\Visitor\Dump();
         if (null !== $expression) {
             $ast = $compiler->parse($expression);
             echo $expression . ' = ' . $visitor->visit($ast), "\n";
             return;
         }
-        $readline = new \RectorPrefix20210616\Hoa\Console\Readline();
-        $readline->setAutocompleter(new \RectorPrefix20210616\Hoa\Console\Readline\Autocompleter\Word(\array_merge(\array_keys($visitor->getConstants()->getArrayCopy()), \array_keys($visitor->getFunctions()->getArrayCopy()))));
+        $readline = new \RectorPrefix20210620\Hoa\Console\Readline();
+        $readline->setAutocompleter(new \RectorPrefix20210620\Hoa\Console\Readline\Autocompleter\Word(\array_merge(\array_keys($visitor->getConstants()->getArrayCopy()), \array_keys($visitor->getFunctions()->getArrayCopy()))));
         $handle = null;
         $expression = 'h';
         do {
@@ -120,7 +120,7 @@ class Calc extends \RectorPrefix20210616\Hoa\Console\Dispatcher\Kit
                     }
                     try {
                         echo $visitor->visit($compiler->parse($expression)), "\n";
-                    } catch (\RectorPrefix20210616\Hoa\Compiler\Exception $e) {
+                    } catch (\RectorPrefix20210620\Hoa\Compiler\Exception $e) {
                         echo $e->getMessage(), "\n";
                         break;
                     }

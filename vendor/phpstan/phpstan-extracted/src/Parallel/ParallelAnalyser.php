@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace PHPStan\Parallel;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Clue\React\NDJson\Decoder;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Clue\React\NDJson\Encoder;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Random;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Clue\React\NDJson\Decoder;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Clue\React\NDJson\Encoder;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Random;
 use PHPStan\Analyser\AnalyserResult;
 use PHPStan\Analyser\Error;
 use PHPStan\Dependency\ExportedNode;
 use PHPStan\Process\ProcessHelper;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\EventLoop\StreamSelectLoop;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Socket\ConnectionInterface;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\EventLoop\StreamSelectLoop;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\Socket\ConnectionInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Symfony\Component\Console\Input\InputInterface;
 use function parse_url;
 class ParallelAnalyser
 {
@@ -39,18 +39,18 @@ class ParallelAnalyser
      * @param string|null $insteadOfFile
      * @return AnalyserResult
      */
-    public function analyse(\PHPStan\Parallel\Schedule $schedule, string $mainScript, $postFileCallback, $projectConfigFile, $tmpFile, $insteadOfFile, \RectorPrefix20210616\_HumbugBox15516bb2b566\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Analyser\AnalyserResult
+    public function analyse(\PHPStan\Parallel\Schedule $schedule, string $mainScript, $postFileCallback, $projectConfigFile, $tmpFile, $insteadOfFile, \RectorPrefix20210620\_HumbugBox15516bb2b566\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Analyser\AnalyserResult
     {
         $jobs = \array_reverse($schedule->getJobs());
-        $loop = new \RectorPrefix20210616\_HumbugBox15516bb2b566\React\EventLoop\StreamSelectLoop();
+        $loop = new \RectorPrefix20210620\_HumbugBox15516bb2b566\React\EventLoop\StreamSelectLoop();
         $numberOfProcesses = $schedule->getNumberOfProcesses();
         $errors = [];
         $internalErrors = [];
-        $server = new \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Socket\TcpServer('127.0.0.1:0', $loop);
+        $server = new \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Socket\TcpServer('127.0.0.1:0', $loop);
         $this->processPool = new \PHPStan\Parallel\ProcessPool($server);
-        $server->on('connection', function (\RectorPrefix20210616\_HumbugBox15516bb2b566\React\Socket\ConnectionInterface $connection) use(&$jobs) {
-            $decoder = new \RectorPrefix20210616\_HumbugBox15516bb2b566\Clue\React\NDJson\Decoder($connection, \true, 512, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0, $this->decoderBufferSize);
-            $encoder = new \RectorPrefix20210616\_HumbugBox15516bb2b566\Clue\React\NDJson\Encoder($connection, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0);
+        $server->on('connection', function (\RectorPrefix20210620\_HumbugBox15516bb2b566\React\Socket\ConnectionInterface $connection) use(&$jobs) {
+            $decoder = new \RectorPrefix20210620\_HumbugBox15516bb2b566\Clue\React\NDJson\Decoder($connection, \true, 512, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0, $this->decoderBufferSize);
+            $encoder = new \RectorPrefix20210620\_HumbugBox15516bb2b566\Clue\React\NDJson\Encoder($connection, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0);
             $decoder->on('data', function (array $data) use(&$jobs, $decoder, $encoder) {
                 if ($data['action'] !== 'hello') {
                     return;
@@ -84,7 +84,7 @@ class ParallelAnalyser
             if (\count($jobs) === 0) {
                 break;
             }
-            $processIdentifier = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Random::generate();
+            $processIdentifier = \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Random::generate();
             $commandOptions = ['--port', (string) $serverPort, '--identifier', $processIdentifier];
             if ($tmpFile !== null && $insteadOfFile !== null) {
                 $commandOptions[] = '--tmp-file';

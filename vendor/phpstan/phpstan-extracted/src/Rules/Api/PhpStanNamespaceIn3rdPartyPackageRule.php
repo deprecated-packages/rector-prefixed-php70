@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Rules\Api;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Json;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Json;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\File\FileReader;
@@ -56,8 +56,8 @@ class PhpStanNamespaceIn3rdPartyPackageRule implements \PHPStan\Rules\Rule
             return $this->findComposerJsonContents(\dirname($fromDirectory));
         }
         try {
-            return \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Json::decode(\PHPStan\File\FileReader::read($composerJsonPath), \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Json::FORCE_ARRAY);
-        } catch (\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\JsonException $e) {
+            return \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Json::decode(\PHPStan\File\FileReader::read($composerJsonPath), \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Json::FORCE_ARRAY);
+        } catch (\RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\JsonException $e) {
             return null;
         } catch (\PHPStan\File\CouldNotReadFileException $e) {
             return null;

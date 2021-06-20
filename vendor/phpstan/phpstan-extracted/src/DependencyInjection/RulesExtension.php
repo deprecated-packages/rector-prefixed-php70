@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace PHPStan\DependencyInjection;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Schema\Expect;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Schema\Expect;
 use PHPStan\Rules\RegistryFactory;
-class RulesExtension extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\CompilerExtension
+class RulesExtension extends \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\CompilerExtension
 {
-    public function getConfigSchema() : \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Schema\Schema
+    public function getConfigSchema() : \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Schema\Schema
     {
-        return \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Schema\Expect::listOf('string');
+        return \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Schema\Expect::listOf('string');
     }
     /**
      * @return void

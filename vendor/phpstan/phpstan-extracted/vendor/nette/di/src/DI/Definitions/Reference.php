@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions;
+namespace RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette;
 /**
  * Reference to service. Either by name or by type or reference to the 'self' service.
  */

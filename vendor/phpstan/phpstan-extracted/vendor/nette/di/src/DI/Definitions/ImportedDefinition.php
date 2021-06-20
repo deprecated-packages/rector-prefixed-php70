@@ -5,14 +5,14 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions;
+namespace RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\PhpGenerator;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\PhpGenerator;
 /**
  * Imported service injected to the container.
  */
-final class ImportedDefinition extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Definition
+final class ImportedDefinition extends \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\Definition
 {
     /** @return static
      * @param string|null $type */
@@ -23,19 +23,19 @@ final class ImportedDefinition extends \RectorPrefix20210616\_HumbugBox15516bb2b
     /**
      * @return void
      */
-    public function resolveType(\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Resolver $resolver)
+    public function resolveType(\RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Resolver $resolver)
     {
     }
     /**
      * @return void
      */
-    public function complete(\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Resolver $resolver)
+    public function complete(\RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Resolver $resolver)
     {
     }
     /**
      * @return void
      */
-    public function generateMethod(\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\PhpGenerator\Method $method, \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\PhpGenerator $generator)
+    public function generateMethod(\RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\PhpGenerator\Method $method, \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\PhpGenerator $generator)
     {
         $method->setReturnType('void')->setBody('throw new Nette\\DI\\ServiceCreationException(?);', ["Unable to create imported service '{$this->getName()}', it must be added using addService()"]);
     }

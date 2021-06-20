@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210616\Idiosyncratic\EditorConfig\Declaration;
+namespace RectorPrefix20210620\Idiosyncratic\EditorConfig\Declaration;
 
-use RectorPrefix20210616\Idiosyncratic\EditorConfig\Exception\InvalidValue;
+use RectorPrefix20210620\Idiosyncratic\EditorConfig\Exception\InvalidValue;
 use function in_array;
 use function is_string;
 use function strtolower;
-final class EndOfLine extends \RectorPrefix20210616\Idiosyncratic\EditorConfig\Declaration\Declaration
+final class EndOfLine extends \RectorPrefix20210620\Idiosyncratic\EditorConfig\Declaration\Declaration
 {
     const LINE_ENDINGS = ['lf', 'cr', 'crlf'];
     /**
@@ -17,7 +17,7 @@ final class EndOfLine extends \RectorPrefix20210616\Idiosyncratic\EditorConfig\D
     public function validateValue($value)
     {
         if (\is_string($value) === \false || \in_array(\strtolower($value), self::LINE_ENDINGS) === \false) {
-            throw new \RectorPrefix20210616\Idiosyncratic\EditorConfig\Exception\InvalidValue($this->getStringValue(), $this->getName());
+            throw new \RectorPrefix20210620\Idiosyncratic\EditorConfig\Exception\InvalidValue($this->getStringValue(), $this->getName());
         }
     }
     public function getName() : string

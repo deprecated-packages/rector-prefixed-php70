@@ -1,11 +1,11 @@
 <?php
 
-namespace RectorPrefix20210616\_HumbugBox15516bb2b566\React\Http\Io;
+namespace RectorPrefix20210620\_HumbugBox15516bb2b566\React\Http\Io;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Evenement\EventEmitter;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\Util;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Evenement\EventEmitter;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\Util;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Encodes given payload stream with "Transfer-Encoding: chunked" and emits encoded data
  *
@@ -13,11 +13,11 @@ use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\WritableStreamInter
  *
  * @internal
  */
-class ChunkedEncoder extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Evenement\EventEmitter implements \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface
+class ChunkedEncoder extends \RectorPrefix20210620\_HumbugBox15516bb2b566\Evenement\EventEmitter implements \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface
 {
     private $input;
     private $closed = \false;
-    public function __construct(\RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface $input)
+    public function __construct(\RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface $input)
     {
         $this->input = $input;
         $this->input->on('data', array($this, 'handleData'));
@@ -37,9 +37,9 @@ class ChunkedEncoder extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Evenem
     {
         $this->input->resume();
     }
-    public function pipe(\RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\Util::pipe($this, $dest, $options);
+        return \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function close()
     {

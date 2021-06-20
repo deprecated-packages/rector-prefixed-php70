@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\Ci;
+namespace RectorPrefix20210620\_HumbugBox15516bb2b566\OndraM\CiDetector\Ci;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\CiDetector;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\Env;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\TrinaryLogic;
-class Buddy extends \RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\Ci\AbstractCi
+use RectorPrefix20210620\_HumbugBox15516bb2b566\OndraM\CiDetector\CiDetector;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\OndraM\CiDetector\Env;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\OndraM\CiDetector\TrinaryLogic;
+class Buddy extends \RectorPrefix20210620\_HumbugBox15516bb2b566\OndraM\CiDetector\Ci\AbstractCi
 {
-    public static function isDetected(\RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\Env $env) : bool
+    public static function isDetected(\RectorPrefix20210620\_HumbugBox15516bb2b566\OndraM\CiDetector\Env $env) : bool
     {
         return $env->get('BUDDY') !== \false;
     }
     public function getCiName() : string
     {
-        return \RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\CiDetector::CI_BUDDY;
+        return \RectorPrefix20210620\_HumbugBox15516bb2b566\OndraM\CiDetector\CiDetector::CI_BUDDY;
     }
-    public function isPullRequest() : \RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\TrinaryLogic
+    public function isPullRequest() : \RectorPrefix20210620\_HumbugBox15516bb2b566\OndraM\CiDetector\TrinaryLogic
     {
-        return \RectorPrefix20210616\_HumbugBox15516bb2b566\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('BUDDY_EXECUTION_PULL_REQUEST_ID') !== '');
+        return \RectorPrefix20210620\_HumbugBox15516bb2b566\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('BUDDY_EXECUTION_PULL_REQUEST_ID') !== '');
     }
     public function getBuildNumber() : string
     {

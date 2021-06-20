@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210616\Hoa\Stream\Wrapper\IWrapper;
+namespace RectorPrefix20210620\Hoa\Stream\Wrapper\IWrapper;
 
-use RectorPrefix20210616\Hoa\Consistency;
+use RectorPrefix20210620\Hoa\Consistency;
 /**
  * Interface \Hoa\Stream\Wrapper\IWrapper.
  *
@@ -44,7 +44,7 @@ use RectorPrefix20210616\Hoa\Consistency;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-interface IWrapper extends \RectorPrefix20210616\Hoa\Stream\Wrapper\IWrapper\File, \RectorPrefix20210616\Hoa\Stream\Wrapper\IWrapper\Stream
+interface IWrapper extends \RectorPrefix20210620\Hoa\Stream\Wrapper\IWrapper\File, \RectorPrefix20210620\Hoa\Stream\Wrapper\IWrapper\Stream
 {
     /**
      * Constructs a new stream wrapper.
@@ -56,4 +56,4 @@ interface IWrapper extends \RectorPrefix20210616\Hoa\Stream\Wrapper\IWrapper\Fil
 /**
  * Flex entity.
  */
-\RectorPrefix20210616\Hoa\Consistency::flexEntity('RectorPrefix20210616\\Hoa\\Stream\\Wrapper\\IWrapper\\IWrapper');
+\RectorPrefix20210620\Hoa\Consistency::flexEntity('RectorPrefix20210620\\Hoa\\Stream\\Wrapper\\IWrapper\\IWrapper');

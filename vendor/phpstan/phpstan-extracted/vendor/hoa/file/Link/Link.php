@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210616\Hoa\File\Link;
+namespace RectorPrefix20210620\Hoa\File\Link;
 
-use RectorPrefix20210616\Hoa\Consistency;
-use RectorPrefix20210616\Hoa\File;
+use RectorPrefix20210620\Hoa\Consistency;
+use RectorPrefix20210620\Hoa\File;
 /**
  * Class \Hoa\File\Link.
  *
@@ -45,7 +45,7 @@ use RectorPrefix20210616\Hoa\File;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Link extends \RectorPrefix20210616\Hoa\File
+class Link extends \RectorPrefix20210620\Hoa\File
 {
     /**
      * Open a link.
@@ -61,7 +61,7 @@ class Link extends \RectorPrefix20210616\Hoa\File
     public function __construct($streamName, $mode, $context = null, $wait = \false)
     {
         if (!\is_link($streamName)) {
-            throw new \RectorPrefix20210616\Hoa\File\Exception('File %s is not a link.', 0, $streamName);
+            throw new \RectorPrefix20210620\Hoa\File\Exception('File %s is not a link.', 0, $streamName);
         }
         parent::__construct($streamName, $mode, $context, $wait);
         return;
@@ -116,13 +116,13 @@ class Link extends \RectorPrefix20210616\Hoa\File
         $target = \dirname($this->getStreamName()) . DS . $this->getTargetName();
         $context = null !== $this->getStreamContext() ? $this->getStreamContext()->getCurrentId() : null;
         if (\true === \is_link($target)) {
-            return new \RectorPrefix20210616\Hoa\File\Link\ReadWrite($target, \RectorPrefix20210616\Hoa\File::MODE_APPEND_READ_WRITE, $context);
+            return new \RectorPrefix20210620\Hoa\File\Link\ReadWrite($target, \RectorPrefix20210620\Hoa\File::MODE_APPEND_READ_WRITE, $context);
         } elseif (\true === \is_file($target)) {
-            return new \RectorPrefix20210616\Hoa\File\ReadWrite($target, \RectorPrefix20210616\Hoa\File::MODE_APPEND_READ_WRITE, $context);
+            return new \RectorPrefix20210620\Hoa\File\ReadWrite($target, \RectorPrefix20210620\Hoa\File::MODE_APPEND_READ_WRITE, $context);
         } elseif (\true === \is_dir($target)) {
-            return new \RectorPrefix20210616\Hoa\File\Directory($target, \RectorPrefix20210616\Hoa\File::MODE_READ, $context);
+            return new \RectorPrefix20210620\Hoa\File\Directory($target, \RectorPrefix20210620\Hoa\File::MODE_READ, $context);
         }
-        throw new \RectorPrefix20210616\Hoa\File\Exception('Cannot find an appropriated object that matches with ' . 'path %s when defining it.', 1, $target);
+        throw new \RectorPrefix20210620\Hoa\File\Exception('Cannot find an appropriated object that matches with ' . 'path %s when defining it.', 1, $target);
     }
     /**
      * Get the target name of a symbolic link.
@@ -151,4 +151,4 @@ class Link extends \RectorPrefix20210616\Hoa\File
 /**
  * Flex entity.
  */
-\RectorPrefix20210616\Hoa\Consistency::flexEntity('RectorPrefix20210616\\Hoa\\File\\Link\\Link');
+\RectorPrefix20210620\Hoa\Consistency::flexEntity('RectorPrefix20210620\\Hoa\\File\\Link\\Link');

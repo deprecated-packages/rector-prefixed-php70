@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210616\Hoa\Stream\IStream;
+namespace RectorPrefix20210620\Hoa\Stream\IStream;
 
 /**
  * Interface \Hoa\Stream\IStream\Stream.

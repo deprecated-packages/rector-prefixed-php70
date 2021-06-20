@@ -42,7 +42,7 @@ final class PHPStanStubLoader
                 continue;
             }
             foreach (self::STUBS as $stub) {
-                $path = \sprintf('phar://%s/phpstan/phpstan/phpstan.phar/stubs/runtime/%s', $vendorPath, $stub);
+                $path = \sprintf('%s/phpstan/phpstan-extracted/stubs/runtime/%s', $vendorPath, $stub);
                 $isExists = \file_exists($path);
                 if (!$isExists) {
                     continue 2;

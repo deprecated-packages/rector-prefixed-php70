@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210616\Symfony\Component\Console\Command;
+namespace RectorPrefix20210620\Symfony\Component\Console\Command;
 
-use RectorPrefix20210616\Symfony\Component\Console\Application;
-use RectorPrefix20210616\Symfony\Component\Console\Helper\HelperSet;
-use RectorPrefix20210616\Symfony\Component\Console\Input\InputDefinition;
-use RectorPrefix20210616\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20210616\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix20210620\Symfony\Component\Console\Application;
+use RectorPrefix20210620\Symfony\Component\Console\Helper\HelperSet;
+use RectorPrefix20210620\Symfony\Component\Console\Input\InputDefinition;
+use RectorPrefix20210620\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20210620\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-final class LazyCommand extends \RectorPrefix20210616\Symfony\Component\Console\Command\Command
+final class LazyCommand extends \RectorPrefix20210620\Symfony\Component\Console\Command\Command
 {
     private $command;
     private $isEnabled;
@@ -41,7 +41,7 @@ final class LazyCommand extends \RectorPrefix20210616\Symfony\Component\Console\
     /**
      * @return void
      */
-    public function setApplication(\RectorPrefix20210616\Symfony\Component\Console\Application $application = null)
+    public function setApplication(\RectorPrefix20210620\Symfony\Component\Console\Application $application = null)
     {
         if ($this->command instanceof parent) {
             $this->command->setApplication($application);
@@ -51,7 +51,7 @@ final class LazyCommand extends \RectorPrefix20210616\Symfony\Component\Console\
     /**
      * @return void
      */
-    public function setHelperSet(\RectorPrefix20210616\Symfony\Component\Console\Helper\HelperSet $helperSet)
+    public function setHelperSet(\RectorPrefix20210620\Symfony\Component\Console\Helper\HelperSet $helperSet)
     {
         if ($this->command instanceof parent) {
             $this->command->setHelperSet($helperSet);
@@ -94,11 +94,11 @@ final class LazyCommand extends \RectorPrefix20210616\Symfony\Component\Console\
         $this->getCommand()->setDefinition($definition);
         return $this;
     }
-    public function getDefinition() : \RectorPrefix20210616\Symfony\Component\Console\Input\InputDefinition
+    public function getDefinition() : \RectorPrefix20210620\Symfony\Component\Console\Input\InputDefinition
     {
         return $this->getCommand()->getDefinition();
     }
-    public function getNativeDefinition() : \RectorPrefix20210616\Symfony\Component\Console\Input\InputDefinition
+    public function getNativeDefinition() : \RectorPrefix20210620\Symfony\Component\Console\Input\InputDefinition
     {
         return $this->getCommand()->getNativeDefinition();
     }

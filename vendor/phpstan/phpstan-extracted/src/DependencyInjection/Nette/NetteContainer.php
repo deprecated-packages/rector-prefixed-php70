@@ -11,7 +11,7 @@ class NetteContainer implements \PHPStan\DependencyInjection\Container
 {
     /** @var \Nette\DI\Container */
     private $container;
-    public function __construct(\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Container $container)
+    public function __construct(\RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Container $container)
     {
         $this->container = $container;
     }

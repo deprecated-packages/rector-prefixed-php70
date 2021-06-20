@@ -6,12 +6,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210616\JsonSchema\Exception;
+namespace RectorPrefix20210620\JsonSchema\Exception;
 
 /**
  * Wrapper for the JsonDecodingException
  */
-class JsonDecodingException extends \RectorPrefix20210616\JsonSchema\Exception\RuntimeException
+class JsonDecodingException extends \RectorPrefix20210620\JsonSchema\Exception\RuntimeException
 {
     public function __construct($code = \JSON_ERROR_NONE, \Exception $previous = null)
     {

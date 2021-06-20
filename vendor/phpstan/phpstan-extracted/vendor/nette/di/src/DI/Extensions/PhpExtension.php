@@ -5,17 +5,17 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Extensions;
+namespace RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Extensions;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette;
 /**
  * PHP directives definition.
  */
-final class PhpExtension extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\CompilerExtension
+final class PhpExtension extends \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\CompilerExtension
 {
-    public function getConfigSchema() : \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Schema\Schema
+    public function getConfigSchema() : \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Schema\Schema
     {
-        return \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Schema\Expect::arrayOf('scalar');
+        return \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Schema\Expect::arrayOf('scalar');
     }
     public function loadConfiguration()
     {
@@ -34,7 +34,7 @@ final class PhpExtension extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Ne
                 $this->initialization->addBody('ini_set(?, ?);', [$name, $value === \false ? '0' : (string) $value]);
             } elseif (\ini_get($name) != $value) {
                 // intentionally ==
-                throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\NotSupportedException('Required function ini_set() is disabled.');
+                throw new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\NotSupportedException('Required function ini_set() is disabled.');
             }
         }
     }

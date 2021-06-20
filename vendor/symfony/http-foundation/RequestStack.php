@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210616\Symfony\Component\HttpFoundation;
+namespace RectorPrefix20210620\Symfony\Component\HttpFoundation;
 
-use RectorPrefix20210616\Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
-use RectorPrefix20210616\Symfony\Component\HttpFoundation\Session\SessionInterface;
+use RectorPrefix20210620\Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
+use RectorPrefix20210620\Symfony\Component\HttpFoundation\Session\SessionInterface;
 /**
  * Request stack that controls the lifecycle of requests.
  *
@@ -29,7 +29,7 @@ class RequestStack
      * This method should generally not be called directly as the stack
      * management should be taken care of by the application itself.
      */
-    public function push(\RectorPrefix20210616\Symfony\Component\HttpFoundation\Request $request)
+    public function push(\RectorPrefix20210620\Symfony\Component\HttpFoundation\Request $request)
     {
         $this->requests[] = $request;
     }
@@ -108,11 +108,11 @@ class RequestStack
      *
      * @throws SessionNotFoundException
      */
-    public function getSession() : \RectorPrefix20210616\Symfony\Component\HttpFoundation\Session\SessionInterface
+    public function getSession() : \RectorPrefix20210620\Symfony\Component\HttpFoundation\Session\SessionInterface
     {
         if (null !== ($request = \end($this->requests) ?: null) && $request->hasSession()) {
             return $request->getSession();
         }
-        throw new \RectorPrefix20210616\Symfony\Component\HttpFoundation\Exception\SessionNotFoundException();
+        throw new \RectorPrefix20210620\Symfony\Component\HttpFoundation\Exception\SessionNotFoundException();
     }
 }

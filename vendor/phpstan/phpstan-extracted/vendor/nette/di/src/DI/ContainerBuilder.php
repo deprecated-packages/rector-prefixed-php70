@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI;
+namespace RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Definition;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\Definition;
 /**
  * Container builder.
  */
@@ -32,15 +32,15 @@ class ContainerBuilder
     private $dependencies = [];
     public function __construct()
     {
-        $this->autowiring = new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Autowiring($this);
-        $this->addImportedDefinition(self::THIS_CONTAINER)->setType(\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Container::class);
+        $this->autowiring = new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Autowiring($this);
+        $this->addImportedDefinition(self::THIS_CONTAINER)->setType(\RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Container::class);
     }
     /**
      * Adds new service definition.
      * @return Definitions\ServiceDefinition
      * @param string|null $name
      */
-    public function addDefinition($name, \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Definition $definition = null) : \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Definition
+    public function addDefinition($name, \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\Definition $definition = null) : \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\Definition
     {
         $this->needsResolve = \true;
         if ($name === null) {
@@ -49,20 +49,20 @@ class ContainerBuilder
             $name = '0' . $i;
             // prevents converting to integer in array key
         } elseif (\is_int(\key([$name => 1])) || !\preg_match('#^\\w+(\\.\\w+)*$#D', $name)) {
-            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidArgumentException(\sprintf('Service name must be a alpha-numeric string and not a number, %s given.', \gettype($name)));
+            throw new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\InvalidArgumentException(\sprintf('Service name must be a alpha-numeric string and not a number, %s given.', \gettype($name)));
         } else {
             $name = $this->aliases[$name] ?? $name;
             if (isset($this->definitions[$name])) {
-                throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidStateException("Service '{$name}' has already been added.");
+                throw new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\InvalidStateException("Service '{$name}' has already been added.");
             }
             $lname = \strtolower($name);
             foreach ($this->definitions as $nm => $foo) {
                 if ($lname === \strtolower($nm)) {
-                    throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidStateException("Service '{$name}' has the same name as '{$nm}' in a case-insensitive manner.");
+                    throw new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\InvalidStateException("Service '{$name}' has the same name as '{$nm}' in a case-insensitive manner.");
                 }
             }
         }
-        $definition = $definition ?: new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\ServiceDefinition();
+        $definition = $definition ?: new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\ServiceDefinition();
         $definition->setName($name);
         $definition->setNotifier(function () {
             $this->needsResolve = \true;
@@ -72,30 +72,30 @@ class ContainerBuilder
     /**
      * @param string|null $name
      */
-    public function addAccessorDefinition($name) : \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\AccessorDefinition
+    public function addAccessorDefinition($name) : \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\AccessorDefinition
     {
-        return $this->addDefinition($name, new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\AccessorDefinition());
+        return $this->addDefinition($name, new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\AccessorDefinition());
     }
     /**
      * @param string|null $name
      */
-    public function addFactoryDefinition($name) : \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\FactoryDefinition
+    public function addFactoryDefinition($name) : \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\FactoryDefinition
     {
-        return $this->addDefinition($name, new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\FactoryDefinition());
+        return $this->addDefinition($name, new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\FactoryDefinition());
     }
     /**
      * @param string|null $name
      */
-    public function addLocatorDefinition($name) : \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\LocatorDefinition
+    public function addLocatorDefinition($name) : \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\LocatorDefinition
     {
-        return $this->addDefinition($name, new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\LocatorDefinition());
+        return $this->addDefinition($name, new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\LocatorDefinition());
     }
     /**
      * @param string|null $name
      */
-    public function addImportedDefinition($name) : \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\ImportedDefinition
+    public function addImportedDefinition($name) : \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\ImportedDefinition
     {
-        return $this->addDefinition($name, new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\ImportedDefinition());
+        return $this->addDefinition($name, new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\ImportedDefinition());
     }
     /**
      * Removes the specified service definition.
@@ -110,11 +110,11 @@ class ContainerBuilder
     /**
      * Gets the service definition.
      */
-    public function getDefinition(string $name) : \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Definition
+    public function getDefinition(string $name) : \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\Definition
     {
         $service = $this->aliases[$name] ?? $name;
         if (!isset($this->definitions[$service])) {
-            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\MissingServiceException("Service '{$name}' not found.");
+            throw new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\MissingServiceException("Service '{$name}' not found.");
         }
         return $this->definitions[$service];
     }
@@ -141,14 +141,14 @@ class ContainerBuilder
     {
         if (!$alias) {
             // builder is not ready for falsy names such as '0'
-            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidArgumentException(\sprintf('Alias name must be a non-empty string, %s given.', \gettype($alias)));
+            throw new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\InvalidArgumentException(\sprintf('Alias name must be a non-empty string, %s given.', \gettype($alias)));
         } elseif (!$service) {
             // builder is not ready for falsy names such as '0'
-            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidArgumentException(\sprintf('Service name must be a non-empty string, %s given.', \gettype($service)));
+            throw new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\InvalidArgumentException(\sprintf('Service name must be a non-empty string, %s given.', \gettype($service)));
         } elseif (isset($this->aliases[$alias])) {
-            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidStateException("Alias '{$alias}' has already been added.");
+            throw new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\InvalidStateException("Alias '{$alias}' has already been added.");
         } elseif (isset($this->definitions[$alias])) {
-            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidStateException("Service '{$alias}' has already been added.");
+            throw new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\InvalidStateException("Service '{$alias}' has already been added.");
         }
         $this->aliases[$alias] = $service;
     }
@@ -192,7 +192,7 @@ class ContainerBuilder
      * Gets autowired service definition of the specified type.
      * @throws MissingServiceException
      */
-    public function getDefinitionByType(string $type) : \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Definition
+    public function getDefinitionByType(string $type) : \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\Definition
     {
         return $this->getDefinition($this->getByType($type, \true));
     }
@@ -246,7 +246,7 @@ class ContainerBuilder
             return;
         }
         $this->resolving = \true;
-        $resolver = new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Resolver($this);
+        $resolver = new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Resolver($this);
         foreach ($this->definitions as $def) {
             $resolver->resolveDefinition($def);
         }
@@ -259,7 +259,7 @@ class ContainerBuilder
     private function needResolved()
     {
         if ($this->resolving) {
-            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\NotAllowedDuringResolvingException();
+            throw new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\NotAllowedDuringResolvingException();
         } elseif ($this->needsResolve) {
             $this->resolve();
         }
@@ -273,7 +273,7 @@ class ContainerBuilder
         foreach ($this->definitions as $def) {
             $def->setNotifier(null);
         }
-        $resolver = new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Resolver($this);
+        $resolver = new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Resolver($this);
         foreach ($this->definitions as $def) {
             $resolver->completeDefinition($def);
         }
@@ -302,7 +302,7 @@ class ContainerBuilder
         $defs = $this->definitions;
         \ksort($defs);
         foreach ($defs as $name => $def) {
-            if ($def instanceof \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\ImportedDefinition) {
+            if ($def instanceof \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\ImportedDefinition) {
                 $meta['types'][$name] = $def->getType();
             }
             foreach ($def->getTags() as $tag => $value) {
@@ -325,21 +325,21 @@ class ContainerBuilder
         }
         return $meta;
     }
-    public static function literal(string $code, array $args = null) : \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\PhpGenerator\PhpLiteral
+    public static function literal(string $code, array $args = null) : \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\PhpGenerator\PhpLiteral
     {
-        return new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\PhpGenerator\PhpLiteral($args === null ? $code : \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\PhpGenerator\Helpers::formatArgs($code, $args));
+        return new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\PhpGenerator\PhpLiteral($args === null ? $code : \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\PhpGenerator\Helpers::formatArgs($code, $args));
     }
     /** @deprecated */
     public function formatPhp(string $statement, array $args) : string
     {
         \array_walk_recursive($args, function (&$val) {
-            if ($val instanceof \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Statement) {
-                $val = (new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Resolver($this))->completeStatement($val);
-            } elseif ($val instanceof \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Definition) {
-                $val = new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Reference($val->getName());
+            if ($val instanceof \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Statement) {
+                $val = (new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Resolver($this))->completeStatement($val);
+            } elseif ($val instanceof \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\Definition) {
+                $val = new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\Reference($val->getName());
             }
         });
-        return (new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\PhpGenerator($this))->formatPhp($statement, $args);
+        return (new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\PhpGenerator($this))->formatPhp($statement, $args);
     }
     /** @deprecated use resolve()
      * @return void */

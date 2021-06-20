@@ -1,11 +1,11 @@
 <?php
 
-namespace RectorPrefix20210616\_HumbugBox15516bb2b566\React\Http\Io;
+namespace RectorPrefix20210620\_HumbugBox15516bb2b566\React\Http\Io;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Evenement\EventEmitter;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\Util;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Evenement\EventEmitter;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\Util;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Pauses a given stream and buffers all events while paused
  *
@@ -20,7 +20,7 @@ use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\WritableStreamInter
  * @see ReadableStreamInterface
  * @internal
  */
-class PauseBufferStream extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Evenement\EventEmitter implements \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface
+class PauseBufferStream extends \RectorPrefix20210620\_HumbugBox15516bb2b566\Evenement\EventEmitter implements \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface
 {
     private $input;
     private $closed = \false;
@@ -30,7 +30,7 @@ class PauseBufferStream extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Eve
     private $closePaused = \false;
     private $errorPaused;
     private $implicit = \false;
-    public function __construct(\RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface $input)
+    public function __construct(\RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface $input)
     {
         $this->input = $input;
         $this->input->on('data', array($this, 'handleData'));
@@ -98,9 +98,9 @@ class PauseBufferStream extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Eve
         }
         $this->input->resume();
     }
-    public function pipe(\RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\Util::pipe($this, $dest, $options);
+        \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

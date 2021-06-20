@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace RectorPrefix20210616\Hoa\Compiler\Visitor;
+namespace RectorPrefix20210620\Hoa\Compiler\Visitor;
 
-use RectorPrefix20210616\Hoa\Visitor;
+use RectorPrefix20210620\Hoa\Visitor;
 /**
  * Class \Hoa\Compiler\Visitor\Dump.
  *
@@ -44,7 +44,7 @@ use RectorPrefix20210616\Hoa\Visitor;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Dump implements \RectorPrefix20210616\Hoa\Visitor\Visit
+class Dump implements \RectorPrefix20210620\Hoa\Visitor\Visit
 {
     /**
      * Indentation depth.
@@ -60,7 +60,7 @@ class Dump implements \RectorPrefix20210616\Hoa\Visitor\Visit
      * @param   mixed                 $eldnah     Handle (not reference).
      * @return  mixed
      */
-    public function visit(\RectorPrefix20210616\Hoa\Visitor\Element $element, &$handle = null, $eldnah = null)
+    public function visit(\RectorPrefix20210620\Hoa\Visitor\Element $element, &$handle = null, $eldnah = null)
     {
         ++self::$_i;
         $out = \str_repeat('>  ', self::$_i) . $element->getId();

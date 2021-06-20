@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Analyser\ResultCache;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Symfony\Component\Finder\Finder;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Symfony\Component\Finder\Finder;
 class ResultCacheClearer
 {
     /** @var string */
@@ -29,7 +29,7 @@ class ResultCacheClearer
      */
     public function clearTemporaryCaches()
     {
-        $finder = new \RectorPrefix20210616\_HumbugBox15516bb2b566\Symfony\Component\Finder\Finder();
+        $finder = new \RectorPrefix20210620\_HumbugBox15516bb2b566\Symfony\Component\Finder\Finder();
         foreach ($finder->files()->name('*.php')->in($this->tempResultCachePath) as $tmpResultCacheFile) {
             @\unlink($tmpResultCacheFile->getPathname());
         }

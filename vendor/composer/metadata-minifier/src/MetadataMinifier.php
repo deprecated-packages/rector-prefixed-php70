@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210616\Composer\MetadataMinifier;
+namespace RectorPrefix20210620\Composer\MetadataMinifier;
 
 class MetadataMinifier
 {

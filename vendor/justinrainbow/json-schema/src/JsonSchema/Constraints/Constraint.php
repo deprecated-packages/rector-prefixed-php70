@@ -6,16 +6,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210616\JsonSchema\Constraints;
+namespace RectorPrefix20210620\JsonSchema\Constraints;
 
-use RectorPrefix20210616\JsonSchema\Entity\JsonPointer;
+use RectorPrefix20210620\JsonSchema\Entity\JsonPointer;
 /**
  * The Base Constraints, all Validators should extend this class
  *
  * @author Robert Schönthal <seroscho@googlemail.com>
  * @author Bruno Prieto Reis <bruno.p.reis@gmail.com>
  */
-abstract class Constraint extends \RectorPrefix20210616\JsonSchema\Constraints\BaseConstraint implements \RectorPrefix20210616\JsonSchema\Constraints\ConstraintInterface
+abstract class Constraint extends \RectorPrefix20210620\JsonSchema\Constraints\BaseConstraint implements \RectorPrefix20210620\JsonSchema\Constraints\ConstraintInterface
 {
     protected $inlineSchemaProperty = '$schema';
     const CHECK_MODE_NONE = 0x0;
@@ -35,9 +35,9 @@ abstract class Constraint extends \RectorPrefix20210616\JsonSchema\Constraints\B
      *
      * @return JsonPointer;
      */
-    protected function incrementPath(\RectorPrefix20210616\JsonSchema\Entity\JsonPointer $path = null, $i)
+    protected function incrementPath(\RectorPrefix20210620\JsonSchema\Entity\JsonPointer $path = null, $i)
     {
-        $path = $path ?: new \RectorPrefix20210616\JsonSchema\Entity\JsonPointer('');
+        $path = $path ?: new \RectorPrefix20210620\JsonSchema\Entity\JsonPointer('');
         $path = $path->withPropertyPaths(\array_merge($path->getPropertyPaths(), \array_filter(array($i), 'strlen')));
         return $path;
     }
@@ -49,7 +49,7 @@ abstract class Constraint extends \RectorPrefix20210616\JsonSchema\Constraints\B
      * @param JsonPointer|null $path
      * @param mixed            $i
      */
-    protected function checkArray(&$value, $schema = null, \RectorPrefix20210616\JsonSchema\Entity\JsonPointer $path = null, $i = null)
+    protected function checkArray(&$value, $schema = null, \RectorPrefix20210620\JsonSchema\Entity\JsonPointer $path = null, $i = null)
     {
         $validator = $this->factory->createInstanceFor('collection');
         $validator->check($value, $schema, $path, $i);
@@ -65,7 +65,7 @@ abstract class Constraint extends \RectorPrefix20210616\JsonSchema\Constraints\B
      * @param mixed            $additionalProperties
      * @param mixed            $patternProperties
      */
-    protected function checkObject(&$value, $schema = null, \RectorPrefix20210616\JsonSchema\Entity\JsonPointer $path = null, $properties = null, $additionalProperties = null, $patternProperties = null, $appliedDefaults = array())
+    protected function checkObject(&$value, $schema = null, \RectorPrefix20210620\JsonSchema\Entity\JsonPointer $path = null, $properties = null, $additionalProperties = null, $patternProperties = null, $appliedDefaults = array())
     {
         $validator = $this->factory->createInstanceFor('object');
         $validator->check($value, $schema, $path, $properties, $additionalProperties, $patternProperties, $appliedDefaults);
@@ -79,7 +79,7 @@ abstract class Constraint extends \RectorPrefix20210616\JsonSchema\Constraints\B
      * @param JsonPointer|null $path
      * @param mixed            $i
      */
-    protected function checkType(&$value, $schema = null, \RectorPrefix20210616\JsonSchema\Entity\JsonPointer $path = null, $i = null)
+    protected function checkType(&$value, $schema = null, \RectorPrefix20210620\JsonSchema\Entity\JsonPointer $path = null, $i = null)
     {
         $validator = $this->factory->createInstanceFor('type');
         $validator->check($value, $schema, $path, $i);
@@ -93,7 +93,7 @@ abstract class Constraint extends \RectorPrefix20210616\JsonSchema\Constraints\B
      * @param JsonPointer|null $path
      * @param mixed            $i
      */
-    protected function checkUndefined(&$value, $schema = null, \RectorPrefix20210616\JsonSchema\Entity\JsonPointer $path = null, $i = null, $fromDefault = \false)
+    protected function checkUndefined(&$value, $schema = null, \RectorPrefix20210620\JsonSchema\Entity\JsonPointer $path = null, $i = null, $fromDefault = \false)
     {
         $validator = $this->factory->createInstanceFor('undefined');
         $validator->check($value, $this->factory->getSchemaStorage()->resolveRefSchema($schema), $path, $i, $fromDefault);
@@ -107,7 +107,7 @@ abstract class Constraint extends \RectorPrefix20210616\JsonSchema\Constraints\B
      * @param JsonPointer|null $path
      * @param mixed            $i
      */
-    protected function checkString($value, $schema = null, \RectorPrefix20210616\JsonSchema\Entity\JsonPointer $path = null, $i = null)
+    protected function checkString($value, $schema = null, \RectorPrefix20210620\JsonSchema\Entity\JsonPointer $path = null, $i = null)
     {
         $validator = $this->factory->createInstanceFor('string');
         $validator->check($value, $schema, $path, $i);
@@ -121,7 +121,7 @@ abstract class Constraint extends \RectorPrefix20210616\JsonSchema\Constraints\B
      * @param JsonPointer $path
      * @param mixed       $i
      */
-    protected function checkNumber($value, $schema = null, \RectorPrefix20210616\JsonSchema\Entity\JsonPointer $path = null, $i = null)
+    protected function checkNumber($value, $schema = null, \RectorPrefix20210620\JsonSchema\Entity\JsonPointer $path = null, $i = null)
     {
         $validator = $this->factory->createInstanceFor('number');
         $validator->check($value, $schema, $path, $i);
@@ -135,7 +135,7 @@ abstract class Constraint extends \RectorPrefix20210616\JsonSchema\Constraints\B
      * @param JsonPointer|null $path
      * @param mixed            $i
      */
-    protected function checkEnum($value, $schema = null, \RectorPrefix20210616\JsonSchema\Entity\JsonPointer $path = null, $i = null)
+    protected function checkEnum($value, $schema = null, \RectorPrefix20210620\JsonSchema\Entity\JsonPointer $path = null, $i = null)
     {
         $validator = $this->factory->createInstanceFor('enum');
         $validator->check($value, $schema, $path, $i);
@@ -149,7 +149,7 @@ abstract class Constraint extends \RectorPrefix20210616\JsonSchema\Constraints\B
      * @param JsonPointer|null $path
      * @param mixed            $i
      */
-    protected function checkFormat($value, $schema = null, \RectorPrefix20210616\JsonSchema\Entity\JsonPointer $path = null, $i = null)
+    protected function checkFormat($value, $schema = null, \RectorPrefix20210620\JsonSchema\Entity\JsonPointer $path = null, $i = null)
     {
         $validator = $this->factory->createInstanceFor('format');
         $validator->check($value, $schema, $path, $i);
@@ -169,7 +169,7 @@ abstract class Constraint extends \RectorPrefix20210616\JsonSchema\Constraints\B
      *
      * @return string property path
      */
-    protected function convertJsonPointerIntoPropertyPath(\RectorPrefix20210616\JsonSchema\Entity\JsonPointer $pointer)
+    protected function convertJsonPointerIntoPropertyPath(\RectorPrefix20210620\JsonSchema\Entity\JsonPointer $pointer)
     {
         $result = \array_map(function ($path) {
             return \sprintf(\is_numeric($path) ? '[%d]' : '.%s', $path);

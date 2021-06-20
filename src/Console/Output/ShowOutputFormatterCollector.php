@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Core\Console\Output;
 
 use Rector\ListReporting\Contract\Output\ShowOutputFormatterInterface;
-use RectorPrefix20210616\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use RectorPrefix20210620\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 final class ShowOutputFormatterCollector
 {
     /**
@@ -40,6 +40,6 @@ final class ShowOutputFormatterCollector
         if (isset($this->outputFormatters[$name])) {
             return;
         }
-        throw new \RectorPrefix20210616\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('Output formatter "%s" was not found. Pick one of "%s".', $name, \implode('", "', $this->getNames())));
+        throw new \RectorPrefix20210620\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('Output formatter "%s" was not found. Pick one of "%s".', $name, \implode('", "', $this->getNames())));
     }
 }

@@ -1,15 +1,15 @@
 <?php
 
-namespace RectorPrefix20210616\_HumbugBox15516bb2b566\React\Http\Middleware;
+namespace RectorPrefix20210620\_HumbugBox15516bb2b566\React\Http\Middleware;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\ResponseInterface;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\ServerRequestInterface;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Http\Io\HttpBodyStream;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Http\Io\PauseBufferStream;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Promise;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Promise\PromiseInterface;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Promise\Deferred;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Psr\Http\Message\ResponseInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Psr\Http\Message\ServerRequestInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\Http\Io\HttpBodyStream;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\Http\Io\PauseBufferStream;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\Promise;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\Promise\PromiseInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\Promise\Deferred;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface;
 /**
  * Limits how many next handlers can be executed concurrently.
  *
@@ -84,7 +84,7 @@ final class LimitConcurrentRequestsMiddleware
     {
         $this->limit = $limit;
     }
-    public function __invoke(\RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\ServerRequestInterface $request, $next)
+    public function __invoke(\RectorPrefix20210620\_HumbugBox15516bb2b566\Psr\Http\Message\ServerRequestInterface $request, $next)
     {
         // happy path: simply invoke next request handler if we're below limit
         if ($this->pending < $this->limit) {
@@ -103,31 +103,31 @@ final class LimitConcurrentRequestsMiddleware
             }
             // happy path: if next request handler returned immediately,
             // we can simply try to invoke the next queued request
-            if ($response instanceof \RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\ResponseInterface) {
+            if ($response instanceof \RectorPrefix20210620\_HumbugBox15516bb2b566\Psr\Http\Message\ResponseInterface) {
                 $this->processQueue();
                 return $response;
             }
             // if the next handler returns a pending promise, we have to
             // await its resolution before invoking next queued request
-            return $this->await(\RectorPrefix20210616\_HumbugBox15516bb2b566\React\Promise\resolve($response));
+            return $this->await(\RectorPrefix20210620\_HumbugBox15516bb2b566\React\Promise\resolve($response));
         }
         // if we reach this point, then this request will need to be queued
         // check if the body is streaming, in which case we need to buffer everything
         $body = $request->getBody();
-        if ($body instanceof \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface) {
+        if ($body instanceof \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface) {
             // pause actual body to stop emitting data until the handler is called
             $size = $body->getSize();
-            $body = new \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Http\Io\PauseBufferStream($body);
+            $body = new \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Http\Io\PauseBufferStream($body);
             $body->pauseImplicit();
             // replace with buffering body to ensure any readable events will be buffered
-            $request = $request->withBody(new \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Http\Io\HttpBodyStream($body, $size));
+            $request = $request->withBody(new \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Http\Io\HttpBodyStream($body, $size));
         }
         // get next queue position
         $queue =& $this->queue;
         $queue[] = null;
         \end($queue);
         $id = \key($queue);
-        $deferred = new \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Promise\Deferred(function ($_, $reject) use(&$queue, $id) {
+        $deferred = new \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Promise\Deferred(function ($_, $reject) use(&$queue, $id) {
             // queued promise cancelled before its next handler is invoked
             // remove from queue and reject explicitly
             unset($queue[$id]);
@@ -153,12 +153,12 @@ final class LimitConcurrentRequestsMiddleware
                 // @codeCoverageIgnoreEnd
             }
             // resume readable stream and replay buffered events
-            if ($body instanceof \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Http\Io\PauseBufferStream) {
+            if ($body instanceof \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Http\Io\PauseBufferStream) {
                 $body->resumeImplicit();
             }
             // if the next handler returns a pending promise, we have to
             // await its resolution before invoking next queued request
-            return $that->await(\RectorPrefix20210616\_HumbugBox15516bb2b566\React\Promise\resolve($response));
+            return $that->await(\RectorPrefix20210620\_HumbugBox15516bb2b566\React\Promise\resolve($response));
         });
     }
     /**
@@ -166,7 +166,7 @@ final class LimitConcurrentRequestsMiddleware
      * @param PromiseInterface $promise
      * @return PromiseInterface
      */
-    public function await(\RectorPrefix20210616\_HumbugBox15516bb2b566\React\Promise\PromiseInterface $promise)
+    public function await(\RectorPrefix20210620\_HumbugBox15516bb2b566\React\Promise\PromiseInterface $promise)
     {
         $that = $this;
         return $promise->then(function ($response) use($that) {
@@ -174,7 +174,7 @@ final class LimitConcurrentRequestsMiddleware
             return $response;
         }, function ($error) use($that) {
             $that->processQueue();
-            return \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Promise\reject($error);
+            return \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Promise\reject($error);
         });
     }
     /**

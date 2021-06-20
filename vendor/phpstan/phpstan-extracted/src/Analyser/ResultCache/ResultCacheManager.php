@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace PHPStan\Analyser\ResultCache;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Statement;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Neon;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\Statement;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Neon\Neon;
 use PHPStan\Analyser\AnalyserResult;
 use PHPStan\Analyser\Error;
 use PHPStan\Command\Output;
@@ -241,7 +241,7 @@ class ResultCacheManager
     {
         $projectConfig = $currentMeta['projectConfig'];
         if ($projectConfig !== null) {
-            $currentMeta['projectConfig'] = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Neon::encode($currentMeta['projectConfig']);
+            $currentMeta['projectConfig'] = \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Neon\Neon::encode($currentMeta['projectConfig']);
         }
         return $cachedMeta !== $currentMeta;
     }
@@ -469,7 +469,7 @@ php;
         }
         $projectConfigArray = $meta['projectConfig'];
         if ($projectConfigArray !== null) {
-            $meta['projectConfig'] = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Neon\Neon::encode($projectConfigArray);
+            $meta['projectConfig'] = \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Neon\Neon::encode($projectConfigArray);
         }
         \PHPStan\File\FileWriter::write($file, \sprintf($template, \var_export($lastFullAnalysisTime, \true), \var_export($meta, \true), \var_export($this->getProjectExtensionFiles($projectConfigArray, $dependencies), \true), \var_export($errors, \true), \var_export($invertedDependencies, \true), \var_export($exportedNodes, \true)));
     }
@@ -524,7 +524,7 @@ php;
         if (\is_string($definition)) {
             return [$definition];
         }
-        if ($definition instanceof \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Definitions\Statement) {
+        if ($definition instanceof \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Definitions\Statement) {
             $entity = $definition->entity;
             if (\is_string($entity)) {
                 return [$entity];
@@ -629,7 +629,7 @@ php;
     private function getPhpStanVersion() : string
     {
         try {
-            return \RectorPrefix20210616\_HumbugBox15516bb2b566\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
+            return \RectorPrefix20210620\_HumbugBox15516bb2b566\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
         } catch (\OutOfBoundsException $e) {
             return 'Version unknown';
         }

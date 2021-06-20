@@ -1,22 +1,22 @@
 <?php
 
-namespace RectorPrefix20210616\_HumbugBox15516bb2b566\React\Http\Io;
+namespace RectorPrefix20210620\_HumbugBox15516bb2b566\React\Http\Io;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Evenement\EventEmitter;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\Util;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Evenement\EventEmitter;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\Util;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface;
 /**
  * @internal
  */
-class ReadableBodyStream extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Evenement\EventEmitter implements \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface, \RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface
+class ReadableBodyStream extends \RectorPrefix20210620\_HumbugBox15516bb2b566\Evenement\EventEmitter implements \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface, \RectorPrefix20210620\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface
 {
     private $input;
     private $position = 0;
     private $size;
     private $closed = \false;
-    public function __construct(\RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface $input, $size = null)
+    public function __construct(\RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface $input, $size = null)
     {
         $this->input = $input;
         $this->size = $size;
@@ -57,9 +57,9 @@ class ReadableBodyStream extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Ev
     {
         $this->input->resume();
     }
-    public function pipe(\RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\Util::pipe($this, $dest, $options);
+        \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function eof()

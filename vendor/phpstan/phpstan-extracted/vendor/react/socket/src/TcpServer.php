@@ -1,9 +1,9 @@
 <?php
 
-namespace RectorPrefix20210616\_HumbugBox15516bb2b566\React\Socket;
+namespace RectorPrefix20210620\_HumbugBox15516bb2b566\React\Socket;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Evenement\EventEmitter;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\EventLoop\LoopInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Evenement\EventEmitter;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
 use RuntimeException;
 /**
@@ -30,7 +30,7 @@ use RuntimeException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-final class TcpServer extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Evenement\EventEmitter implements \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Socket\ServerInterface
+final class TcpServer extends \RectorPrefix20210620\_HumbugBox15516bb2b566\Evenement\EventEmitter implements \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Socket\ServerInterface
 {
     private $master;
     private $loop;
@@ -119,7 +119,7 @@ final class TcpServer extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Evene
      * @throws InvalidArgumentException if the listening address is invalid
      * @throws RuntimeException if listening on this address fails (already in use etc.)
      */
-    public function __construct($uri, \RectorPrefix20210616\_HumbugBox15516bb2b566\React\EventLoop\LoopInterface $loop, array $context = array())
+    public function __construct($uri, \RectorPrefix20210620\_HumbugBox15516bb2b566\React\EventLoop\LoopInterface $loop, array $context = array())
     {
         $this->loop = $loop;
         // a single port has been given => assume localhost
@@ -203,6 +203,6 @@ final class TcpServer extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Evene
     /** @internal */
     public function handleConnection($socket)
     {
-        $this->emit('connection', array(new \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Socket\Connection($socket, $this->loop)));
+        $this->emit('connection', array(new \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Socket\Connection($socket, $this->loop)));
     }
 }

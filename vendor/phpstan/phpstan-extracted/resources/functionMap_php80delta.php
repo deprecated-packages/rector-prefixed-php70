@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210616;
+namespace RectorPrefix20210620;
 
 // phpcs:ignoreFile
 /**

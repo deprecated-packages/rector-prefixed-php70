@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\BetterReflection\SourceLocator\Type;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Composer\Autoload\ClassLoader;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Composer\Autoload\ClassLoader;
 use InvalidArgumentException;
 use PHPStan\BetterReflection\Identifier\Identifier;
 use PHPStan\BetterReflection\Identifier\IdentifierType;
@@ -22,7 +22,7 @@ class ComposerSourceLocator extends \PHPStan\BetterReflection\SourceLocator\Type
 {
     /** @var ClassLoader */
     private $classLoader;
-    public function __construct(\RectorPrefix20210616\_HumbugBox15516bb2b566\Composer\Autoload\ClassLoader $classLoader, \PHPStan\BetterReflection\SourceLocator\Ast\Locator $astLocator)
+    public function __construct(\RectorPrefix20210620\_HumbugBox15516bb2b566\Composer\Autoload\ClassLoader $classLoader, \PHPStan\BetterReflection\SourceLocator\Ast\Locator $astLocator)
     {
         parent::__construct($astLocator);
         $this->classLoader = $classLoader;

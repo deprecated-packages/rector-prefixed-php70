@@ -5,19 +5,19 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI;
+namespace RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette;
 /**
  * Service not found exception.
  */
-class MissingServiceException extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidStateException
+class MissingServiceException extends \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\InvalidStateException
 {
 }
 /**
  * Service creation exception.
  */
-class ServiceCreationException extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidStateException
+class ServiceCreationException extends \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\InvalidStateException
 {
     /**
      * @return $this
@@ -31,12 +31,12 @@ class ServiceCreationException extends \RectorPrefix20210616\_HumbugBox15516bb2b
 /**
  * Not allowed when container is resolving.
  */
-class NotAllowedDuringResolvingException extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidStateException
+class NotAllowedDuringResolvingException extends \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\InvalidStateException
 {
 }
 /**
  * Error in configuration.
  */
-class InvalidConfigurationException extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidStateException
+class InvalidConfigurationException extends \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\InvalidStateException
 {
 }

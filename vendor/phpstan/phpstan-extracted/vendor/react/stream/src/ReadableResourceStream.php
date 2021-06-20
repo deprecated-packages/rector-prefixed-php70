@@ -1,11 +1,11 @@
 <?php
 
-namespace RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream;
+namespace RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Evenement\EventEmitter;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\React\EventLoop\LoopInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Evenement\EventEmitter;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
-final class ReadableResourceStream extends \RectorPrefix20210616\_HumbugBox15516bb2b566\Evenement\EventEmitter implements \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface
+final class ReadableResourceStream extends \RectorPrefix20210620\_HumbugBox15516bb2b566\Evenement\EventEmitter implements \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\ReadableStreamInterface
 {
     /**
      * @var resource
@@ -33,7 +33,7 @@ final class ReadableResourceStream extends \RectorPrefix20210616\_HumbugBox15516
     private $bufferSize;
     private $closed = \false;
     private $listening = \false;
-    public function __construct($stream, \RectorPrefix20210616\_HumbugBox15516bb2b566\React\EventLoop\LoopInterface $loop, $readChunkSize = null)
+    public function __construct($stream, \RectorPrefix20210620\_HumbugBox15516bb2b566\React\EventLoop\LoopInterface $loop, $readChunkSize = null)
     {
         if (!\is_resource($stream) || \get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');
@@ -82,9 +82,9 @@ final class ReadableResourceStream extends \RectorPrefix20210616\_HumbugBox15516
             $this->listening = \true;
         }
     }
-    public function pipe(\RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \RectorPrefix20210616\_HumbugBox15516bb2b566\React\Stream\Util::pipe($this, $dest, $options);
+        return \RectorPrefix20210620\_HumbugBox15516bb2b566\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function close()
     {

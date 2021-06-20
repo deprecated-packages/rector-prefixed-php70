@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Reflection\ReflectionProvider;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Strings;
 use PHPStan\Analyser\Scope;
 use PHPStan\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
 use PHPStan\Reflection\ClassReflection;
@@ -76,7 +76,7 @@ class ClassBlacklistReflectionProvider implements \PHPStan\Reflection\Reflection
             }
         }
         foreach ($this->patterns as $pattern) {
-            if (\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings::match($className, $pattern) !== null) {
+            if (\RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Strings::match($className, $pattern) !== null) {
                 return \true;
             }
         }

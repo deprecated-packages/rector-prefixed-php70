@@ -1,18 +1,18 @@
 <?php
 
-namespace RectorPrefix20210616\_HumbugBox15516bb2b566\RingCentral\Psr7;
+namespace RectorPrefix20210620\_HumbugBox15516bb2b566\RingCentral\Psr7;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface;
 /**
  * Stream decorator trait
  * @property StreamInterface stream
  */
-abstract class StreamDecoratorTrait implements \RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface
+abstract class StreamDecoratorTrait implements \RectorPrefix20210620\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface
 {
     /**
      * @param StreamInterface $stream Stream to decorate
      */
-    public function __construct(\RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface $stream = null)
+    public function __construct(\RectorPrefix20210620\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface $stream = null)
     {
         if ($stream) {
             $this->stream = $stream;

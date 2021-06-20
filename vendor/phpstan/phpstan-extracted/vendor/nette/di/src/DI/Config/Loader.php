@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Config;
+namespace RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Config;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Validators;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Validators;
 /**
  * Configuration file loader.
  */
@@ -16,7 +16,7 @@ class Loader
 {
     use Nette\SmartObject;
     const INCLUDES_KEY = 'includes';
-    private $adapters = ['php' => \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Config\Adapters\PhpAdapter::class, 'neon' => \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Config\Adapters\NeonAdapter::class];
+    private $adapters = ['php' => \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Config\Adapters\PhpAdapter::class, 'neon' => \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Config\Adapters\NeonAdapter::class];
     private $dependencies = [];
     private $loadedFiles = [];
     private $parameters = [];
@@ -27,28 +27,28 @@ class Loader
     public function load(string $file, $merge = \true) : array
     {
         if (!\is_file($file) || !\is_readable($file)) {
-            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\FileNotFoundException("File '{$file}' is missing or is not readable.");
+            throw new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\FileNotFoundException("File '{$file}' is missing or is not readable.");
         }
         if (isset($this->loadedFiles[$file])) {
-            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidStateException("Recursive included file '{$file}'");
+            throw new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\InvalidStateException("Recursive included file '{$file}'");
         }
         $this->loadedFiles[$file] = \true;
         $this->dependencies[] = $file;
         $data = $this->getAdapter($file)->load($file);
         $res = [];
         if (isset($data[self::INCLUDES_KEY])) {
-            \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Validators::assert($data[self::INCLUDES_KEY], 'list', "section 'includes' in file '{$file}'");
-            $includes = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Helpers::expand($data[self::INCLUDES_KEY], $this->parameters);
+            \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Validators::assert($data[self::INCLUDES_KEY], 'list', "section 'includes' in file '{$file}'");
+            $includes = \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Helpers::expand($data[self::INCLUDES_KEY], $this->parameters);
             foreach ($includes as $include) {
                 $include = $this->expandIncludedFile($include, $file);
-                $res = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Schema\Helpers::merge($this->load($include, $merge), $res);
+                $res = \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Schema\Helpers::merge($this->load($include, $merge), $res);
             }
         }
         unset($data[self::INCLUDES_KEY], $this->loadedFiles[$file]);
         if ($merge === \false) {
             $res[] = $data;
         } else {
-            $res = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Schema\Helpers::merge($data, $res);
+            $res = \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Schema\Helpers::merge($data, $res);
         }
         return $res;
     }
@@ -59,7 +59,7 @@ class Loader
     public function save(array $data, string $file)
     {
         if (\file_put_contents($file, $this->getAdapter($file)->dump($data)) === \false) {
-            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\IOException("Cannot write file '{$file}'.");
+            throw new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\IOException("Cannot write file '{$file}'.");
         }
     }
     /**
@@ -86,11 +86,11 @@ class Loader
         $this->adapters[\strtolower($extension)] = $adapter;
         return $this;
     }
-    private function getAdapter(string $file) : \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\DI\Config\Adapter
+    private function getAdapter(string $file) : \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\DI\Config\Adapter
     {
         $extension = \strtolower(\pathinfo($file, \PATHINFO_EXTENSION));
         if (!isset($this->adapters[$extension])) {
-            throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\InvalidArgumentException("Unknown file extension '{$file}'.");
+            throw new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\InvalidArgumentException("Unknown file extension '{$file}'.");
         }
         return \is_object($this->adapters[$extension]) ? $this->adapters[$extension] : new $this->adapters[$extension]();
     }

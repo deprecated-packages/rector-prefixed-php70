@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Rules\Exceptions;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Strings;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ReflectionProvider;
 class DefaultExceptionTypeResolver implements \PHPStan\Rules\Exceptions\ExceptionTypeResolver
@@ -36,7 +36,7 @@ class DefaultExceptionTypeResolver implements \PHPStan\Rules\Exceptions\Exceptio
     public function isCheckedException(string $className, \PHPStan\Analyser\Scope $scope) : bool
     {
         foreach ($this->uncheckedExceptionRegexes as $regex) {
-            if (\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings::match($className, $regex) !== null) {
+            if (\RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Strings::match($className, $regex) !== null) {
                 return \false;
             }
         }
@@ -63,7 +63,7 @@ class DefaultExceptionTypeResolver implements \PHPStan\Rules\Exceptions\Exceptio
     private function isCheckedExceptionInternal(string $className) : bool
     {
         foreach ($this->checkedExceptionRegexes as $regex) {
-            if (\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings::match($className, $regex) !== null) {
+            if (\RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Strings::match($className, $regex) !== null) {
                 return \true;
             }
         }

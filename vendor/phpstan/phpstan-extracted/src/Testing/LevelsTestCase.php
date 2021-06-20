@@ -6,7 +6,7 @@ namespace PHPStan\Testing;
 use PHPStan\File\FileHelper;
 use PHPStan\File\FileWriter;
 /** @api */
-abstract class LevelsTestCase extends \RectorPrefix20210616\PHPUnit\Framework\TestCase
+abstract class LevelsTestCase extends \RectorPrefix20210620\PHPUnit\Framework\TestCase
 {
     /**
      * @return array<array<string>>
@@ -48,9 +48,9 @@ abstract class LevelsTestCase extends \RectorPrefix20210616\PHPUnit\Framework\Te
             \exec(\sprintf('%s %s analyse --no-progress --error-format=prettyJson --level=%d %s %s %s', \escapeshellarg(\PHP_BINARY), $command, $level, $configPath !== null ? '--configuration ' . \escapeshellarg($configPath) : '', $this->shouldAutoloadAnalysedFile() ? \sprintf('--autoload-file %s', \escapeshellarg($file)) : '', \escapeshellarg($file)), $outputLines);
             $output = \implode("\n", $outputLines);
             try {
-                $actualJson = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Json::decode($output, \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Json::FORCE_ARRAY);
-            } catch (\RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\JsonException $e) {
-                throw new \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\JsonException(\sprintf('Cannot decode: %s', $output));
+                $actualJson = \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Json::decode($output, \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Json::FORCE_ARRAY);
+            } catch (\RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\JsonException $e) {
+                throw new \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\JsonException(\sprintf('Cannot decode: %s', $output));
             }
             if (\count($actualJson['files']) > 0) {
                 $normalizedFilePath = $fileHelper->normalizePath($file);
@@ -122,15 +122,15 @@ abstract class LevelsTestCase extends \RectorPrefix20210616\PHPUnit\Framework\Te
             try {
                 self::assertFileDoesNotExist($expectedJsonFile);
                 return null;
-            } catch (\RectorPrefix20210616\PHPUnit\Framework\AssertionFailedError $e) {
+            } catch (\RectorPrefix20210620\PHPUnit\Framework\AssertionFailedError $e) {
                 \unlink($expectedJsonFile);
                 return $e;
             }
         }
-        $actualOutput = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Json::encode($expectedMessages, \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Json::PRETTY);
+        $actualOutput = \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Json::encode($expectedMessages, \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Json::PRETTY);
         try {
             $this->assertJsonStringEqualsJsonFile($expectedJsonFile, $actualOutput);
-        } catch (\RectorPrefix20210616\PHPUnit\Framework\AssertionFailedError $e) {
+        } catch (\RectorPrefix20210620\PHPUnit\Framework\AssertionFailedError $e) {
             \PHPStan\File\FileWriter::write($expectedJsonFile, $actualOutput);
             return $e;
         }

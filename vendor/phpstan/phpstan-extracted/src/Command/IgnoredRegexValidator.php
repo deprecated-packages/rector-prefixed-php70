@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace PHPStan\Command;
 
-use RectorPrefix20210616\Hoa\Compiler\Llk\Parser;
-use RectorPrefix20210616\Hoa\Compiler\Llk\TreeNode;
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings;
+use RectorPrefix20210620\Hoa\Compiler\Llk\Parser;
+use RectorPrefix20210620\Hoa\Compiler\Llk\TreeNode;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Strings;
 use PHPStan\PhpDoc\TypeStringResolver;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\VerbosityLevel;
@@ -16,7 +16,7 @@ class IgnoredRegexValidator
     private $parser;
     /** @var \PHPStan\PhpDoc\TypeStringResolver */
     private $typeStringResolver;
-    public function __construct(\RectorPrefix20210616\Hoa\Compiler\Llk\Parser $parser, \PHPStan\PhpDoc\TypeStringResolver $typeStringResolver)
+    public function __construct(\RectorPrefix20210620\Hoa\Compiler\Llk\Parser $parser, \PHPStan\PhpDoc\TypeStringResolver $typeStringResolver)
     {
         $this->parser = $parser;
         $this->typeStringResolver = $typeStringResolver;
@@ -27,7 +27,7 @@ class IgnoredRegexValidator
         try {
             /** @var TreeNode $ast */
             $ast = $this->parser->parse($regex);
-        } catch (\RectorPrefix20210616\Hoa\Exception\Exception $e) {
+        } catch (\RectorPrefix20210620\Hoa\Exception\Exception $e) {
             if (\strpos($e->getMessage(), 'Unexpected token "|" (alternation) at line 1') === 0) {
                 return new \PHPStan\Command\IgnoredRegexValidatorResult([], \false, \true, '||', '\\|\\|');
             }
@@ -42,7 +42,7 @@ class IgnoredRegexValidator
      * @param TreeNode $ast
      * @return array<string, string>
      */
-    private function getIgnoredTypes(\RectorPrefix20210616\Hoa\Compiler\Llk\TreeNode $ast) : array
+    private function getIgnoredTypes(\RectorPrefix20210620\Hoa\Compiler\Llk\TreeNode $ast) : array
     {
         /** @var TreeNode|null $alternation */
         $alternation = $ast->getChild(0);
@@ -58,7 +58,7 @@ class IgnoredRegexValidator
             if ($text === null) {
                 continue;
             }
-            $matches = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings::match($text, '#^([a-zA-Z0-9]+)[,]?\\s*#');
+            $matches = \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Strings::match($text, '#^([a-zA-Z0-9]+)[,]?\\s*#');
             if ($matches === null) {
                 continue;
             }
@@ -89,7 +89,7 @@ class IgnoredRegexValidator
     /**
      * @return string|null
      */
-    private function getText(\RectorPrefix20210616\Hoa\Compiler\Llk\TreeNode $treeNode)
+    private function getText(\RectorPrefix20210620\Hoa\Compiler\Llk\TreeNode $treeNode)
     {
         if ($treeNode->getId() === 'token') {
             return $treeNode->getValueValue();
@@ -110,7 +110,7 @@ class IgnoredRegexValidator
         }
         return null;
     }
-    private function hasAnchorsInTheMiddle(\RectorPrefix20210616\Hoa\Compiler\Llk\TreeNode $ast) : bool
+    private function hasAnchorsInTheMiddle(\RectorPrefix20210620\Hoa\Compiler\Llk\TreeNode $ast) : bool
     {
         if ($ast->getId() === 'token') {
             $valueArray = $ast->getValue();

@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210616\_HumbugBox15516bb2b566\RingCentral\Psr7;
+namespace RectorPrefix20210620\_HumbugBox15516bb2b566\RingCentral\Psr7;
 
-use RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface;
+use RectorPrefix20210620\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface;
 /**
  * Trait implementing functionality common to requests and responses.
  */
@@ -107,7 +107,7 @@ abstract class MessageTrait
         }
         return $this->stream;
     }
-    public function withBody(\RectorPrefix20210616\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface $body)
+    public function withBody(\RectorPrefix20210620\_HumbugBox15516bb2b566\Psr\Http\Message\StreamInterface $body)
     {
         if ($body === $this->stream) {
             return $this;

@@ -122,7 +122,7 @@ class FileTypeMapper
     {
         $phpDocParserVersion = 'Version unknown';
         try {
-            $phpDocParserVersion = \RectorPrefix20210616\_HumbugBox15516bb2b566\Jean85\PrettyVersions::getVersion('phpstan/phpdoc-parser')->getPrettyVersion();
+            $phpDocParserVersion = \RectorPrefix20210620\_HumbugBox15516bb2b566\Jean85\PrettyVersions::getVersion('phpstan/phpdoc-parser')->getPrettyVersion();
         } catch (\OutOfBoundsException $e) {
             // skip
         }
@@ -482,7 +482,7 @@ class FileTypeMapper
     {
         $cacheKey = \md5($docComment);
         if (!isset($this->docKeys[$cacheKey])) {
-            $this->docKeys[$cacheKey] = \RectorPrefix20210616\_HumbugBox15516bb2b566\Nette\Utils\Strings::replace($docComment, '#\\s+#', ' ');
+            $this->docKeys[$cacheKey] = \RectorPrefix20210620\_HumbugBox15516bb2b566\Nette\Utils\Strings::replace($docComment, '#\\s+#', ' ');
         }
         $docComment = $this->docKeys[$cacheKey];
         if ($class === null && $trait === null && $function === null) {

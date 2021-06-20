@@ -5,7 +5,7 @@ namespace Ssch\TYPO3Rector\FileProcessor\Composer\Rector;
 
 use BadMethodCallException;
 use Rector\Composer\Contract\Rector\ComposerRectorInterface;
-use RectorPrefix20210616\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use RectorPrefix20210620\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -21,7 +21,7 @@ final class RemoveCmsPackageDirFromExtraComposerRector implements \Rector\Compos
     /**
      * @return void
      */
-    public function refactor(\RectorPrefix20210616\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson)
+    public function refactor(\RectorPrefix20210620\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson)
     {
         $extra = $composerJson->getExtra();
         if (!isset($extra[self::TYPO3_CMS])) {
